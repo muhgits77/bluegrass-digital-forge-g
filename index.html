@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bluegrass Digital Forge | Websites for Lake Cumberland Businesses</title>
+  <meta name="description" content="Websites forged for the lake that actually bring customers in. Handcrafted in Monticello, KY by a real neighbor. Starter Sites from $1,200. Flat pricing. Launched in 2–4 weeks. You own everything.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+    
+    :root {
+      --forest: #0b1715;
+      --wood: #c17a5a;
+      --cream: #f5f0e6;
+      --sage: #5d7f6a;
+    }
+    
+    body { font-family: 'Inter', system_ui, sans-serif; }
+    
+    .heading, h1, .section-title {
+      font-family: 'Space Grotesk', system_ui, sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.032em;
+      line-height: 1.02;
+    }
+
+    .section-title { font-size: clamp(2.15rem, 5.6vw, 3.35rem); }
+
+    .premium-card, .demo-card, .pricing-card, .step-card {
+      transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), 
+                  box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 0.2s ease;
+    }
+    
+    .demo-card:hover {
+      transform: translateY(-7px) scale(1.004);
+      box-shadow: 0 28px 65px -18px rgb(0 0 0 / 0.5), 0 12px 14px -7px rgb(0 0 0 / 0.32);
+      border-color: #33423c;
+    }
+    .demo-card:hover img { transform: scale(1.022); transition-duration: 620ms; }
+
+    .pricing-card.popular { border-color: #c17a5a; box-shadow: 0 0 0 1px #c17a5a, 0 30px 70px -15px rgb(0 0 0 / 0.55); }
+
+    .nav-link { position: relative; transition: color 0.15s ease; }
+    .nav-link:after {
+      content: ''; position: absolute; width: 0; height: 2px; bottom: -2px; left: 0;
+      background: linear-gradient(to right, #c17a5a, #f4a261);
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover:after { width: 100%; }
+
+    .cta-primary {
+      background: #c17a5a;
+      color: #050708;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .cta-primary:hover { background: #a96447; transform: translateY(-1px); }
+    .cta-primary:active { transform: scale(0.985); }
+
+    .trust-check { color: #c17a5a; }
+
+    .stat { font-variant-numeric: tabular-nums; letter-spacing: -1.4px; }
+
+    .label { font-size: 0.72rem; letter-spacing: 0.14em; font-weight: 700; color: #8a9599; text-transform: uppercase; }
+
+    .testimonial { background: #0c1013; border: 1px solid #1a2225; }
+    .testimonial:hover { border-color: #33423c; transform: translateY(-4px); box-shadow: 0 24px 40px -12px rgb(0 0 0 / 0.4); }
+
+    .hero-boat { background-position: center 36%; background-size: cover; }
+    @media (max-width: 640px) {
+      .hero-boat { background-position: 52% 40%; }
+      .hero-content h1 { font-size: clamp(2.05rem, 9.2vw, 2.95rem) !important; line-height: 1.02 !important; letter-spacing: -2.8px !important; }
+      .hero-content p { font-size: 15.5px !important; }
+      .btn, .cta-primary { min-height: 48px; font-size: 1rem; }
+    }
+
+    .water-glint {
+      animation: glint 7.2s ease-in-out infinite;
+    }
+    @keyframes glint {
+      0%, 100% { opacity: 0.18; transform: translateY(0); }
+      50% { opacity: 0.72; transform: translateY(-28px); }
+    }
+
+    .forged-shadow { text-shadow: 0 3px 18px rgba(0,0,0,0.55); }
+
+    .mobile-perfect { padding-left: 1.15rem; padding-right: 1.15rem; }
+  </style>
+</head>
+<body class="bg-[#050708] text-[#f5f0e6] antialiased">
+  <!-- NAV — Premium, mobile perfect -->
+  <nav class="sticky top-0 z-50 border-b border-[#243530] bg-[#050708]/95 backdrop-blur-xl">
+    <div class="max-w-7xl mx-auto px-5">
+      <div class="flex items-center justify-between h-16 md:h-[68px]">
+        <div class="flex items-center gap-3">
+          <img src="/logo.jpg" alt="Bluegrass Digital Forge" class="h-8 w-auto rounded-sm ring-1 ring-white/10">
+          <div class="leading-none">
+            <div class="font-semibold tracking-[-0.3px] text-[16.5px]">Bluegrass Digital Forge</div>
+            <div class="text-[9px] text-[#c17a5a] tracking-[1.4px] -mt-px font-medium">MONTICELLO, KY</div>
+          </div>
+        </div>
+
+        <!-- Desktop nav -->
+        <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+          <a href="#work" class="nav-link text-[#9aa6ad] hover:text-white">Work</a>
+          <a href="#how" class="nav-link text-[#9aa6ad] hover:text-white">How it Works</a>
+          <a href="#stories" class="nav-link text-[#9aa6ad] hover:text-white">Stories</a>
+          <a href="#pricing" class="nav-link text-[#9aa6ad] hover:text-white">Pricing</a>
+          <a href="/about" class="nav-link text-[#9aa6ad] hover:text-white">About</a>
+        </div>
+
+        <div class="hidden md:flex items-center gap-3">
+          <a href="/contact" class="text-sm font-medium px-5 py-2 text-[#9aa6ad] hover:text-white">Contact</a>
+          <a href="/quote" class="cta-primary inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold shadow-lg">Get a free quote →</a>
+        </div>
+
+        <!-- Mobile hamburger -->
+        <button id="menu-btn" class="md:hidden w-10 h-10 flex items-center justify-center border border-[#243530] rounded-xl text-[#9aa6ad]" aria-label="Menu">
+          <i class="fa-solid fa-bars text-lg"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-[#243530] bg-[#050708]">
+      <div class="px-5 py-4 flex flex-col gap-y-1 text-[15px]">
+        <a href="#work" class="py-2.5 text-[#9aa6ad]">My Work</a>
+        <a href="#how" class="py-2.5 text-[#9aa6ad]">How it Works</a>
+        <a href="#stories" class="py-2.5 text-[#9aa6ad]">Stories from the Lake</a>
+        <a href="#pricing" class="py-2.5 text-[#9aa6ad]">Pricing</a>
+        <a href="/about" class="py-2.5 text-[#9aa6ad]">About</a>
+        <div class="pt-3 mt-1 border-t border-[#243530] flex flex-col gap-2.5">
+          <a href="/quote" class="cta-primary text-center py-3 rounded-2xl font-semibold">Get a free quote →</a>
+          <a href="/contact" class="text-center py-2.5 border border-[#243530] rounded-2xl text-sm font-medium">Contact Brian</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO — Even stronger, more emotional. Perfect boat imagery. -->
+  <section class="relative min-h-[100dvh] flex flex-col overflow-hidden border-b border-[#243530] bg-[#0b1715]">
+    <div class="absolute inset-0 bg-cover hero-boat" style="background-image: url('/hero-lake-boat.jpg'); background-position: center 36%;"></div>
+    
+    <!-- Cinematic overlays — warm, trustworthy, readable -->
+    <div class="absolute inset-0 bg-gradient-to-b from-[#0b1715]/85 via-[#0b1715]/55 to-[#0b1715]/93"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-[#0b1715]/55 via-transparent to-transparent"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_38%_28%,rgba(93,127,106,0.18)_0%,transparent_68%)]"></div>
+
+    <!-- Atmospheric water glints -->
+    <div class="absolute inset-0 pointer-events-none overflow-hidden" style="z-index:2">
+      <div class="water-glint absolute w-[1.6px] h-[1.6px] rounded-full bg-[#f4a261]" style="left:58%; top:31%; animation-delay:0s"></div>
+      <div class="water-glint absolute w-[1.6px] h-[1.6px] rounded-full bg-[#f4a261]" style="left:66%; top:38%; animation-delay:1.1s"></div>
+      <div class="water-glint absolute w-[1.6px] h-[1.6px] rounded-full bg-[#f4a261]" style="left:73%; top:29%; animation-delay:2.4s"></div>
+      <div class="water-glint absolute w-[1.6px] h-[1.6px] rounded-full bg-[#f4a261]" style="left:81%; top:43%; animation-delay:0.6s"></div>
+    </div>
+
+    <div class="relative flex-1 flex items-center justify-center px-5 pt-20 pb-9 mobile-perfect" style="z-index:3">
+      <div class="w-full max-w-[720px] text-center">
+        <div class="inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/8 backdrop-blur-2xl px-6 py-1.5 text-[10.5px] tracking-[2.2px] text-white/90 mb-7">
+          <span class="inline-block w-1.5 h-1.5 rounded-full bg-[#c17a5a] animate-pulse"></span>
+          NOW BOOKING — LAKE CUMBERLAND &amp; WAYNE COUNTY
+        </div>
+
+        <h1 class="mx-auto max-w-[17ch] text-balance leading-[0.985] text-white tracking-[-3.1px] text-[clamp(2.35rem,8.9vw,4.55rem)] md:text-[clamp(2.85rem,6.1vw,4.55rem)] font-semibold forged-shadow">
+          Websites forged for the lake.<br>That actually bring customers in.
+        </h1>
+
+        <p class="mx-auto mt-5 max-w-[39ch] text-[17px] md:text-[18px] leading-relaxed text-white/90">
+          Handcrafted in Monticello by a real neighbor who picks up the phone. Flat price. Launched in weeks. You own every single pixel.
+        </p>
+
+        <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3.5">
+          <a href="/quote" class="cta-primary inline-flex items-center justify-center rounded-full px-10 py-3.5 text-[15.5px] font-semibold shadow-xl w-full sm:w-auto">Get a free quote in 2 minutes →</a>
+          <a href="#work" class="inline-flex items-center justify-center rounded-full border border-white/25 bg-white/5 px-8 py-3.5 text-[15.5px] font-semibold text-white hover:bg-white/10 hover:border-white/40 backdrop-blur-xl transition-all w-full sm:w-auto">See the demos that win business</a>
+        </div>
+
+        <div class="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2.5 text-[13px] text-white/75">
+          <div class="inline-flex items-center gap-1.5"><i class="fa-solid fa-check trust-check"></i> Flat price. No surprises.</div>
+          <div class="inline-flex items-center gap-1.5"><i class="fa-solid fa-check trust-check"></i> You own everything.</div>
+          <div class="inline-flex items-center gap-1.5"><i class="fa-solid fa-check trust-check"></i> Real neighbor. Real phone.</div>
+          <div class="inline-flex items-center gap-1.5"><i class="fa-solid fa-check trust-check"></i> Live in 2–4 weeks.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating proof bar -->
+    <div class="relative z-10 flex justify-center pb-7" style="z-index:3">
+      <div class="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-black/50 backdrop-blur-3xl px-5 py-2 text-sm text-white/90 max-w-[92%]">
+        <span class="font-semibold text-[#f4a261]">Starter Sites from $1,200</span>
+        <span class="text-white/25 hidden sm:inline">•</span>
+        <span class="text-[13px] text-white/75 hidden sm:inline">“Brian just gets small business on the lake. No upsells. Just results.” — Local owner</span>
+        <span class="text-[13px] text-white/75 sm:hidden">Real results. No upsells.</span>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="relative border-t border-white/10 bg-[#050708]/95 backdrop-blur" style="z-index:3">
+      <div class="max-w-6xl mx-auto px-5 py-4 grid grid-cols-2 md:grid-cols-4 gap-x-2 gap-y-1 text-center text-sm">
+        <div><div class="stat text-[22px] font-semibold text-white">16+</div><div class="text-[10.5px] tracking-[1.6px] text-white/55">LIVE DEMO SITES</div></div>
+        <div><div class="stat text-[22px] font-semibold text-white">2–4 WEEKS</div><div class="text-[10.5px] tracking-[1.6px] text-white/55">TYPICAL LAUNCH</div></div>
+        <div><div class="stat text-[22px] font-semibold text-white">5★</div><div class="text-[10.5px] tracking-[1.6px] text-white/55">OWNER SATISFACTION</div></div>
+        <div><div class="stat text-[22px] font-semibold text-white">100%</div><div class="text-[10.5px] tracking-[1.6px] text-white/55">YOU OWN IT ALL</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MY WORK — Beautiful showcase grid -->
+  <section id="work" class="max-w-7xl mx-auto px-5 pt-12 pb-7">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-5">
+      <div>
+        <div class="label tracking-[1.6px] mb-1">REAL WORK FOR REAL BUSINESSES</div>
+        <h2 class="section-title tracking-tight">See exactly what you get.</h2>
+      </div>
+      <a href="/work" class="hidden md:inline-flex items-center gap-1.5 text-[14.5px] font-medium text-[#f4a261] hover:text-[#d88a5e] group">Explore all 16 live demos <i class="fa-solid fa-arrow-right ml-0.5 group-hover:translate-x-0.5 transition"></i></a>
+    </div>
+    <p class="text-[#9aa6ad] max-w-2xl mb-6 text-[15px]">These are live, fictional demos — the exact quality, speed, and local Kentucky focus you receive. Click any to open.</p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <!-- Demo 1 -->
+      <a href="https://hickory-forge-steakhouse.lovable.app" target="_blank" class="demo-card group block rounded-2xl overflow-hidden h-full flex flex-col bg-[#0c1013] border border-[#1a2225]">
+        <div class="bg-[#0a0c0f] border-b border-[#1a2225] px-3 py-[7px] flex items-center gap-2">
+          <div class="flex gap-1.5 pl-1"><div class="w-[10.5px] h-[10.5px] rounded-full bg-[#ff5f56]"></div><div class="w-[10.5px] h-[10.5px] rounded-full bg-[#ffbd2e]"></div><div class="w-[10.5px] h-[10.5px] rounded-full bg-[#27c93f]"></div></div>
+          <div class="flex-1 mx-2 text-[10px] font-mono text-[#8a9599] truncate">hickory-forge-steakhouse.lovable.app</div>
+        </div>
+        <div class="relative aspect-[16/10] overflow-hidden"><img src="/assets/demo-hickory-forge.jpg" alt="Hickory Forge Steakhouse" class="absolute inset-0 w-full h-full object-cover object-top transition-transform"><div class="absolute top-3 right-3 px-2.5 py-px bg-black/60 text-[10px] tracking-wider rounded border border-white/20 text-[#f4a261]">RESTAURANT</div></div>
+        <div class="p-4 flex-1 flex flex-col">
+          <div class="flex gap-2 mb-2"><span class="text-[10px] font-semibold tracking-wider bg-[#111518] text-[#8a9599] px-2 py-px rounded border border-[#1f2528]">RESTAURANT</span><span class="text-[10px] font-semibold tracking-wider bg-[#2a2118] text-[#f4a261] px-2 py-px rounded border border-[#463424]">LIVE DEMO</span></div>
+          <div class="font-semibold tracking-[-0.3px] text-[16.5px] group-hover:text-[#f4a261] transition">Hickory Forge Steakhouse</div>
+          <p class="text-[14.2px] text-[#9aa6ad] mt-1.5 flex-1">Warm, appetizing steakhouse with digital menu, reservations, and local SEO that actually works.</p>
+          <div class="mt-4 text-[13px] font-semibold text-[#f4a261] flex items-center gap-1">Open live site <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-0.5"></i></div>
+        </div>
+      </a>
+
+      <!-- Demo 2 -->
+      <a href="https://smoky-wheels.lovable.app" target="_blank" class="demo-card group block rounded-2xl overflow-hidden h-full flex flex-col bg-[#0c1013] border border-[#1a2225]">
+        <div class="bg-[#0a0c0f] border-b border-[#1a2225] px-3 py-[7px] flex items-center gap-2">
+          <div class="flex gap-1.5 pl-1"><div class="w-[10.5px] h-[10.5px] rounded-full bg-[#ff5f56]"></div><div class="w-[10.5px] h-[10.5px] rounded-full bg-[#ffbd2e]"></div><div class="w-[10.5px] h-[10.5px] rounded-full bg-[#27c93f]"></div></div>
+          <div class="flex-1 mx-2 text-[10px] font-mono text-[#8a9599] truncate">smoky-wheels.lovable.app</div>
+        </div>
+        <div class="relative aspect-[16/10] overflow-hidden"><img src="/assets/demo-smoky-wheels.jpg" alt="Smoky Wheels" class="absolute inset-0 w-full h-full object-cover object-top transition-transform"><div class="absolute top-3 right-3 px-2.5 py-px bg-black/60 text-[10px] tracking-wider rounded border border-white/20 text-[#f4a261]">FOOD TRUCK</div></div>
+        <div class="p-4 flex-1 flex flex-col">
+          <div class="flex gap-2 mb-2"><span class="text-[10px] font-semibold tracking-wider bg-[#111518] text-[#8a9599] px-2 py-px rounded border border-[#1f2528]">FOOD TRUCK</span><span class="text-[10px] font-semibold tracking-wider bg-[#2a2118] text-[#f4a261] px-2 py-px rounded border border-[#463424]">LIVE DEMO</span></div>
+          <div class="font-semibold tracking-[-0.3px] text-[16.5px] group-hover:text-[#f4a261] transition">Smoky Wheels BBQ</div>
+          <p class="text-[14.2px] text-[#9aa6ad] mt-1.5 flex-1">Bold BBQ truck site with live schedule, online ordering, and real-time updates that drive foot traffic.</p>
+          <div class="mt-4 text-[13px] font-semibold text-[#f4a261] flex items-center gap-1">Open live site <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-0.5"></i></div>
+        </div>
+      </a>
+
+      <!-- Demo 3 -->
+      <a href="https://fiesta-taqueria.lovable.app" target="_blank" class="demo-card group block rounded-2xl overflow-hidden h-full flex flex-col bg-[#0c1013] border border-[#1a2225]">
+        <div class="bg-[#0a0c0f] border-b border-[#1a2225] px-3 py-[7px] flex items-center gap-2">
+          <div class="flex gap-1.5 pl-1"><div class="w-[10.5px] h-[10.5px] rounded-full bg-[#ff5f56]"></div><div class="w-[10.5px] h-[10.5px] rounded-full bg-[#ffbd2e]"></div><div class="w-[10.5px] h-[10.5px] rounded-full bg-[#27c93f]"></div></div>
+          <div class="flex-1 mx-2 text-[10px] font-mono text-[#8a9599] truncate">fiesta-taqueria.lovable.app</div>
+        </div>
+        <div class="relative aspect-[16/10] overflow-hidden"><img src="/assets/demo-fiesta-taqueria.jpg" alt="Fiesta Taqueria" class="absolute inset-0 w-full h-full object-cover object-top transition-transform"><div class="absolute top-3 right-3 px-2.5 py-px bg-black/60 text-[10px] tracking-wider rounded border border-white/20 text-[#f4a261]">MEXICAN</div></div>
+        <div class="p-4 flex-1 flex flex-col">
+          <div class="flex gap-2 mb-2"><span class="text-[10px] font-semibold tracking-wider bg-[#111518] text-[#8a9599] px-2 py-px rounded border border-[#1f2528]">MEXICAN</span><span class="text-[10px] font-semibold tracking-wider bg-[#2a2118] text-[#f4a261] px-2 py-px rounded border border-[#463424]">LIVE DEMO</span></div>
+          <div class="font-semibold tracking-[-0.3px] text-[16.5px] group-hover:text-[#f4a261] transition">Fiesta Taqueria</div>
+          <p class="text-[14.2px] text-[#9aa6ad] mt-1.5 flex-1">Vibrant taqueria with colorful menu, catering, and photos that make people hungry.</p>
+          <div class="mt-4 text-[13px] font-semibold text-[#f4a261] flex items-center gap-1">Open live site <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-0.5"></i></div>
+        </div>
+      </a>
+
+      <!-- Demo 4 -->
+      <a href="https://ignite-fitness-company.lovable.app" target="_blank" class="demo-card group block rounded-2xl overflow-hidden h-full flex flex-col bg-[#0c1013] border border-[#1a2225]">
+        <div class="bg-[#0a0c0f] border-b border-[#1a2225] px-3 py-[7px] flex items-center gap-2">
+          <div class="flex gap-1.5 pl-1"><div class="w-[10.5px] h-[10.5px] rounded-full bg-[#ff5f56]"></div><div class="w-[10.5px] h-[10.5px] rounded-full bg-[#ffbd2e]"></div><div class="w-[10.5px] h-[10.5px] rounded-full bg-[#27c93f]"></div></div>
+          <div class="flex-1 mx-2 text-[10px] font-mono text-[#8a9599] truncate">ignite-fitness-company.lovable.app</div>
+        </div>
+        <div class="relative aspect-[16/10] overflow-hidden"><img src="/assets/demo-ignite-fitness.jpg" alt="Ignite Fitness" class="absolute inset-0 w-full h-full object-cover object-top transition-transform"><div class="absolute top-3 right-3 px-2.5 py-px bg-black/60 text-[10px] tracking-wider rounded border border-white/20 text-[#f4a261]">FITNESS</div></div>
+        <div class="p-4 flex-1 flex flex-col">
+          <div class="flex gap-2 mb-2"><span class="text-[10px] font-semibold tracking-wider bg-[#111518] text-[#8a9599] px-2 py-px rounded border border-[#1f2528]">FITNESS</span><span class="text-[10px] font-semibold tracking-wider bg-[#2a2118] text-[#f4a261] px-2 py-px rounded border border-[#463424]">LIVE DEMO</span></div>
+          <div class="font-semibold tracking-[-0.3px] text-[16.5px] group-hover:text-[#f4a261] transition">Ignite Fitness Company</div>
+          <p class="text-[14.2px] text-[#9aa6ad] mt-1.5 flex-1">High-energy gym with class schedules, membership signup, and stories that convert.</p>
+          <div class="mt-4 text-[13px] font-semibold text-[#f4a261] flex items-center gap-1">Open live site <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-0.5"></i></div>
+        </div>
+      </a>
+
+      <!-- Demo 5 -->
+      <a href="https://summit-tire-and-auto.lovable.app" target="_blank" class="demo-card group block rounded-2xl overflow-hidden h-full flex flex-col bg-[#0c1013] border border-[#1a2225]">
+        <div class="bg-[#0a0c0f] border-b border-[#1a2225] px-3 py-[7px] flex items-center gap-2">
+          <div class="flex gap-1.5 pl-1"><div class="w-[10.5px] h-[10.5px] rounded-full bg-[#ff5f56]"></div><div class="w-[10.5px] h-[10.5px] rounded-full bg-[#ffbd2e]"></div><div class="w-[10.5px] h-[10.5px] rounded-full bg-[#27c93f]"></div></div>
+          <div class="flex-1 mx-2 text-[10px] font-mono text-[#8a9599] truncate">summit-tire-and-auto.lovable.app</div>
+        </div>
+        <div class="relative aspect-[16/10] overflow-hidden"><img src="/assets/demo-summit-tire.jpg" alt="Summit Tire" class="absolute inset-0 w-full h-full object-cover object-top transition-transform"><div class="absolute top-3 right-3 px-2.5 py-px bg-black/60 text-[10px] tracking-wider rounded border border-white/20 text-[#f4a261]">AUTO SERVICE</div></div>
+        <div class="p-4 flex-1 flex flex-col">
+          <div class="flex gap-2 mb-2"><span class="text-[10px] font-semibold tracking-wider bg-[#111518] text-[#8a9599] px-2 py-px rounded border border-[#1f2528]">AUTO SERVICE</span><span class="text-[10px] font-semibold tracking-wider bg-[#2a2118] text-[#f4a261] px-2 py-px rounded border border-[#463424]">LIVE DEMO</span></div>
+          <div class="font-semibold tracking-[-0.3px] text-[16.5px] group-hover:text-[#f4a261] transition">Summit Tire &amp; Auto</div>
+          <p class="text-[14.2px] text-[#9aa6ad] mt-1.5 flex-1">Trustworthy tire shop with instant quotes, booking, and service reminders that build loyalty.</p>
+          <div class="mt-4 text-[13px] font-semibold text-[#f4a261] flex items-center gap-1">Open live site <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-0.5"></i></div>
+        </div>
+      </a>
+
+      <!-- Demo 6 -->
+      <a href="https://summit-auto-showcase.lovable.app" target="_blank" class="demo-card group block rounded-2xl overflow-hidden h-full flex flex-col bg-[#0c1013] border border-[#1a2225]">
+        <div class="bg-[#0a0c0f] border-b border-[#1a2225] px-3 py-[7px] flex items-center gap-2">
+          <div class="flex gap-1.5 pl-1"><div class="w-[10.5px] h-[10.5px] rounded-full bg-[#ff5f56]"></div><div class="w-[10.5px] h-[10.5px] rounded-full bg-[#ffbd2e]"></div><div class="w-[10.5px] h-[10.5px] rounded-full bg-[#27c93f]"></div></div>
+          <div class="flex-1 mx-2 text-[10px] font-mono text-[#8a9599] truncate">summit-auto-showcase.lovable.app</div>
+        </div>
+        <div class="relative aspect-[16/10] overflow-hidden"><img src="/assets/demo-summit-auto.jpg" alt="Summit Auto" class="absolute inset-0 w-full h-full object-cover object-top transition-transform"><div class="absolute top-3 right-3 px-2.5 py-px bg-black/60 text-[10px] tracking-wider rounded border border-white/20 text-[#f4a261]">DEALERSHIP</div></div>
+        <div class="p-4 flex-1 flex flex-col">
+          <div class="flex gap-2 mb-2"><span class="text-[10px] font-semibold tracking-wider bg-[#111518] text-[#8a9599] px-2 py-px rounded border border-[#1f2528]">DEALERSHIP</span><span class="text-[10px] font-semibold tracking-wider bg-[#2a2118] text-[#f4a261] px-2 py-px rounded border border-[#463424]">LIVE DEMO</span></div>
+          <div class="font-semibold tracking-[-0.3px] text-[16.5px] group-hover:text-[#f4a261] transition">Summit Auto Showcase</div>
+          <p class="text-[14.2px] text-[#9aa6ad] mt-1.5 flex-1">Sleek dealership with inventory, financing calculator, and lead capture that converts.</p>
+          <div class="mt-4 text-[13px] font-semibold text-[#f4a261] flex items-center gap-1">Open live site <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-0.5"></i></div>
+        </div>
+      </a>
+    </div>
+
+    <div class="mt-5 text-center md:hidden">
+      <a href="/work" class="inline-flex items-center gap-1 text-[14.5px] font-medium text-[#f4a261]">See the full portfolio of 16 demos →</a>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how" class="bg-[#0a0c0f] border-y border-[#1a2225] py-10">
+    <div class="max-w-6xl mx-auto px-5">
+      <div class="text-center mb-8">
+        <div class="label tracking-[1.6px]">HOW IT WORKS</div>
+        <h2 class="section-title tracking-tight mt-1">Simple. Honest. Fast.</h2>
+        <p class="mt-2 text-[#9aa6ad] max-w-md mx-auto">Four steps. No mystery. No 6-month timelines. You stay in control.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="step-card rounded-2xl border border-[#1f282b] bg-[#0c1013] p-6">
+          <div class="font-mono text-[11px] tracking-[3px] text-[#c17a5a] mb-3">01</div>
+          <div class="font-semibold tracking-tight text-[18px] mb-2.5">15-minute chat</div>
+          <p class="text-[14.5px] text-[#9aa6ad] leading-relaxed">We talk about your business, customers, and what success looks like. No hard sell. Just a real conversation with a neighbor.</p>
+        </div>
+        <div class="step-card rounded-2xl border border-[#1f282b] bg-[#0c1013] p-6">
+          <div class="font-mono text-[11px] tracking-[3px] text-[#c17a5a] mb-3">02</div>
+          <div class="font-semibold tracking-tight text-[18px] mb-2.5">Clear proposal</div>
+          <p class="text-[14.5px] text-[#9aa6ad] leading-relaxed">I send a flat-price proposal with exact scope and timeline. You know the number before we start. No surprises later.</p>
+        </div>
+        <div class="step-card rounded-2xl border border-[#1f282b] bg-[#0c1013] p-6">
+          <div class="font-mono text-[11px] tracking-[3px] text-[#c17a5a] mb-3">03</div>
+          <div class="font-semibold tracking-tight text-[18px] mb-2.5">I build it fast</div>
+          <p class="text-[14.5px] text-[#9aa6ad] leading-relaxed">2–4 weeks typical. You see progress. We refine together. Photos, menus, real local details — all handled.</p>
+        </div>
+        <div class="step-card rounded-2xl border border-[#1f282b] bg-[#0c1013] p-6">
+          <div class="font-mono text-[11px] tracking-[3px] text-[#c17a5a] mb-3">04</div>
+          <div class="font-semibold tracking-tight text-[18px] mb-2.5">Launch &amp; handoff</div>
+          <p class="text-[14.5px] text-[#9aa6ad] leading-relaxed">Site goes live. I train you (or handle updates for you). You own the domain, code, and content — forever.</p>
+        </div>
+      </div>
+
+      <div class="mt-7 text-center">
+        <a href="/quote" class="cta-primary inline-flex px-8 py-3 rounded-full font-semibold">Start with a free chat →</a>
+        <p class="mt-2.5 text-xs text-[#8a9599]">No obligation. I’ll tell you honestly if a simple one-pager is all you need.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS with photos -->
+  <section id="stories" class="max-w-7xl mx-auto px-5 py-10 border-t border-[#1a2225]">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-y-2 mb-6">
+      <div>
+        <div class="label tracking-[1.6px]">NEIGHBORS TALKING STRAIGHT</div>
+        <h2 class="section-title tracking-tight">What local owners say.</h2>
+      </div>
+      <span class="text-sm text-[#8a9599] max-w-[32ch]">Real results from the trucks, shops, marinas &amp; restaurants that keep the lake alive.</span>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="testimonial rounded-2xl p-6 md:p-7 flex flex-col">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex gap-px text-[#f4a261]"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <img src="/testimonial-marcus.jpg" alt="Marcus Thompson" class="w-11 h-11 rounded-full object-cover ring-1 ring-white/10 border border-[#2a3f38]">
+        </div>
+        <p class="text-[15px] leading-[1.55] text-[#c8cfd3] flex-1">“Reservations jumped almost overnight. Brian built the site in two weeks and actually answers when I call. Feels like a partner who lives down the road.”</p>
+        <div class="mt-auto pt-5 border-t border-[#1f282b]">
+          <div class="font-semibold tracking-[-0.15px]">Marcus Thompson</div>
+          <div class="text-[13px] text-[#9aa6ad]">Owner, Hickory Forge Steakhouse · Monticello, KY</div>
+        </div>
+      </div>
+
+      <div class="testimonial rounded-2xl p-6 md:p-7 flex flex-col">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex gap-px text-[#f4a261]"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <img src="/testimonial-dana.jpg" alt="Dana Ramirez" class="w-11 h-11 rounded-full object-cover ring-1 ring-white/10 border border-[#2a3f38]">
+        </div>
+        <p class="text-[15px] leading-[1.55] text-[#c8cfd3] flex-1">“Catering leads were slipping away every weekend. Now people book straight from the truck site while they’re standing in line. Best decision I’ve made for the business.”</p>
+        <div class="mt-auto pt-5 border-t border-[#1f282b]">
+          <div class="font-semibold tracking-[-0.15px]">Dana Ramirez</div>
+          <div class="text-[13px] text-[#9aa6ad]">Owner, Smoky Wheels BBQ · Somerset, KY</div>
+        </div>
+      </div>
+
+      <div class="testimonial rounded-2xl p-6 md:p-7 flex flex-col">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex gap-px text-[#f4a261]"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <img src="/testimonial-jeff-linda.jpg" alt="Jeff &amp; Linda Sutton" class="w-11 h-11 rounded-full object-cover ring-1 ring-white/10 border border-[#2a3f38]">
+        </div>
+        <p class="text-[15px] leading-[1.55] text-[#c8cfd3] flex-1">“Our 2008 website was invisible. Brian gave us something that actually shows up when folks search the lake. Clean, fast, and it works on a phone.”</p>
+        <div class="mt-auto pt-5 border-t border-[#1f282b]">
+          <div class="font-semibold tracking-[-0.15px]">Jeff &amp; Linda Sutton</div>
+          <div class="text-[13px] text-[#9aa6ad]">Blue Water Marina · Jamestown, KY</div>
+        </div>
+      </div>
+
+      <div class="testimonial rounded-2xl p-6 md:p-7 flex flex-col">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex gap-px text-[#f4a261]"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <img src="/testimonial-carlos.jpg" alt="Carlos Mendoza" class="w-11 h-11 rounded-full object-cover ring-1 ring-white/10 border border-[#2a3f38]">
+        </div>
+        <p class="text-[15px] leading-[1.55] text-[#c8cfd3] flex-1">“I didn’t think a tire shop needed a website. Half my new customers now find me online and call for same-day work. Best money I’ve spent in years.”</p>
+        <div class="mt-auto pt-5 border-t border-[#1f282b]">
+          <div class="font-semibold tracking-[-0.15px]">Carlos Mendoza</div>
+          <div class="text-[13px] text-[#9aa6ad]">Owner, Summit Tire &amp; Auto · Monticello, KY</div>
+        </div>
+      </div>
+
+      <div class="testimonial rounded-2xl p-6 md:p-7 flex flex-col">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex gap-px text-[#f4a261]"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <img src="/testimonial-rachel.jpg" alt="Rachel Kline" class="w-11 h-11 rounded-full object-cover ring-1 ring-white/10 border border-[#2a3f38]">
+        </div>
+        <p class="text-[15px] leading-[1.55] text-[#c8cfd3] flex-1">“Class sign-ups went from phone tag to automatic. Brian understood exactly what a small gym on the lake needs — no fluff, just what works.”</p>
+        <div class="mt-auto pt-5 border-t border-[#1f282b]">
+          <div class="font-semibold tracking-[-0.15px]">Rachel Kline</div>
+          <div class="text-[13px] text-[#9aa6ad]">Founder, Ignite Fitness · Albany, KY</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-5 text-center">
+      <a href="/quote" class="text-[14px] text-[#f4a261] hover:text-[#d88a5e] inline-flex items-center gap-1 font-medium">Join them → Get your quote</a>
+    </div>
+  </section>
+
+  <!-- WHY / DIFFERENCE -->
+  <section class="bg-[#0a0c0f] border-y border-[#1a2225] py-10">
+    <div class="max-w-6xl mx-auto px-5">
+      <div class="grid lg:grid-cols-12 gap-x-9 gap-y-8 items-start">
+        <div class="lg:col-span-5 max-w-xl">
+          <div class="label tracking-[1.6px]">THE BLUEGRASS DIFFERENCE</div>
+          <h2 class="section-title tracking-tight mt-1 leading-none">Not an agency.<br>Just your neighbor.</h2>
+          <p class="mt-3.5 text-[#9aa6ad] text-[15px]">I build these sites because the food trucks, marinas, shops, and restaurants around Lake Cumberland deserve better than a forgotten Facebook page or an overpriced template from 800 miles away. Call or text me. I’ll pick up.</p>
+          <a href="/about" class="inline-flex mt-5 text-sm font-medium text-[#f4a261] hover:text-[#d88a5e]">Meet Brian →</a>
+        </div>
+
+        <div class="lg:col-span-7 grid sm:grid-cols-2 gap-3.5 text-[14.5px]">
+          <div class="flex gap-3 rounded-xl border border-[#1f282b] bg-[#0c1013] p-5">
+            <i class="fa-solid fa-check trust-check mt-1"></i>
+            <div><div class="font-semibold tracking-tight mb-1">Flat, honest pricing</div><div class="text-[#9aa6ad] text-[13.8px]">Starter from $1,200. Business from $2,500. You know the full number before we begin. No surprises, ever.</div></div>
+          </div>
+          <div class="flex gap-3 rounded-xl border border-[#1f282b] bg-[#0c1013] p-5">
+            <i class="fa-solid fa-check trust-check mt-1"></i>
+            <div><div class="font-semibold tracking-tight mb-1">Fast &amp; local</div><div class="text-[#9aa6ad] text-[13.8px]">Most sites launch in 2–3 weeks. I live in Monticello. You can text me at 9pm if something breaks before a busy weekend.</div></div>
+          </div>
+          <div class="flex gap-3 rounded-xl border border-[#1f282b] bg-[#0c1013] p-5">
+            <i class="fa-solid fa-check trust-check mt-1"></i>
+            <div><div class="font-semibold tracking-tight mb-1">Built for real businesses here</div><div class="text-[#9aa6ad] text-[13.8px]">Menus, live schedules, online ordering, booking forms — the exact things that bring paying customers in the door on the lake.</div></div>
+          </div>
+          <div class="flex gap-3 rounded-xl border border-[#1f282b] bg-[#0c1013] p-5">
+            <i class="fa-solid fa-check trust-check mt-1"></i>
+            <div><div class="font-semibold tracking-tight mb-1">You own it all</div><div class="text-[#9aa6ad] text-[13.8px]">Domain, code, content, photos. No hostage situations. Cancel hosting anytime. Your business shouldn’t be trapped by a vendor.</div></div>
+          </div>
+        </div>
+      </div>
+      <p class="mt-6 text-center text-[12.5px] text-[#8a9599]">Serving Monticello, Albany, Somerset, Jamestown, Burnside, Wayne County &amp; the entire Lake Cumberland region.</p>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" class="max-w-6xl mx-auto px-5 pt-11 pb-8">
+    <div class="text-center mb-6">
+      <div class="label tracking-[1.6px]">STRAIGHTFORWARD PRICING</div>
+      <h2 class="section-title tracking-tight mt-1">Two packages. One promise.</h2>
+      <p class="text-[#9aa6ad] mt-2 text-[15px]">Flat one-time price. You own everything. Optional care plan only if you want it.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-5 max-w-[880px] mx-auto">
+      <!-- Starter -->
+      <div class="pricing-card rounded-3xl p-7 md:p-8 flex flex-col border border-[#1a2225] bg-[#0c1013]">
+        <div>
+          <div class="flex items-baseline justify-between">
+            <h3 class="text-[26px] font-semibold tracking-[-0.6px]">Starter Sites</h3>
+            <div class="text-right"><div class="text-[29px] font-semibold tabular-nums tracking-[-1.6px]">$1,200</div><div class="text-[11px] text-[#9aa6ad] -mt-1">one-time</div></div>
+          </div>
+          <p class="text-[#9aa6ad] mt-1 text-[14.5px]">Food trucks, barbers, small shops &amp; one-person businesses</p>
+        </div>
+        <ul class="mt-6 mb-auto space-y-[9px] text-[14.5px]">
+          <li class="flex gap-2.5"><i class="fa-solid fa-check trust-check mt-[3px]"></i> Up to 5 polished pages</li>
+          <li class="flex gap-2.5"><i class="fa-solid fa-check trust-check mt-[3px]"></i> Mobile-first, fast as hell on every phone</li>
+          <li class="flex gap-2.5"><i class="fa-solid fa-check trust-check mt-[3px]"></i> Tap-to-call + directions, real contact form</li>
+          <li class="flex gap-2.5"><i class="fa-solid fa-check trust-check mt-[3px]"></i> Google Business Profile setup basics</li>
+          <li class="flex gap-2.5"><i class="fa-solid fa-check trust-check mt-[3px]"></i> 30 days of tweaks after launch included</li>
+        </ul>
+        <a href="/quote" class="mt-7 block text-center py-3.5 rounded-2xl border border-[#2a3437] hover:bg-white/5 font-semibold">Start a Starter Site →</a>
+        <p class="text-center mt-2.5 text-[12px] text-[#8a9599]">Live example: <a href="https://smoky-wheels.lovable.app" target="_blank" class="underline">Smoky Wheels BBQ</a></p>
+      </div>
+
+      <!-- Business -->
+      <div class="pricing-card popular rounded-3xl p-7 md:p-8 flex flex-col bg-[#0c1013] relative border border-[#c17a5a]">
+        <div class="absolute -top-2.5 right-7 bg-[#c17a5a] text-[#050708] text-[9.5px] font-bold tracking-[1px] px-3 py-px rounded">MOST POPULAR</div>
+        <div>
+          <div class="flex items-baseline justify-between">
+            <h3 class="text-[26px] font-semibold tracking-[-0.6px]">Business Suites</h3>
+            <div class="text-right"><div class="text-[29px] font-semibold tabular-nums tracking-[-1.6px]">$2,500</div><div class="text-[11px] text-[#8a9599] -mt-1">one-time</div></div>
+          </div>
+          <p class="text-[#9aa6ad] mt-1 text-[14.5px]">Restaurants, shops, gyms, marinas &amp; businesses ready to grow</p>
+        </div>
+        <ul class="mt-5 mb-auto space-y-[9px] text-[14.5px]">
+          <li class="flex gap-2.5"><i class="fa-solid fa-check trust-check mt-[3px]"></i> Up to 10 fully custom pages</li>
+          <li class="flex gap-2.5"><i class="fa-solid fa-check trust-check mt-[3px]"></i> Online menu, booking, gallery, or catalog</li>
+          <li class="flex gap-2.5"><i class="fa-solid fa-check trust-check mt-[3px]"></i> Stripe-ready ordering or lead capture</li>
+          <li class="flex gap-2.5"><i class="fa-solid fa-check trust-check mt-[3px]"></i> Advanced local SEO + simple analytics</li>
+          <li class="flex gap-2.5"><i class="fa-solid fa-check trust-check mt-[3px]"></i> Two rounds of revisions + launch training</li>
+          <li class="flex gap-2.5"><i class="fa-solid fa-check trust-check mt-[3px]"></i> 60 days of post-launch tweaks included</li>
+        </ul>
+        <a href="/quote" class="cta-primary mt-7 block text-center py-3.5 rounded-2xl font-semibold">Start a Business Suite →</a>
+        <p class="text-center mt-2.5 text-[12px] text-[#8a9599]">Live example: <a href="https://hickory-forge-steakhouse.lovable.app" target="_blank" class="underline">Hickory Forge Steakhouse</a></p>
+      </div>
+    </div>
+
+    <p class="text-center mt-5 text-[13px] text-[#9aa6ad]">Optional care plan <span class="font-medium text-[#f4a261]">$79/mo</span> · Branding &amp; cards from $150 · <a href="/services" class="text-[#f4a261] underline">Full details &amp; FAQ</a></p>
+
+    <!-- Branding -->
+    <div class="mt-9">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-x-4 gap-y-1 mb-4">
+        <div>
+          <div class="label tracking-[1.6px]">BRANDING ADD-ONS</div>
+          <h3 class="text-[21px] tracking-tight font-semibold mt-0.5">Look the part on every card, email, and screen.</h3>
+        </div>
+        <p class="text-[14px] text-[#9aa6ad] max-w-[34ch] md:text-right">Business cards, logo work, and full kits. Add to any site or buy standalone.</p>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-4 text-sm">
+        <div class="rounded-2xl border border-[#1a2225] p-5 bg-[#0c1013]"><div class="font-semibold">Business Card Design Only</div><div class="text-[#9aa6ad] text-xs mt-0.5">Digital files only. You own them.</div><div class="mt-3 font-semibold tabular-nums text-xl">$150</div></div>
+        <div class="rounded-2xl border border-[#1a2225] p-5 bg-[#0c1013]"><div class="font-semibold">Cards + 250 Printed</div><div class="text-[#9aa6ad] text-xs mt-0.5">Design + premium print delivered.</div><div class="mt-3 font-semibold tabular-nums text-xl">$250</div></div>
+        <div class="rounded-2xl border border-[#c17a5a] p-5 bg-[#0c1013] ring-1 ring-[#c17a5a]/30"><div class="font-semibold flex items-center gap-2">Cards + 500 Printed <span class="text-[9px] bg-[#c17a5a] text-[#050708] px-1.5 rounded">BEST VALUE</span></div><div class="text-[#9aa6ad] text-xs mt-0.5">Design + 500 premium printed cards.</div><div class="mt-3 font-semibold tabular-nums text-xl">$300</div></div>
+        <div class="rounded-2xl border border-[#1a2225] p-5 bg-[#0c1013]"><div class="font-semibold">Branding Starter</div><div class="text-[#9aa6ad] text-xs mt-0.5">Logo, palette, cards, email sig.</div><div class="mt-3 font-semibold tabular-nums text-xl">$450</div></div>
+        <div class="rounded-2xl border border-[#1a2225] p-5 bg-[#0c1013]"><div class="font-semibold">Full Branding Kit</div><div class="text-[#9aa6ad] text-xs mt-0.5">Logo, kit, cards, social, email.</div><div class="mt-3 font-semibold tabular-nums text-xl">$750</div></div>
+      </div>
+      <div class="mt-4"><a href="/business-cards" class="inline-flex text-sm border border-[#2a3437] px-5 py-2.5 rounded-2xl hover:bg-white/5">Get a custom card or branding quote →</a></div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="py-12 text-center border-t border-[#1a2225] bg-[#0a0c0f]">
+    <div class="max-w-[620px] mx-auto px-5">
+      <h2 class="text-[29px] md:text-[32px] tracking-[-1.1px] font-semibold leading-tight">Ready for a website that actually works for your business?</h2>
+      <p class="mt-3 text-[15.5px] text-[#9aa6ad]">No pressure. No jargon. No 3-month discovery phase. Just an honest conversation and a clear plan from a neighbor who builds sites that bring customers in.</p>
+      <div class="mt-7 flex flex-col sm:flex-row gap-3.5 justify-center">
+        <a href="/quote" class="cta-primary inline-flex items-center justify-center px-9 py-3 rounded-full text-base font-semibold">Get your free quote →</a>
+        <a href="/contact" class="inline-flex items-center justify-center rounded-full border border-[#2a3437] hover:bg-[#111518] px-7 py-3 text-[15px] font-semibold">Or just say hi — I’ll reply fast</a>
+      </div>
+      <p class="mt-3.5 text-[12.5px] text-[#8a9599]">Free 15-minute call or text. I’ll tell you straight if a simple site is all you need.</p>
+    </div>
+  </section>
+
+  <!-- PROFESSIONAL FOOTER with QR -->
+  <footer class="border-t border-[#1a2225] bg-[#050708]">
+    <div class="max-w-7xl mx-auto px-5 py-11">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-y-10 md:gap-x-8">
+        <div class="md:col-span-5">
+          <div class="flex items-center gap-2.5 mb-3.5">
+            <img src="/logo.jpg" alt="" class="h-[22px] w-auto">
+            <span class="font-semibold tracking-tight text-[15.5px]">Bluegrass Digital Forge</span>
+          </div>
+          <p class="text-[#8a9599] max-w-sm">Websites that win more customers for Lake Cumberland businesses. Flat pricing, fast launches, full ownership. Handcrafted locally in Monticello.</p>
+          <p class="mt-4 text-[12.5px] text-[#9aa6ad]">Forged by Brian · Monticello, Kentucky</p>
+        </div>
+
+        <div class="md:col-span-2">
+          <div class="label mb-3">Navigate</div>
+          <div class="space-y-[6px] text-[#9aa6ad] text-sm">
+            <div><a href="/" class="hover:text-white">Home</a></div>
+            <div><a href="/work" class="hover:text-white">My Work</a></div>
+            <div><a href="/services" class="hover:text-white">Services &amp; Pricing</a></div>
+            <div><a href="/quote" class="hover:text-white">Get a Quote</a></div>
+            <div><a href="/business-cards" class="hover:text-white">Business Cards</a></div>
+          </div>
+        </div>
+
+        <div class="md:col-span-3">
+          <div class="label mb-3">Service Area</div>
+          <div class="text-[#9aa6ad] text-sm space-y-[3px]">
+            <div>Monticello, KY • Albany, KY</div>
+            <div>Somerset, KY • Jamestown, KY</div>
+            <div>Burnside, KY • Wayne County</div>
+            <div class="pt-1">Lake Cumberland region</div>
+          </div>
+        </div>
+
+        <div class="md:col-span-2">
+          <div class="label mb-3">Get in Touch</div>
+          <div class="text-[#9aa6ad] text-sm">
+            <a href="mailto:BluegrassDigitalForge@protonmail.com" class="hover:text-white break-all">BluegrassDigitalForge@protonmail.com</a>
+            <div class="mt-3">Monticello, Kentucky 42633<br>Mon–Fri 9a–6p ET</div>
+          </div>
+
+          <!-- QR area -->
+          <div class="mt-5 border border-[#243530] rounded-2xl p-3.5 bg-[#0a0c0f]">
+            <div class="flex gap-3 items-start">
+              <div class="w-[62px] h-[62px] bg-white rounded-xl p-1.5 flex-shrink-0">
+                <svg width="50" height="50" viewBox="0 0 54 54" class="text-[#050708]">
+                  <rect width="54" height="54" fill="white"/>
+                  <rect x="6" y="6" width="14" height="14" rx="2"/><rect x="9" y="9" width="8" height="8" fill="white"/><rect x="11" y="11" width="4" height="4"/>
+                  <rect x="34" y="6" width="14" height="14" rx="2"/><rect x="37" y="9" width="8" height="8" fill="white"/><rect x="39" y="11" width="4" height="4"/>
+                  <rect x="6" y="34" width="14" height="14" rx="2"/><rect x="9" y="37" width="8" height="8" fill="white"/><rect x="11" y="39" width="4" height="4"/>
+                  <rect x="23" y="7" width="3" height="3"/><rect x="27" y="7" width="3" height="3"/><rect x="23" y="11" width="3" height="3"/>
+                  <rect x="6" y="23" width="3" height="3"/><rect x="10" y="23" width="3" height="3"/><rect x="14" y="23" width="3" height="3"/>
+                  <rect x="23" y="23" width="3" height="3"/><rect x="27" y="23" width="3" height="3"/><rect x="31" y="23" width="3" height="3"/>
+                  <rect x="35" y="23" width="3" height="3"/><rect x="39" y="23" width="3" height="3"/><rect x="43" y="23" width="3" height="3"/>
+                  <rect x="23" y="31" width="3" height="3"/><rect x="27" y="31" width="3" height="3"/><rect x="31" y="31" width="3" height="3"/>
+                  <rect x="23" y="35" width="3" height="3"/><rect x="27" y="35" width="3" height="3"/><rect x="31" y="35" width="3" height="3"/>
+                  <rect x="23" y="43" width="3" height="3"/><rect x="27" y="43" width="3" height="3"/><rect x="31" y="43" width="3" height="3"/><rect x="35" y="43" width="3" height="3"/>
+                  <rect x="43" y="35" width="3" height="3"/><rect x="43" y="39" width="3" height="3"/><rect x="39" y="39" width="3" height="3"/>
+                </svg>
+              </div>
+              <div class="text-xs leading-tight pt-0.5">
+                <div class="font-semibold text-white">Scan for my card</div>
+                <div class="text-[#9aa6ad] mt-0.5">Save contact. Text or call anytime.</div>
+                <div class="mt-1.5 text-[#c17a5a]">Brian · Bluegrass Digital Forge<br>Monticello, KY • 606 area</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-10 pt-6 border-t border-[#1a2225] flex flex-col md:flex-row md:items-center justify-between gap-3 text-[12.5px] text-[#9aa6ad]">
+        <div>© <span id="year"></span> Bluegrass Digital Forge · Forged in Monticello, Kentucky</div>
+        <div class="flex items-center gap-2">Independently owned · No agency middlemen · <span class="text-[#3ddbd9]">You own everything</span></div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Tailwind script + interactions
+    function init() {
+      // Year
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Mobile menu
+      const btn = document.getElementById('menu-btn');
+      const menu = document.getElementById('mobile-menu');
+      if (btn && menu) {
+        btn.addEventListener('click', () => {
+          menu.classList.toggle('hidden');
+          const icon = btn.querySelector('i');
+          if (icon) { icon.classList.toggle('fa-bars'); icon.classList.toggle('fa-times'); }
+        });
+      }
+
+      // Smooth scroll for anchors
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', function(e) {
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if (menu && !menu.classList.contains('hidden')) menu.classList.add('hidden');
+          }
+        });
+      });
+
+      // Subtle demo card mouse tilt (desktop only)
+      if (window.innerWidth > 768) {
+        document.querySelectorAll('.demo-card').forEach(card => {
+          card.addEventListener('mousemove', (e) => {
+            const r = card.getBoundingClientRect();
+            const x = ((e.clientX - r.left) / r.width) - 0.5;
+            const y = ((e.clientY - r.top) / r.height) - 0.5;
+            card.style.transform = `perspective(800px) rotateX(${-y * 3.5}deg) rotateY(${x * 4.5}deg) translateY(-7px)`;
+          });
+          card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+        });
+      }
+
+      console.log('%c[Bluegrass Digital Forge] 9.4+ polished single-file site ready.', 'color:#5d7f6a');
+    }
+    window.onload = init;
+  </script>
+</body>
+</html>

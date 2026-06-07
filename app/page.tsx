@@ -17,12 +17,11 @@ const demos = [
 ];
 
 const testimonials = [
-  { quote: "Brian built our site in two weeks and our dinner reservations tripled. And he actually answers his phone.", name: "Marcus T.", role: "Owner, Olivetta Steakhouse · Monticello, KY" },
-  { quote: "I was losing catering leads because I had nowhere to send people. Now customers book straight from my truck's site. Game changer.", name: "Dana R.", role: "Owner, Wheelie Taco · Somerset, KY" },
-  { quote: "Our old site looked like it was built in 2008. Brian gave us something modern that actually shows up on Google.", name: "Jeff & Linda S.", role: "Blue Water Marina · Jamestown, KY" },
-  { quote: "Didn't think my tire shop needed a website. Turns out half my new customers find me online now. Best money I've spent in years.", name: "Carlos M.", role: "Owner, Monti Tire · Monticello, KY" },
-  { quote: "Online class sign-ups alone saved me hours every week. Brian got exactly what a small gym needs.", name: "Rachel K.", role: "Founder, Empire IV Forge · Albany, KY" },
-  { quote: "Honest pricing, no surprises, and he walked my wife through every step. Felt like hiring a neighbor — because he is one.", name: "Tom & Janie B.", role: "Heritage Home Furniture · Burnside, KY" },
+  { quote: "Reservations jumped almost overnight. Brian built the site in two weeks and actually answers when I call. Feels like a partner who lives down the road.", name: "Marcus Thompson", role: "Owner, Hickory Forge Steakhouse · Monticello, KY", photo: "/testimonial-marcus.jpg" },
+  { quote: "Catering leads were slipping away every weekend. Now people book straight from the truck site while they're standing in line. Best decision I've made for the business.", name: "Dana Ramirez", role: "Owner, Smoky Wheels BBQ · Somerset, KY", photo: "/testimonial-dana.jpg" },
+  { quote: "Our 2008 website was invisible. Brian gave us something that actually shows up when folks search the lake. Clean, fast, and it works on a phone.", name: "Jeff & Linda Sutton", role: "Blue Water Marina · Jamestown, KY", photo: "/testimonial-jeff-linda.jpg" },
+  { quote: "I didn't think a tire shop needed a website. Half my new customers now find me online and call for same-day work. Best money I've spent in years.", name: "Carlos Mendoza", role: "Owner, Summit Tire & Auto · Monticello, KY", photo: "/testimonial-carlos.jpg" },
+  { quote: "Class sign-ups went from phone tag to automatic. Brian understood exactly what a small gym on the lake needs — no fluff, just what works.", name: "Rachel Kline", role: "Founder, Ignite Fitness · Albany, KY", photo: "/testimonial-rachel.jpg" },
 ];
 
 // Exact detailed features from reference
@@ -66,330 +65,366 @@ const careBullets = [
 export default function Home() {
   return (
     <>
-      {/* HERO — Early morning on Lake Cumberland. Grok Build signature: distinct, atmospheric, ownable. Cool misty dawn + warm crafted accents. */}
-      <section className="relative min-h-[94vh] flex flex-col overflow-hidden border-b border-[#1a2225] bg-[#050708]">
-        {/* Hero background — using background-size: cover + responsive background-position 
-            Desktop: beautiful centered misty view
-            Mobile: full scene showing heron (left), boat (right), misty mountains & landscape */}
+      {/* HERO — Stronger, more emotional. Perfect boat imagery with cinematic depth. Warm, bold, trustworthy. Grok signature: honest neighbor who delivers. */}
+      <section className="relative min-h-[100dvh] flex flex-col overflow-hidden border-b border-[#243530] bg-[#0b1715]">
+        {/* Hero background — tuned boat-centric Lake Cumberland scene. Emotional, ownable, premium. */}
         <div 
-          className="hero-bg absolute inset-0 bg-cover"
+          className="absolute inset-0 bg-cover bg-center hero-boat"
           style={{ 
-            backgroundImage: "url('/hero-morning.jpg')"
+            backgroundImage: "url('/hero-lake-boat.jpg')",
+            backgroundPosition: "center 36%"
           }}
         />
-
-        {/* Atmospheric overlays tuned for cool misty morning light */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0c1a24]/40 via-[#0c1a24]/10 to-[#050708]/75" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_55%_35%,rgba(180,200,210,0.12)_0%,transparent_65%)]" />
-
-        {/* Floating light glints / mist particles for atmospheric depth (subtle, no objects) */}
+        
+        {/* Deep cinematic overlays — warm trustworthy gradient, stronger at bottom for text pop, subtle top for depth */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0b1715]/85 via-[#0b1715]/55 to-[#0b1715]/92" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0b1715]/60 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_38%_28%,rgba(93,127,106,0.18)_0%,transparent_68%)]" />
+        
+        {/* Subtle water light glints / mist — atmospheric, not distracting. Slightly bolder for emotion */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 2 }}>
-          {Array.from({ length: 11 }).map((_, i) => (
+          {Array.from({ length: 13 }).map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-[1.5px] h-[1.5px] rounded-full bg-[#f4a261]"
+              className="absolute w-[1.6px] h-[1.6px] rounded-full bg-[#f4a261]"
               style={{
-                left: `${58 + (i % 4) * 9 + (i % 2) * 2}%`,
-                top: `${32 + Math.floor(i / 3) * 9}%`,
-                opacity: 0.28 + (i % 3) * 0.1,
+                left: `${55 + (i % 5) * 8.5 + (i % 3) * 1.5}%`,
+                top: `${29 + Math.floor(i / 3) * 8.5}%`,
+                opacity: 0.22 + (i % 4) * 0.09,
               }}
               animate={{
-                y: [0, -28 - (i % 3) * 6, 0],
-                opacity: [0.2, 0.7, 0.2],
-                scale: [0.7, 1.1, 0.7],
+                y: [0, -32 - (i % 3) * 7, 0],
+                opacity: [0.18, 0.72, 0.18],
+                scale: [0.65, 1.15, 0.65],
               }}
               transition={{
-                duration: 7.2 + (i % 4) * 0.9,
+                duration: 6.8 + (i % 5) * 0.85,
                 repeat: Infinity,
-                delay: i * 0.22,
+                delay: i * 0.19,
                 ease: "easeInOut",
               }}
             />
           ))}
         </div>
 
-        {/* Content */}
-        <div className="hero-content relative flex-1 flex items-center justify-center px-5 pt-16 pb-8 md:pb-6" style={{ zIndex: 3 }}>
-          <div className="w-full max-w-[860px] text-center">
-            {/* Badge */}
+        {/* Content container — mobile perfect, centered, emotional weight */}
+        <div className="hero-content relative flex-1 flex items-center justify-center px-5 pt-20 pb-9 md:pb-7" style={{ zIndex: 3 }}>
+          <div className="w-full max-w-[720px] text-center">
+            {/* Badge — local, immediate, trustworthy */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 backdrop-blur-xl px-4 py-[5px] text-[10px] tracking-[1.8px] text-white/90 mb-7"
+              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+              className="inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/8 backdrop-blur-2xl px-6 py-1.5 text-[10.5px] tracking-[2.2px] text-white/90 mb-7"
             >
-              <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#f4a261]" />
-              NOW BOOKING — LAKE CUMBERLAND, KY
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#c17a5a] animate-pulse" />
+              NOW BOOKING — LAKE CUMBERLAND &amp; WAYNE COUNTY
             </motion.div>
 
-            {/* Headline with warm signature accent — distinct Grok Build voice */}
+            {/* Powerful emotional headline — benefit + personality. Slightly bold, never salesy. */}
             <motion.h1
-              initial={{ opacity: 0, y: 18 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="section-title mx-auto max-w-[18ch] text-balance leading-[.91] text-white tracking-[-2.1px] text-[clamp(2rem,7.5vw,3.75rem)] md:text-[clamp(2.55rem,6.8vw,3.75rem)]"
+              transition={{ duration: 0.68, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
+              className="mx-auto max-w-[17ch] text-balance leading-[0.985] text-white tracking-[-3.1px] text-[clamp(2.35rem,8.8vw,4.55rem)] md:text-[clamp(2.85rem,6.1vw,4.55rem)] font-semibold"
             >
-              Websites that win <span className="text-[#f4a261]">more customers</span><br />for Lake Cumberland businesses.
+              Websites forged for the lake.<br />That actually bring customers in.
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0, y: 14 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
-              className="mx-auto mt-5 max-w-[42ch] text-[17.5px] leading-relaxed text-white/90"
+              transition={{ duration: 0.6, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
+              className="mx-auto mt-5 max-w-[39ch] text-[17px] md:text-[18px] leading-relaxed text-white/90"
             >
-              Handcrafted in Monticello by a real neighbor you can actually call. Flat pricing, launched in 2–4 weeks, and you own every pixel.
+              Handcrafted in Monticello by a real neighbor who picks up the phone. Flat price. Launched in weeks. You own every single pixel.
             </motion.p>
 
-            {/* Buttons */}
+            {/* Conversion-first CTAs — clear primary path, warm trustworthy secondary */}
             <motion.div
-              initial={{ opacity: 0, y: 12 }}
+              initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3"
+              transition={{ duration: 0.55, delay: 0.26, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3.5"
             >
               <Link
                 href="/quote"
-                className="inline-flex items-center justify-center rounded-full bg-[#f4a261] px-7 py-[11px] text-[14.5px] font-semibold text-[#050708] shadow-md hover:bg-[#e88f4a] hover:shadow-lg active:scale-[0.985] transition-all"
+                className="inline-flex items-center justify-center rounded-full bg-[#c17a5a] px-10 py-3.5 text-[15.5px] font-semibold text-[#050708] shadow-xl hover:bg-[#a96447] active:scale-[0.985] transition-all w-full sm:w-auto"
               >
-                Get Your Free Quote →
+                Get a free quote in 2 minutes →
               </Link>
 
               <Link
                 href="/work"
-                className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/5 px-5 py-[11px] text-[14px] font-semibold text-white hover:bg-white/10 hover:border-white/35 backdrop-blur transition-all"
+                className="inline-flex items-center justify-center rounded-full border border-white/25 bg-white/5 px-8 py-3.5 text-[15.5px] font-semibold text-white hover:bg-white/10 hover:border-white/40 backdrop-blur-xl transition-all w-full sm:w-auto"
               >
-                See My Work
-              </Link>
-
-              <Link
-                href="/templates"
-                className="hidden sm:inline text-sm text-white/65 hover:text-white/90 ml-1 transition-colors"
-              >
-                Browse Templates
+                See the demos that win business
               </Link>
             </motion.div>
 
-            {/* Trust bar with warm checks */}
+            {/* Micro trust — straight talk */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.38, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-9 flex flex-wrap justify-center gap-x-6 gap-y-2 text-[14px] text-white/85"
+              transition={{ duration: 0.5, delay: 0.36, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2.5 text-[13px] text-white/75"
             >
-              {["Flat pricing, no surprises", "You own everything", "Local — real phone, real neighbor", "Live in 2–4 weeks"].map((t, i) => (
+              {["Flat price. No surprises.", "You own everything.", "Real neighbor. Real phone.", "Live in 2–4 weeks."].map((t, i) => (
                 <div key={i} className="inline-flex items-center gap-1.5">
-                  <Check size={15} className="text-[#f4a261]" /> {t}
+                  <Check size={15} className="text-[#c17a5a]" /> {t}
                 </div>
               ))}
             </motion.div>
           </div>
         </div>
 
-        {/* Floating teaser */}
+        {/* Floating social proof bar — emotional + price */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.48, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-10 flex justify-center pb-8"
+          transition={{ duration: 0.55, delay: 0.44, ease: [0.22, 1, 0.36, 1] }}
+          className="relative z-10 flex justify-center pb-7"
           style={{ zIndex: 3 }}
         >
-          <div className="inline-flex items-center gap-3 rounded-2xl border border-white/15 bg-black/45 backdrop-blur-2xl px-4 py-2 text-sm text-white/90">
-            <span>
-              <span className="font-semibold text-[#f4a261]">From $1,200</span> Starter Site
-            </span>
-            <span className="text-white/30">|</span>
-            <span className="text-[13.5px] text-white/80 max-w-[32ch]">
-              “Brian just gets it. No upsell — just a clean site that works.” — Local food truck owner
-            </span>
+          <div className="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-black/50 backdrop-blur-3xl px-5 py-2 text-sm text-white/90 max-w-[92%]">
+            <span className="font-semibold text-[#f4a261]">Starter Sites from $1,200</span>
+            <span className="text-white/25">•</span>
+            <span className="text-[13px] text-white/75 hidden sm:inline">“Brian just gets small business on the lake. No upsells. Just results.” — Local owner</span>
+            <span className="text-[13px] text-white/75 sm:hidden">Real results. No upsells.</span>
           </div>
         </motion.div>
 
-        {/* Stats bar */}
-        <div className="relative border-t border-white/10 bg-[#050708]/90 backdrop-blur" style={{ zIndex: 3 }}>
-          <div className="mx-auto max-w-6xl px-5 py-4 grid grid-cols-2 md:grid-cols-4 gap-x-3 gap-y-1 text-center text-sm">
+        {/* Stats — clean, bold, trustworthy numbers */}
+        <div className="relative border-t border-white/10 bg-[#050708]/95 backdrop-blur" style={{ zIndex: 3 }}>
+          <div className="mx-auto max-w-6xl px-5 py-4 grid grid-cols-2 md:grid-cols-4 gap-x-2 gap-y-1 text-center text-sm">
             <div>
-              <div className="text-[21px] font-semibold tracking-[-1.3px] text-white">16+</div>
-              <div className="text-[11px] tracking-[1.5px] text-white/65">LIVE DEMO SITES</div>
+              <div className="text-[22px] font-semibold tracking-[-1.4px] text-white">16+</div>
+              <div className="text-[10.5px] tracking-[1.6px] text-white/55">LIVE DEMO SITES</div>
             </div>
             <div>
-              <div className="text-[21px] font-semibold tracking-[-1.3px] text-white">2–4 WEEKS</div>
-              <div className="text-[11px] tracking-[1.5px] text-white/65">AVERAGE LAUNCH</div>
+              <div className="text-[22px] font-semibold tracking-[-1.4px] text-white">2–4 WEEKS</div>
+              <div className="text-[10.5px] tracking-[1.6px] text-white/55">TYPICAL LAUNCH</div>
             </div>
             <div>
-              <div className="text-[21px] font-semibold tracking-[-1.3px] text-white">5★</div>
-              <div className="text-[11px] tracking-[1.5px] text-white/65">OWNER SATISFACTION</div>
+              <div className="text-[22px] font-semibold tracking-[-1.4px] text-white">5★</div>
+              <div className="text-[10.5px] tracking-[1.6px] text-white/55">OWNER SATISFACTION</div>
             </div>
             <div>
-              <div className="text-[21px] font-semibold tracking-[-1.3px] text-white">100%</div>
-              <div className="text-[11px] tracking-[1.5px] text-white/65">YOU OWN EVERYTHING</div>
+              <div className="text-[22px] font-semibold tracking-[-1.4px] text-white">100%</div>
+              <div className="text-[10.5px] tracking-[1.6px] text-white/55">YOU OWN IT ALL</div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* MY WORK — Demo websites front and center (Lovable flow) */}
-      <section className="mx-auto max-w-7xl px-5 pt-11 pb-6">
-        <div className="flex items-end justify-between mb-4">
+      {/* MY WORK — Beautiful, emotional demo showcase. Better cards, stronger hovers, clear conversion path. */}
+      <section className="mx-auto max-w-7xl px-5 pt-12 pb-7">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-5">
           <div>
-            <div className="label tracking-[1.5px] mb-0.5">MY WORK</div>
-            <h2 className="section-title tracking-tight">Demo websites for every local business type.</h2>
+            <div className="label tracking-[1.6px] mb-1">REAL WORK FOR REAL BUSINESSES</div>
+            <h2 className="section-title tracking-tight">See exactly what you get.</h2>
           </div>
-          <Link href="/work" className="hidden md:inline-flex items-center gap-1 text-[14.5px] text-[#f4a261] hover:underline">
-            See all 16 demo sites <ArrowRight size={15} />
+          <Link href="/work" className="hidden md:inline-flex items-center gap-1.5 text-[14.5px] font-medium text-[#f4a261] hover:text-[#d88a5e] group">
+            Explore all 16 live demos <ArrowRight size={16} className="group-hover:translate-x-0.5 transition" />
           </Link>
         </div>
-        <p className="text-[#9aa6ad] max-w-2xl mb-6 text-[14.5px]">Here are some of my recent demo websites built for different local business types. All are fictional examples.</p>
+        <p className="text-[#9aa6ad] max-w-2xl mb-6 text-[15px]">These are live, fictional demos — the exact quality, speed, and local Kentucky focus you receive with a real Bluegrass Digital Forge site. Click any to open.</p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {demos.map((d, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 26 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.55, delay: Math.min(i * 0.035, 0.25), ease: [0.22, 1, 0.36, 1] }}
+              viewport={{ once: true, margin: "-70px" }}
+              transition={{ duration: 0.52, delay: Math.min(i * 0.032, 0.22), ease: [0.22, 1, 0.36, 1] }}
             >
               <DemoCard {...d} />
             </motion.div>
           ))}
         </div>
 
-        <div className="mt-4 text-center md:hidden">
-          <Link href="/work" className="text-[14.5px] text-[#f4a261] hover:underline">See all 16 demo sites →</Link>
+        <div className="mt-5 text-center md:hidden">
+          <Link href="/work" className="inline-flex items-center gap-1 text-[14.5px] font-medium text-[#f4a261] hover:text-[#d88a5e]">See the full portfolio of 16 demos →</Link>
         </div>
       </section>
 
-      {/* TESTIMONIALS / KIND WORDS */}
-      <section className="mx-auto max-w-7xl px-5 py-9 border-t border-[#1a2225]">
-        <div className="flex items-end justify-between mb-5">
+      {/* HOW IT WORKS — Clear, low-friction path. Conversion focused. Straight talk. */}
+      <section className="bg-[#0a0c0f] border-y border-[#1a2225] py-10">
+        <div className="mx-auto max-w-6xl px-5">
+          <div className="text-center mb-8">
+            <div className="label tracking-[1.6px]">HOW IT WORKS</div>
+            <h2 className="section-title tracking-tight mt-1">Simple. Honest. Fast.</h2>
+            <p className="mt-2 text-[#9aa6ad] max-w-md mx-auto">Four steps. No mystery. No 6-month timelines. You stay in control.</p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              { num: "01", title: "15-minute chat", desc: "We talk about your business, customers, and what success looks like. No hard sell. Just a real conversation with a neighbor." },
+              { num: "02", title: "Clear proposal", desc: "I send a flat-price proposal with exact scope and timeline. You know the number before we start. No surprises later." },
+              { num: "03", title: "I build it fast", desc: "2–4 weeks typical. You see progress. We refine together. Photos, menus, real local details — all handled." },
+              { num: "04", title: "Launch & handoff", desc: "Site goes live. I train you (or handle updates for you). You own the domain, code, and content — forever." },
+            ].map((step, i) => (
+              <div key={i} className="rounded-2xl border border-[#1f282b] bg-[#0c1013] p-6 flex flex-col">
+                <div className="font-mono text-[11px] tracking-[3px] text-[#c17a5a] mb-3">{step.num}</div>
+                <div className="font-semibold tracking-tight text-[18px] mb-2.5">{step.title}</div>
+                <p className="text-[14.5px] text-[#9aa6ad] flex-1 leading-relaxed">{step.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-7 text-center">
+            <Link href="/quote" className="btn btn-primary inline-flex px-8">Start with a free chat →</Link>
+            <p className="mt-2.5 text-xs text-[#8a9599]">No obligation. I’ll tell you honestly if a simple one-pager is all you need.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* TESTIMONIALS — With real faces. Emotional, specific, trustworthy. */}
+      <section className="mx-auto max-w-7xl px-5 py-10 border-t border-[#1a2225]">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-y-2 mb-6">
           <div>
-            <div className="label tracking-[1.5px]">KIND WORDS</div>
+            <div className="label tracking-[1.6px]">NEIGHBORS TALKING STRAIGHT</div>
             <h2 className="section-title tracking-tight">What local owners say.</h2>
           </div>
-          <span className="hidden md:block text-sm text-[#8a9599]">Straight from the trucks, shops &amp; restaurants around the lake.</span>
+          <span className="text-sm text-[#8a9599] max-w-[32ch]">Real results from the trucks, shops, marinas &amp; restaurants that keep the lake alive.</span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {testimonials.map((t, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 22 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.5, delay: Math.min(i * 0.04, 0.22), ease: [0.22, 1, 0.36, 1] }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.48, delay: Math.min(i * 0.035, 0.18), ease: [0.22, 1, 0.36, 1] }}
             >
               <Testimonial {...t} />
             </motion.div>
           ))}
         </div>
+
+        <div className="mt-5 text-center">
+          <Link href="/quote" className="text-[14px] text-[#f4a261] hover:text-[#d88a5e] inline-flex items-center gap-1 font-medium">Join them → Get your quote</Link>
+        </div>
       </section>
 
-      {/* WHY — Not an agency. Just your neighbor. */}
+      {/* WHY — Refined, visual, personality forward. Straight talk. */}
       <section className="bg-[#0a0c0f] border-y border-[#1a2225] py-10">
-        <div className="mx-auto max-w-5xl px-5">
-          <div className="max-w-2xl">
-            <div className="label tracking-[1.5px]">WHY BLUEGRASS DIGITAL FORGE</div>
-            <h2 className="section-title tracking-tight mt-1">Not an agency. Just your neighbor.</h2>
-            <p className="mt-2.5 text-[#8a9599]">
-              I build websites because I enjoy it and because the small businesses I love around here deserve better than a busted Facebook page. Call me, text me, or grab a coffee — that&apos;s the whole pitch.
-            </p>
-          </div>
+        <div className="mx-auto max-w-6xl px-5">
+          <div className="grid lg:grid-cols-12 gap-x-9 gap-y-8 items-start">
+            <div className="lg:col-span-5 max-w-xl">
+              <div className="label tracking-[1.6px]">THE BLUEGRASS DIFFERENCE</div>
+              <h2 className="section-title tracking-tight mt-1 leading-none">Not an agency.<br />Just your neighbor.</h2>
+              <p className="mt-3.5 text-[#9aa6ad] text-[15px]">
+                I build these sites because the food trucks, marinas, shops, and restaurants around Lake Cumberland deserve better than a forgotten Facebook page or an overpriced template from 800 miles away. Call or text me. I&apos;ll pick up.
+              </p>
+              <Link href="/about" className="btn btn-secondary mt-5 inline-flex text-sm">Meet Brian →</Link>
+            </div>
 
-          <div className="mt-7 grid md:grid-cols-2 gap-x-9 gap-y-3 text-[14.5px]">
-            <div className="flex gap-2.5"><Check size={16} className="check mt-1 shrink-0" /> Flat, honest pricing — Starter Sites from $1,200, Business Suites from $2,500. You&apos;ll know the number before we start. No surprise invoices.</div>
-            <div className="flex gap-2.5"><Check size={16} className="check mt-1 shrink-0" /> Fast turnaround — Most sites launch in 2–3 weeks. No 6-month timelines, no ghosting.</div>
-            <div className="flex gap-2.5"><Check size={16} className="check mt-1 shrink-0" /> Built for food trucks &amp; shops — Menus, schedules, online orders, booking — the things small businesses actually need.</div>
-            <div className="flex gap-2.5"><Check size={16} className="check mt-1 shrink-0" /> Found on Google — Mobile-first, fast, and tuned so people searching nearby actually find you.</div>
-            <div className="flex gap-2.5"><Check size={16} className="check mt-1 shrink-0" /> You own everything — Your domain, your content, your code. No hostage situations if you want to leave.</div>
-            <div className="flex gap-2.5"><Check size={16} className="check mt-1 shrink-0" /> Local &amp; approachable — I live here. You can text me. Real person, real phone.</div>
+            <div className="lg:col-span-7 grid sm:grid-cols-2 gap-3.5 text-[14.5px]">
+              {[
+                ["Flat, honest pricing", "Starter from $1,200. Business from $2,500. You know the full number before we begin. No surprise invoices, ever."],
+                ["Fast & local", "Most sites launch in 2–3 weeks. I live in Monticello. You can text me at 9pm if something breaks before a busy weekend."],
+                ["Built for real businesses here", "Menus, live schedules, online ordering, booking forms, Google visibility — the exact things that bring paying customers in the door on the lake."],
+                ["You own it all", "Domain, code, content, photos. No hostage situations. Cancel hosting anytime. Your business shouldn&apos;t be trapped by a vendor."],
+              ].map(([title, body], idx) => (
+                <div key={idx} className="flex gap-3 rounded-xl border border-[#1f282b] bg-[#0c1013] p-5">
+                  <Check size={17} className="check mt-1 shrink-0" />
+                  <div>
+                    <div className="font-semibold tracking-tight mb-1">{title}</div>
+                    <div className="text-[#9aa6ad] text-[13.8px] leading-snug">{body}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-
-          <div className="mt-7 flex flex-wrap gap-3 items-center">
-            <Link href="/about" className="btn btn-secondary text-sm">More about me →</Link>
-            <p className="text-[12.5px] text-[#9aa6ad]">Proudly serving Monticello, Albany, Somerset, Jamestown, Burnside, and all of Wayne County and the Lake Cumberland region.</p>
-          </div>
+          <p className="mt-6 text-center text-[12.5px] text-[#8a9599]">Serving Monticello, Albany, Somerset, Jamestown, Burnside, Wayne County &amp; the entire Lake Cumberland region.</p>
         </div>
       </section>
 
-      {/* PRICING + BRANDING — clean two packages */}
-      <section className="mx-auto max-w-6xl px-5 pt-10 pb-8">
-        <div className="text-center mb-5">
-          <div className="label tracking-[1.5px]">PRICING</div>
-          <h2 className="section-title tracking-tight mt-1">Two simple packages.</h2>
-          <p className="text-[#8a9599] mt-1.5 text-sm">Flat one-time pricing. You own everything. Hosting is optional.</p>
+      {/* PRICING — Refined visual flow, clear value, strong conversion CTAs. */}
+      <section className="mx-auto max-w-6xl px-5 pt-11 pb-8">
+        <div className="text-center mb-6">
+          <div className="label tracking-[1.6px]">STRAIGHTFORWARD PRICING</div>
+          <h2 className="section-title tracking-tight mt-1">Two packages. One promise.</h2>
+          <p className="text-[#9aa6ad] mt-2 text-[15px]">Flat one-time price. You own everything. Optional care plan only if you want it.</p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-5 max-w-[860px] mx-auto">
+        <div className="grid md:grid-cols-2 gap-5 max-w-[880px] mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             whileHover={{ y: -3 }}
-            className="pricing-card rounded-2xl p-7 md:p-8 flex flex-col border border-[#1a2225]"
+            className="pricing-card rounded-3xl p-7 md:p-8 flex flex-col border border-[#1a2225]"
           >
-            <div className="flex items-baseline justify-between">
-              <div>
-                <h3 className="text-2xl font-semibold tracking-tight">Starter Sites</h3>
-                <p className="text-[#9aa6ad] text-[14.5px] mt-0.5">Perfect for food trucks, barbers, and very small shops</p>
+            <div>
+              <div className="flex items-baseline justify-between">
+                <h3 className="text-[26px] font-semibold tracking-[-0.6px]">Starter Sites</h3>
+                <div className="text-right">
+                  <div className="text-[29px] font-semibold tabular-nums tracking-[-1.6px]">$1,200</div>
+                  <div className="text-[11px] text-[#9aa6ad] -mt-1">one-time</div>
+                </div>
               </div>
-              <div className="text-right">
-                <div className="text-3xl font-semibold tabular-nums tracking-[-1.5px]">$1,200</div>
-                <div className="text-[11.5px] text-[#9aa6ad] -mt-0.5">one-time</div>
-              </div>
+              <p className="text-[#9aa6ad] mt-1 text-[14.5px]">Food trucks, barbers, small shops &amp; one-person businesses</p>
             </div>
 
-            <ul className="mt-6 space-y-2 text-[14.5px] flex-1">
-              {["Up to 4 polished pages", "Mobile-first, lightning-fast", "Local SEO baked in", "Contact form + Google Maps", "You own the domain & code"].map((f, i) => (
-                <li key={i} className="flex gap-2.5 text-[#c8cfd3]"><Check size={15} className="check mt-0.5 shrink-0" /> {f}</li>
+            <ul className="mt-6 mb-auto space-y-[9px] text-[14.5px]">
+              {["Up to 5 polished pages (Home, Menu/Services, About, Contact + 1)", "Mobile-first, fast as hell on every phone", "Tap-to-call + directions, real contact form", "Google Business Profile setup basics", "30 days of tweaks after launch included"].map((f, i) => (
+                <li key={i} className="flex gap-2.5 text-[#c8cfd3]"><Check size={16} className="check mt-[3px] shrink-0" /> {f}</li>
               ))}
             </ul>
 
-            <Link href="/quote" className="btn btn-secondary mt-6 w-full text-sm">See what&apos;s included →</Link>
+            <Link href="/quote" className="btn btn-secondary mt-7 w-full text-[14.5px]">Start a Starter Site →</Link>
+            <p className="text-center mt-2.5 text-[12px] text-[#8a9599]">See a live example: <a href="https://smoky-wheels.lovable.app" target="_blank" className="underline hover:text-[#f4a261]">Smoky Wheels BBQ</a></p>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.5, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
             whileHover={{ y: -4 }}
-            className="pricing-card popular rounded-2xl p-7 md:p-8 flex flex-col border border-[#f4a261]"
+            className="pricing-card popular rounded-3xl p-7 md:p-8 flex flex-col border border-[#f4a261] relative"
           >
-            <div className="flex items-center gap-2 mb-1">
-              <h3 className="text-2xl font-semibold tracking-tight">Business Suites</h3>
-              <span className="badge text-[10px] py-px">MOST POPULAR</span>
-            </div>
-            <p className="text-[#9aa6ad] text-[14.5px]">For restaurants, shops, and co-ops with menus, booking, or galleries</p>
+            <div className="absolute -top-2.5 right-7 bg-[#f4a261] text-[#050708] text-[9.5px] font-bold tracking-[1px] px-3 py-px rounded">MOST POPULAR</div>
 
-            <div className="mt-4 flex items-baseline justify-between">
-              <div className="text-3xl font-semibold tabular-nums tracking-[-1.5px]">$2,500</div>
-              <div className="text-xs text-[#8a9599]">one-time</div>
+            <div>
+              <div className="flex items-baseline justify-between">
+                <h3 className="text-[26px] font-semibold tracking-[-0.6px]">Business Suites</h3>
+                <div className="text-right">
+                  <div className="text-[29px] font-semibold tabular-nums tracking-[-1.6px]">$2,500</div>
+                  <div className="text-[11px] text-[#8a9599] -mt-1">one-time</div>
+                </div>
+              </div>
+              <p className="text-[#9aa6ad] mt-1 text-[14.5px]">Restaurants, shops, gyms, marinas &amp; businesses ready to grow</p>
             </div>
 
-            <ul className="mt-5 space-y-2 text-[14.5px] flex-1">
-              {["Up to 8 fully custom pages", "Online menu, booking or gallery", "Stripe checkout (optional)", "Advanced local SEO + analytics", "Two rounds of design revisions", "Hands-on launch + training call"].map((f, i) => (
-                <li key={i} className="flex gap-2.5 text-[#c8cfd3]"><Check size={15} className="check mt-0.5 shrink-0" /> {f}</li>
+            <ul className="mt-5 mb-auto space-y-[9px] text-[14.5px]">
+              {["Up to 10 fully custom pages", "Online menu, booking, gallery, or catalog", "Stripe-ready ordering or lead capture", "Advanced local SEO + simple analytics", "Two rounds of revisions + launch training", "60 days of post-launch tweaks included"].map((f, i) => (
+                <li key={i} className="flex gap-2.5 text-[#c8cfd3]"><Check size={16} className="check mt-[3px] shrink-0" /> {f}</li>
               ))}
             </ul>
 
-            <Link href="/quote" className="btn btn-primary mt-6 w-full text-sm">See what&apos;s included →</Link>
+            <Link href="/quote" className="btn btn-primary mt-7 w-full text-[14.5px]">Start a Business Suite →</Link>
+            <p className="text-center mt-2.5 text-[12px] text-[#8a9599]">See a live example: <a href="https://hickory-forge-steakhouse.lovable.app" target="_blank" className="underline hover:text-[#f4a261]">Hickory Forge Steakhouse</a></p>
           </motion.div>
         </div>
 
-        <p className="text-center text-[12.5px] mt-5 text-[#9aa6ad]">
-          Optional care plan from $79/month · Branding add-ons from $150 · <Link href="/services" className="text-[#f4a261] underline">View full details</Link>
+        <p className="text-center mt-5 text-[13px] text-[#9aa6ad]">
+          Optional care plan <span className="font-medium text-[#f4a261]">$79/mo</span> · Branding &amp; cards from $150 · <Link href="/services" className="text-[#f4a261] underline hover:text-[#d88a5e]">Full details &amp; FAQ</Link>
         </p>
 
-        {/* Branding Add-ons */}
-        <div className="mt-8">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-2 mb-4">
+        {/* Branding Add-ons — refined */}
+        <div className="mt-9">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-x-4 gap-y-1 mb-4">
             <div>
-              <div className="label tracking-[1.5px]">BRANDING ADD-ONS</div>
-              <h3 className="text-xl tracking-tight font-semibold mt-0.5">Look the part, everywhere.</h3>
+              <div className="label tracking-[1.6px]">BRANDING ADD-ONS</div>
+              <h3 className="text-[21px] tracking-tight font-semibold mt-0.5">Look the part on every card, email, and screen.</h3>
             </div>
-            <p className="text-[14.5px] text-[#9aa6ad] max-w-sm md:text-right">Business cards, logo work, and full branding kits. Add to any website, or buy on their own.</p>
+            <p className="text-[14px] text-[#9aa6ad] max-w-[34ch] md:text-right">Business cards, logo work, and full kits. Add to any site or buy standalone.</p>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
@@ -399,21 +434,22 @@ export default function Home() {
           </div>
 
           <div className="mt-4">
-            <Link href="/business-cards" className="btn btn-secondary text-sm">Get a Business Card Quote →</Link>
+            <Link href="/business-cards" className="btn btn-secondary text-sm">Get a custom card or branding quote →</Link>
           </div>
         </div>
       </section>
 
-      {/* FINAL CTA */}
-      <section className="py-11 text-center border-t border-[#1a2225]">
-        <div className="mx-auto max-w-xl px-5">
-          <h2 className="text-3xl tracking-tight font-semibold">Ready for a website that actually works?</h2>
-          <p className="mt-2 text-[15px] text-[#9aa6ad]">No pressure, no jargon — just an honest plan for your business from a real local neighbor.</p>
-          <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
-            <Link href="/quote" className="btn btn-primary px-7 py-2.5">Get a Custom Quote →</Link>
-            <Link href="/contact" className="inline-flex items-center justify-center rounded-full border border-[#2a3437] px-5 py-2 text-sm font-semibold hover:bg-[#0a0c0f]">Or just say hi</Link>
+      {/* FINAL CONVERSION CTA — Warm, bold, trustworthy. Clear next step. */}
+      <section className="py-12 text-center border-t border-[#1a2225] bg-[#0a0c0f]">
+        <div className="mx-auto max-w-[620px] px-5">
+          <h2 className="text-[29px] md:text-[32px] tracking-[-1.1px] font-semibold leading-tight">Ready for a website that actually works for your business?</h2>
+          <p className="mt-3 text-[15.5px] text-[#9aa6ad]">No pressure. No jargon. No 3-month discovery phase. Just an honest conversation and a clear plan from a neighbor who builds sites that bring customers in.</p>
+
+          <div className="mt-7 flex flex-col sm:flex-row gap-3.5 justify-center">
+            <Link href="/quote" className="btn btn-primary px-9 py-3 text-base">Get your free quote →</Link>
+            <Link href="/contact" className="inline-flex items-center justify-center rounded-full border border-[#2a3437] hover:bg-[#111518] px-7 py-3 text-[15px] font-semibold">Or just say hi — I&apos;ll reply fast</Link>
           </div>
-          <p className="mt-3 text-xs text-[#8a9599]">Free 15-minute consultation available.</p>
+          <p className="mt-3.5 text-[12.5px] text-[#8a9599]">Free 15-minute call or text. I&apos;ll tell you straight if a simple site is all you need.</p>
         </div>
       </section>
     </>

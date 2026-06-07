@@ -3,37 +3,37 @@ import Link from "next/link";
 export default function AboutPage() {
   return (
     <div className="mx-auto max-w-4xl px-5 py-12">
-      <div className="label tracking-[1.5px]">ABOUT</div>
-      <h1 className="section-title tracking-tight mt-1">Local Web Designer</h1>
+      <div className="label tracking-[1.6px]">ABOUT</div>
+      <h1 className="section-title tracking-tight mt-1">Your neighbor who builds websites that work.</h1>
 
-      <div className="prose prose-invert mt-6 max-w-none text-[#c8cfd3] text-[15.5px] leading-relaxed">
-        <p>I live and work right here on Lake Cumberland — not a 1-800 number or a chat window halfway across the country. When you hire Bluegrass Digital Forge, you get a real neighbor who knows the difference between a Wayne County food truck and a Somerset storefront.</p>
+      <div className="prose prose-invert mt-5 max-w-none text-[#c8cfd3] text-[15.5px] leading-relaxed">
+        <p>I live and work right here on Lake Cumberland — not a 1-800 number or a chat window halfway across the country. When you hire Bluegrass Digital Forge, you get a real neighbor who knows the difference between a Wayne County food truck and a Somerset storefront. I pick up the phone. I answer texts on weekends before a busy Saturday.</p>
         <p>Web designer serving Monticello, Albany, Somerset, Jamestown, Burnside, and all of Wayne County, KY — plus the small towns up and down Lake Cumberland.</p>
       </div>
 
-      <div className="mt-10 grid md:grid-cols-2 gap-x-9 gap-y-8">
+      <div className="mt-9 grid md:grid-cols-2 gap-4">
         {[
-          ["I know your customers", "Your customers are folks at the marina, families heading to the lake, neighbors in town. I build sites that speak to them — not a generic template aimed at nobody."],
-          ["Same-day phone calls", "Text me, call me, or stop me at Whitley City Diner. No support ticket queues, no overseas account manager, no waiting four days for a reply."],
-          ["Built for Wayne County search", "I tune every site for the searches that actually matter here — 'food truck Monticello,' 'BBQ near Lake Cumberland,' 'barber Somerset KY.' Real local SEO, not buzzwords."],
-          ["Money stays local", "Hiring a Monticello web designer means your investment stays in the community instead of funding a Silicon Valley SaaS subscription. Good for your business — good for the lake."],
+          ["I know your customers", "Folks at the marina, families heading to the lake on Friday, contractors grabbing lunch in town. I build sites that speak directly to them — not generic templates."],
+          ["Same-day replies", "Text or call me. Stop me at the diner. No ticket queues, no overseas managers, no waiting days for a reply."],
+          ["Built for real local search", "I tune every site for the searches that matter here: 'BBQ near Lake Cumberland', 'food truck Monticello', 'barber Somerset KY'. Real local SEO that actually shows up."],
+          ["Money stays in the community", "Your investment stays local instead of funding a Silicon Valley SaaS. Good for your business — good for the lake."],
         ].map(([title, body], i) => (
-          <div key={i} className="border-l-2 border-[#3ddbd9] pl-4">
-            <div className="font-semibold tracking-tight text-lg">{title}</div>
-            <p className="mt-2 text-[14.5px] text-[#9aa6ad]">{body}</p>
+          <div key={i} className="rounded-2xl border border-[#1f282b] bg-[#0c1013] p-6">
+            <div className="font-semibold tracking-tight text-lg mb-2">{title}</div>
+            <p className="text-[14.5px] text-[#9aa6ad] leading-relaxed">{body}</p>
           </div>
         ))}
       </div>
 
-      <div className="mt-12 rounded-2xl bg-[#0a0c0f] border border-[#1a2225] p-8">
-        <p className="text-[#8a9599]">Curious what a local build looks like?</p>
-        <div className="flex flex-wrap gap-3 mt-4">
-          <Link href="/work" className="btn btn-secondary">Browse my work</Link>
-          <Link href="/quote" className="btn btn-primary">Start a project</Link>
+      <div className="mt-10 rounded-2xl bg-[#0a0c0f] border border-[#1a2225] p-8 text-center">
+        <p className="text-[#8a9599]">Curious what a local, honest build looks like?</p>
+        <div className="flex flex-wrap gap-3 mt-5 justify-center">
+          <Link href="/work" className="btn btn-secondary">Browse the live demos</Link>
+          <Link href="/quote" className="btn btn-primary">Start a conversation</Link>
         </div>
       </div>
 
-      <p className="text-center text-[12.5px] mt-10 text-[#9aa6ad]">Forged in Monticello, Kentucky. Independently owned. No agency middlemen.</p>
+      <p className="text-center text-[12.5px] mt-9 text-[#9aa6ad]">Forged in Monticello, Kentucky. Independently owned. No agency middlemen. You own everything.</p>
     </div>
   );
 }

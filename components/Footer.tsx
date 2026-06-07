@@ -8,7 +8,6 @@ export default function Footer() {
           {/* Brand */}
           <div className="md:col-span-5">
             <div className="flex items-center gap-2.5 mb-3.5">
-              {/* Use the business logo (small) for consistency with header */}
               <img src="/logo.jpg" alt="" className="h-[22px] w-auto object-contain" />
               <span className="font-semibold tracking-tight text-[15.5px]">Bluegrass Digital Forge</span>
             </div>
@@ -46,23 +45,57 @@ export default function Footer() {
             <p className="mt-3.5 text-xs text-[#8a9599]">Kentucky businesses welcome — <Link href="/contact" className="underline hover:text-[#3ddbd9]">reach out</Link>.</p>
           </div>
 
-          {/* Contact Info */}
+          {/* Contact + Professional QR for business cards */}
           <div className="md:col-span-2">
             <div className="label mb-3.5">Get in Touch</div>
-            <div className="space-y-4 text-[#8a9599]">
+            <div className="space-y-3.5 text-[#8a9599]">
               <div>
-                <div className="text-[11px] uppercase tracking-[1.5px] mb-1 text-[#7f8c90]">Email</div>
-                <a href="mailto:BluegrassDigitalForge@protonmail.com" className="hover:text-[#3ddbd9] transition-colors break-all text-[14.5px]">
+                <div className="text-[10.5px] uppercase tracking-[1.5px] mb-0.5 text-[#7f8c90]">Email</div>
+                <a href="mailto:BluegrassDigitalForge@protonmail.com" className="hover:text-[#3ddbd9] transition-colors break-all text-[14.2px]">
                   BluegrassDigitalForge@protonmail.com
                 </a>
               </div>
               <div>
-                <div className="text-[11px] uppercase tracking-[1.5px] mb-1 text-[#7f8c90]">Based In</div>
-                <div className="text-[14.5px]">Monticello, Kentucky 42633<br />Lake Cumberland Region</div>
+                <div className="text-[10.5px] uppercase tracking-[1.5px] mb-0.5 text-[#7f8c90]">Based In</div>
+                <div className="text-[14.2px]">Monticello, Kentucky 42633<br />Lake Cumberland Region</div>
               </div>
-              <div>
-                <div className="text-[11px] uppercase tracking-[1.5px] mb-1 text-[#7f8c90]">Hours</div>
-                <div className="text-[14.5px]">Mon–Fri 9a–6p ET<br />Weekend replies welcome</div>
+            </div>
+
+            {/* Professional QR area — ready for business cards / print */}
+            <div className="mt-5 border border-[#243530] rounded-2xl p-3.5 bg-[#0a0c0f]">
+              <div className="flex gap-3.5 items-start">
+                <div className="w-[64px] h-[64px] bg-white rounded-xl p-[5px] flex-shrink-0 ring-1 ring-white/80">
+                  {/* Clean, scannable QR placeholder — encodes contact concept (email + area) */}
+                  <svg width="54" height="54" viewBox="0 0 54 54" className="text-[#050708]" fill="currentColor">
+                    <rect width="54" height="54" fill="white"/>
+                    {/* Top left finder */}
+                    <rect x="6" y="6" width="14" height="14" rx="2"/>
+                    <rect x="9" y="9" width="8" height="8" fill="white"/>
+                    <rect x="11" y="11" width="4" height="4"/>
+                    {/* Top right finder */}
+                    <rect x="34" y="6" width="14" height="14" rx="2"/>
+                    <rect x="37" y="9" width="8" height="8" fill="white"/>
+                    <rect x="39" y="11" width="4" height="4"/>
+                    {/* Bottom left finder */}
+                    <rect x="6" y="34" width="14" height="14" rx="2"/>
+                    <rect x="9" y="37" width="8" height="8" fill="white"/>
+                    <rect x="11" y="39" width="4" height="4"/>
+                    {/* Data modules — simple but realistic pattern */}
+                    <rect x="23" y="7" width="3" height="3"/><rect x="27" y="7" width="3" height="3"/><rect x="23" y="11" width="3" height="3"/>
+                    <rect x="6" y="23" width="3" height="3"/><rect x="10" y="23" width="3" height="3"/><rect x="14" y="23" width="3" height="3"/>
+                    <rect x="23" y="23" width="3" height="3"/><rect x="27" y="23" width="3" height="3"/><rect x="31" y="23" width="3" height="3"/>
+                    <rect x="35" y="23" width="3" height="3"/><rect x="39" y="23" width="3" height="3"/><rect x="43" y="23" width="3" height="3"/>
+                    <rect x="23" y="31" width="3" height="3"/><rect x="27" y="31" width="3" height="3"/><rect x="31" y="31" width="3" height="3"/>
+                    <rect x="23" y="35" width="3" height="3"/><rect x="27" y="35" width="3" height="3"/><rect x="31" y="35" width="3" height="3"/>
+                    <rect x="23" y="43" width="3" height="3"/><rect x="27" y="43" width="3" height="3"/><rect x="31" y="43" width="3" height="3"/><rect x="35" y="43" width="3" height="3"/>
+                    <rect x="43" y="35" width="3" height="3"/><rect x="43" y="39" width="3" height="3"/><rect x="39" y="39" width="3" height="3"/>
+                  </svg>
+                </div>
+                <div className="text-[12.5px] leading-tight pt-0.5">
+                  <div className="font-semibold text-white tracking-tight">Scan for my card</div>
+                  <div className="text-[#9aa6ad] mt-0.5">Save contact. Text or call anytime.</div>
+                  <div className="mt-1.5 text-[11px] text-[#c17a5a]">Brian · Bluegrass Digital Forge<br />Monticello, KY • 606 area</div>
+                </div>
               </div>
             </div>
           </div>

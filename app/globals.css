@@ -5,22 +5,23 @@
   --font-mono: var(--font-geist-mono);
   --font-display: var(--font-display);
 
-  /* Premium Forged Metal Palette */
-  --bg: #050708;
-  --bg-elev: #0a0c0f;
-  --bg-card: #0c1013;
-  --border: #1a2225;
-  --border-strong: #242f33;
-  --text: #f0f4f7;         /* Improved contrast on dark backgrounds */
-  --text-muted: #9aa6ad;   /* Better readability for secondary text */
-  --accent: #14b8a6;       /* Cool teal for supporting elements */
-  --accent-dark: #0f9c8a;
-  --accent-light: #2dd4bf;
-  --warm: #f4a261;         /* Grok Build signature — warm golden hour / forge amber */
-  --warm-dark: #e8904a;
-  --gold: #c5a26e;         /* Subtle forged gold */
-  --gold-light: #d4b37a;
+  /* Premium Lake Cumberland Vibe — earthy greens, warm woods, trustworthy neighbor feel */
+  --bg: #0f1f1c;           /* Deep forest green */
+  --bg-elev: #1a2f2a;
+  --bg-card: #162824;
+  --border: #2a3f38;
+  --border-strong: #3d524a;
+  --text: #f5f0e6;         /* Warm cream */
+  --text-muted: #9aa89e;
+  --accent: #5d7f6a;       /* Earthy green */
+  --accent-dark: #4a6654;
+  --accent-light: #7a9a85;
+  --warm: #c17a5a;         /* Warm wood / lake sunset */
+  --warm-dark: #a05f42;
+  --gold: #d4a373;         /* Warm sand / wood highlight */
+  --gold-light: #e8c9a3;
   --gold-dark: #a07e4f;
+  --lake: #4a7a8a;         /* Lake blue */
 }
 
 @theme inline {
@@ -457,39 +458,41 @@ section, .section {
   text-shadow: 0 2px 12px rgba(0,0,0,0.55);
 }
 
-/* ========== HERO BACKGROUND (full scene on mobile) ========== */
-.hero-bg {
-  background-position: 50% 35%;
+/* ========== HERO BACKGROUND (perfect boat imagery — emotional, ownable, mobile perfect) ========== */
+.hero-boat {
+  background-position: center 36%;
   background-size: cover;
   background-repeat: no-repeat;
 }
 @media (max-width: 640px) {
-  .hero-bg {
-    /* On mobile show the full scenic view: heron (left), boat (right), misty mountains & landscape.
-       Tuned position to avoid over-zoom on heron while including both key elements. */
-    background-position: 50% 42%;
+  .hero-boat {
+    /* Full scenic boat + lake on mobile — emotional but text remains crisp and high contrast */
+    background-position: 52% 40%;
   }
 
-  /* Improve text readability on small screens in hero */
   .hero-content {
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
+    padding-left: 1.15rem;
+    padding-right: 1.15rem;
   }
 
   .hero-content h1 {
-    font-size: clamp(1.95rem, 8.5vw, 2.85rem) !important;
-    line-height: 1.05 !important;
-    max-width: 16ch;
+    font-size: clamp(2.05rem, 9.2vw, 2.95rem) !important;
+    line-height: 1.02 !important;
+    letter-spacing: -2.8px !important;
+    max-width: 17ch;
   }
 
   .hero-content p {
-    font-size: 15px !important;
-    max-width: 36ch;
+    font-size: 15.5px !important;
+    max-width: 37ch;
+    line-height: 1.45 !important;
   }
+}
 
-  /* Make trust bar and badge more comfortable */
-  .hero-content .text-\[10px\] {
-    font-size: 9.5px;
+/* Desktop hero text pop + premium depth */
+@media (min-width: 768px) {
+  .hero-content h1 {
+    text-shadow: 0 3px 18px rgba(0,0,0,0.55);
   }
 }
 
@@ -527,4 +530,58 @@ section, .section {
   box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.25), 
               0 4px 6px -4px rgb(0 0 0 / 0.3),
               0 0 0 1px rgba(255,255,255,0.015) inset;
+}
+
+/* ========== MOBILE PERFECTION (9.4+ bar) ========== */
+@media (max-width: 640px) {
+  /* Touch targets — 44px+ comfortable taps */
+  .btn, .btn-primary, .btn-secondary {
+    min-height: 48px;
+    padding-top: 0.82rem;
+    padding-bottom: 0.82rem;
+    font-size: 1rem;
+  }
+
+  /* More generous section breathing */
+  section, .section {
+    scroll-margin-top: 58px;
+  }
+
+  /* Demo cards breathe on phones */
+  .demo-card {
+    border-radius: 16px;
+  }
+
+  /* Testimonials stack cleanly with photos */
+  .testimonial {
+    padding: 1.35rem 1.1rem;
+  }
+
+  /* Pricing cards — full width tap comfort */
+  .pricing-card {
+    padding: 1.65rem 1.35rem;
+  }
+
+  /* Nav mobile menu polish */
+  nav .nav-link {
+    font-size: 15.5px;
+    padding-top: 0.35rem;
+    padding-bottom: 0.35rem;
+  }
+
+  /* Footer QR area scales nicely */
+  footer .border.border-\[\#243530\] {
+    padding: 0.85rem;
+  }
+}
+
+/* Subtle premium lift on interactive elements */
+a, button, .choice-card, .demo-card, .pricing-card, .testimonial {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Refined focus for accessibility + polish */
+a:focus-visible, button:focus-visible {
+  outline: 2px solid #c17a5a;
+  outline-offset: 2px;
 }

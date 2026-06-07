@@ -93,45 +93,45 @@ export default function DemoCard({ title, subtitle, category, href, color = "#c1
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="demo-card group block rounded-2xl overflow-hidden h-full flex flex-col bg-[#0c1013] border border-[#1a2225]"
+      className="demo-card group block rounded-2xl overflow-hidden h-full flex flex-col bg-[#0c1013] border border-[#1a2225] will-change-transform"
       whileHover={{ 
-        y: -6, 
-        scale: 1.005,
-        borderColor: "#2a3437",
-        boxShadow: "0 25px 60px -15px rgb(0 0 0 / 0.45), 0 10px 10px -6px rgb(0 0 0 / 0.3)" 
+        y: -7, 
+        scale: 1.004,
+        borderColor: "#33423c",
+        boxShadow: "0 28px 65px -18px rgb(0 0 0 / 0.5), 0 12px 14px -7px rgb(0 0 0 / 0.32)" 
       }}
-      transition={{ type: "spring", stiffness: 260, damping: 22 }}
+      transition={{ type: "spring", stiffness: 240, damping: 20 }}
     >
-      {/* Browser frame */}
+      {/* Premium browser frame */}
       <div className="relative bg-[#0a0c0f] border-b border-[#1a2225]">
-        {/* Browser chrome bar */}
-        <div className="flex items-center gap-2 px-3 py-2 bg-[#0c1013]">
+        {/* Browser chrome bar — refined */}
+        <div className="flex items-center gap-2 px-3 py-[7px] bg-[#0c1013]">
           {/* Traffic lights */}
           <div className="flex items-center gap-1.5 pl-1">
-            <div className="w-[11px] h-[11px] rounded-full bg-[#ff5f56] ring-1 ring-black/20" />
-            <div className="w-[11px] h-[11px] rounded-full bg-[#ffbd2e] ring-1 ring-black/20" />
-            <div className="w-[11px] h-[11px] rounded-full bg-[#27c93f] ring-1 ring-black/20" />
+            <div className="w-[10.5px] h-[10.5px] rounded-full bg-[#ff5f56] ring-1 ring-black/25" />
+            <div className="w-[10.5px] h-[10.5px] rounded-full bg-[#ffbd2e] ring-1 ring-black/25" />
+            <div className="w-[10.5px] h-[10.5px] rounded-full bg-[#27c93f] ring-1 ring-black/25" />
           </div>
 
           {/* URL bar */}
-          <div className="flex-1 mx-2 flex items-center gap-1.5 rounded-full bg-[#050708] border border-[#1f2528] px-2.5 py-0.5 text-[10.5px] text-[#8a9599] font-mono tracking-tight">
+          <div className="flex-1 mx-2 flex items-center gap-1.5 rounded-full bg-[#050708] border border-[#1f2528] px-2.5 py-[3px] text-[10px] text-[#8a9599] font-mono tracking-tight">
             <span className="truncate">{displaySlug}</span>
           </div>
 
           {!isTemplateSite && (
-            <div className="hidden sm:flex items-center gap-1 text-[11px] text-[#7f8c90] pr-1">
-              Open live <ExternalLink size={11} />
+            <div className="hidden sm:flex items-center gap-1 text-[10.5px] text-[#7f8c90] pr-0.5">
+              LIVE <ExternalLink size={10} />
             </div>
           )}
         </div>
 
-        {/* Screenshot */}
+        {/* Screenshot with premium hover treatment */}
         <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#050708]">
           {previewImage ? (
             <img
               src={previewImage}
               alt={`${title} live preview`}
-              className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.015]"
+              className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-[620ms] group-hover:scale-[1.022]"
               loading="lazy"
             />
           ) : (
@@ -148,36 +148,37 @@ export default function DemoCard({ title, subtitle, category, href, color = "#c1
             </div>
           )}
 
-          {/* Subtle top gradient for browser polish */}
-          <div className="absolute inset-x-0 top-0 h-6 bg-gradient-to-b from-black/30 to-transparent pointer-events-none" />
+          {/* Subtle top gradient + hover lift overlay */}
+          <div className="absolute inset-x-0 top-0 h-6 bg-gradient-to-b from-black/35 to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/10 opacity-0 group-hover:opacity-40 transition-opacity duration-300" />
         </div>
       </div>
 
-      {/* Meta content below browser */}
+      {/* Meta — richer, better hover states */}
       <div className="p-4 flex-1 flex flex-col">
-        <div className="flex items-center gap-2 mb-2">
-          <span className="inline-block rounded px-2 py-px text-[10.5px] font-semibold tracking-[1.5px] bg-[#111518] text-[#8a9599] border border-[#1f2528]">
+        <div className="flex items-center gap-2 mb-2.5">
+          <span className="inline-block rounded px-2.5 py-px text-[10px] font-semibold tracking-[1.3px] bg-[#111518] text-[#8a9599] border border-[#1f2528]">
             {category.toUpperCase()}
           </span>
           {!isTemplateSite && (
-            <span className="live-badge inline-block rounded px-2 py-px text-[10.5px] font-semibold tracking-[1px] bg-[#2a2118] text-[#f4a261] border border-[#463424]">
+            <span className="live-badge inline-block rounded px-2 py-px text-[10px] font-semibold tracking-[0.8px] bg-[#2a2118] text-[#f4a261] border border-[#463424]">
               LIVE DEMO
             </span>
           )}
         </div>
 
-        <div className="font-semibold tracking-[-0.25px] text-[16px] text-white leading-tight mb-1.5 group-hover:text-[#f4a261] transition-colors">
+        <div className="font-semibold tracking-[-0.3px] text-[16.5px] text-white leading-tight mb-1.5 group-hover:text-[#f4a261] transition-colors duration-200">
           {title}
         </div>
 
-        <p className="text-[14.5px] text-[#9aa6ad] leading-snug line-clamp-2 flex-1">{subtitle}</p>
+        <p className="text-[14.2px] text-[#9aa6ad] leading-snug line-clamp-2 flex-1">{subtitle}</p>
 
-        <div className="mt-3.5 flex items-center gap-4 text-[13px]">
+        <div className="mt-4 flex items-center gap-3 text-[13px]">
           <span className="inline-flex items-center gap-1 font-semibold text-[#f4a261] group-hover:gap-1.5 transition-all">
-            {isTemplateSite ? "Visit Templates" : "View Live Demo"} <ArrowUpRight size={13} />
+            {isTemplateSite ? "Browse templates" : "Open live site"} <ArrowUpRight size={13} />
           </span>
           {!isTemplateSite && (
-            <span className="text-[#6f7c82] group-hover:text-[#8a9599] transition-colors">View similar projects →</span>
+            <span className="text-[#6f7c82] group-hover:text-[#8a9599] transition-colors">See how it was built →</span>
           )}
         </div>
       </div>

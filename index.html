@@ -36,6 +36,7 @@
     
     .demo-card {
       box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.25), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+      border-radius: 1.25rem;
     }
     .demo-card:hover {
       transform: translateY(-8px) scale(1.005);
@@ -74,22 +75,25 @@
 
     .hero-boat {
       background-size: cover;
-      background-position: 50% 28%; /* wide scenic: full lake landscape, water, mist + prominent boat */
+      background-position: 50% 25%; /* cinematic wide scenic: full lake landscape, mist, water, prominent boat */
     }
     @media (max-width: 640px) {
-      .hero-boat { background-position: 50% 32%; } /* full atmospheric scene on phones — no tight crop */
+      .hero-boat { background-position: 50% 29%; } /* full beautiful atmospheric scene + boat on mobile */
     }
 
-    /* Breathtaking hero typography + mobile perfection */
+    /* Breathtaking hero typography, contrast, and mobile perfection */
+    .hero-content h1 {
+      text-shadow: 0 4px 24px rgba(0,0,0,0.65), 0 2px 10px rgba(0,0,0,0.45);
+    }
     @media (max-width: 640px) {
       .hero-content h1 {
-        font-size: clamp(2.35rem, 9.5vw, 3.05rem) !important;
-        line-height: 1.0 !important;
-        letter-spacing: -3.0px !important;
-        max-width: 17ch;
+        font-size: clamp(2.42rem, 9.7vw, 3.12rem) !important;
+        line-height: 0.99 !important;
+        letter-spacing: -3.1px !important;
+        max-width: 16.5ch;
       }
-      .hero-content p { font-size: 15.5px !important; line-height: 1.5 !important; max-width: 35ch; }
-      .btn, .cta-primary { min-height: 49px; font-size: 1rem; }
+      .hero-content p { font-size: 15.8px !important; line-height: 1.52 !important; max-width: 34ch; }
+      .btn, .cta-primary { min-height: 50px; font-size: 1rem; }
     }
 
     .water-glint {
@@ -114,14 +118,33 @@
       .label { letter-spacing: 0.115em; }
     }
 
-    /* Elegant demo browser chrome polish */
+    /* Elegant demo browser chrome polish + standout hovers */
     .demo-card .bg-\[\#0a0c0f\] { background: #0a0e11; }
     .demo-card .border-b { border-color: #1f282b; }
+    .demo-card {
+      border-radius: 1.25rem;
+    }
+    .demo-card .bg-\[\#0a0e11\] {
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+    }
+    .demo-card:hover .live-badge {
+      background: #c17a5a;
+      color: #050708;
+      border-color: #c17a5a;
+    }
 
     /* Premium typography &amp; spacing scale */
     .section-title { line-height: 1.025; letter-spacing: -0.035em; }
     p { line-height: 1.68; }
     .cta-primary { letter-spacing: -0.01em; }
+
+    /* Extra elegance: subtle premium card lifts and consistent breathing */
+    .step-card, .pricing-card, .testimonial {
+      box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.25), 0 4px 6px -4px rgb(0 0 0 / 0.3), 0 0 0 1px rgba(255,255,255,0.015) inset;
+    }
+    .step-card:hover, .pricing-card:hover, .testimonial:hover {
+      box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.2);
+    }
   </style>
 </head>
 <body class="bg-[#050708] text-[#f5f0e6] antialiased">
@@ -195,34 +218,34 @@
       <div class="water-glint absolute w-[1.5px] h-[1.5px] rounded-full bg-[#f4a261]" style="left:52%; top:42%; animation-delay:3.1s"></div>
     </div>
 
-    <div class="hero-content relative flex-1 flex items-center justify-center px-5 pt-14 pb-7 md:pt-20 md:pb-9 mobile-perfect" style="z-index:3">
-      <div class="w-full max-w-[660px] text-center">
-        <!-- Elegant badge -->
-        <div class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/8 backdrop-blur-2xl px-5 py-1.5 text-[10px] tracking-[2.1px] text-white/95 mb-5 md:mb-6">
+    <div class="hero-content relative flex-1 flex items-center justify-center px-5 pt-16 pb-8 md:pt-24 md:pb-10 mobile-perfect" style="z-index:3">
+      <div class="w-full max-w-[680px] text-center">
+        <!-- Elegant, confident badge -->
+        <div class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-2xl px-6 py-1.5 text-[10px] tracking-[2.2px] text-white/95 mb-6 md:mb-7">
           <span class="inline-block w-1.5 h-1.5 rounded-full bg-[#c17a5a] animate-pulse"></span>
-          NOW BOOKING FOR LAKE CUMBERLAND BUSINESSES
+          NOW BOOKING — LAKE CUMBERLAND, KENTUCKY
         </div>
 
-        <!-- Breathtaking headline with perfect hierarchy and contrast -->
-        <h1 class="mx-auto max-w-[17.5ch] text-balance leading-[0.975] text-white tracking-[-3.35px] text-[clamp(2.55rem,9.3vw,4.45rem)] md:text-[clamp(2.9rem,6vw,4.45rem)] font-semibold forged-shadow">
+        <!-- Breathtaking headline — perfect contrast, hierarchy, emotional impact -->
+        <h1 class="mx-auto max-w-[16.5ch] text-balance leading-[0.97] text-white tracking-[-3.4px] text-[clamp(2.6rem,9.4vw,4.55rem)] md:text-[clamp(3rem,6.2vw,4.55rem)] font-semibold" style="text-shadow: 0 4px 24px rgba(0,0,0,0.65), 0 2px 10px rgba(0,0,0,0.45);">
           Websites forged for the lake.<br>That actually bring customers in.
         </h1>
 
-        <p class="mx-auto mt-4 md:mt-5 max-w-[36ch] text-[16.2px] md:text-[17.2px] leading-relaxed text-white/93">
+        <p class="mx-auto mt-5 md:mt-6 max-w-[37ch] text-[16.5px] md:text-[17.5px] leading-relaxed text-white/92">
           Handcrafted in Monticello by a real neighbor who picks up the phone. Flat price. Launched in weeks. You own every single pixel.
         </p>
 
-        <!-- Strong, inviting conversion CTAs -->
-        <div class="mt-6 md:mt-7 flex flex-col sm:flex-row items-center justify-center gap-3.5">
-          <a href="/quote" class="cta-primary inline-flex items-center justify-center rounded-full px-9 py-[14px] text-[15.5px] font-semibold shadow-xl active:scale-[0.985] transition-all w-full sm:w-auto">
+        <!-- Strong, confident, personality-driven CTAs -->
+        <div class="mt-7 md:mt-8 flex flex-col sm:flex-row items-center justify-center gap-3.5">
+          <a href="/quote" class="cta-primary inline-flex items-center justify-center rounded-full px-10 py-3.5 text-[15.5px] font-semibold shadow-2xl active:scale-[0.985] transition-all w-full sm:w-auto">
             Get your free quote →
           </a>
-          <a href="#work" class="inline-flex items-center justify-center rounded-full border border-white/30 bg-white/5 px-8 py-[14px] text-[15.5px] font-semibold text-white hover:bg-white/10 hover:border-white/45 backdrop-blur-xl transition-all w-full sm:w-auto">
+          <a href="#work" class="inline-flex items-center justify-center rounded-full border border-white/25 bg-white/5 px-8 py-3.5 text-[15.5px] font-semibold text-white hover:bg-white/10 hover:border-white/40 backdrop-blur-xl transition-all w-full sm:w-auto">
             See the demos that win business
           </a>
         </div>
 
-        <div class="mt-6 flex flex-wrap justify-center gap-x-5 gap-y-2 text-[12.5px] md:text-[13px] text-white/80">
+        <div class="mt-7 flex flex-wrap justify-center gap-x-6 gap-y-2 text-[12.5px] md:text-[13px] text-white/82">
           <div class="inline-flex items-center gap-1.5"><i class="fa-solid fa-check trust-check"></i> Flat price. No surprises.</div>
           <div class="inline-flex items-center gap-1.5"><i class="fa-solid fa-check trust-check"></i> You own everything.</div>
           <div class="inline-flex items-center gap-1.5"><i class="fa-solid fa-check trust-check"></i> Real neighbor. Real phone.</div>
@@ -252,8 +275,8 @@
     </div>
   </section>
 
-  <!-- MY WORK — Elegant demo showcase -->
-  <section id="work" class="max-w-7xl mx-auto px-5 pt-16 pb-9">
+  <!-- MY WORK — Standout demo showcase -->
+  <section id="work" class="max-w-7xl mx-auto px-5 pt-16 pb-10">
     <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-6">
       <div>
         <div class="label tracking-[1.7px] mb-1">REAL WORK FOR REAL BUSINESSES</div>
@@ -261,7 +284,7 @@
       </div>
       <a href="/work" class="hidden md:inline-flex items-center gap-1.5 text-[14.5px] font-medium text-[#f4a261] hover:text-[#d88a5e] group">Explore all 16 live demos <i class="fa-solid fa-arrow-right ml-0.5 group-hover:translate-x-0.5 transition"></i></a>
     </div>
-    <p class="text-[#9aa6ad] max-w-2xl mb-6 text-[14.8px]">These are live, fictional demos — the exact quality, speed, and local Kentucky focus you receive. Click any to open.</p>
+    <p class="text-[#9aa6ad] max-w-2xl mb-7 text-[14.8px]">These are live, fictional demos — the exact quality, speed, and local Kentucky focus you receive. Click any to open the real thing.</p>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
       <!-- Demo 1 -->
@@ -728,7 +751,7 @@
         });
       }
 
-      console.log('%c[Bluegrass Digital Forge] 9.4+ polished single-file site ready.', 'color:#5d7f6a');
+      console.log('%c[Bluegrass Digital Forge] 9.8 polished single-file site ready.', 'color:#5d7f6a');
     }
     window.onload = init;
   </script>

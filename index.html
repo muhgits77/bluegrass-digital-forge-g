@@ -109,16 +109,16 @@
     .mobile-perfect { padding-left: 1.15rem; padding-right: 1.15rem; }
 
     /* General polish: more spacious sections, elegant cards, premium mobile experience */
-    section { scroll-margin-top: 72px; }
+    section { scroll-margin-top: 78px; }
     @media (max-width: 640px) {
-      section { scroll-margin-top: 62px; }
-      .demo-card .p-4 { padding: 1rem 0.95rem; }
-      .step-card, .testimonial { padding: 1.4rem 1.15rem; }
-      .pricing-card, .rounded-3xl.p-7 { padding: 1.6rem 1.3rem; }
+      section { scroll-margin-top: 64px; }
+      .demo-card .p-4 { padding: 1.05rem 0.95rem; }
+      .step-card, .testimonial { padding: 1.45rem 1.2rem; }
+      .pricing-card, .rounded-3xl.p-7 { padding: 1.65rem 1.35rem; }
       .label { letter-spacing: 0.115em; }
     }
 
-    /* Elegant demo browser chrome polish + standout hovers */
+    /* Elegant demo browser chrome polish + standout, exciting hovers */
     .demo-card .bg-\[\#0a0c0f\] { background: #0a0e11; }
     .demo-card .border-b { border-color: #1f282b; }
     .demo-card {
@@ -132,6 +132,13 @@
       color: #050708;
       border-color: #c17a5a;
     }
+    .demo-card .mt-4 span {
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .demo-card:hover .mt-4 span {
+      color: #c17a5a;
+      gap: 0.4rem;
+    }
 
     /* Premium typography &amp; spacing scale */
     .section-title { line-height: 1.025; letter-spacing: -0.035em; }
@@ -144,6 +151,29 @@
     }
     .step-card:hover, .pricing-card:hover, .testimonial:hover {
       box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.2);
+    }
+
+    /* Branding cards — consistent height, premium alignment, nice hover, professional badge */
+    .branding-card {
+      transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), 
+                  box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 0.2s ease;
+      min-height: 118px;
+    }
+    .branding-card:hover {
+      transform: translateY(-3px);
+      border-color: #33423c;
+      box-shadow: 0 15px 25px -8px rgb(0 0 0 / 0.35);
+    }
+    .branding-card.popular {
+      border-color: #c17a5a;
+      box-shadow: 0 0 0 1px #c17a5a, 0 10px 15px -3px rgb(0 0 0 / 0.25);
+    }
+    .branding-card.popular:hover {
+      box-shadow: 0 0 0 1px #c17a5a, 0 18px 30px -10px rgb(0 0 0 / 0.4);
+    }
+    .branding-card .mt-auto {
+      margin-top: auto;
     }
   </style>
 </head>
@@ -197,55 +227,55 @@
     </div>
   </nav>
 
-  <!-- HERO — Breathtaking wide atmospheric Lake Cumberland scene with prominent boat and full scenic landscape. Spacious, premium, emotionally resonant on every screen. -->
-  <section class="relative min-h-[92dvh] md:min-h-[100dvh] flex flex-col overflow-hidden border-b border-[#243530] bg-[#0a1513]">
-    <!-- Wide, beautiful atmospheric background — full lake, water, mist, boat, and landscape. Tuned for composition on all sizes. -->
-    <div class="absolute inset-0 bg-cover hero-boat" style="background-image: url('/hero-lake-boat.jpg');"></div>
+  <!-- HERO — Absolutely stunning cinematic Lake Cumberland scene. Wide, atmospheric with mist, water, boat, and hills. Perfect hierarchy, contrast, and emotional power. -->
+  <section class="relative min-h-[94dvh] md:min-h-[100dvh] flex flex-col overflow-hidden border-b border-[#243530] bg-[#0a1513]">
+    <!-- Cinematic wide Lake Cumberland hero — full scenic landscape, beautiful lighting, mist, water, and prominent boat. -->
+    <div class="absolute inset-0 bg-cover hero-boat" style="background-image: url('/hero-lake-boat.jpg'); background-position: 50% 24%;"></div>
     
-    <!-- Sophisticated, layered overlays for breathtaking depth + perfect text contrast -->
-    <div class="absolute inset-0 bg-gradient-to-b from-[#0a1513]/78 via-[#0a1513]/42 to-[#0a1513]/95"></div>
-    <div class="absolute inset-0 bg-gradient-to-r from-[#0a1513]/70 via-transparent to-transparent"></div>
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_42%_22%,rgba(70,100,85,0.25)_0%,transparent_70%)]"></div>
-    <!-- Premium bottom vignette for spacious text hierarchy and emotional pull -->
-    <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#0a1513]/80 to-transparent"></div>
+    <!-- Rich, cinematic overlays for depth, drama, and flawless text readability -->
+    <div class="absolute inset-0 bg-gradient-to-b from-[#0a1513]/82 via-[#0a1513]/45 to-[#0a1513]/96"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-[#0a1513]/72 via-transparent to-transparent"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_40%_20%,rgba(65,95,80,0.28)_0%,transparent_68%)]"></div>
+    <!-- Strong bottom vignette for spacious premium text presence and emotional resonance -->
+    <div class="absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-t from-[#0a1513]/85 to-transparent"></div>
 
-    <!-- Delicate atmospheric light glints (like sun on water / morning mist) -->
+    <!-- Refined atmospheric glints — light on water and soft mist for premium, cinematic feel -->
     <div class="absolute inset-0 pointer-events-none overflow-hidden" style="z-index:2">
-      <div class="water-glint absolute w-[1.8px] h-[1.8px] rounded-full bg-[#f4a261]" style="left:18%; top:21%; animation-delay:0s"></div>
-      <div class="water-glint absolute w-[1.4px] h-[1.4px] rounded-full bg-[#f4a261]" style="left:29%; top:36%; animation-delay:1.6s"></div>
-      <div class="water-glint absolute w-[1.8px] h-[1.8px] rounded-full bg-[#f4a261]" style="left:68%; top:17%; animation-delay:0.7s"></div>
-      <div class="water-glint absolute w-[1.3px] h-[1.3px] rounded-full bg-[#f4a261]" style="left:79%; top:29%; animation-delay:2.3s"></div>
-      <div class="water-glint absolute w-[1.5px] h-[1.5px] rounded-full bg-[#f4a261]" style="left:52%; top:42%; animation-delay:3.1s"></div>
+      <div class="water-glint absolute w-[1.8px] h-[1.8px] rounded-full bg-[#f4a261]" style="left:16%; top:19%; animation-delay:0s"></div>
+      <div class="water-glint absolute w-[1.3px] h-[1.3px] rounded-full bg-[#f4a261]" style="left:27%; top:35%; animation-delay:1.7s"></div>
+      <div class="water-glint absolute w-[1.9px] h-[1.9px] rounded-full bg-[#f4a261]" style="left:65%; top:15%; animation-delay:0.6s"></div>
+      <div class="water-glint absolute w-[1.4px] h-[1.4px] rounded-full bg-[#f4a261]" style="left:78%; top:28%; animation-delay:2.4s"></div>
+      <div class="water-glint absolute w-[1.6px] h-[1.6px] rounded-full bg-[#f4a261]" style="left:48%; top:40%; animation-delay:3.2s"></div>
     </div>
 
-    <div class="hero-content relative flex-1 flex items-center justify-center px-5 pt-16 pb-8 md:pt-24 md:pb-10 mobile-perfect" style="z-index:3">
-      <div class="w-full max-w-[680px] text-center">
-        <!-- Elegant, confident badge -->
-        <div class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-2xl px-6 py-1.5 text-[10px] tracking-[2.2px] text-white/95 mb-6 md:mb-7">
+    <div class="hero-content relative flex-1 flex items-center justify-center px-5 pt-16 pb-9 md:pt-24 md:pb-11 mobile-perfect" style="z-index:3">
+      <div class="w-full max-w-[700px] text-center">
+        <!-- Confident, elegant badge -->
+        <div class="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/12 backdrop-blur-2xl px-6 py-1.5 text-[10px] tracking-[2.3px] text-white/95 mb-6 md:mb-8">
           <span class="inline-block w-1.5 h-1.5 rounded-full bg-[#c17a5a] animate-pulse"></span>
           NOW BOOKING — LAKE CUMBERLAND, KENTUCKY
         </div>
 
-        <!-- Breathtaking headline — perfect contrast, hierarchy, emotional impact -->
-        <h1 class="mx-auto max-w-[16.5ch] text-balance leading-[0.97] text-white tracking-[-3.4px] text-[clamp(2.6rem,9.4vw,4.55rem)] md:text-[clamp(3rem,6.2vw,4.55rem)] font-semibold" style="text-shadow: 0 4px 24px rgba(0,0,0,0.65), 0 2px 10px rgba(0,0,0,0.45);">
+        <!-- Stunning headline with perfect contrast, hierarchy, and presence -->
+        <h1 class="mx-auto max-w-[16ch] text-balance leading-[0.965] text-white tracking-[-3.5px] text-[clamp(2.65rem,9.5vw,4.65rem)] md:text-[clamp(3.05rem,6.1vw,4.65rem)] font-semibold" style="text-shadow: 0 5px 28px rgba(0,0,0,0.7), 0 2px 12px rgba(0,0,0,0.5);">
           Websites forged for the lake.<br>That actually bring customers in.
         </h1>
 
-        <p class="mx-auto mt-5 md:mt-6 max-w-[37ch] text-[16.5px] md:text-[17.5px] leading-relaxed text-white/92">
+        <p class="mx-auto mt-5 md:mt-6 max-w-[38ch] text-[16.8px] md:text-[17.8px] leading-relaxed text-white/93">
           Handcrafted in Monticello by a real neighbor who picks up the phone. Flat price. Launched in weeks. You own every single pixel.
         </p>
 
-        <!-- Strong, confident, personality-driven CTAs -->
-        <div class="mt-7 md:mt-8 flex flex-col sm:flex-row items-center justify-center gap-3.5">
-          <a href="/quote" class="cta-primary inline-flex items-center justify-center rounded-full px-10 py-3.5 text-[15.5px] font-semibold shadow-2xl active:scale-[0.985] transition-all w-full sm:w-auto">
+        <!-- Bold, inviting, high-quality CTAs -->
+        <div class="mt-7 md:mt-9 flex flex-col sm:flex-row items-center justify-center gap-3.5">
+          <a href="/quote" class="cta-primary inline-flex items-center justify-center rounded-full px-10 py-3.5 text-[15.8px] font-semibold shadow-2xl active:scale-[0.985] transition-all w-full sm:w-auto">
             Get your free quote →
           </a>
-          <a href="#work" class="inline-flex items-center justify-center rounded-full border border-white/25 bg-white/5 px-8 py-3.5 text-[15.5px] font-semibold text-white hover:bg-white/10 hover:border-white/40 backdrop-blur-xl transition-all w-full sm:w-auto">
+          <a href="#work" class="inline-flex items-center justify-center rounded-full border border-white/30 bg-white/6 px-8 py-3.5 text-[15.8px] font-semibold text-white hover:bg-white/12 hover:border-white/45 backdrop-blur-xl transition-all w-full sm:w-auto">
             See the demos that win business
           </a>
         </div>
 
-        <div class="mt-7 flex flex-wrap justify-center gap-x-6 gap-y-2 text-[12.5px] md:text-[13px] text-white/82">
+        <div class="mt-7 flex flex-wrap justify-center gap-x-6 gap-y-2 text-[12.8px] md:text-[13.2px] text-white/85">
           <div class="inline-flex items-center gap-1.5"><i class="fa-solid fa-check trust-check"></i> Flat price. No surprises.</div>
           <div class="inline-flex items-center gap-1.5"><i class="fa-solid fa-check trust-check"></i> You own everything.</div>
           <div class="inline-flex items-center gap-1.5"><i class="fa-solid fa-check trust-check"></i> Real neighbor. Real phone.</div>
@@ -256,16 +286,16 @@
 
     <!-- Elegant floating proof bar -->
     <div class="relative z-10 flex justify-center pb-5 md:pb-6" style="z-index:3">
-      <div class="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-black/55 backdrop-blur-3xl px-5 py-2 text-sm text-white/90 max-w-[95%]">
+      <div class="inline-flex items-center gap-3 rounded-2xl border border-white/15 bg-black/55 backdrop-blur-3xl px-5 py-2 text-sm text-white/92 max-w-[95%]">
         <span class="font-semibold text-[#f4a261]">Starter Sites from $1,200</span>
         <span class="text-white/30 hidden sm:inline">•</span>
-        <span class="text-[12.5px] text-white/75 hidden sm:inline">“Brian just gets it. Clean sites that actually work for lake businesses.”</span>
-        <span class="text-[12.5px] text-white/75 sm:hidden">Clean sites that work.</span>
+        <span class="text-[12.8px] text-white/78 hidden sm:inline">“Brian just gets it. Clean sites that actually work for lake businesses.”</span>
+        <span class="text-[12.8px] text-white/78 sm:hidden">Clean sites that work.</span>
       </div>
     </div>
 
-    <!-- Stats bar — clean &amp; trustworthy -->
-    <div class="relative border-t border-white/10 bg-[#050708]/95 backdrop-blur" style="z-index:3">
+    <!-- Stats bar — refined, confident, trustworthy -->
+    <div class="relative border-t border-white/10 bg-[#050708]/96 backdrop-blur" style="z-index:3">
       <div class="max-w-6xl mx-auto px-5 py-3.5 grid grid-cols-2 md:grid-cols-4 gap-x-2 gap-y-0.5 text-center text-sm">
         <div><div class="stat text-[21px] font-semibold text-white">16+</div><div class="text-[10.5px] tracking-[1.6px] text-white/55">LIVE DEMO SITES</div></div>
         <div><div class="stat text-[21px] font-semibold text-white">2–4 WEEKS</div><div class="text-[10.5px] tracking-[1.6px] text-white/55">TYPICAL LAUNCH</div></div>
@@ -276,7 +306,7 @@
   </section>
 
   <!-- MY WORK — Standout demo showcase -->
-  <section id="work" class="max-w-7xl mx-auto px-5 pt-16 pb-10">
+  <section id="work" class="max-w-7xl mx-auto px-5 pt-16 pb-11">
     <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-6">
       <div>
         <div class="label tracking-[1.7px] mb-1">REAL WORK FOR REAL BUSINESSES</div>
@@ -286,7 +316,7 @@
     </div>
     <p class="text-[#9aa6ad] max-w-2xl mb-7 text-[14.8px]">These are live, fictional demos — the exact quality, speed, and local Kentucky focus you receive. Click any to open the real thing.</p>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
       <!-- Demo 1 -->
       <a href="https://hickory-forge-steakhouse.lovable.app" target="_blank" class="demo-card group block rounded-2xl overflow-hidden h-full flex flex-col bg-[#0c1013] border border-[#1a2225]">
         <div class="bg-[#0a0e11] border-b border-[#1f282b] px-3 py-[7px] flex items-center gap-2">
@@ -298,7 +328,7 @@
           <div class="flex gap-2 mb-2"><span class="text-[10px] font-semibold tracking-wider bg-[#111518] text-[#8a9599] px-2 py-px rounded border border-[#1f2528]">RESTAURANT</span><span class="text-[10px] font-semibold tracking-wider bg-[#2a2118] text-[#f4a261] px-2 py-px rounded border border-[#463424]">LIVE DEMO</span></div>
           <div class="font-semibold tracking-[-0.3px] text-[16.5px] group-hover:text-[#f4a261] transition">Hickory Forge Steakhouse</div>
           <p class="text-[14.2px] text-[#9aa6ad] mt-1.5 flex-1">Warm, appetizing steakhouse with digital menu, reservations, and local SEO that actually works.</p>
-          <div class="mt-4 text-[13px] font-semibold text-[#f4a261] flex items-center gap-1">Open live site <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-0.5"></i></div>
+          <div class="mt-4 text-[13px] font-semibold text-[#f4a261] flex items-center gap-1">View Live Demo <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-0.5"></i></div>
         </div>
       </a>
 
@@ -313,7 +343,7 @@
           <div class="flex gap-2 mb-2"><span class="text-[10px] font-semibold tracking-wider bg-[#111518] text-[#8a9599] px-2 py-px rounded border border-[#1f2528]">FOOD TRUCK</span><span class="text-[10px] font-semibold tracking-wider bg-[#2a2118] text-[#f4a261] px-2 py-px rounded border border-[#463424]">LIVE DEMO</span></div>
           <div class="font-semibold tracking-[-0.3px] text-[16.5px] group-hover:text-[#f4a261] transition">Smoky Wheels BBQ</div>
           <p class="text-[14.2px] text-[#9aa6ad] mt-1.5 flex-1">Bold BBQ truck site with live schedule, online ordering, and real-time updates that drive foot traffic.</p>
-          <div class="mt-4 text-[13px] font-semibold text-[#f4a261] flex items-center gap-1">Open live site <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-0.5"></i></div>
+          <div class="mt-4 text-[13px] font-semibold text-[#f4a261] flex items-center gap-1">View Live Demo <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-0.5"></i></div>
         </div>
       </a>
 
@@ -328,7 +358,7 @@
           <div class="flex gap-2 mb-2"><span class="text-[10px] font-semibold tracking-wider bg-[#111518] text-[#8a9599] px-2 py-px rounded border border-[#1f2528]">MEXICAN</span><span class="text-[10px] font-semibold tracking-wider bg-[#2a2118] text-[#f4a261] px-2 py-px rounded border border-[#463424]">LIVE DEMO</span></div>
           <div class="font-semibold tracking-[-0.3px] text-[16.5px] group-hover:text-[#f4a261] transition">Fiesta Taqueria</div>
           <p class="text-[14.2px] text-[#9aa6ad] mt-1.5 flex-1">Vibrant taqueria with colorful menu, catering, and photos that make people hungry.</p>
-          <div class="mt-4 text-[13px] font-semibold text-[#f4a261] flex items-center gap-1">Open live site <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-0.5"></i></div>
+          <div class="mt-4 text-[13px] font-semibold text-[#f4a261] flex items-center gap-1">View Live Demo <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-0.5"></i></div>
         </div>
       </a>
 
@@ -343,7 +373,7 @@
           <div class="flex gap-2 mb-2"><span class="text-[10px] font-semibold tracking-wider bg-[#111518] text-[#8a9599] px-2 py-px rounded border border-[#1f2528]">FITNESS</span><span class="text-[10px] font-semibold tracking-wider bg-[#2a2118] text-[#f4a261] px-2 py-px rounded border border-[#463424]">LIVE DEMO</span></div>
           <div class="font-semibold tracking-[-0.3px] text-[16.5px] group-hover:text-[#f4a261] transition">Ignite Fitness Company</div>
           <p class="text-[14.2px] text-[#9aa6ad] mt-1.5 flex-1">High-energy gym with class schedules, membership signup, and stories that convert.</p>
-          <div class="mt-4 text-[13px] font-semibold text-[#f4a261] flex items-center gap-1">Open live site <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-0.5"></i></div>
+          <div class="mt-4 text-[13px] font-semibold text-[#f4a261] flex items-center gap-1">View Live Demo <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-0.5"></i></div>
         </div>
       </a>
 
@@ -358,7 +388,7 @@
           <div class="flex gap-2 mb-2"><span class="text-[10px] font-semibold tracking-wider bg-[#111518] text-[#8a9599] px-2 py-px rounded border border-[#1f2528]">AUTO SERVICE</span><span class="text-[10px] font-semibold tracking-wider bg-[#2a2118] text-[#f4a261] px-2 py-px rounded border border-[#463424]">LIVE DEMO</span></div>
           <div class="font-semibold tracking-[-0.3px] text-[16.5px] group-hover:text-[#f4a261] transition">Summit Tire &amp; Auto</div>
           <p class="text-[14.2px] text-[#9aa6ad] mt-1.5 flex-1">Trustworthy tire shop with instant quotes, booking, and service reminders that build loyalty.</p>
-          <div class="mt-4 text-[13px] font-semibold text-[#f4a261] flex items-center gap-1">Open live site <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-0.5"></i></div>
+          <div class="mt-4 text-[13px] font-semibold text-[#f4a261] flex items-center gap-1">View Live Demo <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-0.5"></i></div>
         </div>
       </a>
 
@@ -373,7 +403,7 @@
           <div class="flex gap-2 mb-2"><span class="text-[10px] font-semibold tracking-wider bg-[#111518] text-[#8a9599] px-2 py-px rounded border border-[#1f2528]">DEALERSHIP</span><span class="text-[10px] font-semibold tracking-wider bg-[#2a2118] text-[#f4a261] px-2 py-px rounded border border-[#463424]">LIVE DEMO</span></div>
           <div class="font-semibold tracking-[-0.3px] text-[16.5px] group-hover:text-[#f4a261] transition">Summit Auto Showcase</div>
           <p class="text-[14.2px] text-[#9aa6ad] mt-1.5 flex-1">Sleek dealership with inventory, financing calculator, and lead capture that converts.</p>
-          <div class="mt-4 text-[13px] font-semibold text-[#f4a261] flex items-center gap-1">Open live site <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-0.5"></i></div>
+          <div class="mt-4 text-[13px] font-semibold text-[#f4a261] flex items-center gap-1">View Live Demo <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-0.5"></i></div>
         </div>
       </a>
     </div>
@@ -384,7 +414,7 @@
   </section>
 
   <!-- HOW IT WORKS -->
-  <section id="how" class="bg-[#0a0c0f] border-y border-[#1a2225] py-11 md:py-12">
+  <section id="how" class="bg-[#0a0c0f] border-y border-[#1a2225] py-12 md:py-14">
     <div class="max-w-6xl mx-auto px-5">
       <div class="text-center mb-8 md:mb-9">
         <div class="label tracking-[1.6px]">HOW IT WORKS</div>
@@ -435,7 +465,7 @@
   </section>
 
   <!-- TESTIMONIALS with photos -->
-  <section id="stories" class="max-w-7xl mx-auto px-5 py-11 border-t border-[#1a2225]">
+  <section id="stories" class="max-w-7xl mx-auto px-5 py-12 border-t border-[#1a2225]">
     <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-y-2 mb-6">
       <div>
         <div class="label tracking-[1.6px]">NEIGHBORS TALKING STRAIGHT</div>
@@ -599,21 +629,54 @@
 
     <p class="text-center mt-5 text-[13px] text-[#9aa6ad]">Optional care plan <span class="font-medium text-[#f4a261]">$79/mo</span> · Branding &amp; cards from $150 · <a href="/services" class="text-[#f4a261] underline">Full details &amp; FAQ</a></p>
 
-    <!-- Branding -->
+    <!-- Branding Add-Ons -->
     <div class="mt-8 md:mt-9">
-      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-x-4 gap-y-1 mb-4">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-x-4 gap-y-1 mb-5">
         <div>
           <div class="label tracking-[1.6px]">BRANDING ADD-ONS</div>
           <h3 class="text-[21px] tracking-tight font-semibold mt-0.5">Look the part on every card, email, and screen.</h3>
         </div>
         <p class="text-[14px] text-[#9aa6ad] max-w-[34ch] md:text-right">Business cards, logo work, and full kits. Add to any site or buy standalone.</p>
       </div>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-4 text-sm">
-        <div class="rounded-2xl border border-[#1a2225] p-5 bg-[#0c1013]"><div class="font-semibold">Business Card Design Only</div><div class="text-[#9aa6ad] text-xs mt-0.5">Digital files only. You own them.</div><div class="mt-3 font-semibold tabular-nums text-xl">$150</div></div>
-        <div class="rounded-2xl border border-[#1a2225] p-5 bg-[#0c1013]"><div class="font-semibold">Cards + 250 Printed</div><div class="text-[#9aa6ad] text-xs mt-0.5">Design + premium print delivered.</div><div class="mt-3 font-semibold tabular-nums text-xl">$250</div></div>
-        <div class="rounded-2xl border border-[#c17a5a] p-5 bg-[#0c1013] ring-1 ring-[#c17a5a]/30"><div class="font-semibold flex items-center gap-2">Cards + 500 Printed <span class="text-[9px] bg-[#c17a5a] text-[#050708] px-1.5 rounded">BEST VALUE</span></div><div class="text-[#9aa6ad] text-xs mt-0.5">Design + 500 premium printed cards.</div><div class="mt-3 font-semibold tabular-nums text-xl">$300</div></div>
-        <div class="rounded-2xl border border-[#1a2225] p-5 bg-[#0c1013]"><div class="font-semibold">Branding Starter</div><div class="text-[#9aa6ad] text-xs mt-0.5">Logo, palette, cards, email sig.</div><div class="mt-3 font-semibold tabular-nums text-xl">$450</div></div>
-        <div class="rounded-2xl border border-[#1a2225] p-5 bg-[#0c1013]"><div class="font-semibold">Full Branding Kit</div><div class="text-[#9aa6ad] text-xs mt-0.5">Logo, kit, cards, social, email.</div><div class="mt-3 font-semibold tabular-nums text-xl">$750</div></div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-4 md:gap-5 text-sm">
+        <div class="branding-card rounded-3xl p-5 flex flex-col border border-[#1a2225] bg-[#0c1013]">
+          <div class="font-semibold tracking-tight">Business Card Design Only</div>
+          <div class="text-[#9aa6ad] text-xs mt-0.5">Digital files only. You own them.</div>
+          <div class="mt-auto pt-4">
+            <div class="font-semibold tabular-nums tracking-tight text-xl">$150</div>
+          </div>
+        </div>
+        <div class="branding-card rounded-3xl p-5 flex flex-col border border-[#1a2225] bg-[#0c1013]">
+          <div class="font-semibold tracking-tight">Cards + 250 Printed</div>
+          <div class="text-[#9aa6ad] text-xs mt-0.5">Design + premium print delivered.</div>
+          <div class="mt-auto pt-4">
+            <div class="font-semibold tabular-nums tracking-tight text-xl">$250</div>
+          </div>
+        </div>
+        <div class="branding-card popular rounded-3xl p-5 flex flex-col border border-[#c17a5a] bg-[#0c1013] ring-1 ring-[#c17a5a]/20 relative">
+          <div class="font-semibold tracking-tight flex items-center gap-1.5">
+            Cards + 500 Printed 
+            <span class="text-[8px] font-bold tracking-widest bg-[#c17a5a] text-[#050708] px-1.5 py-px rounded">BEST VALUE</span>
+          </div>
+          <div class="text-[#9aa6ad] text-xs mt-0.5">Design + 500 premium printed cards.</div>
+          <div class="mt-auto pt-4">
+            <div class="font-semibold tabular-nums tracking-tight text-xl">$300</div>
+          </div>
+        </div>
+        <div class="branding-card rounded-3xl p-5 flex flex-col border border-[#1a2225] bg-[#0c1013]">
+          <div class="font-semibold tracking-tight">Branding Starter</div>
+          <div class="text-[#9aa6ad] text-xs mt-0.5">Logo, palette, cards, email sig.</div>
+          <div class="mt-auto pt-4">
+            <div class="font-semibold tabular-nums tracking-tight text-xl">$450</div>
+          </div>
+        </div>
+        <div class="branding-card rounded-3xl p-5 flex flex-col border border-[#1a2225] bg-[#0c1013]">
+          <div class="font-semibold tracking-tight">Full Branding Kit</div>
+          <div class="text-[#9aa6ad] text-xs mt-0.5">Logo, kit, cards, social, email.</div>
+          <div class="mt-auto pt-4">
+            <div class="font-semibold tabular-nums tracking-tight text-xl">$750</div>
+          </div>
+        </div>
       </div>
       <div class="mt-4"><a href="/business-cards" class="inline-flex text-sm border border-[#2a3437] px-5 py-2.5 rounded-2xl hover:bg-white/5">Get a custom card or branding quote →</a></div>
     </div>

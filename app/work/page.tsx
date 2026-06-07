@@ -29,7 +29,7 @@ export default function WorkPage() {
       <div className="max-w-2xl mb-8">
         <div className="label tracking-[1.5px]">MY WORK</div>
         <h1 className="section-title tracking-tight">Live demo sites for every local business.</h1>
-        <p className="mt-3 text-[#8a9599]">Click any card to open the live site in a new tab. All are fictional examples. Each one shows the exact quality, speed, and local focus you get with a real Bluegrass Digital Forge website.</p>
+        <p className="mt-3 text-[15px] text-[#9aa6ad]">Click any card to open the live site in a new tab. All are fictional examples. Each one shows the exact quality, speed, and local focus you get with a real Bluegrass Digital Forge website.</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -48,7 +48,7 @@ export default function WorkPage() {
 
       <div className="mt-12 text-center border-t border-[#1a2225] pt-9">
         <h3 className="text-xl font-semibold tracking-tight">Don&apos;t see your kind of business?</h3>
-        <p className="text-[#8a9599] mt-1">Every site is custom-built. Tell me what you do and I&apos;ll show you what makes sense.</p>
+        <p className="text-[14.5px] text-[#9aa6ad] mt-1">Every site is custom-built. Tell me what you do and I&apos;ll show you what makes sense.</p>
         <Link href="/quote" className="btn btn-primary mt-5 inline-flex">Get a Quote →</Link>
       </div>
     </div>

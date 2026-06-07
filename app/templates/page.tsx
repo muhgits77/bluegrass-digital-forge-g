@@ -20,7 +20,7 @@ export default function TemplatesPage() {
         ].map((t, i) => (
           <div key={i} className="card p-6 rounded-2xl hover:border-[#f4a261]/50 transition">
             <div className="font-semibold tracking-tight">{t.name}</div>
-            <p className="text-sm text-[#8a9599] mt-1.5 leading-snug">{t.desc}</p>
+            <p className="text-[14.5px] text-[#9aa6ad] mt-1.5 leading-snug">{t.desc}</p>
             <Link href="/quote" className="btn btn-secondary mt-5 text-sm inline-flex">Start with this template →</Link>
           </div>
         ))}

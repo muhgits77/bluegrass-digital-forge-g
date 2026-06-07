@@ -168,7 +168,7 @@ export default function QuotePage() {
       {!submitted ? (
         <form onSubmit={handleSubmit} className="space-y-9">
           {/* Premium Progress */}
-          <div className="flex items-center gap-1.5 text-xs text-[#8a9599] flex-wrap">
+          <div className="flex items-center gap-1.5 text-[12.5px] text-[#9aa6ad] flex-wrap">
             {steps.map((s, i) => (
               <React.Fragment key={i}>
                 <button
@@ -277,7 +277,7 @@ export default function QuotePage() {
                   <option value="">Choose one…</option>
                   {logoOptions.map((o) => <option key={o} value={o}>{o}</option>)}
                 </select>
-                <p className="text-xs text-[#8a9599] mt-1.5">Have files to share? Email them to <a href={`mailto:${EMAIL}`} className="underline">{EMAIL}</a> after you submit.</p>
+                <p className="text-[12.5px] text-[#9aa6ad] mt-1.5">Have files to share? Email them to <a href={`mailto:${EMAIL}`} className="underline">{EMAIL}</a> after you submit.</p>
               </div>
             </div>
           )}
@@ -357,7 +357,7 @@ export default function QuotePage() {
             )}
           </div>
 
-          <p className="text-center text-xs text-[#8a9599] -mt-2">All answers go straight to my inbox via your email client. No tracking, no storage on this site.</p>
+          <p className="text-center text-[12.5px] text-[#9aa6ad] -mt-2">All answers go straight to my inbox via your email client. No tracking, no storage on this site.</p>
         </form>
       ) : (
         <div className="rounded-3xl border border-[#1a2225] bg-[#0a0c0f] p-9 text-center">
@@ -370,7 +370,7 @@ export default function QuotePage() {
         </div>
       )}
 
-      <div className="mt-10 text-center text-sm">
+      <div className="mt-10 text-center text-[14.5px]">
         <Link href="/services" className="text-[#3ddbd9] hover:underline">← Back to Services &amp; Pricing</Link>
       </div>
     </div>

@@ -127,7 +127,7 @@ export default function BusinessCardsPage() {
                     <div>
                       <input type="radio" name="package" className="accent-[#3ddbd9]" checked={isSelected} onChange={() => update("package", p.label)} />
                       <div className="font-medium mt-1.5 tracking-tight">{p.label}</div>
-                      {p.note && <div className="text-xs text-[#8a9599]">{p.note}</div>}
+                      {p.note && <div className="text-[12.5px] text-[#9aa6ad]">{p.note}</div>}
                       {isPopular && <span className="badge-gold mt-1 inline-block text-[9.5px]">MOST POPULAR</span>}
                     </div>
                     <div className="text-right font-semibold tabular-nums tracking-tight text-lg self-start">{p.price}</div>
@@ -202,13 +202,13 @@ export default function BusinessCardsPage() {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-[#1a2225] bg-[#0a0c0f] p-5 text-sm text-[#8a9599]">
+          <div className="rounded-2xl border border-[#1a2225] bg-[#0a0c0f] p-5 text-[14.5px] text-[#9aa6ad]">
             After we review your request, I&apos;ll send you a simple proposal. A small deposit is required to begin design work (usually $75 for design-only, $100–$150 for printed packages). This protects both of us and locks in your spot. Most projects delivered in 5–10 business days.
           </div>
 
           <button type="submit" className="btn btn-primary w-full py-3 text-base">Submit My Request →</button>
 
-          <p className="text-center text-xs text-[#8a9599]">Submitting opens your email app with the details pre-filled. Just hit send.</p>
+          <p className="text-center text-[12.5px] text-[#9aa6ad]">Submitting opens your email app with the details pre-filled. Just hit send.</p>
         </form>
       ) : (
         <div className="rounded-3xl border border-[#1a2225] bg-[#0a0c0f] p-9 text-center">

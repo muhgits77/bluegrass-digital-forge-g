@@ -16,10 +16,10 @@ export default function Testimonial({ quote, name, role }: TestimonialProps) {
       <div className="flex gap-px text-[#f4a261] mb-3.5" aria-hidden>
         {"★★★★★".split("").map((s, i) => <span key={i}>{s}</span>)}
       </div>
-      <p className="text-[14.5px] leading-[1.42] text-[#c8cfd3] flex-1">“{quote}”</p>
+      <p className="text-[15px] leading-[1.5] text-[#c8cfd3] flex-1">“{quote}”</p>
       <div className="mt-auto pt-4 border-t border-[#1a2225]">
-        <div className="font-semibold tracking-[-0.1px] text-[14.5px]">{name}</div>
-        <div className="text-xs text-[#8a9599] mt-px">{role}</div>
+        <div className="font-semibold tracking-[-0.1px] text-[15px]">{name}</div>
+        <div className="text-[13px] text-[#9aa6ad] mt-px">{role}</div>
       </div>
     </motion.div>
   );

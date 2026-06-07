@@ -68,13 +68,11 @@ export default function Home() {
     <>
       {/* HERO — Early morning on Lake Cumberland. Grok Build signature: distinct, atmospheric, ownable. Cool misty dawn + warm crafted accents. */}
       <section className="relative min-h-[94vh] flex flex-col overflow-hidden border-b border-[#1a2225] bg-[#050708]">
-        {/* New custom early morning hero — completely different atmosphere from Lovable */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ 
-            backgroundImage: "url('/hero-morning.jpg')",
-            backgroundPosition: "center 42%"
-          }}
+        {/* Hero scene image — using <img> + object-position for precise mobile focal control so the boat and left-side lake elements are always visible */}
+        <img
+          src="/hero-morning.jpg"
+          alt="Early misty morning on Lake Cumberland — calm water and atmospheric light"
+          className="hero-scene absolute inset-0 w-full h-full object-cover"
         />
 
         {/* Atmospheric overlays tuned for cool misty morning light */}
@@ -108,7 +106,7 @@ export default function Home() {
         </div>
 
         {/* Content */}
-        <div className="relative flex-1 flex items-center justify-center px-5 pt-16 pb-8" style={{ zIndex: 3 }}>
+        <div className="relative flex-1 flex items-center justify-center px-5 pt-16 pb-8 md:pb-6" style={{ zIndex: 3 }}>
           <div className="w-full max-w-[860px] text-center">
             {/* Badge */}
             <motion.div
@@ -135,7 +133,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
-              className="mx-auto mt-5 max-w-[42ch] text-[17px] leading-relaxed text-white/90"
+              className="mx-auto mt-5 max-w-[42ch] text-[17.5px] leading-relaxed text-white/90"
             >
               Handcrafted in Monticello by a real neighbor you can actually call. Flat pricing, launched in 2–4 weeks, and you own every pixel.
             </motion.p>
@@ -174,7 +172,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.38, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-9 flex flex-wrap justify-center gap-x-6 gap-y-2 text-[13.5px] text-white/80"
+              className="mt-9 flex flex-wrap justify-center gap-x-6 gap-y-2 text-[14px] text-white/85"
             >
               {["Flat pricing, no surprises", "You own everything", "Local — real phone, real neighbor", "Live in 2–4 weeks"].map((t, i) => (
                 <div key={i} className="inline-flex items-center gap-1.5">
@@ -198,7 +196,7 @@ export default function Home() {
               <span className="font-semibold text-[#f4a261]">From $1,200</span> Starter Site
             </span>
             <span className="text-white/30">|</span>
-            <span className="text-[12.5px] text-white/75 max-w-[32ch]">
+            <span className="text-[13.5px] text-white/80 max-w-[32ch]">
               “Brian just gets it. No upsell — just a clean site that works.” — Local food truck owner
             </span>
           </div>
@@ -209,19 +207,19 @@ export default function Home() {
           <div className="mx-auto max-w-6xl px-5 py-4 grid grid-cols-2 md:grid-cols-4 gap-x-3 gap-y-1 text-center text-sm">
             <div>
               <div className="text-[21px] font-semibold tracking-[-1.3px] text-white">16+</div>
-              <div className="text-[10px] tracking-[1.5px] text-white/55">LIVE DEMO SITES</div>
+              <div className="text-[11px] tracking-[1.5px] text-white/65">LIVE DEMO SITES</div>
             </div>
             <div>
               <div className="text-[21px] font-semibold tracking-[-1.3px] text-white">2–4 WEEKS</div>
-              <div className="text-[10px] tracking-[1.5px] text-white/55">AVERAGE LAUNCH</div>
+              <div className="text-[11px] tracking-[1.5px] text-white/65">AVERAGE LAUNCH</div>
             </div>
             <div>
               <div className="text-[21px] font-semibold tracking-[-1.3px] text-white">5★</div>
-              <div className="text-[10px] tracking-[1.5px] text-white/55">OWNER SATISFACTION</div>
+              <div className="text-[11px] tracking-[1.5px] text-white/65">OWNER SATISFACTION</div>
             </div>
             <div>
               <div className="text-[21px] font-semibold tracking-[-1.3px] text-white">100%</div>
-              <div className="text-[10px] tracking-[1.5px] text-white/55">YOU OWN EVERYTHING</div>
+              <div className="text-[11px] tracking-[1.5px] text-white/65">YOU OWN EVERYTHING</div>
             </div>
           </div>
         </div>
@@ -234,11 +232,11 @@ export default function Home() {
             <div className="label tracking-[1.5px] mb-0.5">MY WORK</div>
             <h2 className="section-title tracking-tight">Demo websites for every local business type.</h2>
           </div>
-          <Link href="/work" className="hidden md:inline-flex items-center gap-1 text-sm text-[#f4a261] hover:underline">
+          <Link href="/work" className="hidden md:inline-flex items-center gap-1 text-[14.5px] text-[#f4a261] hover:underline">
             See all 16 demo sites <ArrowRight size={15} />
           </Link>
         </div>
-        <p className="text-[#8a9599] max-w-2xl mb-6 text-sm">Here are some of my recent demo websites built for different local business types. All are fictional examples.</p>
+        <p className="text-[#9aa6ad] max-w-2xl mb-6 text-[14.5px]">Here are some of my recent demo websites built for different local business types. All are fictional examples.</p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {demos.map((d, i) => (
@@ -255,7 +253,7 @@ export default function Home() {
         </div>
 
         <div className="mt-4 text-center md:hidden">
-          <Link href="/work" className="text-sm text-[#f4a261] hover:underline">See all 16 demo sites →</Link>
+          <Link href="/work" className="text-[14.5px] text-[#f4a261] hover:underline">See all 16 demo sites →</Link>
         </div>
       </section>
 
@@ -306,7 +304,7 @@ export default function Home() {
 
           <div className="mt-7 flex flex-wrap gap-3 items-center">
             <Link href="/about" className="btn btn-secondary text-sm">More about me →</Link>
-            <p className="text-xs text-[#8a9599]">Proudly serving Monticello, Albany, Somerset, Jamestown, Burnside, and all of Wayne County and the Lake Cumberland region.</p>
+            <p className="text-[12.5px] text-[#9aa6ad]">Proudly serving Monticello, Albany, Somerset, Jamestown, Burnside, and all of Wayne County and the Lake Cumberland region.</p>
           </div>
         </div>
       </section>
@@ -331,15 +329,15 @@ export default function Home() {
             <div className="flex items-baseline justify-between">
               <div>
                 <h3 className="text-2xl font-semibold tracking-tight">Starter Sites</h3>
-                <p className="text-[#8a9599] text-sm mt-0.5">Perfect for food trucks, barbers, and very small shops</p>
+                <p className="text-[#9aa6ad] text-[14.5px] mt-0.5">Perfect for food trucks, barbers, and very small shops</p>
               </div>
               <div className="text-right">
                 <div className="text-3xl font-semibold tabular-nums tracking-[-1.5px]">$1,200</div>
-                <div className="text-xs text-[#8a9599] -mt-0.5">one-time</div>
+                <div className="text-[11.5px] text-[#9aa6ad] -mt-0.5">one-time</div>
               </div>
             </div>
 
-            <ul className="mt-6 space-y-2 text-sm flex-1">
+            <ul className="mt-6 space-y-2 text-[14.5px] flex-1">
               {["Up to 4 polished pages", "Mobile-first, lightning-fast", "Local SEO baked in", "Contact form + Google Maps", "You own the domain & code"].map((f, i) => (
                 <li key={i} className="flex gap-2.5 text-[#c8cfd3]"><Check size={15} className="check mt-0.5 shrink-0" /> {f}</li>
               ))}
@@ -360,14 +358,14 @@ export default function Home() {
               <h3 className="text-2xl font-semibold tracking-tight">Business Suites</h3>
               <span className="badge text-[10px] py-px">MOST POPULAR</span>
             </div>
-            <p className="text-[#8a9599] text-sm">For restaurants, shops, and co-ops with menus, booking, or galleries</p>
+            <p className="text-[#9aa6ad] text-[14.5px]">For restaurants, shops, and co-ops with menus, booking, or galleries</p>
 
             <div className="mt-4 flex items-baseline justify-between">
               <div className="text-3xl font-semibold tabular-nums tracking-[-1.5px]">$2,500</div>
               <div className="text-xs text-[#8a9599]">one-time</div>
             </div>
 
-            <ul className="mt-5 space-y-2 text-sm flex-1">
+            <ul className="mt-5 space-y-2 text-[14.5px] flex-1">
               {["Up to 8 fully custom pages", "Online menu, booking or gallery", "Stripe checkout (optional)", "Advanced local SEO + analytics", "Two rounds of design revisions", "Hands-on launch + training call"].map((f, i) => (
                 <li key={i} className="flex gap-2.5 text-[#c8cfd3]"><Check size={15} className="check mt-0.5 shrink-0" /> {f}</li>
               ))}
@@ -377,7 +375,7 @@ export default function Home() {
           </motion.div>
         </div>
 
-        <p className="text-center text-xs mt-5 text-[#8a9599]">
+        <p className="text-center text-[12.5px] mt-5 text-[#9aa6ad]">
           Optional care plan from $79/month · Branding add-ons from $150 · <Link href="/services" className="text-[#f4a261] underline">View full details</Link>
         </p>
 
@@ -388,7 +386,7 @@ export default function Home() {
               <div className="label tracking-[1.5px]">BRANDING ADD-ONS</div>
               <h3 className="text-xl tracking-tight font-semibold mt-0.5">Look the part, everywhere.</h3>
             </div>
-            <p className="text-sm text-[#8a9599] max-w-sm md:text-right">Business cards, logo work, and full branding kits. Add to any website, or buy on their own.</p>
+            <p className="text-[14.5px] text-[#9aa6ad] max-w-sm md:text-right">Business cards, logo work, and full branding kits. Add to any website, or buy on their own.</p>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
@@ -407,7 +405,7 @@ export default function Home() {
       <section className="py-11 text-center border-t border-[#1a2225]">
         <div className="mx-auto max-w-xl px-5">
           <h2 className="text-3xl tracking-tight font-semibold">Ready for a website that actually works?</h2>
-          <p className="mt-2 text-[#8a9599]">No pressure, no jargon — just an honest plan for your business from a real local neighbor.</p>
+          <p className="mt-2 text-[15px] text-[#9aa6ad]">No pressure, no jargon — just an honest plan for your business from a real local neighbor.</p>
           <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
             <Link href="/quote" className="btn btn-primary px-7 py-2.5">Get a Custom Quote →</Link>
             <Link href="/contact" className="inline-flex items-center justify-center rounded-full border border-[#2a3437] px-5 py-2 text-sm font-semibold hover:bg-[#0a0c0f]">Or just say hi</Link>

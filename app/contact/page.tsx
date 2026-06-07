@@ -55,7 +55,7 @@ export default function ContactPage() {
           </div>
 
           <button type="submit" className="btn btn-primary w-full py-3">Send Message →</button>
-          <p className="text-xs text-center text-[#8a9599]">This will open your email app with the message ready to send to {EMAIL}.</p>
+          <p className="text-[12.5px] text-center text-[#9aa6ad]">This will open your email app with the message ready to send to {EMAIL}.</p>
         </form>
       ) : (
         <div className="mt-8 rounded-2xl bg-[#0a0c0f] p-7 text-center border border-[#1a2225]">
@@ -63,7 +63,7 @@ export default function ContactPage() {
         </div>
       )}
 
-      <div className="mt-10 text-sm text-[#8a9599] border-t border-[#1a2225] pt-6">
+      <div className="mt-10 text-[14.5px] text-[#9aa6ad] border-t border-[#1a2225] pt-6">
         Prefer to call or text? Reach out via the email above and I&apos;ll happily share my number. Based in Monticello, KY — serving the entire Lake Cumberland region.
       </div>
 

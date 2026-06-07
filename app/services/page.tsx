@@ -57,8 +57,8 @@ export default function Services() {
       <div className="max-w-3xl">
         <div className="label tracking-[2px]">SERVICES &amp; PRICING</div>
         <h1 className="section-title tracking-tight mt-2">Flat pricing. Forged honest.</h1>
-        <p className="mt-3 text-lg text-[#8a9599]">Two website packages. You own your site, your domain, and your content — forever. Hosting is optional.</p>
-        <p className="text-sm text-[#8a9599] mt-1">Local web designer serving Monticello, Albany, Somerset, Jamestown, Burnside, and all of Wayne County, KY.</p>
+        <p className="mt-3 text-lg text-[#9aa6ad]">Two website packages. You own your site, your domain, and your content — forever. Hosting is optional.</p>
+        <p className="text-[14.5px] text-[#9aa6ad] mt-1">Local web designer serving Monticello, Albany, Somerset, Jamestown, Burnside, and all of Wayne County, KY.</p>
       </div>
 
       {/* Two Big Website Cards — premium modern treatment, exact content */}
@@ -70,9 +70,9 @@ export default function Services() {
           </div>
           <div className="mt-4">
             <span className="text-5xl font-semibold tracking-[-2.5px] tabular-nums">$1,200</span>
-            <span className="ml-1.5 text-sm text-[#8a9599]">starting at • one-time</span>
+            <span className="ml-1.5 text-[14px] text-[#9aa6ad]">starting at • one-time</span>
           </div>
-          <div className="mt-1 text-xs uppercase tracking-widest text-[#3ddbd9]">FLAT SCOPE-BASED PRICING</div>
+          <div className="mt-1 text-[11px] uppercase tracking-widest text-[#3ddbd9]">FLAT SCOPE-BASED PRICING</div>
 
           <ul className="mt-7 space-y-[11px] text-[15px]">
             {starterFeatures.map((f, i) => (
@@ -84,7 +84,7 @@ export default function Services() {
 
           <div className="mt-auto pt-8">
             <Link href="/quote" className="btn btn-secondary w-full">Start a Starter Site →</Link>
-            <p className="text-center text-xs text-[#8a9599] mt-3">
+            <p className="text-center text-[12.5px] text-[#9aa6ad] mt-3">
               See it live: <a href="https://smoky-wheels.lovable.app" target="_blank" className="underline hover:text-[#3ddbd9]">Smoky Wheels demo</a>
             </p>
           </div>
@@ -99,9 +99,9 @@ export default function Services() {
 
           <div className="mt-4">
             <span className="text-5xl font-semibold tracking-[-2.5px] tabular-nums">$2,500</span>
-            <span className="ml-1.5 text-sm text-[#8a9599]">starting at • one-time</span>
+            <span className="ml-1.5 text-[14px] text-[#9aa6ad]">starting at • one-time</span>
           </div>
-          <div className="mt-1 text-xs uppercase tracking-widest text-[#3ddbd9]">FLAT SCOPE-BASED PRICING</div>
+          <div className="mt-1 text-[11px] uppercase tracking-widest text-[#3ddbd9]">FLAT SCOPE-BASED PRICING</div>
 
           <ul className="mt-7 space-y-[11px] text-[15px]">
             {businessFeatures.map((f, i) => (
@@ -113,14 +113,14 @@ export default function Services() {
 
           <div className="mt-auto pt-8">
             <Link href="/quote" className="btn btn-primary w-full">Start a Business Suite →</Link>
-            <p className="text-center text-xs text-[#8a9599] mt-3">
+            <p className="text-center text-[12.5px] text-[#9aa6ad] mt-3">
               See it live: <a href="https://hickory-forge-steakhouse.lovable.app" target="_blank" className="underline hover:text-[#3ddbd9]">Hickory Forge demo</a>
             </p>
           </div>
         </div>
       </div>
 
-      <p className="text-sm text-center mt-6 text-[#8a9599]">Not sure which one? Tell me about your business — I&apos;ll point you to the Starter if that&apos;s all you need.</p>
+      <p className="text-[14.5px] text-center mt-6 text-[#9aa6ad]">Not sure which one? Tell me about your business — I&apos;ll point you to the Starter if that&apos;s all you need.</p>
 
       {/* Branding Add-ons — 5 cards, $300 marked Most Popular */}
       <div className="mt-16">
@@ -129,7 +129,7 @@ export default function Services() {
             <div className="label tracking-[1.5px]">BRANDING ADD-ONS</div>
             <h2 className="text-3xl tracking-tight font-semibold">Look the part, everywhere.</h2>
           </div>
-          <p className="text-[#8a9599] max-w-md text-sm">Business cards, logo work, and full branding kits. Add to any website, or buy on their own.</p>
+          <p className="text-[#9aa6ad] max-w-md text-[14.5px]">Business cards, logo work, and full branding kits. Add to any website, or buy on their own.</p>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
@@ -141,7 +141,7 @@ export default function Services() {
         <div className="mt-5">
           <Link href="/business-cards" className="btn btn-secondary text-sm">Get a Business Card Quote →</Link>
         </div>
-        <p className="text-xs text-[#8a9599] mt-2">Deposit required to begin design work. You own everything once paid in full.</p>
+        <p className="text-[12.5px] text-[#9aa6ad] mt-2">Deposit required to begin design work. You own everything once paid in full.</p>
       </div>
 
       {/* Optional Care Plan — $79/mo full benefits */}
@@ -158,7 +158,7 @@ export default function Services() {
             <span className="text-xl text-[#8a9599]">/month</span>
             <div className="text-xs text-[#3ddbd9] tracking-widest mt-0.5">TOTALLY OPTIONAL — HOST IT WHEREVER YOU WANT.</div>
           </div>
-          <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-1.5 text-sm text-[#c8cfd3] flex-1">
+          <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-1.5 text-[14.5px] text-[#c8cfd3] flex-1">
             {careBullets.map((b, i) => (
               <li key={i} className="flex gap-2.5"><Check size={16} className="check mt-1" /> {b}</li>
             ))}

@@ -36,7 +36,7 @@ export default function Nav() {
             <Link
               key={link.href}
               href={link.href}
-              className={`nav-link text-sm font-medium tracking-[-0.1px] ${isActive(link.href) ? "active" : ""}`}
+              className={`nav-link font-medium tracking-[-0.1px] ${isActive(link.href) ? "active" : ""}`}
             >
               {link.label}
             </Link>
@@ -46,7 +46,7 @@ export default function Nav() {
         <div className="hidden items-center gap-3 md:flex">
           <Link
             href="/quote"
-            className="btn btn-primary text-[13.5px] px-5 py-[9px]"
+            className="btn btn-primary px-5 py-[9.5px] text-[14px]"
           >
             Get a Quote →
           </Link>
@@ -64,13 +64,13 @@ export default function Nav() {
 
       {/* Mobile menu */}
       <div className={`md:hidden border-t border-[#1a2225] bg-[#050708] ${open ? "block" : "hidden"}`}>
-        <div className="flex flex-col px-5 py-3.5 gap-0.5 text-sm">
+        <div className="flex flex-col px-5 py-4 gap-0.5 text-[15px]">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               onClick={() => setOpen(false)}
-              className={`py-2.5 nav-link ${isActive(link.href) ? "active font-medium" : ""}`}
+              className={`py-3 nav-link ${isActive(link.href) ? "active font-medium" : ""}`}
             >
               {link.label}
             </Link>
@@ -86,14 +86,14 @@ export default function Nav() {
             <Link
               href="/quote"
               onClick={() => setOpen(false)}
-              className="btn btn-primary w-full justify-center text-[13.5px] py-2.5"
+              className="btn btn-primary w-full justify-center py-2.5 text-[14px]"
             >
               Get a Quote →
             </Link>
             <Link
               href="/services"
               onClick={() => setOpen(false)}
-              className="btn btn-secondary w-full justify-center py-2.5 text-sm"
+              className="btn btn-secondary w-full justify-center py-2.5"
             >
               View Pricing
             </Link>

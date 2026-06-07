@@ -2,23 +2,20 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-[#1a2225] bg-[#050708] text-sm">
+    <footer className="border-t border-[#1a2225] bg-[#050708] text-[14.5px]">
       <div className="mx-auto max-w-7xl px-5 py-11">
         <div className="grid grid-cols-1 gap-y-10 md:grid-cols-12 md:gap-x-8">
           {/* Brand */}
           <div className="md:col-span-5">
             <div className="flex items-center gap-2.5 mb-3.5">
-              <div className="flex h-6 w-6 items-center justify-center rounded bg-[#14b8a6] text-[#050708]">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 2v20M2 12h20" />
-                </svg>
-              </div>
-              <span className="font-semibold tracking-tight text-[15px]">Bluegrass Digital Forge</span>
+              {/* Use the business logo (small) for consistency with header */}
+              <img src="/logo.jpg" alt="" className="h-[22px] w-auto object-contain" />
+              <span className="font-semibold tracking-tight text-[15.5px]">Bluegrass Digital Forge</span>
             </div>
             <p className="text-[#8a9599] max-w-sm leading-relaxed">
               Websites that win more customers for Lake Cumberland businesses. Flat pricing, fast launches, full ownership. Handcrafted locally in Monticello for food trucks, restaurants, shops &amp; neighbors around the lake.
             </p>
-            <p className="mt-4 text-xs text-[#8a9599] tracking-wide">Forged by Brian · Monticello, Kentucky</p>
+            <p className="mt-4 text-[12.5px] text-[#9aa6ad] tracking-wide">Forged by Brian · Monticello, Kentucky</p>
           </div>
 
           {/* Site Navigation */}
@@ -54,24 +51,24 @@ export default function Footer() {
             <div className="label mb-3.5">Get in Touch</div>
             <div className="space-y-4 text-[#8a9599]">
               <div>
-                <div className="text-[10px] uppercase tracking-[1.5px] mb-1 text-[#6f7c82]">Email</div>
-                <a href="mailto:BluegrassDigitalForge@protonmail.com" className="hover:text-[#3ddbd9] transition-colors break-all text-sm">
+                <div className="text-[11px] uppercase tracking-[1.5px] mb-1 text-[#7f8c90]">Email</div>
+                <a href="mailto:BluegrassDigitalForge@protonmail.com" className="hover:text-[#3ddbd9] transition-colors break-all text-[14.5px]">
                   BluegrassDigitalForge@protonmail.com
                 </a>
               </div>
               <div>
-                <div className="text-[10px] uppercase tracking-[1.5px] mb-1 text-[#6f7c82]">Based In</div>
-                <div className="text-sm">Monticello, Kentucky 42633<br />Lake Cumberland Region</div>
+                <div className="text-[11px] uppercase tracking-[1.5px] mb-1 text-[#7f8c90]">Based In</div>
+                <div className="text-[14.5px]">Monticello, Kentucky 42633<br />Lake Cumberland Region</div>
               </div>
               <div>
-                <div className="text-[10px] uppercase tracking-[1.5px] mb-1 text-[#6f7c82]">Hours</div>
-                <div className="text-sm">Mon–Fri 9a–6p ET<br />Weekend replies welcome</div>
+                <div className="text-[11px] uppercase tracking-[1.5px] mb-1 text-[#7f8c90]">Hours</div>
+                <div className="text-[14.5px]">Mon–Fri 9a–6p ET<br />Weekend replies welcome</div>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="mt-11 pt-6 border-t border-[#1a2225] flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs text-[#8a9599]">
+        <div className="mt-11 pt-6 border-t border-[#1a2225] flex flex-col md:flex-row md:items-center justify-between gap-3 text-[12.5px] text-[#9aa6ad]">
           <div>© {new Date().getFullYear()} Bluegrass Digital Forge · Forged in Monticello, Kentucky</div>
           <div className="flex items-center gap-2">Independently owned · No agency middlemen · <span className="text-[#3ddbd9]">You own everything</span></div>
         </div>

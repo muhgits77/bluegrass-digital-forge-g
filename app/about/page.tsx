@@ -6,7 +6,7 @@ export default function AboutPage() {
       <div className="label tracking-[1.5px]">ABOUT</div>
       <h1 className="section-title tracking-tight mt-1">Local Web Designer</h1>
 
-      <div className="prose prose-invert mt-6 max-w-none text-[#c8cfd3] text-[15px] leading-relaxed">
+      <div className="prose prose-invert mt-6 max-w-none text-[#c8cfd3] text-[15.5px] leading-relaxed">
         <p>I live and work right here on Lake Cumberland — not a 1-800 number or a chat window halfway across the country. When you hire Bluegrass Digital Forge, you get a real neighbor who knows the difference between a Wayne County food truck and a Somerset storefront.</p>
         <p>Web designer serving Monticello, Albany, Somerset, Jamestown, Burnside, and all of Wayne County, KY — plus the small towns up and down Lake Cumberland.</p>
       </div>
@@ -20,7 +20,7 @@ export default function AboutPage() {
         ].map(([title, body], i) => (
           <div key={i} className="border-l-2 border-[#3ddbd9] pl-4">
             <div className="font-semibold tracking-tight text-lg">{title}</div>
-            <p className="mt-2 text-sm text-[#8a9599]">{body}</p>
+            <p className="mt-2 text-[14.5px] text-[#9aa6ad]">{body}</p>
           </div>
         ))}
       </div>
@@ -33,7 +33,7 @@ export default function AboutPage() {
         </div>
       </div>
 
-      <p className="text-center text-xs mt-10 text-[#8a9599]">Forged in Monticello, Kentucky. Independently owned. No agency middlemen.</p>
+      <p className="text-center text-[12.5px] mt-10 text-[#9aa6ad]">Forged in Monticello, Kentucky. Independently owned. No agency middlemen.</p>
     </div>
   );
 }

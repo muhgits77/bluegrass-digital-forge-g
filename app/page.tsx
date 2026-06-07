@@ -68,11 +68,14 @@ export default function Home() {
     <>
       {/* HERO — Early morning on Lake Cumberland. Grok Build signature: distinct, atmospheric, ownable. Cool misty dawn + warm crafted accents. */}
       <section className="relative min-h-[94vh] flex flex-col overflow-hidden border-b border-[#1a2225] bg-[#050708]">
-        {/* Hero scene image — using <img> + object-position for precise mobile focal control so the boat and left-side lake elements are always visible */}
-        <img
-          src="/hero-morning.jpg"
-          alt="Early misty morning on Lake Cumberland — calm water and atmospheric light"
-          className="hero-scene absolute inset-0 w-full h-full object-cover"
+        {/* Hero background — using background-size: cover + responsive background-position 
+            Desktop: beautiful centered misty view
+            Mobile: full scene showing heron (left), boat (right), misty mountains & landscape */}
+        <div 
+          className="hero-bg absolute inset-0 bg-cover"
+          style={{ 
+            backgroundImage: "url('/hero-morning.jpg')"
+          }}
         />
 
         {/* Atmospheric overlays tuned for cool misty morning light */}
@@ -106,7 +109,7 @@ export default function Home() {
         </div>
 
         {/* Content */}
-        <div className="relative flex-1 flex items-center justify-center px-5 pt-16 pb-8 md:pb-6" style={{ zIndex: 3 }}>
+        <div className="hero-content relative flex-1 flex items-center justify-center px-5 pt-16 pb-8 md:pb-6" style={{ zIndex: 3 }}>
           <div className="w-full max-w-[860px] text-center">
             {/* Badge */}
             <motion.div
@@ -124,7 +127,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="section-title mx-auto max-w-[18ch] text-balance leading-[.91] text-white tracking-[-2.1px] text-[clamp(2.55rem,6.8vw,3.75rem)]"
+              className="section-title mx-auto max-w-[18ch] text-balance leading-[.91] text-white tracking-[-2.1px] text-[clamp(2rem,7.5vw,3.75rem)] md:text-[clamp(2.55rem,6.8vw,3.75rem)]"
             >
               Websites that win <span className="text-[#f4a261]">more customers</span><br />for Lake Cumberland businesses.
             </motion.h1>

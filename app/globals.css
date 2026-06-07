@@ -457,16 +457,39 @@ section, .section {
   text-shadow: 0 2px 12px rgba(0,0,0,0.55);
 }
 
-/* ========== MOBILE VISUAL POLISH (9/10 goal) ========== */
-/* Hero scene: ensure the boat + left-side lake/mist composition is visible on phones.
-   Desktop keeps the beautiful centered misty view. */
-.hero-scene {
-  object-position: 50% 38%;
+/* ========== HERO BACKGROUND (full scene on mobile) ========== */
+.hero-bg {
+  background-position: 50% 35%;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 @media (max-width: 640px) {
-  .hero-scene {
-    /* Bias toward left side of scene + lower to reveal boat and water details the user mentioned */
-    object-position: 32% 52%;
+  .hero-bg {
+    /* On mobile show the full scenic view: heron (left), boat (right), misty mountains & landscape.
+       Tuned position to avoid over-zoom on heron while including both key elements. */
+    background-position: 50% 42%;
+  }
+
+  /* Improve text readability on small screens in hero */
+  .hero-content {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .hero-content h1 {
+    font-size: clamp(1.95rem, 8.5vw, 2.85rem) !important;
+    line-height: 1.05 !important;
+    max-width: 16ch;
+  }
+
+  .hero-content p {
+    font-size: 15px !important;
+    max-width: 36ch;
+  }
+
+  /* Make trust bar and badge more comfortable */
+  .hero-content .text-\[10px\] {
+    font-size: 9.5px;
   }
 }
 

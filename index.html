@@ -68,11 +68,23 @@
     .testimonial { background: #0c1013; border: 1px solid #1a2225; }
     .testimonial:hover { border-color: #33423c; transform: translateY(-4px); box-shadow: 0 24px 40px -12px rgb(0 0 0 / 0.4); }
 
-    .hero-boat { background-position: center 36%; background-size: cover; }
+    .hero-boat {
+      background-size: cover;
+      background-position: 50% 22%; /* wide scenic: more sky, landscape, water &amp; mist visible */
+    }
     @media (max-width: 640px) {
-      .hero-boat { background-position: 52% 40%; }
-      .hero-content h1 { font-size: clamp(2.05rem, 9.2vw, 2.95rem) !important; line-height: 1.02 !important; letter-spacing: -2.8px !important; }
-      .hero-content p { font-size: 15.5px !important; }
+      .hero-boat { background-position: 50% 26%; } /* full lake scene on phones, no tight crop */
+    }
+
+    /* Improved mobile hero typography + spacing for spacious premium feel */
+    @media (max-width: 640px) {
+      .hero-content h1 {
+        font-size: clamp(2.25rem, 9.4vw, 2.95rem) !important;
+        line-height: 1.01 !important;
+        letter-spacing: -2.9px !important;
+        max-width: 17.5ch;
+      }
+      .hero-content p { font-size: 15.8px !important; line-height: 1.48 !important; max-width: 36ch; }
       .btn, .cta-primary { min-height: 48px; font-size: 1rem; }
     }
 
@@ -87,6 +99,20 @@
     .forged-shadow { text-shadow: 0 3px 18px rgba(0,0,0,0.55); }
 
     .mobile-perfect { padding-left: 1.15rem; padding-right: 1.15rem; }
+
+    /* General polish: more spacious sections, better mobile typography &amp; cards */
+    section { scroll-margin-top: 70px; }
+    @media (max-width: 640px) {
+      section { scroll-margin-top: 60px; }
+      .demo-card .p-4 { padding: 1rem 0.95rem; }
+      .step-card, .testimonial { padding: 1.35rem 1.1rem; }
+      .pricing-card, .rounded-3xl.p-7 { padding: 1.55rem 1.25rem; }
+      .label { letter-spacing: 0.12em; }
+    }
+
+    /* Slightly tighter, premium typography scale */
+    .section-title { line-height: 1.03; }
+    p { line-height: 1.65; }
   </style>
 </head>
 <body class="bg-[#050708] text-[#f5f0e6] antialiased">
@@ -139,44 +165,47 @@
     </div>
   </nav>
 
-  <!-- HERO — Even stronger, more emotional. Perfect boat imagery. -->
-  <section class="relative min-h-[100dvh] flex flex-col overflow-hidden border-b border-[#243530] bg-[#0b1715]">
-    <div class="absolute inset-0 bg-cover hero-boat" style="background-image: url('/hero-lake-boat.jpg'); background-position: center 36%;"></div>
+  <!-- HERO — Wide, spacious, atmospheric Lake Cumberland scene. Full scenic view, premium &amp; emotional on all sizes. -->
+  <section class="relative min-h-[95dvh] md:min-h-[100dvh] flex flex-col overflow-hidden border-b border-[#243530] bg-[#0b1715]">
+    <!-- Wide atmospheric hero background — morning lake scene with full landscape, water, mist, boat &amp; depth. -->
+    <div class="absolute inset-0 bg-cover hero-boat" style="background-image: url('/hero-morning.jpg');"></div>
     
-    <!-- Cinematic overlays — warm, trustworthy, readable -->
-    <div class="absolute inset-0 bg-gradient-to-b from-[#0b1715]/85 via-[#0b1715]/55 to-[#0b1715]/93"></div>
-    <div class="absolute inset-0 bg-gradient-to-r from-[#0b1715]/55 via-transparent to-transparent"></div>
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_38%_28%,rgba(93,127,106,0.18)_0%,transparent_68%)]"></div>
+    <!-- Stronger, layered overlays for excellent text contrast while preserving scenic beauty -->
+    <div class="absolute inset-0 bg-gradient-to-b from-[#0b1715]/80 via-[#0b1715]/48 to-[#0b1715]/94"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-[#0b1715]/65 via-[#0b1715]/10 to-transparent"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_40%_25%,rgba(80,110,95,0.22)_0%,transparent_72%)]"></div>
+    <!-- Extra bottom vignette for spacious premium text pop -->
+    <div class="absolute inset-x-0 bottom-0 h-[42%] bg-gradient-to-t from-[#0b1715]/75 to-transparent"></div>
 
-    <!-- Atmospheric water glints -->
+    <!-- Very subtle atmospheric glints / mist particles (repositioned for wider scene) -->
     <div class="absolute inset-0 pointer-events-none overflow-hidden" style="z-index:2">
-      <div class="water-glint absolute w-[1.6px] h-[1.6px] rounded-full bg-[#f4a261]" style="left:58%; top:31%; animation-delay:0s"></div>
-      <div class="water-glint absolute w-[1.6px] h-[1.6px] rounded-full bg-[#f4a261]" style="left:66%; top:38%; animation-delay:1.1s"></div>
-      <div class="water-glint absolute w-[1.6px] h-[1.6px] rounded-full bg-[#f4a261]" style="left:73%; top:29%; animation-delay:2.4s"></div>
-      <div class="water-glint absolute w-[1.6px] h-[1.6px] rounded-full bg-[#f4a261]" style="left:81%; top:43%; animation-delay:0.6s"></div>
+      <div class="water-glint absolute w-[1.5px] h-[1.5px] rounded-full bg-[#f4a261]" style="left:22%; top:24%; animation-delay:0s"></div>
+      <div class="water-glint absolute w-[1.5px] h-[1.5px] rounded-full bg-[#f4a261]" style="left:34%; top:41%; animation-delay:1.8s"></div>
+      <div class="water-glint absolute w-[1.5px] h-[1.5px] rounded-full bg-[#f4a261]" style="left:71%; top:19%; animation-delay:0.9s"></div>
+      <div class="water-glint absolute w-[1.5px] h-[1.5px] rounded-full bg-[#f4a261]" style="left:82%; top:33%; animation-delay:2.6s"></div>
     </div>
 
-    <div class="relative flex-1 flex items-center justify-center px-5 pt-20 pb-9 mobile-perfect" style="z-index:3">
-      <div class="w-full max-w-[720px] text-center">
-        <div class="inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/8 backdrop-blur-2xl px-6 py-1.5 text-[10.5px] tracking-[2.2px] text-white/90 mb-7">
+    <div class="hero-content relative flex-1 flex items-center justify-center px-5 pt-16 pb-8 md:pt-20 md:pb-10 mobile-perfect" style="z-index:3">
+      <div class="w-full max-w-[680px] text-center">
+        <div class="inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-white/10 backdrop-blur-2xl px-5 py-1.5 text-[10px] tracking-[2px] text-white/95 mb-6 md:mb-7">
           <span class="inline-block w-1.5 h-1.5 rounded-full bg-[#c17a5a] animate-pulse"></span>
           NOW BOOKING — LAKE CUMBERLAND &amp; WAYNE COUNTY
         </div>
 
-        <h1 class="mx-auto max-w-[17ch] text-balance leading-[0.985] text-white tracking-[-3.1px] text-[clamp(2.35rem,8.9vw,4.55rem)] md:text-[clamp(2.85rem,6.1vw,4.55rem)] font-semibold forged-shadow">
+        <h1 class="mx-auto max-w-[18ch] text-balance leading-[0.98] text-white tracking-[-3.2px] text-[clamp(2.4rem,9vw,4.35rem)] md:text-[clamp(2.75rem,5.8vw,4.35rem)] font-semibold forged-shadow">
           Websites forged for the lake.<br>That actually bring customers in.
         </h1>
 
-        <p class="mx-auto mt-5 max-w-[39ch] text-[17px] md:text-[18px] leading-relaxed text-white/90">
+        <p class="mx-auto mt-4 md:mt-5 max-w-[37ch] text-[16.5px] md:text-[17.5px] leading-relaxed text-white/92">
           Handcrafted in Monticello by a real neighbor who picks up the phone. Flat price. Launched in weeks. You own every single pixel.
         </p>
 
-        <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3.5">
-          <a href="/quote" class="cta-primary inline-flex items-center justify-center rounded-full px-10 py-3.5 text-[15.5px] font-semibold shadow-xl w-full sm:w-auto">Get a free quote in 2 minutes →</a>
-          <a href="#work" class="inline-flex items-center justify-center rounded-full border border-white/25 bg-white/5 px-8 py-3.5 text-[15.5px] font-semibold text-white hover:bg-white/10 hover:border-white/40 backdrop-blur-xl transition-all w-full sm:w-auto">See the demos that win business</a>
+        <div class="mt-7 md:mt-8 flex flex-col sm:flex-row items-center justify-center gap-3.5">
+          <a href="/quote" class="cta-primary inline-flex items-center justify-center rounded-full px-9 py-3.5 text-[15.5px] font-semibold shadow-xl w-full sm:w-auto">Get a free quote in 2 minutes →</a>
+          <a href="#work" class="inline-flex items-center justify-center rounded-full border border-white/30 bg-white/5 px-8 py-3.5 text-[15.5px] font-semibold text-white hover:bg-white/10 hover:border-white/45 backdrop-blur-xl transition-all w-full sm:w-auto">See the demos that win business</a>
         </div>
 
-        <div class="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2.5 text-[13px] text-white/75">
+        <div class="mt-7 flex flex-wrap justify-center gap-x-5 gap-y-2 text-[12.5px] md:text-[13px] text-white/80">
           <div class="inline-flex items-center gap-1.5"><i class="fa-solid fa-check trust-check"></i> Flat price. No surprises.</div>
           <div class="inline-flex items-center gap-1.5"><i class="fa-solid fa-check trust-check"></i> You own everything.</div>
           <div class="inline-flex items-center gap-1.5"><i class="fa-solid fa-check trust-check"></i> Real neighbor. Real phone.</div>
@@ -185,37 +214,37 @@
       </div>
     </div>
 
-    <!-- Floating proof bar -->
-    <div class="relative z-10 flex justify-center pb-7" style="z-index:3">
-      <div class="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-black/50 backdrop-blur-3xl px-5 py-2 text-sm text-white/90 max-w-[92%]">
+    <!-- Floating proof bar — clean &amp; spacious -->
+    <div class="relative z-10 flex justify-center pb-6 md:pb-7" style="z-index:3">
+      <div class="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-black/55 backdrop-blur-3xl px-4.5 py-2 text-sm text-white/90 max-w-[94%]">
         <span class="font-semibold text-[#f4a261]">Starter Sites from $1,200</span>
-        <span class="text-white/25 hidden sm:inline">•</span>
-        <span class="text-[13px] text-white/75 hidden sm:inline">“Brian just gets small business on the lake. No upsells. Just results.” — Local owner</span>
-        <span class="text-[13px] text-white/75 sm:hidden">Real results. No upsells.</span>
+        <span class="text-white/30 hidden sm:inline">•</span>
+        <span class="text-[12.5px] text-white/75 hidden sm:inline">“Brian just gets small business on the lake. No upsells. Just results.”</span>
+        <span class="text-[12.5px] text-white/75 sm:hidden">No upsells. Just results.</span>
       </div>
     </div>
 
-    <!-- Stats -->
+    <!-- Stats bar — refined spacing -->
     <div class="relative border-t border-white/10 bg-[#050708]/95 backdrop-blur" style="z-index:3">
-      <div class="max-w-6xl mx-auto px-5 py-4 grid grid-cols-2 md:grid-cols-4 gap-x-2 gap-y-1 text-center text-sm">
-        <div><div class="stat text-[22px] font-semibold text-white">16+</div><div class="text-[10.5px] tracking-[1.6px] text-white/55">LIVE DEMO SITES</div></div>
-        <div><div class="stat text-[22px] font-semibold text-white">2–4 WEEKS</div><div class="text-[10.5px] tracking-[1.6px] text-white/55">TYPICAL LAUNCH</div></div>
-        <div><div class="stat text-[22px] font-semibold text-white">5★</div><div class="text-[10.5px] tracking-[1.6px] text-white/55">OWNER SATISFACTION</div></div>
-        <div><div class="stat text-[22px] font-semibold text-white">100%</div><div class="text-[10.5px] tracking-[1.6px] text-white/55">YOU OWN IT ALL</div></div>
+      <div class="max-w-6xl mx-auto px-5 py-[15px] grid grid-cols-2 md:grid-cols-4 gap-x-2 gap-y-1 text-center text-sm">
+        <div><div class="stat text-[21px] font-semibold text-white">16+</div><div class="text-[10.5px] tracking-[1.6px] text-white/55">LIVE DEMO SITES</div></div>
+        <div><div class="stat text-[21px] font-semibold text-white">2–4 WEEKS</div><div class="text-[10.5px] tracking-[1.6px] text-white/55">TYPICAL LAUNCH</div></div>
+        <div><div class="stat text-[21px] font-semibold text-white">5★</div><div class="text-[10.5px] tracking-[1.6px] text-white/55">OWNER SATISFACTION</div></div>
+        <div><div class="stat text-[21px] font-semibold text-white">100%</div><div class="text-[10.5px] tracking-[1.6px] text-white/55">YOU OWN IT ALL</div></div>
       </div>
     </div>
   </section>
 
   <!-- MY WORK — Beautiful showcase grid -->
-  <section id="work" class="max-w-7xl mx-auto px-5 pt-12 pb-7">
-    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-5">
+  <section id="work" class="max-w-7xl mx-auto px-5 pt-14 pb-8">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-6">
       <div>
         <div class="label tracking-[1.6px] mb-1">REAL WORK FOR REAL BUSINESSES</div>
         <h2 class="section-title tracking-tight">See exactly what you get.</h2>
       </div>
       <a href="/work" class="hidden md:inline-flex items-center gap-1.5 text-[14.5px] font-medium text-[#f4a261] hover:text-[#d88a5e] group">Explore all 16 live demos <i class="fa-solid fa-arrow-right ml-0.5 group-hover:translate-x-0.5 transition"></i></a>
     </div>
-    <p class="text-[#9aa6ad] max-w-2xl mb-6 text-[15px]">These are live, fictional demos — the exact quality, speed, and local Kentucky focus you receive. Click any to open.</p>
+    <p class="text-[#9aa6ad] max-w-2xl mb-6 text-[14.8px]">These are live, fictional demos — the exact quality, speed, and local Kentucky focus you receive. Click any to open.</p>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
       <!-- Demo 1 -->
@@ -315,31 +344,31 @@
   </section>
 
   <!-- HOW IT WORKS -->
-  <section id="how" class="bg-[#0a0c0f] border-y border-[#1a2225] py-10">
+  <section id="how" class="bg-[#0a0c0f] border-y border-[#1a2225] py-11 md:py-12">
     <div class="max-w-6xl mx-auto px-5">
-      <div class="text-center mb-8">
+      <div class="text-center mb-8 md:mb-9">
         <div class="label tracking-[1.6px]">HOW IT WORKS</div>
         <h2 class="section-title tracking-tight mt-1">Simple. Honest. Fast.</h2>
-        <p class="mt-2 text-[#9aa6ad] max-w-md mx-auto">Four steps. No mystery. No 6-month timelines. You stay in control.</p>
+        <p class="mt-2.5 text-[#9aa6ad] max-w-md mx-auto text-[15px]">Four steps. No mystery. No 6-month timelines. You stay in control.</p>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="step-card rounded-2xl border border-[#1f282b] bg-[#0c1013] p-6">
+        <div class="step-card rounded-2xl border border-[#1f282b] bg-[#0c1013] p-6 md:p-7">
           <div class="font-mono text-[11px] tracking-[3px] text-[#c17a5a] mb-3">01</div>
           <div class="font-semibold tracking-tight text-[18px] mb-2.5">15-minute chat</div>
           <p class="text-[14.5px] text-[#9aa6ad] leading-relaxed">We talk about your business, customers, and what success looks like. No hard sell. Just a real conversation with a neighbor.</p>
         </div>
-        <div class="step-card rounded-2xl border border-[#1f282b] bg-[#0c1013] p-6">
+        <div class="step-card rounded-2xl border border-[#1f282b] bg-[#0c1013] p-6 md:p-7">
           <div class="font-mono text-[11px] tracking-[3px] text-[#c17a5a] mb-3">02</div>
           <div class="font-semibold tracking-tight text-[18px] mb-2.5">Clear proposal</div>
           <p class="text-[14.5px] text-[#9aa6ad] leading-relaxed">I send a flat-price proposal with exact scope and timeline. You know the number before we start. No surprises later.</p>
         </div>
-        <div class="step-card rounded-2xl border border-[#1f282b] bg-[#0c1013] p-6">
+        <div class="step-card rounded-2xl border border-[#1f282b] bg-[#0c1013] p-6 md:p-7">
           <div class="font-mono text-[11px] tracking-[3px] text-[#c17a5a] mb-3">03</div>
           <div class="font-semibold tracking-tight text-[18px] mb-2.5">I build it fast</div>
           <p class="text-[14.5px] text-[#9aa6ad] leading-relaxed">2–4 weeks typical. You see progress. We refine together. Photos, menus, real local details — all handled.</p>
         </div>
-        <div class="step-card rounded-2xl border border-[#1f282b] bg-[#0c1013] p-6">
+        <div class="step-card rounded-2xl border border-[#1f282b] bg-[#0c1013] p-6 md:p-7">
           <div class="font-mono text-[11px] tracking-[3px] text-[#c17a5a] mb-3">04</div>
           <div class="font-semibold tracking-tight text-[18px] mb-2.5">Launch &amp; handoff</div>
           <p class="text-[14.5px] text-[#9aa6ad] leading-relaxed">Site goes live. I train you (or handle updates for you). You own the domain, code, and content — forever.</p>
@@ -354,7 +383,7 @@
   </section>
 
   <!-- TESTIMONIALS with photos -->
-  <section id="stories" class="max-w-7xl mx-auto px-5 py-10 border-t border-[#1a2225]">
+  <section id="stories" class="max-w-7xl mx-auto px-5 py-11 border-t border-[#1a2225]">
     <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-y-2 mb-6">
       <div>
         <div class="label tracking-[1.6px]">NEIGHBORS TALKING STRAIGHT</div>
@@ -465,11 +494,11 @@
   </section>
 
   <!-- PRICING -->
-  <section id="pricing" class="max-w-6xl mx-auto px-5 pt-11 pb-8">
-    <div class="text-center mb-6">
+  <section id="pricing" class="max-w-6xl mx-auto px-5 pt-12 pb-9">
+    <div class="text-center mb-7">
       <div class="label tracking-[1.6px]">STRAIGHTFORWARD PRICING</div>
       <h2 class="section-title tracking-tight mt-1">Two packages. One promise.</h2>
-      <p class="text-[#9aa6ad] mt-2 text-[15px]">Flat one-time price. You own everything. Optional care plan only if you want it.</p>
+      <p class="text-[#9aa6ad] mt-2.5 text-[15px]">Flat one-time price. You own everything. Optional care plan only if you want it.</p>
     </div>
 
     <div class="grid md:grid-cols-2 gap-5 max-w-[880px] mx-auto">
@@ -519,7 +548,7 @@
     <p class="text-center mt-5 text-[13px] text-[#9aa6ad]">Optional care plan <span class="font-medium text-[#f4a261]">$79/mo</span> · Branding &amp; cards from $150 · <a href="/services" class="text-[#f4a261] underline">Full details &amp; FAQ</a></p>
 
     <!-- Branding -->
-    <div class="mt-9">
+    <div class="mt-8 md:mt-9">
       <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-x-4 gap-y-1 mb-4">
         <div>
           <div class="label tracking-[1.6px]">BRANDING ADD-ONS</div>
@@ -539,11 +568,11 @@
   </section>
 
   <!-- FINAL CTA -->
-  <section class="py-12 text-center border-t border-[#1a2225] bg-[#0a0c0f]">
+  <section class="py-11 md:py-12 text-center border-t border-[#1a2225] bg-[#0a0c0f]">
     <div class="max-w-[620px] mx-auto px-5">
-      <h2 class="text-[29px] md:text-[32px] tracking-[-1.1px] font-semibold leading-tight">Ready for a website that actually works for your business?</h2>
-      <p class="mt-3 text-[15.5px] text-[#9aa6ad]">No pressure. No jargon. No 3-month discovery phase. Just an honest conversation and a clear plan from a neighbor who builds sites that bring customers in.</p>
-      <div class="mt-7 flex flex-col sm:flex-row gap-3.5 justify-center">
+      <h2 class="text-[28px] md:text-[31px] tracking-[-1.1px] font-semibold leading-tight">Ready for a website that actually works for your business?</h2>
+      <p class="mt-3 text-[15.2px] md:text-[15.5px] text-[#9aa6ad]">No pressure. No jargon. No 3-month discovery phase. Just an honest conversation and a clear plan from a neighbor who builds sites that bring customers in.</p>
+      <div class="mt-6 md:mt-7 flex flex-col sm:flex-row gap-3.5 justify-center">
         <a href="/quote" class="cta-primary inline-flex items-center justify-center px-9 py-3 rounded-full text-base font-semibold">Get your free quote →</a>
         <a href="/contact" class="inline-flex items-center justify-center rounded-full border border-[#2a3437] hover:bg-[#111518] px-7 py-3 text-[15px] font-semibold">Or just say hi — I’ll reply fast</a>
       </div>
@@ -553,8 +582,8 @@
 
   <!-- PROFESSIONAL FOOTER with QR -->
   <footer class="border-t border-[#1a2225] bg-[#050708]">
-    <div class="max-w-7xl mx-auto px-5 py-11">
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-y-10 md:gap-x-8">
+    <div class="max-w-7xl mx-auto px-5 py-10 md:py-11">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-y-9 md:gap-y-10 md:gap-x-8">
         <div class="md:col-span-5">
           <div class="flex items-center gap-2.5 mb-3.5">
             <img src="/logo.jpg" alt="" class="h-[22px] w-auto">
@@ -621,7 +650,7 @@
         </div>
       </div>
 
-      <div class="mt-10 pt-6 border-t border-[#1a2225] flex flex-col md:flex-row md:items-center justify-between gap-3 text-[12.5px] text-[#9aa6ad]">
+      <div class="mt-9 pt-6 border-t border-[#1a2225] flex flex-col md:flex-row md:items-center justify-between gap-3 text-[12.5px] text-[#9aa6ad]">
         <div>© <span id="year"></span> Bluegrass Digital Forge · Forged in Monticello, Kentucky</div>
         <div class="flex items-center gap-2">Independently owned · No agency middlemen · <span class="text-[#3ddbd9]">You own everything</span></div>
       </div>

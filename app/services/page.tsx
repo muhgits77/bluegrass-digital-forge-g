@@ -25,11 +25,11 @@ const businessFeatures = [
 ];
 
 const brandingAddons = [
-  { title: "Business Card Design Only", price: "$150", popular: false, desc: "Custom digital business card files, print-ready. You own the files." },
-  { title: "Cards + 250 Printed", price: "$250", popular: false, desc: "Design plus 250 premium printed cards delivered to your door." },
-  { title: "Cards + 500 Printed", price: "$300", popular: true, desc: "Design plus 500 premium printed cards — best value for local businesses." },
-  { title: "Branding Starter", price: "$450", popular: false, desc: "Logo refinement, color palette, business cards, email signature." },
-  { title: "Full Branding Kit", price: "$750", popular: false, desc: "Logo design, complete brand kit, printed cards, social templates, email signature." },
+  { title: "Business Card Design Only", price: "$150", desc: "Custom digital business card files, print-ready. You own the files." },
+  { title: "Cards + 250 Printed", price: "$250", desc: "Design plus 250 premium printed cards delivered to your door." },
+  { title: "Cards + 500 Printed", price: "$300", desc: "Design plus 500 premium printed cards — best value for local businesses." },
+  { title: "Branding Starter", price: "$450", desc: "Logo refinement, color palette, business cards, email signature." },
+  { title: "Full Branding Kit", price: "$750", desc: "Logo design, complete brand kit, printed cards, social templates, email signature." },
 ];
 
 const careBullets = [
@@ -122,19 +122,19 @@ export default function Services() {
 
       <p className="text-[14.5px] text-center mt-6 text-[#9aa6ad]">Not sure which one? Tell me about your business — I&apos;ll point you to the Starter if that&apos;s all you need.</p>
 
-      {/* Branding Add-ons — 5 cards, $300 marked Most Popular */}
-      <div className="mt-16">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-2 mb-6">
-          <div>
+      {/* Branding Add-ons */}
+      <div className="branding-addons mt-16 border-t-0 pt-0">
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-y-3 gap-x-8 mb-8 md:mb-10">
+          <div className="max-w-xl">
             <div className="label tracking-[1.5px]">BRANDING ADD-ONS</div>
-            <h2 className="text-3xl tracking-tight font-semibold">Look the part, everywhere.</h2>
+            <h2 className="text-3xl tracking-tight font-semibold mt-2">Look the part, everywhere.</h2>
           </div>
-          <p className="text-[#9aa6ad] max-w-md text-[14.5px]">Business cards, logo work, and full branding kits. Add to any website, or buy on their own.</p>
+          <p className="text-[#9aa6ad] max-w-md text-[14.5px] leading-relaxed lg:text-right lg:pb-0.5">Business cards, logo work, and full branding kits. Add to any website, or buy on their own.</p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div className="branding-addons-grid">
           {brandingAddons.map((b, idx) => (
-            <BrandingCard key={idx} title={b.title} price={b.price} popular={b.popular} description={b.desc} />
+            <BrandingCard key={idx} title={b.title} price={b.price} description={b.desc} />
           ))}
         </div>
 

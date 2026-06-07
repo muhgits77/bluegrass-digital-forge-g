@@ -1,31 +1,20 @@
-import { Check } from "lucide-react";
-import { motion } from "framer-motion";
-
 interface BrandingCardProps {
   title: string;
   price: string;
-  popular?: boolean;
   description?: string;
 }
 
-export default function BrandingCard({ title, price, popular, description }: BrandingCardProps) {
+export default function BrandingCard({ title, price, description }: BrandingCardProps) {
   return (
-    <motion.div 
-      className={`card rounded-2xl p-5 flex flex-col group ${popular ? "ring-1 ring-[#c5a26e]" : ""}`}
-      whileHover={{ y: -4 }}
-      transition={{ type: "spring", stiffness: 300, damping: 25 }}
-    >
-      <div className="flex justify-between items-start gap-2">
-        <div>
-          <h4 className="font-semibold tracking-[-0.15px] text-[15.5px] leading-tight group-hover:text-[#f4a261] transition-colors">{title}</h4>
-          {description && <p className="text-[13px] text-[#9aa6ad] mt-1 leading-snug pr-1">{description}</p>}
-        </div>
-        {popular && <span className="badge-gold text-[9.5px] mt-px whitespace-nowrap">MOST POPULAR</span>}
+    <div className="branding-card">
+      <div className="branding-card__body">
+        <h4 className="branding-card__title">{title}</h4>
+        {description && <p className="branding-card__desc">{description}</p>}
       </div>
-      <div className="mt-auto pt-5">
-        <div className="font-semibold text-[25px] tabular-nums tracking-[-1.3px]">{price}</div>
-        <p className="text-[11px] text-[#9aa6ad] -mt-0.5">one-time</p>
+      <div className="branding-card__price">
+        <div className="branding-card__amount">{price}</div>
+        <p className="branding-card__period">one-time</p>
       </div>
-    </motion.div>
+    </div>
   );
 }

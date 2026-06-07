@@ -237,20 +237,91 @@
       .branding-card { padding: 1.75rem 1.55rem; }
       .branding-card__desc { font-size: 14px; line-height: 1.58; }
     }
+
+    /* Header logo — larger, bolder, mobile-readable */
+    .site-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      min-width: 0;
+      flex: 1 1 auto;
+      max-width: calc(100% - 3.25rem);
+    }
+    @media (min-width: 640px) {
+      .site-logo { gap: 0.85rem; max-width: none; flex: 0 1 auto; }
+    }
+    .site-logo__img {
+      height: 2.35rem;
+      width: auto;
+      flex-shrink: 0;
+      border-radius: 0.125rem;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+    }
+    @media (min-width: 768px) {
+      .site-logo__img { height: 2.55rem; }
+    }
+    .site-logo__text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.2rem;
+      min-width: 0;
+      line-height: 1.15;
+    }
+    .site-logo__name {
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      font-size: 1.0625rem;
+      color: #fff;
+      white-space: nowrap;
+    }
+    @media (min-width: 640px) {
+      .site-logo__name { font-size: 1.125rem; }
+    }
+    @media (min-width: 768px) {
+      .site-logo__name { font-size: 1.2rem; }
+    }
+    .site-logo__tagline {
+      font-size: 0.6875rem;
+      font-weight: 500;
+      letter-spacing: 0.035em;
+      line-height: 1.4;
+      color: rgba(244, 162, 97, 0.92);
+    }
+    @media (min-width: 640px) {
+      .site-logo__tagline { font-size: 0.71875rem; letter-spacing: 0.045em; }
+    }
+    @media (min-width: 768px) {
+      .site-logo__tagline { font-size: 0.75rem; white-space: nowrap; }
+    }
+    .site-nav__inner {
+      min-height: 4.35rem;
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+    }
+    @media (min-width: 768px) {
+      .site-nav__inner { min-height: 4.5rem; padding-top: 0; padding-bottom: 0; }
+    }
+    .site-nav__menu-btn {
+      flex-shrink: 0;
+    }
+    @media (max-width: 767px) {
+      section { scroll-margin-top: 72px; }
+    }
   </style>
 </head>
 <body class="bg-[#050708] text-[#f5f0e6] antialiased">
   <!-- NAV — Premium, mobile perfect -->
   <nav class="sticky top-0 z-50 border-b border-[#243530] bg-[#050708]/95 backdrop-blur-xl">
-    <div class="max-w-7xl mx-auto px-5">
-      <div class="flex items-center justify-between h-16 md:h-[68px]">
-        <div class="flex items-center gap-3">
-          <img src="/logo.jpg" alt="Bluegrass Digital Forge" class="h-8 w-auto rounded-sm ring-1 ring-white/10">
-          <div class="leading-none">
-            <div class="font-semibold tracking-[-0.3px] text-[16.5px]">Bluegrass Digital Forge</div>
-            <div class="text-[9px] text-[#c17a5a] tracking-[1.4px] -mt-px font-medium">MONTICELLO, KY</div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-5">
+      <div class="site-nav__inner flex items-center justify-between gap-3 md:h-[72px]">
+        <a href="/" class="site-logo group" aria-label="Bluegrass Digital Forge home">
+          <img src="/logo.jpg" alt="Bluegrass Digital Forge" class="site-logo__img">
+          <div class="site-logo__text">
+            <div class="site-logo__name group-hover:text-[#f4a261] transition-colors">Bluegrass Digital Forge</div>
+            <div class="site-logo__tagline">Websites for Local Businesses · Monticello, KY</div>
           </div>
-        </div>
+        </a>
 
         <!-- Desktop nav -->
         <div class="hidden md:flex items-center gap-8 text-sm font-medium">
@@ -267,7 +338,7 @@
         </div>
 
         <!-- Mobile hamburger -->
-        <button id="menu-btn" class="md:hidden w-10 h-10 flex items-center justify-center border border-[#243530] rounded-xl text-[#9aa6ad]" aria-label="Menu">
+        <button id="menu-btn" class="site-nav__menu-btn md:hidden w-10 h-10 flex items-center justify-center border border-[#243530] rounded-xl text-[#9aa6ad] hover:text-white hover:border-[#33423c] transition-colors" aria-label="Menu">
           <i class="fa-solid fa-bars text-lg"></i>
         </button>
       </div>

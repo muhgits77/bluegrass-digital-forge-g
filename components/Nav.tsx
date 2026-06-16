@@ -26,76 +26,71 @@ export default function Nav() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-[#1a2225] bg-[#050708]/95 backdrop-blur supports-[backdrop-filter]:bg-[#050708]/90">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 sm:px-5 py-3 min-h-[68px] md:min-h-[72px] md:py-3.5">
+    <nav className="sticky top-0 z-50 border-b border-[#1a2225] bg-[#050708]/95 backdrop-blur-md supports-[backdrop-filter]:bg-[#050708]/90">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 py-4 md:py-5 min-h-[72px]">
         <Logo />
 
-        {/* Desktop nav */}
+        {/* Desktop Navigation */}
         <div className="hidden items-center gap-8 md:flex">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className={`nav-link font-medium tracking-[-0.1px] ${isActive(link.href) ? "active" : ""}`}
+              className={`nav-link font-medium tracking-[-0.2px] text-sm transition-colors hover:text-white ${isActive(link.href) ? "text-white" : "text-zinc-400"}`}
             >
               {link.label}
             </Link>
           ))}
         </div>
 
-        <div className="hidden items-center gap-3 md:flex">
+        {/* Desktop CTA */}
+        <div className="hidden md:flex items-center gap-3">
           <Link
             href="/quote"
-            className="btn btn-primary px-5 py-[9.5px] text-[14px]"
+            className="btn btn-primary px-6 py-2.5 text-[14.5px] font-semibold shadow-lg hover:shadow-xl active:scale-[0.985] transition-all"
           >
             Get a Quote →
           </Link>
         </div>
 
-        {/* Mobile hamburger */}
+        {/* Mobile Hamburger */}
         <button
           onClick={() => setOpen(!open)}
-          className="md:hidden inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#1a2225] text-zinc-300 hover:text-white hover:border-[#33423c] transition-colors"
+          className="md:hidden inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-[#243530] text-zinc-300 hover:text-white hover:border-[#33423c] transition-all"
           aria-label="Toggle menu"
         >
-          {open ? <X size={17} /> : <Menu size={17} />}
+          {open ? <X size={20} /> : <Menu size={20} />}
         </button>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile Menu */}
       <div className={`md:hidden border-t border-[#1a2225] bg-[#050708] ${open ? "block" : "hidden"}`}>
-        <div className="flex flex-col px-5 py-4 gap-0.5 text-[15px]">
+        <div className="flex flex-col px-6 py-6 gap-1 text-[15.5px]">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               onClick={() => setOpen(false)}
-              className={`py-3 nav-link ${isActive(link.href) ? "active font-medium" : ""}`}
+              className={`py-3.5 px-2 nav-link rounded-xl transition-colors ${isActive(link.href) ? "bg-[#1a2225] text-white font-medium" : "hover:bg-[#0f1517] text-zinc-400"}`}
             >
               {link.label}
             </Link>
           ))}
-          <Link
-            href="/business-cards"
-            onClick={() => setOpen(false)}
-            className="py-2.5 nav-link"
-          >
-            Business Cards
-          </Link>
-          <div className="pt-2.5 flex flex-col gap-2">
+
+          <div className="pt-4 mt-2 border-t border-[#1a2225] flex flex-col gap-3">
             <Link
               href="/quote"
               onClick={() => setOpen(false)}
-              className="btn btn-primary w-full justify-center py-2.5 text-[14px]"
+              className="btn btn-primary w-full py-3 text-center text-[15px] font-semibold"
             >
-              Get a Quote →
+              Get a Free Quote →
             </Link>
             <Link
-              href="/services"
+              href="/business-cards"
               onClick={() => setOpen(false)}
-              className="btn btn-secondary w-full justify-center py-2.5"
+              className="btn btn-secondary w-full py-3 text-center"
             >
-              View Pricing
+              Business Cards & Branding
             </Link>
           </div>
         </div>

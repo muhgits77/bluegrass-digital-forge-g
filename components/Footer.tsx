@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CONTACT_EMAIL } from "@/lib/constants";
 
 export default function Footer() {
   return (
@@ -51,8 +52,8 @@ export default function Footer() {
             <div className="space-y-3.5 text-[#8a9599]">
               <div>
                 <div className="text-[10.5px] uppercase tracking-[1.5px] mb-0.5 text-[#7f8c90]">Email</div>
-                <a href="mailto:BluegrassDigitalForge@protonmail.com" className="hover:text-[#3ddbd9] transition-colors break-all text-[14.2px]">
-                  BluegrassDigitalForge@protonmail.com
+                <a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-[#3ddbd9] transition-colors break-all text-[14.2px]">
+                  {CONTACT_EMAIL}
                 </a>
               </div>
               <div>

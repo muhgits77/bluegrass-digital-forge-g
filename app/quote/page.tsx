@@ -2,8 +2,9 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { CONTACT_EMAIL } from "@/lib/constants";
 
-const EMAIL = "BluegrassDigitalForge@protonmail.com";
+const EMAIL = CONTACT_EMAIL; // Centralized — all Get Quote / contact emails point to BluegrassDigitalForge@protonmail.com
 
 interface FormData {
   name: string;

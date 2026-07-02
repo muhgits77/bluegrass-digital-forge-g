@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { 
   Plus, Edit2, Trash2, Eye, EyeOff, Save, RefreshCw, Download, Upload, 
@@ -11,6 +11,7 @@ import {
   getDemos, saveDemos, addDemo, updateDemo, deleteDemo, resetToDefaults,
   generateUniqueSlug, isSlugUnique, Demo
 } from "@/lib/demos";
+import { CONTACT_EMAIL } from "@/lib/constants";
 
 // ==================================================================
 // ADMIN PANEL — BLUEGRASS DIGITAL FORGE
@@ -108,6 +109,71 @@ export default function AdminPanel() {
     setShowModal(false);
   }
 
+  // ==================== IMAGE UPLOAD HANDLERS (Drag & Drop + Preview) ====================
+  // MAJOR CHANGE: Screenshot / hero image field now supports full drag-and-drop file upload.
+  // - Files are converted to base64 data URLs via FileReader
+  // - Stored directly in localStorage (no external hosting required)
+  // - Nice live preview with remove option
+  // - Keeps backward compatibility with URL / asset paths
+  // Improves usability dramatically for managing real local screenshots.
+  const [dragActive, setDragActive] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  function handleImageUpload(file: File) {
+    if (!file.type.startsWith("image/")) {
+      alert("Please select a valid image file (JPG, PNG, WebP recommended).");
+      return;
+    }
+    if (file.size > 2.5 * 1024 * 1024) {
+      if (!confirm("Image > 2.5MB. Base64 version will be larger and stored in localStorage. Continue?")) {
+        return;
+      }
+    }
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const dataUrl = event.target?.result as string;
+      updateForm("image", dataUrl);
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function handleDrag(e: React.DragEvent<HTMLDivElement>) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === "dragenter" || e.type === "dragover") {
+      setDragActive(true);
+    } else if (e.type === "dragleave") {
+      setDragActive(false);
+    }
+  }
+
+  function handleDrop(e: React.DragEvent<HTMLDivElement>) {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      handleImageUpload(e.dataTransfer.files[0]);
+    }
+  }
+
+  function triggerFileSelect() {
+    fileInputRef.current?.click();
+  }
+
+  function handleFileInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    if (e.target.files && e.target.files[0]) {
+      handleImageUpload(e.target.files[0]);
+      e.target.value = ""; // allow re-selecting same file
+    }
+  }
+
+  function removeImage(e?: React.MouseEvent) {
+    if (e) e.stopPropagation();
+    updateForm("image", "");
+  }
+
   // Open create modal
   function openNewDemo() {
     setEditingId(null);
@@ -177,7 +243,10 @@ export default function AdminPanel() {
       category: form.category.trim(),
       href: form.href.trim(),
       description: form.description.trim(),
-      image: form.image?.trim() || undefined,
+      // MAJOR: Preserve full base64 data URLs without aggressive trimming
+      image: form.image && form.image.startsWith("data:") 
+        ? form.image 
+        : (form.image?.trim() || undefined),
       sortOrder: Number(form.sortOrder) || 99,
       visible: !!form.visible,
     };
@@ -370,7 +439,7 @@ export default function AdminPanel() {
           <div>
             <div className="uppercase tracking-[2px] text-xs text-[#3ddbd9] font-medium mb-1">MANAGEMENT</div>
             <h1 className="text-4xl font-semibold tracking-[-1.5px]">Demos</h1>
-            <p className="text-[#9aa6ad] mt-1">Manage live demo sites shown on the public homepage and work gallery.</p>
+            <p className="text-[#9aa6ad] mt-1">Manage live demo sites shown on the public homepage and work gallery. All contact / Get Quote flows on the site use {CONTACT_EMAIL}.</p>
           </div>
 
           <div className="flex gap-3 items-center">
@@ -525,6 +594,11 @@ export default function AdminPanel() {
         <div className="mt-4 text-xs text-[#6b787e] flex items-center gap-2">
           • Changes are saved instantly to your browser. • Use “Publish Changes” to signal to your team that the gallery is ready. • Order numbers control display priority (lower = higher).
         </div>
+
+        {/* Contact email reference in admin (dark theme) */}
+        <div className="mt-6 text-xs text-[#6b787e]">
+          Support &amp; inquiries: <a href={`mailto:${CONTACT_EMAIL}`} className="text-[#3ddbd9] hover:underline">{CONTACT_EMAIL}</a>
+        </div>
       </div>
 
       {/* ==================== EDIT / NEW MODAL ==================== */}
@@ -610,15 +684,84 @@ export default function AdminPanel() {
                       />
                     </div>
 
-                    <div>
-                      <label className="label mb-1.5">Screenshot Image URL</label>
-                      <input
-                        value={form.image || ""}
-                        onChange={(e) => updateForm("image", e.target.value)}
-                        className="input w-full"
-                        placeholder="/assets/demo-hickory-forge.jpg  or  https://..."
-                      />
-                      <p className="text-[11px] text-[#6b787e] mt-1">Relative path to /public/assets/ or full external URL. Leave empty for fallback.</p>
+                    {/* MAJOR CHANGE: Drag-and-drop image upload + live preview */}
+                    {/* Images are converted to base64 data URLs and stored in localStorage */}
+                    {/* Supports both uploaded images and legacy /assets/ paths for full flexibility */}
+                    <div className="md:col-span-2">
+                      <label className="label mb-1.5">Screenshot / Preview Image</label>
+
+                      {/* Drop zone */}
+                      <div
+                        onClick={triggerFileSelect}
+                        onDragEnter={handleDrag}
+                        onDragLeave={handleDrag}
+                        onDragOver={handleDrag}
+                        onDrop={handleDrop}
+                        className={`group relative border-2 border-dashed rounded-2xl p-5 cursor-pointer transition-all min-h-[148px] flex flex-col items-center justify-center text-center
+                          ${dragActive 
+                            ? "border-[#3b82f6] bg-[#0a1320] scale-[1.01]" 
+                            : "border-[#243530] hover:border-[#3b82f6]/70 hover:bg-[#0a0c0f]"}`}
+                      >
+                        <input
+                          ref={fileInputRef}
+                          type="file"
+                          accept="image/*"
+                          onChange={handleFileInputChange}
+                          className="hidden"
+                        />
+
+                        {form.image && form.image.startsWith("data:") ? (
+                          // Nice preview for uploaded base64 images
+                          <div className="relative w-full max-w-[320px]">
+                            <img
+                              src={form.image}
+                              alt="Demo preview"
+                              className="mx-auto max-h-[128px] rounded-xl border border-[#1a2225] object-contain shadow-sm"
+                            />
+                            <button
+                              type="button"
+                              onClick={removeImage}
+                              className="absolute -top-2 -right-2 bg-[#1a2225] hover:bg-red-500/90 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center border border-[#243530]"
+                              title="Remove image"
+                            >
+                              ×
+                            </button>
+                            <div className="mt-2 text-[11px] text-[#8a9599]">Base64 image stored locally • Click zone or drag new file to replace</div>
+                          </div>
+                        ) : form.image ? (
+                          // Legacy URL / path preview (works for /assets/...)
+                          <div className="relative w-full max-w-[320px]">
+                            <img
+                              src={form.image}
+                              alt="Demo preview"
+                              className="mx-auto max-h-[128px] rounded-xl border border-[#1a2225] object-contain"
+                              onError={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = "0.4"; }}
+                            />
+                            <div className="mt-2 text-[11px] text-[#8a9599]">Current image path • Drag new image here to upload as base64</div>
+                            <button type="button" onClick={removeImage} className="mt-1 text-xs text-red-400 hover:text-red-500">Remove</button>
+                          </div>
+                        ) : (
+                          // Empty state / drop prompt
+                          <>
+                            <div className="text-3xl mb-2 opacity-70">📷</div>
+                            <div className="font-medium">Drop image here or click to upload</div>
+                            <div className="text-xs text-[#6b787e] mt-1">JPG • PNG • WebP • Max recommended ~2MB</div>
+                            <div className="text-[10px] mt-3 px-3 py-px rounded bg-[#1f2528] text-[#8a9599] inline-block">Images stored as base64 in your browser</div>
+                          </>
+                        )}
+                      </div>
+
+                      {/* Manual URL fallback (for paths or external links) */}
+                      <div className="mt-2">
+                        <input
+                          type="text"
+                          value={form.image || ""}
+                          onChange={(e) => updateForm("image", e.target.value)}
+                          className="input w-full text-sm font-mono"
+                          placeholder="Or paste /assets/demo-xxx.jpg or external https:// URL"
+                        />
+                        <p className="text-[10px] text-[#6b787e] mt-1">Upload above stores as self-contained base64. Paste a path/URL for hosted images.</p>
+                      </div>
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">

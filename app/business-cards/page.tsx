@@ -2,8 +2,9 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { CONTACT_EMAIL } from "@/lib/constants";
 
-const EMAIL = "BluegrassDigitalForge@protonmail.com";
+const EMAIL = CONTACT_EMAIL; // Centralized — all business card / branding inquiries email to BluegrassDigitalForge@protonmail.com
 
 interface BCForm {
   name: string;

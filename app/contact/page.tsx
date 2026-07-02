@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { CONTACT_EMAIL } from "@/lib/constants";
 
-const EMAIL = "BluegrassDigitalForge@protonmail.com";
+const EMAIL = CONTACT_EMAIL; // Centralized — points to BluegrassDigitalForge@protonmail.com for all contact links
 
 export default function ContactPage() {
   const [sent, setSent] = useState(false);

@@ -17,6 +17,7 @@ interface DemoCardProps {
  * Uses the actual per-business demo screenshots in /public/assets/
  * These showcase real Lake Cumberland / Wayne County business styles:
  *  - Steakhouse warmth, BBQ trucks, marinas/guides, farms, auto shops, florists, etc.
+ * Also supports base64 images uploaded via the /admin drag-and-drop feature.
  * No more repeated hero fallback. Each card now feels hand-forged for its client type.
  */
 const demoImageMap: Record<string, string> = {
@@ -43,6 +44,7 @@ export default function DemoCard({ title, subtitle, category, href, image, slug 
   const displaySlug = slug || href.replace("https://", "").replace("http://", "");
 
   const isTemplateSite = title === "Bluegrass Digital Forge Templates";
+  const isDataUrl = !!previewImage && previewImage.startsWith("data:"); // Support admin-uploaded base64 images
 
   return (
     <motion.a
@@ -69,14 +71,24 @@ export default function DemoCard({ title, subtitle, category, href, image, slug 
         </div>
 
         {/* Image Area — authentic local previews + warm depth overlay */}
+        {/* MAJOR CHANGE: Supports both static asset paths and base64 data URLs from admin drag-and-drop uploads */}
         <div className="relative aspect-[16/10] overflow-hidden bg-[#050708]">
-          <Image
-            src={previewImage}
-            alt={`${title} — live website preview for ${category} business on Lake Cumberland`}
-            fill
-            className="object-cover object-top transition-all duration-[650ms] group-hover:scale-[1.065] group-hover:brightness-[1.03]"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
+          {isDataUrl ? (
+            // Regular <img> for base64 data URLs (Next/Image does not support data: URLs directly)
+            <img
+              src={previewImage}
+              alt={`${title} — live website preview for ${category} business on Lake Cumberland`}
+              className="absolute inset-0 w-full h-full object-cover object-top transition-all duration-[650ms] group-hover:scale-[1.065] group-hover:brightness-[1.03]"
+            />
+          ) : (
+            <Image
+              src={previewImage}
+              alt={`${title} — live website preview for ${category} business on Lake Cumberland`}
+              fill
+              className="object-cover object-top transition-all duration-[650ms] group-hover:scale-[1.065] group-hover:brightness-[1.03]"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          )}
           {/* Refined cinematic + bourbon-warm overlay */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/40 to-black/75 group-hover:via-black/30 transition-all duration-500" />
           <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[radial-gradient(at_70%_20%,rgba(193,122,90,0.12)_0%,transparent_55%)]" />

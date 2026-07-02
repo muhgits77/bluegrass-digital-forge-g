@@ -5,6 +5,7 @@
  * 
  * Persistence: localStorage (client-side only)
  * - Easy to export as JSON
+ * - Images can be base64 data URLs (uploaded via admin) or static paths
  * - Changes made in /admin are immediately reflected when public pages are loaded/refreshed
  * - "Publish Changes" in admin forces a save + visual confirmation
  * 
@@ -18,7 +19,7 @@ export interface Demo {
   category: string;
   href: string;
   description: string;
-  image?: string;
+  image?: string; // Can be /assets/... path OR base64 data: URL (from admin drag-and-drop)
   sortOrder: number;
   visible: boolean;
 }

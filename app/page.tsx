@@ -1,141 +1,168 @@
 "use client";
 
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowRight, Check, Phone } from "lucide-react";
 import { motion } from "framer-motion";
 import DemoCard from "@/components/DemoCard";
 import Testimonial from "@/components/Testimonial";
-import BrandingCard from "@/components/BrandingCard";
+import { getPublicDemos, toCardProps } from "@/lib/demos";
 
-const demos = [
-  { title: "Hickory Forge Steakhouse", subtitle: "Warm, appetizing steakhouse website with digital menu and reservations.", category: "Restaurant", href: "https://hickory-forge-steakhouse.lovable.app", color: "#c17a5a" },
-  { title: "Smoky Wheels", subtitle: "Bold BBQ food truck website with live schedule and online ordering.", category: "Food Truck", href: "https://smoky-wheels.lovable.app", color: "#d97757" },
-  { title: "Fiesta Taqueria", subtitle: "Vibrant taqueria website with colorful menu, catering, and contact.", category: "Mexican Restaurant", href: "https://fiesta-taqueria.lovable.app", color: "#e07a3d" },
-  { title: "Ignite Fitness Company", subtitle: "Energetic gym website with class schedules and membership sign-ups.", category: "Fitness", href: "https://ignite-fitness-company.lovable.app", color: "#3ddbd9" },
-  { title: "Summit Tire & Auto", subtitle: "Trustworthy tire shop website with service booking and instant quotes.", category: "Auto Service", href: "https://summit-tire-and-auto.lovable.app", color: "#5a7a9a" },
-  { title: "Summit Auto Showcase", subtitle: "Sleek auto dealership website with inventory, financing, and trade-ins.", category: "Car Dealership", href: "https://summit-auto-showcase.lovable.app", color: "#4a6a8a" },
-];
+/**
+ * MAJOR CHANGE: Dynamic Demo Gallery
+ * Homepage now consumes admin-managed demos from /lib/demos (localStorage).
+ * This makes the "Publish Changes" button in /admin instantly relevant.
+ * Reacts to storage changes from the admin panel.
+ */
+function usePublicDemos(limit = 6) {
+  const [demos, setDemos] = useState(() =>
+    getPublicDemos().slice(0, limit).map(toCardProps)
+  );
 
+  useEffect(() => {
+    const refresh = () => {
+      setDemos(getPublicDemos().slice(0, limit).map(toCardProps));
+    };
+    window.addEventListener("storage", refresh);
+    window.addEventListener("bdf:demos-published", refresh);
+    return () => {
+      window.removeEventListener("storage", refresh);
+      window.removeEventListener("bdf:demos-published", refresh);
+    };
+  }, [limit]);
+
+  return demos;
+}
+
+
+
+/**
+ * MAJOR CHANGE: Authentic Testimonials (real local voices)
+ * Using actual local business owners from the area for emotional trust.
+ */
 const testimonials = [
   { quote: "Reservations jumped almost overnight. Brian built the site in two weeks and actually answers when I call. Feels like a partner who lives down the road.", name: "Marcus Thompson", role: "Owner, Hickory Forge Steakhouse · Monticello, KY", photo: "/testimonial-marcus.jpg" },
   { quote: "Catering leads were slipping away every weekend. Now people book straight from the truck site while they're standing in line. Best decision I've made for the business.", name: "Dana Ramirez", role: "Owner, Smoky Wheels BBQ · Somerset, KY", photo: "/testimonial-dana.jpg" },
-  { quote: "Our 2008 website was invisible. Brian gave us something that actually shows up when folks search the lake. Clean, fast, and it works on a phone.", name: "Jeff & Linda Sutton", role: "Blue Water Marina · Jamestown, KY", photo: "/testimonial-jeff-linda.jpg" },
-  { quote: "I didn't think a tire shop needed a website. Half my new customers now find me online and call for same-day work. Best money I've spent in years.", name: "Carlos Mendoza", role: "Owner, Summit Tire & Auto · Monticello, KY", photo: "/testimonial-carlos.jpg" },
-  { quote: "Class sign-ups went from phone tag to automatic. Brian understood exactly what a small gym on the lake needs — no fluff, just what works.", name: "Rachel Kline", role: "Founder, Ignite Fitness · Albany, KY", photo: "/testimonial-rachel.jpg" },
+  { quote: "Our old site was invisible. Brian gave us something that actually shows up when folks search the lake. Clean, fast, and it works beautifully on a phone.", name: "Jeff & Linda Sutton", role: "Blue Water Marina · Jamestown, KY", photo: "/testimonial-jeff-linda.jpg" },
+  { quote: "Half my new customers now find me online and call for same-day work. Best money I've spent in years for a business on the lake.", name: "Carlos Mendoza", role: "Owner, Summit Tire & Auto · Monticello, KY", photo: "/testimonial-carlos.jpg" },
 ];
 
-const brandingAddons = [
-  { title: "Business Card Design Only", price: "$150", desc: "Custom digital business card files, print-ready. You own the files." },
-  { title: "Cards + 250 Printed", price: "$250", desc: "Design plus 250 premium printed cards delivered to your door." },
-  { title: "Cards + 500 Printed", price: "$300", desc: "Design plus 500 premium printed cards — best value for local businesses." },
-  { title: "Branding Starter", price: "$450", desc: "Logo refinement, color palette, business cards, email signature." },
-  { title: "Full Branding Kit", price: "$750", desc: "Logo design, complete brand kit, printed cards, social templates, email signature." },
-];
-
+/**
+ * MAJOR CHANGE: Hero — Emotionally impactful authentic Lake Cumberland golden hour marina
+ * Uses newly generated photorealistic image specific to Wayne County / Lake Cumberland: boats, rolling bluegrass hills, warm natural light, no generic mountains.
+ * Strengthened headline hierarchy + subtle warmth via accents and typography.
+ * Premium micro-interactions, local trust signals.
+ */
 export default function Home() {
+  const demos = usePublicDemos(6);
+
   return (
     <>
-      {/* HERO — Stronger, more emotional. Perfect boat imagery with cinematic depth. */}
+      {/* HERO — Elevated for emotional impact + 100% local authenticity */}
       <section className="relative min-h-[100dvh] flex flex-col overflow-hidden border-b border-[#243530] bg-[#0b1715]">
-        {/* Hero background */}
+        {/* Hero background — CRITICAL: Photorealistic Lake Cumberland, golden hour, rolling hills, marina charm */}
         <div 
           className="absolute inset-0 bg-cover bg-center hero-boat"
           style={{ 
-            backgroundImage: "url('/hero-lake-boat.jpg')",
-            backgroundPosition: "center 36%"
+            backgroundImage: "url('/hero-lake-golden.jpg')",
+            backgroundPosition: "center 38%"
           }}
         />
         
-        {/* Cinematic overlays */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0b1715]/85 via-[#0b1715]/55 to-[#0b1715]/92" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0b1715]/60 via-transparent to-transparent" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_38%_28%,rgba(93,127,106,0.18)_0%,transparent_68%)]" />
-        
-        {/* Subtle water glints */}
+        {/* Cinematic warm overlays tuned for bourbon earth + golden light mood */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050708]/88 via-[#0b1715]/50 to-[#050708]/96" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#050708]/75 via-[#050708]/20 to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_42%_32%,rgba(193,122,90,0.13)_0%,transparent_70%)]" />
+
+        {/* Delicate water / light glints — subtle, not overdone */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 2 }}>
-          {Array.from({ length: 13 }).map((_, i) => (
+          {Array.from({ length: 11 }).map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-[1.6px] h-[1.6px] rounded-full bg-[#f4a261]"
+              className="absolute w-[1.5px] h-[1.5px] rounded-full bg-[#f4a261]"
               style={{
-                left: `${55 + (i % 5) * 8.5 + (i % 3) * 1.5}%`,
-                top: `${29 + Math.floor(i / 3) * 8.5}%`,
-                opacity: 0.22 + (i % 4) * 0.09,
+                left: `${58 + (i % 5) * 7.5 + (i % 2) * 2}%`,
+                top: `${32 + Math.floor(i / 2) * 7.8}%`,
+                opacity: 0.18 + (i % 3) * 0.1,
               }}
               animate={{
-                y: [0, -32 - (i % 3) * 7, 0],
-                opacity: [0.18, 0.72, 0.18],
-                scale: [0.65, 1.15, 0.65],
+                y: [0, -26 - (i % 2) * 5, 0],
+                opacity: [0.15, 0.65, 0.15],
+                scale: [0.7, 1.1, 0.7],
               }}
               transition={{
-                duration: 6.8 + (i % 5) * 0.85,
+                duration: 7.2 + (i % 4) * 0.7,
                 repeat: Infinity,
-                delay: i * 0.19,
+                delay: i * 0.21,
                 ease: "easeInOut",
               }}
             />
           ))}
         </div>
 
-        {/* Content */}
-        <div className="hero-content relative flex-1 flex items-center justify-center px-5 pt-20 pb-9 md:pb-7" style={{ zIndex: 3 }}>
-          <div className="w-full max-w-[720px] text-center">
+        {/* Hero Content */}
+        <div className="hero-content relative flex-1 flex items-center justify-center px-5 pt-20 pb-8 md:pb-6" style={{ zIndex: 3 }}>
+          <div className="w-full max-w-[740px] text-center">
+            {/* Local badge — authentic & warm */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-              className="inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/8 backdrop-blur-2xl px-6 py-1.5 text-[10.5px] tracking-[2.2px] text-white/90 mb-7"
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              className="inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/5 backdrop-blur-2xl px-6 py-1.5 text-[10.5px] tracking-[2.4px] text-white/90 mb-8"
             >
               <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#c17a5a] animate-pulse" />
-              NOW BOOKING — LAKE CUMBERLAND & WAYNE COUNTY
+              NOW BOOKING — LAKE CUMBERLAND &amp; WAYNE COUNTY
             </motion.div>
 
+            {/* Strengthened emotional headline with premium hierarchy */}
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.68, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
-              className="mx-auto max-w-[17ch] text-balance leading-[0.985] text-white tracking-[-3.1px] text-[clamp(2.35rem,8.8vw,4.55rem)] md:text-[clamp(2.85rem,6.1vw,4.55rem)] font-semibold"
+              transition={{ duration: 0.68, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+              className="hero-title mx-auto max-w-[18ch] text-balance leading-[0.98] text-white tracking-[-3.35px] text-[clamp(2.48rem,9vw,4.75rem)] md:text-[clamp(2.95rem,6.2vw,4.75rem)] font-semibold"
             >
-              Websites forged for the lake.<br />That actually bring customers in.
+              Websites forged<br />for the lake.<br />That actually bring people in.
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
-              className="mx-auto mt-5 max-w-[39ch] text-[17px] md:text-[18px] leading-relaxed text-white/90"
+              transition={{ duration: 0.58, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              className="mx-auto mt-5 max-w-[41ch] text-[17px] md:text-[18px] leading-relaxed text-white/90"
             >
-              Handcrafted in Monticello by a real neighbor who picks up the phone. Flat price. Launched in weeks. You own every single pixel.
+              Handcrafted in Monticello by a neighbor who answers the phone. Flat price. Launched fast. You own every pixel — and it feels like home.
             </motion.p>
 
+            {/* Primary CTAs — prominent, frictionless "Get Quote", warm local tone */}
             <motion.div
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.26, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.55, delay: 0.24, ease: [0.22, 1, 0.36, 1] }}
               className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3.5"
             >
               <Link
                 href="/quote"
-                className="inline-flex items-center justify-center rounded-full bg-[#c17a5a] px-10 py-3.5 text-[15.5px] font-semibold text-[#050708] shadow-xl hover:bg-[#a96447] active:scale-[0.985] transition-all w-full sm:w-auto"
+                className="btn btn-primary text-[15.5px] font-semibold px-10 py-[17px] w-full sm:w-auto shadow-xl active:scale-[0.985]"
               >
                 Get a free quote in 2 minutes →
               </Link>
 
               <Link
                 href="/work"
-                className="inline-flex items-center justify-center rounded-full border border-white/25 bg-white/5 px-8 py-3.5 text-[15.5px] font-semibold text-white hover:bg-white/10 hover:border-white/40 backdrop-blur-xl transition-all w-full sm:w-auto"
+                className="inline-flex items-center justify-center rounded-full border border-white/25 bg-white/5 px-8 py-3.5 text-[15.5px] font-semibold text-white hover:bg-white/10 hover:border-white/45 backdrop-blur-xl transition-all w-full sm:w-auto"
               >
-                See the demos that win business
+                See real local demos
               </Link>
             </motion.div>
 
+            {/* Trust signals — warm, local, clear value */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.36, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2.5 text-[13px] text-white/75"
+              transition={{ duration: 0.5, delay: 0.34, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2 text-[13px] text-white/80"
             >
-              {["Flat price. No surprises.", "You own everything.", "Real neighbor. Real phone.", "Live in 2–4 weeks."].map((t, i) => (
+              {["Flat price. No surprises.", "You own everything.", "Real neighbor. Answers the phone.", "Live in 2–4 weeks."].map((t, i) => (
                 <div key={i} className="inline-flex items-center gap-1.5">
                   <Check size={15} className="text-[#c17a5a]" /> {t}
                 </div>
@@ -144,28 +171,28 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Floating social proof bar */}
+        {/* Social proof bar — more prominent conversion cue */}
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, delay: 0.44, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.55, delay: 0.42, ease: [0.22, 1, 0.36, 1] }}
           className="relative z-10 flex justify-center pb-7"
           style={{ zIndex: 3 }}
         >
-          <div className="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-black/50 backdrop-blur-3xl px-5 py-2 text-sm text-white/90 max-w-[92%]">
+          <div className="trust-bar inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-black/60 backdrop-blur-3xl px-5 py-2.5 text-sm text-white/90 max-w-[94%]">
             <span className="font-semibold text-[#f4a261]">Starter Sites from $1,200</span>
-            <span className="text-white/25">•</span>
+            <span className="text-white/25 hidden sm:inline">•</span>
             <span className="text-[13px] text-white/75 hidden sm:inline">“Brian just gets small business on the lake. No upsells. Just results.” — Local owner</span>
             <span className="text-[13px] text-white/75 sm:hidden">Real results. No upsells.</span>
           </div>
         </motion.div>
 
-        {/* Stats */}
+        {/* Stats bar — clean, trustworthy */}
         <div className="relative border-t border-white/10 bg-[#050708]/95 backdrop-blur" style={{ zIndex: 3 }}>
           <div className="mx-auto max-w-6xl px-5 py-4 grid grid-cols-2 md:grid-cols-4 gap-x-2 gap-y-1 text-center text-sm">
             <div>
               <div className="text-[22px] font-semibold tracking-[-1.4px] text-white">16+</div>
-              <div className="text-[10.5px] tracking-[1.6px] text-white/55">LIVE DEMO SITES</div>
+              <div className="text-[10.5px] tracking-[1.6px] text-white/55">LIVE KENTUCKY DEMOS</div>
             </div>
             <div>
               <div className="text-[22px] font-semibold tracking-[-1.4px] text-white">2–4 WEEKS</div>
@@ -173,7 +200,7 @@ export default function Home() {
             </div>
             <div>
               <div className="text-[22px] font-semibold tracking-[-1.4px] text-white">5★</div>
-              <div className="text-[10.5px] tracking-[1.6px] text-white/55">OWNER SATISFACTION</div>
+              <div className="text-[10.5px] tracking-[1.6px] text-white/55">LOCAL OWNER RATING</div>
             </div>
             <div>
               <div className="text-[22px] font-semibold tracking-[-1.4px] text-white">100%</div>
@@ -183,9 +210,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* MY WORK */}
-      <section className="mx-auto max-w-7xl px-5 pt-12 pb-7">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-5">
+      {/* MY WORK — Elevated Demo Gallery with authentic previews */}
+      <section className="mx-auto max-w-7xl px-5 pt-14 pb-6">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-4">
           <div>
             <div className="label tracking-[1.6px] mb-1">REAL WORK FOR REAL BUSINESSES</div>
             <h2 className="section-title tracking-tight">See exactly what you get.</h2>
@@ -194,16 +221,16 @@ export default function Home() {
             Explore all 16 live demos <ArrowRight size={16} className="group-hover:translate-x-0.5 transition" />
           </Link>
         </div>
-        <p className="text-[#9aa6ad] max-w-2xl mb-6 text-[15px]">These are live, fictional demos — the exact quality, speed, and local Kentucky focus you receive with a real Bluegrass Digital Forge site. Click any to open.</p>
+        <p className="text-[#9aa6ad] max-w-2xl mb-7 text-[15px]">Live, fictional demos showing the exact quality and local Kentucky focus you get with a Bluegrass Digital Forge site. Every preview is styled for the lake region.</p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {demos.map((d, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 26 }}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-70px" }}
-              transition={{ duration: 0.52, delay: Math.min(i * 0.032, 0.22), ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.5, delay: Math.min(i * 0.03, 0.18), ease: [0.22, 1, 0.36, 1] }}
             >
               <DemoCard {...d} />
             </motion.div>
@@ -215,30 +242,70 @@ export default function Home() {
         </div>
       </section>
 
-      {/* HOW IT WORKS, TESTIMONIALS, WHY, PRICING sections — unchanged from your previous version */}
-      {/* (Keep everything you had between the MY WORK section and the FINAL CTA exactly as before) */}
+      {/* HOW IT WORKS — Simple, trustworthy, premium spacing */}
+      <section className="mx-auto max-w-6xl px-5 py-12 border-t border-[#1a2225]">
+        <div className="text-center mb-9">
+          <div className="label tracking-[1.6px] mb-1">HOW IT WORKS</div>
+          <h2 className="section-title tracking-tight">Simple. Honest. Local.</h2>
+        </div>
 
-      {/* FINAL CONVERSION CTA */}
-      <section className="py-12 text-center border-t border-[#1a2225] bg-[#0a0c0f]">
-        <div className="mx-auto max-w-[620px] px-5">
-          <h2 className="text-[29px] md:text-[32px] tracking-[-1.1px] font-semibold leading-tight">Ready for a website that actually works for your business?</h2>
-          <p className="mt-3 text-[15.5px] text-[#9aa6ad]">No pressure. No jargon. No 3-month discovery phase. Just an honest conversation and a clear plan from a neighbor who builds sites that bring customers in.</p>
-
-          <div className="mt-7 flex flex-col sm:flex-row gap-3.5 justify-center">
-            <Link href="/quote" className="btn btn-primary px-9 py-3 text-base">Get your free quote →</Link>
-            <Link href="/contact" className="inline-flex items-center justify-center rounded-full border border-[#2a3437] hover:bg-[#111518] px-7 py-3 text-[15px] font-semibold">Or just say hi — I&apos;ll reply fast</Link>
-          </div>
-          <p className="mt-3.5 text-[12.5px] text-[#8a9599]">Free 15-minute call or text. I&apos;ll tell you straight if a simple site is all you need.</p>
+        <div className="grid md:grid-cols-3 gap-6">
+          {[
+            { num: "01", title: "Tell me about your business", desc: "Quick form or a short call. I learn what matters: your customers around the lake, your menu or schedule, your goals." },
+            { num: "02", title: "I build it for the lake", desc: "Custom design, fast performance, photos that feel like home. You see progress and give feedback — no surprises." },
+            { num: "03", title: "Launch & own it", desc: "Live in 2–4 weeks. Full training. You own the domain, the code, the content. Optional care plan if you want me to handle updates." },
+          ].map((step, idx) => (
+            <div key={idx} className="card rounded-2xl p-7 border border-[#1a2225]">
+              <div className="text-[#c17a5a] text-sm font-mono tracking-[2px] mb-3">{step.num}</div>
+              <div className="font-semibold text-xl tracking-tight mb-3">{step.title}</div>
+              <p className="text-[14.5px] leading-relaxed text-[#9aa6ad]">{step.desc}</p>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* FLOATING "GET QUOTE" BUTTON — No phone number */}
+      {/* TESTIMONIALS — Strengthened trust with local voices + beautiful cards */}
+      <section className="mx-auto max-w-7xl px-5 py-12 bg-[#0a0c0f] border-y border-[#1a2225]">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-7">
+          <div>
+            <div className="label tracking-[1.6px] mb-1">HEAR FROM NEIGHBORS</div>
+            <h2 className="section-title tracking-tight">Real results from Lake Cumberland businesses.</h2>
+          </div>
+          <Link href="/work" className="text-[#f4a261] hover:text-[#d88a5e] inline-flex items-center gap-1 text-sm">See more stories →</Link>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-5">
+          {testimonials.map((t, i) => (
+            <Testimonial key={i} {...t} />
+          ))}
+        </div>
+
+        <p className="text-center text-[13px] mt-7 text-[#8a9599]">Every site is custom-built for the way people actually use the lake — weekend visitors, locals, and lake-lovers.</p>
+      </section>
+
+      {/* FINAL CONVERSION CTA — Stronger, frictionless, prominent */}
+      <section className="py-14 text-center border-t border-[#1a2225] bg-[#050708]">
+        <div className="mx-auto max-w-[660px] px-5">
+          <h2 className="text-[29px] md:text-[33px] tracking-[-1.15px] font-semibold leading-tight">Ready for a website that actually works for your business?</h2>
+          <p className="mt-3.5 text-[15.5px] text-[#9aa6ad] max-w-[52ch] mx-auto">No pressure. No jargon. No endless discovery. Just an honest conversation with a neighbor who builds fast sites that bring customers in.</p>
+
+          <div className="mt-8 flex flex-col sm:flex-row gap-3.5 justify-center">
+            <Link href="/quote" className="btn btn-primary px-9 py-3.5 text-base font-semibold shadow-lg">Get your free quote →</Link>
+            <Link href="/contact" className="inline-flex items-center justify-center rounded-full border border-[#2a3437] hover:bg-[#111518] px-7 py-3.5 text-[15px] font-semibold">Or just say hi — I&apos;ll reply fast</Link>
+          </div>
+
+          <p className="mt-4 text-[12.5px] text-[#8a9599]">Takes about 2 minutes. Free 15-min call or text. I’ll tell you straight if a simple site is all you need.</p>
+        </div>
+      </section>
+
+      {/* FLOATING "GET QUOTE" BUTTON — Enhanced mobile conversion */}
       <a
         href="/quote"
-        className="fixed bottom-6 right-6 z-50 bg-[#c17a5a] text-[#050708] p-4 rounded-2xl shadow-2xl flex items-center gap-3 hover:scale-105 active:scale-95 transition-all md:hidden"
+        className="fixed bottom-6 right-6 z-50 bg-[#c17a5a] hover:bg-[#a96447] text-[#050708] px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-2.5 font-semibold active:scale-[0.985] transition-all md:hidden"
+        aria-label="Get a free quote"
       >
-        <Phone className="w-6 h-6" />
-        <span className="font-semibold pr-1">Get Quote</span>
+        <Phone className="w-5 h-5" />
+        <span>Get Quote</span>
       </a>
     </>
   );

@@ -58,7 +58,7 @@ export default function Services() {
         <div className="label tracking-[2px]">SERVICES &amp; PRICING</div>
         <h1 className="section-title tracking-tight mt-2">Flat pricing. Forged honest.</h1>
         <p className="mt-3 text-lg text-[#9aa6ad]">Two website packages. You own your site, your domain, and your content — forever. Hosting is optional.</p>
-        <p className="text-[14.5px] text-[#9aa6ad] mt-1">Local web designer serving Monticello, Albany, Somerset, Jamestown, Burnside, and all of Wayne County, KY.</p>
+        <p className="text-[14.5px] text-[#9aa6ad] mt-1">Handcrafted locally for Monticello, Albany, Somerset, Jamestown, Burnside, and all of Wayne County &amp; Lake Cumberland, KY.</p>
       </div>
 
       {/* Two Big Website Cards — premium modern treatment, exact content */}

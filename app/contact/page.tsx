@@ -64,7 +64,7 @@ export default function ContactPage() {
       )}
 
       <div className="mt-10 text-[14.5px] text-[#9aa6ad] border-t border-[#1a2225] pt-6">
-        Prefer to call or text? Reach out via the email above and I&apos;ll happily share my number. Based in Monticello, KY — serving the entire Lake Cumberland region.
+        Prefer to call or text? Reach out via the email above and I&apos;ll happily share my number. Based in Monticello — serving the entire Lake Cumberland &amp; Wayne County region.
       </div>
 
       <div className="mt-6">

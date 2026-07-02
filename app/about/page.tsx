@@ -7,7 +7,7 @@ export default function AboutPage() {
       <h1 className="section-title tracking-tight mt-1">Your neighbor who builds websites that work.</h1>
 
       <div className="prose prose-invert mt-5 max-w-none text-[#c8cfd3] text-[15.5px] leading-relaxed">
-        <p>I live and work right here on Lake Cumberland — not a 1-800 number or a chat window halfway across the country. When you hire Bluegrass Digital Forge, you get a real neighbor who knows the difference between a Wayne County food truck and a Somerset storefront. I pick up the phone. I answer texts on weekends before a busy Saturday.</p>
+        <p>I live and work right here on Lake Cumberland — not a 1-800 number or a chat window halfway across the country. When you hire Bluegrass Digital Forge, you get a real neighbor who knows the difference between a Wayne County food truck at the marina and a Somerset storefront. I pick up the phone. I answer texts on weekends before a busy Saturday.</p>
         <p>Web designer serving Monticello, Albany, Somerset, Jamestown, Burnside, and all of Wayne County, KY — plus the small towns up and down Lake Cumberland.</p>
       </div>
 

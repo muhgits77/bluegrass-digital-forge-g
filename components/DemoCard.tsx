@@ -12,19 +12,34 @@ interface DemoCardProps {
   slug?: string;
 }
 
-// Fallback images - you can replace these later with real screenshots
+/**
+ * MAJOR CHANGE — Demo Gallery Elevation for local authenticity & premium feel
+ * Uses the actual per-business demo screenshots in /public/assets/
+ * These showcase real Lake Cumberland / Wayne County business styles:
+ *  - Steakhouse warmth, BBQ trucks, marinas/guides, farms, auto shops, florists, etc.
+ * No more repeated hero fallback. Each card now feels hand-forged for its client type.
+ */
 const demoImageMap: Record<string, string> = {
-  "Hickory Forge Steakhouse": "/hero-lake-boat.jpg", // temporary fallback
-  "Smoky Wheels": "/hero-lake-boat.jpg",
-  "Fiesta Taqueria": "/hero-lake-boat.jpg",
-  "Ignite Fitness Company": "/hero-lake-boat.jpg",
-  "Summit Tire & Auto": "/hero-lake-boat.jpg",
-  "Summit Auto Showcase": "/hero-lake-boat.jpg",
-  // Add more as you upload real screenshots to /public/assets/
+  "Hickory Forge Steakhouse": "/assets/demo-hickory-forge.jpg",
+  "Smoky Wheels": "/assets/demo-smoky-wheels.jpg",
+  "Fiesta Taqueria": "/assets/demo-fiesta-taqueria.jpg",
+  "Ignite Fitness Company": "/assets/demo-ignite-fitness.jpg",
+  "Summit Tire & Auto": "/assets/demo-summit-tire.jpg",
+  "Summit Auto Showcase": "/assets/demo-summit-auto.jpg",
+  "Heritage Home Furniture & Appliances": "/assets/demo-heritage-home.png",
+  "Hickory & Bloom": "/assets/demo-hickory-bloom.png",
+  "Anchorline Guide Service": "/assets/demo-anchorline.png",
+  "Sunny Hollow Donut Dash": "/assets/demo-sunny-hollow.png",
+  "Cumberland Forge Steakhouse": "/assets/demo-cumberland-forge.png",
+  "Han River BBQ": "/assets/demo-han-river.png",
+  "Landing Point Bait & Tackle": "/assets/demo-landing-point.jpg",
+  "Ridge Pasture Care": "/assets/demo-ridge-pasture.jpg",
+  "Blade Haven": "/assets/demo-blade-haven.jpg",
+  "Bluegrass Digital Forge Templates": "/assets/demo-bluegrass-templates.jpg",
 };
 
 export default function DemoCard({ title, subtitle, category, href, image, slug }: DemoCardProps) {
-  const previewImage = image || demoImageMap[title] || "/hero-lake-boat.jpg";
+  const previewImage = image || demoImageMap[title] || "/hero-lake-golden.jpg";
   const displaySlug = slug || href.replace("https://", "").replace("http://", "");
 
   const isTemplateSite = title === "Bluegrass Digital Forge Templates";
@@ -34,9 +49,10 @@ export default function DemoCard({ title, subtitle, category, href, image, slug 
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="demo-card group block rounded-3xl overflow-hidden h-full flex flex-col bg-[#0c1013] border border-[#1a2225]"
-      whileHover={{ y: -8, scale: 1.005 }}
-      transition={{ type: "spring", stiffness: 260, damping: 22 }}
+      className="demo-card group block h-full flex flex-col bg-[#0c1013] border border-[#1a2225] overflow-hidden rounded-3xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c17a5a]"
+      whileHover={{ y: -9, scale: 1.0035 }}
+      transition={{ type: "spring", stiffness: 280, damping: 26, mass: 0.8 }}
+      aria-label={`View live demo: ${title}`}
     >
       {/* Browser Frame */}
       <div className="relative bg-[#0a0c0f] border-b border-[#1a2225]">
@@ -52,38 +68,40 @@ export default function DemoCard({ title, subtitle, category, href, image, slug 
           {!isTemplateSite && <ExternalLink size={11} className="text-[#7f8c90]" />}
         </div>
 
-        {/* Image Area */}
+        {/* Image Area — authentic local previews + warm depth overlay */}
         <div className="relative aspect-[16/10] overflow-hidden bg-[#050708]">
           <Image
             src={previewImage}
-            alt={`${title} preview`}
+            alt={`${title} — live website preview for ${category} business on Lake Cumberland`}
             fill
-            className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
-            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover object-top transition-all duration-[650ms] group-hover:scale-[1.065] group-hover:brightness-[1.03]"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-black/70 group-hover:from-black/20 transition-all" />
+          {/* Refined cinematic + bourbon-warm overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/40 to-black/75 group-hover:via-black/30 transition-all duration-500" />
+          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[radial-gradient(at_70%_20%,rgba(193,122,90,0.12)_0%,transparent_55%)]" />
         </div>
       </div>
 
-      {/* Content */}
+      {/* Content — refined typography, warmer hover states, premium local feel */}
       <div className="p-5 flex-1 flex flex-col">
-        <div className="flex gap-2 mb-3">
-          <span className="text-[10px] uppercase tracking-widest font-semibold px-2.5 py-0.5 bg-[#111518] border border-[#1f2528] rounded text-[#8a9599]">
+        <div className="flex gap-2 mb-3.5">
+          <span className="text-[10px] uppercase tracking-[1.5px] font-semibold px-2.5 py-px bg-[#111518] border border-[#1f2528] rounded text-[#8a9599]">
             {category}
           </span>
           {!isTemplateSite && (
-            <span className="text-[10px] uppercase tracking-widest font-semibold px-2.5 py-0.5 bg-[#2a2118] border border-[#463424] rounded text-[#f4a261]">
+            <span className="text-[10px] uppercase tracking-[1.5px] font-semibold px-2.5 py-px bg-[#2a2118] border border-[#463424] rounded text-[#f4a261]">
               LIVE DEMO
             </span>
           )}
         </div>
 
-        <h3 className="font-semibold text-[17px] leading-tight mb-2 group-hover:text-[#f4a261] transition-colors">
+        <h3 className="font-semibold text-[17px] leading-[1.2] mb-2 group-hover:text-[#f4a261] transition-colors duration-200">
           {title}
         </h3>
-        <p className="text-[#9aa6ad] text-[14.5px] leading-snug flex-1 line-clamp-3">{subtitle}</p>
+        <p className="text-[#9aa6ad] text-[14.5px] leading-snug flex-1 line-clamp-3 pr-1">{subtitle}</p>
 
-        <div className="mt-5 text-[#f4a261] font-medium flex items-center gap-2 group-hover:gap-3 transition-all text-sm">
+        <div className="mt-auto pt-5 text-[#f4a261] font-medium flex items-center gap-2 group-hover:gap-2.5 transition-all text-[14px]">
           Open live site
           <ArrowUpRight size={16} className="group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
         </div>

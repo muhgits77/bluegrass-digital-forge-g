@@ -30,13 +30,14 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://bluegrass-digital-forge.lovable.app"),
   title: "Bluegrass Digital Forge | Websites Forged for Lake Cumberland",
-  description: "Handcrafted websites for Lake Cumberland businesses. Starter sites from $1,200. Business suites from $2,500. Flat pricing, full ownership, real neighbor service in Monticello, KY.",
-  keywords: ["Lake Cumberland websites", "Monticello KY web design", "food truck website", "restaurant website Kentucky", "local business website"],
+  description: "Handcrafted websites for Lake Cumberland & Wayne County businesses. Authentic sites from a real neighbor in Monticello, KY. Starter from $1,200. Flat pricing, full ownership, launched fast.",
+  keywords: ["Lake Cumberland websites", "Monticello KY web design", "Wayne County web design", "food truck website", "restaurant website Kentucky", "local business website Kentucky"],
   openGraph: {
     title: "Bluegrass Digital Forge — Websites for Lake Cumberland Businesses",
-    description: "Forged for the lake. Real results for real local businesses.",
-    images: [{ url: "/hero-lake-boat.jpg" }],
+    description: "Forged for the lake. Real results for real local businesses in Monticello, Jamestown, Somerset & Wayne County.",
+    images: [{ url: "/hero-lake-golden.jpg" }],  // MAJOR: Authentic golden-hour Lake Cumberland visual (photorealistic marina + rolling hills)
   },
   icons: {
     icon: "/favicon.ico",

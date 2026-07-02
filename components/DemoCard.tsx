@@ -40,7 +40,7 @@ const demoImageMap: Record<string, string> = {
 };
 
 export default function DemoCard({ title, subtitle, category, href, image, slug }: DemoCardProps) {
-  const previewImage = image || demoImageMap[title] || "/hero-lake-golden.jpg";
+  const previewImage = image || demoImageMap[title] || "/hero-cumberland-golden.jpg";
   const displaySlug = slug || href.replace("https://", "").replace("http://", "");
 
   const isTemplateSite = title === "Bluegrass Digital Forge Templates";

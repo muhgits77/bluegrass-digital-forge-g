@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 interface TestimonialProps {
   quote: string;
@@ -21,11 +22,12 @@ export default function Testimonial({ quote, name, role, photo }: TestimonialPro
         </div>
         {photo && (
           <div className="w-11 h-11 rounded-full overflow-hidden ring-1 ring-white/10 shadow-md flex-shrink-0 border border-[#2a3f38]">
-            <img 
+            <Image 
               src={photo} 
-              alt={`${name} — local Lake Cumberland business owner`}
+              alt={`${name} — local Lake Cumberland business owner testimonial for Monticello KY website designer`}
+              width={44}
+              height={44}
               className="w-full h-full object-cover grayscale-[0.15] group-hover:grayscale-0 transition-all duration-300" 
-              loading="lazy"
             />
           </div>
         )}

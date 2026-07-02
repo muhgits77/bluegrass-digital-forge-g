@@ -11,7 +11,7 @@ export default function Logo() {
       <div className="relative shrink-0">
         <Image
           src="/logo.jpg"
-          alt="Bluegrass Digital Forge"
+          alt="Bluegrass Digital Forge — Monticello KY website designer for Lake Cumberland business websites"
           width={48}
           height={48}
           className="h-10 w-auto object-contain md:h-11 rounded-sm ring-1 ring-white/10 shadow-sm transition-transform group-hover:scale-105"

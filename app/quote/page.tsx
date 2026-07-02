@@ -161,9 +161,9 @@ export default function QuotePage() {
   return (
     <div className="mx-auto max-w-3xl px-5 py-10">
       <div className="mb-8">
-        <div className="label tracking-[2px]">CUSTOM QUOTE</div>
-        <h1 className="section-title tracking-tight mt-1">Let&apos;s build the right website for your Lake Cumberland business</h1>
-        <p className="mt-2 text-[#8a9599]">A few quick questions. Takes 4–6 minutes. I’ll reply personally with a clear, flat-price proposal tailored to Wayne County &amp; the lake.</p>
+        <div className="label tracking-[2px]">CUSTOM QUOTE — MONTICELLO KY WEBSITE DESIGNER</div>
+        <h1 className="section-title tracking-tight mt-1">Get a Quote from the Monticello KY Website Designer for Lake Cumberland Business Websites</h1>
+        <p className="mt-2 text-[#8a9599]">A few quick questions for your Wayne County or Lake Cumberland project. Flat price proposal from the local Monticello builder for food truck websites Kentucky and more. 4–6 minutes.</p>
       </div>
 
       {!submitted ? (

@@ -34,9 +34,9 @@ export default function WorkPage() {
   return (
     <div className="mx-auto max-w-7xl px-5 py-12">
       <div className="max-w-2xl mb-8">
-        <div className="label tracking-[1.5px]">MY WORK — LAKE CUMBERLAND &amp; WAYNE COUNTY</div>
-        <h1 className="section-title tracking-tight">Real demo websites for Monticello KY &amp; Lake Cumberland businesses.</h1>
-        <p className="mt-3 text-[15px] text-[#9aa6ad]">Click cards to view live demos. These show the exact quality and local Kentucky character you get: food truck sites, restaurants, marinas, and shops around the lake. Every site is built by a neighbor in Monticello.</p>
+        <div className="label tracking-[1.5px]">MY WORK — LAKE CUMBERLAND BUSINESS WEBSITES</div>
+        <h1 className="section-title tracking-tight">Lake Cumberland Business Websites &amp; Wayne County Web Design Demos — Monticello KY Website Designer</h1>
+        <p className="mt-3 text-[15px] text-[#9aa6ad]">Browse live demos of custom Lake Cumberland business websites built by the Monticello KY website designer. Real examples of food truck website Kentucky, restaurant sites, marina websites and shops. Authentic Wayne County web design you can preview.</p>
       </div>
 
       {/* Internal link to services for SEO + flow */}
@@ -59,10 +59,11 @@ export default function WorkPage() {
       </div>
 
       <div className="mt-12 text-center border-t border-[#1a2225] pt-9">
-        <h2 className="text-xl font-semibold tracking-tight">Need something custom?</h2>
-        <p className="text-[14.5px] text-[#9aa6ad] mt-1">Food truck website Kentucky, restaurant site, marina or shop — tell me about your business in Monticello or around Lake Cumberland.</p>
+        <h2 className="text-xl font-semibold tracking-tight">Custom Monticello KY Website Designer for Your Lake Cumberland Business</h2>
+        <p className="text-[14.5px] text-[#9aa6ad] mt-1">Food truck website Kentucky, restaurant site, marina or shop — every project handcrafted by a neighbor in Monticello for Wayne County &amp; Lake Cumberland.</p>
         <div className="mt-5 flex flex-wrap gap-3 justify-center">
           <Link href="/quote" className="btn btn-primary">Get a Quote →</Link>
+          <Link href="/services" className="btn btn-secondary">See Monticello KY Website Designer Pricing</Link>
           <Link href="/contact" className="btn btn-secondary">Contact the local builder</Link>
         </div>
       </div>

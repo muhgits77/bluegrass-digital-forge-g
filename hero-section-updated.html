@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hero Section — Bluegrass Digital Forge</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+    
+    :root {
+      --bg: #050708;
+      --warm: #c17a5a;
+      --gold: #f4a261;
+    }
+    
+    body {
+      font-family: 'Inter', system_ui, sans-serif;
+    }
+    
+    .display-font {
+      font-family: 'Space Grotesk', 'Inter', system_ui, sans-serif;
+      font-feature-settings: "tnum";
+    }
+
+    .hero-title {
+      font-size: clamp(2.65rem, 9.4vw, 4.9rem);
+      line-height: 0.96;
+      letter-spacing: -3.6px;
+      font-weight: 600;
+    }
+
+    .section-bg {
+      background: #0b1715;
+    }
+
+    .warm-overlay {
+      background: linear-gradient(to bottom, rgba(5,7,8,0.88) 0%, rgba(11,23,21,0.5) 50%, rgba(5,7,8,0.96) 100%);
+    }
+
+    .side-overlay {
+      background: linear-gradient(to right, rgba(5,7,8,0.75) 0%, rgba(5,7,8,0.2) 50%, transparent 100%);
+    }
+
+    .trust-bar {
+      background: rgba(10, 12, 15, 0.92);
+      backdrop-filter: blur(20px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(145deg, #c17a5a, #a96447);
+      color: #f8f1e6;
+      padding: 0.78rem 2.05rem;
+      box-shadow: 0 6px 20px -4px rgb(193 122 90 / 0.38);
+      border: 1px solid rgba(244, 162, 97, 0.25);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .btn-primary:hover {
+      background: linear-gradient(145deg, #a96447, #8d5137);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 32px -6px rgb(193 122 90 / 0.48);
+    }
+
+    .hero-content {
+      z-index: 30;
+    }
+
+    .premium-shadow {
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body class="bg-[#050708] text-zinc-200">
+  <!-- 
+    UPDATED HERO SECTION
+    Ready to drop into your Next.js / Tailwind project.
+    - Uses real <img> for critical LCP image (Critical Image Rule)
+    - Authentic golden hour Lake Cumberland photography
+    - Warm, premium but approachable Kentucky soul
+    - Strong hierarchy, clean subtext, subtle trust
+  -->
+  <section class="relative min-h-[100dvh] flex flex-col overflow-hidden border-b border-[#243530] bg-[#0b1715]">
+    
+    <!-- CRITICAL HERO IMAGE: Use <img> + object-fit for best performance & SEO (not CSS background) -->
+    <img 
+      src="/hero-lake-cumberland-golden.jpg" 
+      alt="Golden hour on Lake Cumberland near Monticello, Kentucky — calm water reflecting warm light, rolling forested hills in the distance, peaceful authentic lakeside scene"
+      class="absolute inset-0 w-full h-full object-cover z-0"
+      style="object-position: center 38%;"
+      fetchpriority="high"
+    />
+
+    <!-- Overlays for readability and mood (warm Kentucky golden hour feel) -->
+    <div class="absolute inset-0 bg-gradient-to-b from-[#050708]/88 via-[#0b1715]/50 to-[#050708]/96 z-10"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-[#050708]/75 via-[#050708]/20 to-transparent z-10"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_42%_32%,rgba(193,122,90,0.13)_0%,transparent_70%)] z-10"></div>
+
+    <!-- Subtle water glints / light reflection effect (optional, lightweight) -->
+    <div class="absolute inset-0 pointer-events-none overflow-hidden z-20">
+      <!-- These are small animated dots. Remove if you want zero JS -->
+      <div class="absolute w-[1.5px] h-[1.5px] rounded-full bg-[#f4a261] left-[62%] top-[35%] opacity-30" style="animation: glint 7.5s ease-in-out infinite;"></div>
+      <div class="absolute w-[1.5px] h-[1.5px] rounded-full bg-[#f4a261] left-[69%] top-[41%] opacity-25" style="animation: glint 6.8s ease-in-out infinite 1.2s;"></div>
+      <div class="absolute w-[1.5px] h-[1.5px] rounded-full bg-[#f4a261] left-[74%] top-[32%] opacity-35" style="animation: glint 8.2s ease-in-out infinite 0.6s;"></div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="hero-content relative flex-1 flex items-center justify-center px-5 pt-20 pb-8 md:pb-6 z-30">
+      <div class="w-full max-w-[740px] text-center">
+        
+        <!-- Trust badge: subtle, warm, local -->
+        <div class="inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/5 backdrop-blur-2xl px-6 py-1.5 text-[10.5px] tracking-[2.6px] text-white/90 mb-7">
+          <span class="inline-block w-1.5 h-1.5 rounded-full bg-[#c17a5a] animate-pulse"></span>
+          HANDCRAFTED IN MONTICELLO, KY
+        </div>
+
+        <!-- HEADLINE: Strong, confident, memorable (as requested) -->
+        <h1 class="display-font mx-auto max-w-[20ch] text-balance leading-[0.96] text-white tracking-[-3.6px] text-[clamp(2.65rem,9.4vw,4.9rem)] md:text-[clamp(3.1rem,6.5vw,5rem)] font-semibold premium-shadow">
+          Websites for<br>
+          Lake Cumberland.<br>
+          Built in Monticello.
+        </h1>
+
+        <!-- SUBHEADLINE: Warm, trustworthy, neighborly. Concise. No stuffing. -->
+        <p class="mx-auto mt-5 max-w-[42ch] text-[17px] md:text-[18px] leading-relaxed text-white/90">
+          Handcrafted websites that feel like Lake Cumberland. Flat pricing. You own everything. 
+          Built quickly by a neighbor in Monticello who knows the water.
+        </p>
+
+        <!-- CTAs -->
+        <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3.5">
+          <!-- Primary CTA -->
+          <a href="/quote" 
+             class="btn-primary inline-flex items-center justify-center gap-2 rounded-full font-semibold text-[15.5px] px-10 py-[17px] w-full sm:w-auto shadow-xl active:scale-[0.985] transition-all">
+            Get a free quote in 2 minutes →
+          </a>
+
+          <!-- Secondary CTA -->
+          <a href="/work" 
+             class="inline-flex items-center justify-center rounded-full border border-white/25 bg-white/5 px-8 py-3.5 text-[15.5px] font-semibold text-white hover:bg-white/10 hover:border-white/45 backdrop-blur-xl transition-all w-full sm:w-auto">
+            See our work
+          </a>
+        </div>
+
+        <!-- Subtle trust signals -->
+        <div class="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2 text-[13px] text-white/80">
+          <div class="inline-flex items-center gap-1.5">
+            <i class="fa-solid fa-check text-[#c17a5a]"></i> 
+            <span>Handcrafted in Monticello, KY</span>
+          </div>
+          <div class="inline-flex items-center gap-1.5">
+            <i class="fa-solid fa-check text-[#c17a5a]"></i> 
+            <span>Flat pricing. No surprises.</span>
+          </div>
+          <div class="inline-flex items-center gap-1.5">
+            <i class="fa-solid fa-check text-[#c17a5a]"></i> 
+            <span>You own the site + code.</span>
+          </div>
+          <div class="inline-flex items-center gap-1.5">
+            <i class="fa-solid fa-check text-[#c17a5a]"></i> 
+            <span>Live in 2–4 weeks.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Social proof / pricing bar -->
+    <div class="relative z-30 flex justify-center pb-7">
+      <div class="trust-bar inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-black/60 backdrop-blur-3xl px-5 py-2.5 text-sm text-white/90 max-w-[94%]">
+        <span class="font-semibold text-[#f4a261]">Starter Sites from $1,200 • Flat price</span>
+        <span class="text-white/25 hidden sm:inline">•</span>
+        <span class="text-[13px] text-white/75 hidden sm:inline">Handcrafted in Monticello, KY. You own everything.</span>
+        <span class="text-[13px] text-white/75 sm:hidden">Flat price. Handcrafted local.</span>
+      </div>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="relative border-t border-white/10 bg-[#050708]/95 backdrop-blur z-30">
+      <div class="mx-auto max-w-6xl px-5 py-4 grid grid-cols-2 md:grid-cols-4 gap-x-2 gap-y-1 text-center text-sm">
+        <div>
+          <div class="text-[22px] font-semibold tracking-[-1.4px] text-white">16+</div>
+          <div class="text-[10.5px] tracking-[1.6px] text-white/55">LIVE KENTUCKY DEMOS</div>
+        </div>
+        <div>
+          <div class="text-[22px] font-semibold tracking-[-1.4px] text-white">2–4 WEEKS</div>
+          <div class="text-[10.5px] tracking-[1.6px] text-white/55">TYPICAL LAUNCH</div>
+        </div>
+        <div>
+          <div class="text-[22px] font-semibold tracking-[-1.4px] text-white">LOCAL</div>
+          <div class="text-[10.5px] tracking-[1.6px] text-white/55">MONTICELLO BUILDER</div>
+        </div>
+        <div>
+          <div class="text-[22px] font-semibold tracking-[-1.4px] text-white">YOU OWN IT</div>
+          <div class="text-[10.5px] tracking-[1.6px] text-white/55">FULL OWNERSHIP + CODE</div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <script>
+    // Tailwind script (for standalone demo only)
+    function initializeTailwind() {
+      document.documentElement.style.setProperty('--accent', '#c17a5a');
+    }
+    window.onload = initializeTailwind;
+  </script>
+</body>
+</html>

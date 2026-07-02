@@ -60,24 +60,25 @@ export default function Home() {
     <>
       {/* HERO — Elevated for emotional impact + 100% local authenticity */}
       <section className="relative min-h-[100dvh] flex flex-col overflow-hidden border-b border-[#243530] bg-[#0b1715]">
-        {/* Hero background — Stunning photorealistic Lake Cumberland golden hour: lake view with rolling hills, warm authentic Kentucky light near Monticello. */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center hero-boat"
-          style={{ 
-            backgroundImage: "url('/hero-cumberland-golden.jpg')",
-            backgroundPosition: "center 38%"
-          }}
-          role="img"
-          aria-label="Golden hour photorealistic view of Lake Cumberland with calm water and rolling Kentucky hills near Monticello, Wayne County"
+        {/* 
+          CRITICAL IMAGE: Using <img> with object-cover + priority for proper LCP optimization 
+          (Critical Image Rule). Authentic golden hour Lake Cumberland, rolling hills, calm water.
+        */}
+        <img
+          src="/hero-lake-cumberland-golden.jpg"
+          alt="Golden hour on Lake Cumberland near Monticello, Kentucky — calm water reflecting warm light, rolling forested hills in the distance"
+          className="absolute inset-0 w-full h-full object-cover z-0"
+          style={{ objectPosition: "center 38%" }}
+          fetchPriority="high"
         />
         
         {/* Cinematic warm overlays tuned for bourbon earth + golden light mood */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#050708]/88 via-[#0b1715]/50 to-[#050708]/96" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050708]/75 via-[#050708]/20 to-transparent" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_42%_32%,rgba(193,122,90,0.13)_0%,transparent_70%)]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050708]/88 via-[#0b1715]/50 to-[#050708]/96 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#050708]/75 via-[#050708]/20 to-transparent z-10" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_42%_32%,rgba(193,122,90,0.13)_0%,transparent_70%)] z-10" />
 
         {/* Delicate water / light glints — subtle, not overdone */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 2 }}>
+        <div className="absolute inset-0 pointer-events-none overflow-hidden z-20">
           {Array.from({ length: 11 }).map((_, i) => (
             <motion.div
               key={i}
@@ -103,7 +104,7 @@ export default function Home() {
         </div>
 
         {/* Hero Content */}
-        <div className="hero-content relative flex-1 flex items-center justify-center px-5 pt-20 pb-8 md:pb-6" style={{ zIndex: 3 }}>
+        <div className="hero-content relative flex-1 flex items-center justify-center px-5 pt-20 pb-8 md:pb-6 z-30">
           <div className="w-full max-w-[740px] text-center">
             {/* Subtle local trust badge — premium, warm, authentic */}
             <motion.div
@@ -126,14 +127,14 @@ export default function Home() {
               Websites for<br />Lake Cumberland.<br />Built in Monticello.
             </motion.h1>
 
-            {/* Compelling subtext with local soul and clarity */}
+            {/* Compelling subtext — warm, neighborly, human */}
             <motion.p
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.58, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-              className="mx-auto mt-5 max-w-[43ch] text-[17px] md:text-[18px] leading-relaxed text-white/90"
+              className="mx-auto mt-5 max-w-[42ch] text-[17px] md:text-[18px] leading-relaxed text-white/90"
             >
-              Warm, authentic websites handcrafted for the marinas, restaurants, food trucks, and small businesses of Lake Cumberland. Flat pricing. Full ownership. Built by a neighbor who knows the water.
+              Handcrafted websites that feel like Lake Cumberland. Flat pricing. You own everything. Built quickly by a neighbor in Monticello who knows the water.
             </motion.p>
 
             {/* Primary CTAs — prominent, frictionless "Get Quote", warm local tone */}
@@ -154,7 +155,7 @@ export default function Home() {
                 href="/work"
                 className="inline-flex items-center justify-center rounded-full border border-white/25 bg-white/5 px-8 py-3.5 text-[15.5px] font-semibold text-white hover:bg-white/10 hover:border-white/45 backdrop-blur-xl transition-all w-full sm:w-auto"
               >
-                See real local demos
+                See our work
               </Link>
             </motion.div>
 
@@ -179,8 +180,7 @@ export default function Home() {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.42, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-10 flex justify-center pb-7"
-          style={{ zIndex: 3 }}
+          className="relative z-30 flex justify-center pb-7"
         >
           <div className="trust-bar inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-black/60 backdrop-blur-3xl px-5 py-2.5 text-sm text-white/90 max-w-[94%]">
             <span className="font-semibold text-[#f4a261]">Starter Sites from $1,200 • Flat price</span>
@@ -191,7 +191,7 @@ export default function Home() {
         </motion.div>
 
         {/* Stats bar — honest, local, no hype. Tone down claims per requirements */}
-        <div className="relative border-t border-white/10 bg-[#050708]/95 backdrop-blur" style={{ zIndex: 3 }}>
+        <div className="relative border-t border-white/10 bg-[#050708]/95 backdrop-blur z-30">
           <div className="mx-auto max-w-6xl px-5 py-4 grid grid-cols-2 md:grid-cols-4 gap-x-2 gap-y-1 text-center text-sm">
             <div>
               <div className="text-[22px] font-semibold tracking-[-1.4px] text-white">16+</div>
@@ -290,7 +290,7 @@ export default function Home() {
       <section className="py-14 text-center border-t border-[#1a2225] bg-[#050708]">
         <div className="mx-auto max-w-[660px] px-5">
           <h2 className="text-[29px] md:text-[33px] tracking-[-1.15px] font-semibold leading-tight">Ready for a website from the Monticello KY Website Designer?</h2>
-          <p className="mt-3.5 text-[15.5px] text-[#9aa6ad] max-w-[52ch] mx-auto">Flat pricing. Full ownership. No agency. Lake Cumberland business websites and food truck website Kentucky built by a neighbor that actually brings people in.</p>
+          <p className="mt-3.5 text-[15.5px] text-[#9aa6ad] max-w-[52ch] mx-auto">Flat pricing. Full ownership. No agency. Lake Cumberland business websites, food truck website Kentucky and restaurant website Monticello KY built by a neighbor that actually brings people in.</p>
 
           <div className="mt-8 flex flex-col sm:flex-row gap-3.5 justify-center">
             <Link href="/quote" className="btn btn-primary px-9 py-3.5 text-base font-semibold shadow-lg">Get your free quote in 2 minutes →</Link>

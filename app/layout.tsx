@@ -52,7 +52,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Monticello KY Website Designer | Lake Cumberland Business Websites",
     description: "Local Monticello KY website designer building premium Lake Cumberland business websites and food truck websites in Kentucky. Authentic Wayne County web design with flat pricing and full ownership.",
-    images: [{ url: "/hero-cumberland-golden.jpg", alt: "Stunning golden hour Lake Cumberland scene with calm water and rolling Kentucky hills near Monticello, KY" }],
+    images: [{ url: "/hero-lake-cumberland-golden.jpg", alt: "Golden hour on Lake Cumberland near Monticello, Kentucky — calm water, rolling forested hills" }],
     locale: "en_US",
     type: "website",
   },
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Monticello KY Website Designer | Lake Cumberland Business Websites",
     description: "Monticello KY website designer for Lake Cumberland & Wayne County businesses. Food truck websites Kentucky, restaurants, marinas. Flat price, full ownership.",
-    images: ["/hero-cumberland-golden.jpg"],
+    images: ["/hero-lake-cumberland-golden.jpg"],
   },
   icons: {
     icon: "/favicon.ico",
@@ -87,12 +87,12 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-        {/* Preload critical hero + logo for fast LCP */}
-        <link rel="preload" href="/hero-cumberland-golden.jpg" as="image" />
+        {/* Preload critical hero + logo for fast LCP (Critical Image) */}
+        <link rel="preload" href="/hero-lake-cumberland-golden.jpg" as="image" />
         <link rel="preload" href="/logo.jpg" as="image" />
       </head>
       <body className="min-h-full flex flex-col bg-[#050708] text-zinc-200 scroll-smooth">
-        {/* Aggressive LocalBusiness + WebSite schema for Monticello KY website designer + Lake Cumberland SEO */}
+        {/* Aggressive LocalBusiness + Organization + WebSite schema for Monticello KY website designer + Lake Cumberland SEO */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify({
@@ -100,11 +100,11 @@ export default function RootLayout({
             "@type": "LocalBusiness",
             "@id": "https://bluegrass-digital-forge.lovable.app/#business",
             "name": "Bluegrass Digital Forge",
-            "description": "Monticello KY website designer building authentic Lake Cumberland business websites, food truck websites Kentucky, and Wayne County web design. Flat pricing, full code ownership, local builder serving the lake region.",
+            "description": "Monticello KY website designer building authentic Lake Cumberland business websites, food truck websites Kentucky, restaurant website Monticello KY, and Wayne County web design. Flat pricing, full code ownership, local builder serving the lake region.",
             "url": "https://bluegrass-digital-forge.lovable.app",
             "email": "BluegrassDigitalForge@protonmail.com",
             "logo": "https://bluegrass-digital-forge.lovable.app/logo.jpg",
-            "image": "https://bluegrass-digital-forge.lovable.app/hero-cumberland-golden.jpg",
+            "image": "https://bluegrass-digital-forge.lovable.app/hero-lake-cumberland-golden.jpg",
             "address": {
               "@type": "PostalAddress",
               "streetAddress": "Monticello, KY 42633",
@@ -125,16 +125,37 @@ export default function RootLayout({
             "serviceArea": "Lake Cumberland and Wayne County, Kentucky",
             "priceRange": "$1,200 - $2,500",
             "founder": { "@type": "Person", "name": "Brian" },
-            "knowsAbout": ["Website Design", "Food Truck Websites", "Restaurant Web Design", "Local SEO", "Branding for Kentucky Businesses"],
+            "knowsAbout": ["Website Design", "Food Truck Websites", "Restaurant Website Monticello KY", "Local SEO", "Branding for Kentucky Businesses"],
             "hasOfferCatalog": {
               "@type": "OfferCatalog",
               "name": "Website & Branding Services",
               "itemListElement": [
                 { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Starter Sites — Monticello KY Website Designer", "description": "Flat $1,200 websites for food trucks and small Lake Cumberland businesses" } },
                 { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Business Suites for Lake Cumberland Businesses", "description": "Premium custom Wayne County web design from $2,500" } },
-                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Food Truck Website Kentucky", "description": "Specialized fast sites with schedule, menu, and local SEO" } }
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Food Truck Website Kentucky", "description": "Specialized fast sites with schedule, menu, and local SEO" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Restaurant Website Monticello KY", "description": "Custom restaurant websites for Lake Cumberland" } }
               ]
             }
+          }) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "Bluegrass Digital Forge",
+            "url": "https://bluegrass-digital-forge.lovable.app",
+            "logo": "https://bluegrass-digital-forge.lovable.app/logo.jpg",
+            "description": "Monticello KY website designer for Lake Cumberland business websites and Wayne County web design.",
+            "email": "BluegrassDigitalForge@protonmail.com",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Monticello",
+              "addressRegion": "KY",
+              "postalCode": "42633",
+              "addressCountry": "US"
+            },
+            "areaServed": "Wayne County, KY and Lake Cumberland region"
           }) }}
         />
         <script

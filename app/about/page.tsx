@@ -3,8 +3,8 @@ import Link from "next/link";
 export default function AboutPage() {
   return (
     <div className="mx-auto max-w-4xl px-5 py-12">
-      <div className="label tracking-[1.6px]">ABOUT</div>
-      <h1 className="section-title tracking-tight mt-1">Your neighbor who builds websites that work.</h1>
+      <div className="label tracking-[1.6px]">ABOUT — LOCAL MONTICELLO KY WEBSITE DESIGNER</div>
+      <h1 className="section-title tracking-tight mt-1">Your neighbor in Monticello who builds Lake Cumberland websites that work.</h1>
 
       <div className="prose prose-invert mt-5 max-w-none text-[#c8cfd3] text-[15.5px] leading-relaxed">
         <p>I live and work right here on Lake Cumberland — not a 1-800 number or a chat window halfway across the country. When you hire Bluegrass Digital Forge, you get a real neighbor who knows the difference between a Wayne County food truck at the marina and a Somerset storefront. I pick up the phone. I answer texts on weekends before a busy Saturday.</p>
@@ -26,9 +26,10 @@ export default function AboutPage() {
       </div>
 
       <div className="mt-10 rounded-2xl bg-[#0a0c0f] border border-[#1a2225] p-8 text-center">
-        <p className="text-[#8a9599]">Curious what a local, honest build looks like?</p>
+        <p className="text-[#8a9599]">Curious what a local, honest build looks like? See the <Link href="/work" className="underline hover:text-[#f4a261]">live Lake Cumberland demos</Link>.</p>
         <div className="flex flex-wrap gap-3 mt-5 justify-center">
           <Link href="/work" className="btn btn-secondary">Browse the live demos</Link>
+          <Link href="/services" className="btn btn-secondary">See flat pricing</Link>
           <Link href="/quote" className="btn btn-primary">Start a conversation</Link>
         </div>
       </div>

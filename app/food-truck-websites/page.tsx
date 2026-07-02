@@ -3,9 +3,9 @@ import Link from "next/link";
 export default function FoodTruckWebsites() {
   return (
     <div className="mx-auto max-w-3xl px-5 py-12">
-      <div className="label">SPECIALTY</div>
-      <h1 className="section-title tracking-tight">Food Truck Websites</h1>
-      <p className="mt-3 text-lg text-[#8a9599]">Bold, fast-loading sites built specifically for trucks, trailers, and pop-ups around Lake Cumberland.</p>
+      <div className="label tracking-[1.6px]">SPECIALTY — FOOD TRUCK WEBSITE KENTUCKY</div>
+      <h1 className="section-title tracking-tight">Food Truck Websites for Lake Cumberland &amp; Wayne County</h1>
+      <p className="mt-3 text-lg text-[#8a9599]">Bold, fast-loading sites built locally in Monticello for trucks around Lake Cumberland. Perfect for BBQ, tacos, donuts and more.</p>
 
       <div className="mt-8 card p-7 rounded-3xl space-y-4 text-[15px]">
         <p>Typical inclusions for food truck sites:</p>

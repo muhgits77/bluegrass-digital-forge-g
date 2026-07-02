@@ -53,35 +53,36 @@ export default function Nav() {
           </Link>
         </div>
 
-        {/* Mobile Hamburger */}
+        {/* Mobile Hamburger — larger tap target, accessible */}
         <button
           onClick={() => setOpen(!open)}
-          className="md:hidden inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-[#243530] text-zinc-300 hover:text-white hover:border-[#33423c] transition-all"
-          aria-label="Toggle menu"
+          className="md:hidden inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-[#243530] text-zinc-300 hover:text-white hover:border-[#33423c] transition-all active:scale-[0.97]"
+          aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open}
         >
-          {open ? <X size={20} /> : <Menu size={20} />}
+          {open ? <X size={21} /> : <Menu size={21} />}
         </button>
       </div>
 
-      {/* Mobile Menu */}
-      <div className={`md:hidden border-t border-[#1a2225] bg-[#050708] ${open ? "block" : "hidden"}`}>
-        <div className="flex flex-col px-6 py-6 gap-1 text-[15.5px]">
+      {/* Mobile Menu — smoother, better touch, stronger CTA flow */}
+      <div className={`md:hidden border-t border-[#1a2225] bg-[#050708] ${open ? "block" : "hidden"}`} id="mobile-menu">
+        <div className="flex flex-col px-5 py-5 gap-0.5 text-[15.5px]">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               onClick={() => setOpen(false)}
-              className={`py-3.5 px-2 nav-link rounded-xl transition-colors ${isActive(link.href) ? "bg-[#1a2225] text-white font-medium" : "hover:bg-[#0f1517] text-zinc-400"}`}
+              className={`py-3.5 px-3 nav-link rounded-2xl transition-colors ${isActive(link.href) ? "bg-[#1a2225] text-white font-medium" : "hover:bg-[#0f1517] text-zinc-400"}`}
             >
               {link.label}
             </Link>
           ))}
 
-          <div className="pt-4 mt-2 border-t border-[#1a2225] flex flex-col gap-3">
+          <div className="pt-4 mt-3 border-t border-[#1a2225] flex flex-col gap-3 px-1">
             <Link
               href="/quote"
               onClick={() => setOpen(false)}
-              className="btn btn-primary w-full py-3 text-center text-[15px] font-semibold"
+              className="btn btn-primary w-full py-[15px] text-center text-[15.5px] font-semibold active:scale-[0.985]"
             >
               Get a Free Quote →
             </Link>
@@ -90,7 +91,7 @@ export default function Nav() {
               onClick={() => setOpen(false)}
               className="btn btn-secondary w-full py-3 text-center"
             >
-              Business Cards & Branding
+              Business Cards &amp; Branding
             </Link>
           </div>
         </div>

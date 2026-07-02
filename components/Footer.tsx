@@ -9,11 +9,11 @@ export default function Footer() {
           {/* Brand */}
           <div className="md:col-span-5">
             <div className="flex items-center gap-2.5 mb-3.5">
-              <img src="/logo.jpg" alt="" className="h-[22px] w-auto object-contain" />
+              <img src="/logo.jpg" alt="Bluegrass Digital Forge logo — Monticello KY" className="h-[22px] w-auto object-contain" />
               <span className="font-semibold tracking-tight text-[15.5px]">Bluegrass Digital Forge</span>
             </div>
             <p className="text-[#8a9599] max-w-sm leading-relaxed">
-              Websites that win more customers for Lake Cumberland businesses. Flat pricing, fast launches, full ownership. Handcrafted locally in Monticello for food trucks, restaurants, shops &amp; neighbors around the lake.
+              Monticello KY website designer. Flat pricing, fast launches, you own everything. Authentic websites for Lake Cumberland businesses: food trucks, restaurants, marinas &amp; shops.
             </p>
             <p className="mt-4 text-[12.5px] text-[#9aa6ad] tracking-wide">Forged by Brian · Monticello, Kentucky</p>
           </div>

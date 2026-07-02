@@ -60,13 +60,15 @@ export default function Home() {
     <>
       {/* HERO — Elevated for emotional impact + 100% local authenticity */}
       <section className="relative min-h-[100dvh] flex flex-col overflow-hidden border-b border-[#243530] bg-[#0b1715]">
-        {/* Hero background — CRITICAL: Photorealistic Lake Cumberland, golden hour, rolling hills, marina charm */}
+        {/* Hero background — AUTHENTIC Lake Cumberland, KY: golden hour shoreline, boats on the water, rolling wooded bluegrass hills near Monticello/Wayne County. NO generic stock. */}
         <div 
           className="absolute inset-0 bg-cover bg-center hero-boat"
           style={{ 
             backgroundImage: "url('/hero-lake-golden.jpg')",
-            backgroundPosition: "center 38%"
+            backgroundPosition: "center 32%"
           }}
+          role="img"
+          aria-label="Golden hour authentic view of Lake Cumberland with boats and rolling hills near Monticello, Wayne County, Kentucky"
         />
         
         {/* Cinematic warm overlays tuned for bourbon earth + golden light mood */}
@@ -119,18 +121,18 @@ export default function Home() {
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.68, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
-              className="hero-title mx-auto max-w-[18ch] text-balance leading-[0.98] text-white tracking-[-3.35px] text-[clamp(2.48rem,9vw,4.75rem)] md:text-[clamp(2.95rem,6.2vw,4.75rem)] font-semibold"
+              className="hero-title mx-auto max-w-[19ch] text-balance leading-[0.98] text-white tracking-[-3.35px] text-[clamp(2.48rem,9vw,4.75rem)] md:text-[clamp(2.95rem,6.2vw,4.75rem)] font-semibold"
             >
-              Websites forged<br />for the lake.<br />That actually bring people in.
+              Websites for<br />Lake Cumberland.<br />Built in Monticello.
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.58, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-              className="mx-auto mt-5 max-w-[41ch] text-[17px] md:text-[18px] leading-relaxed text-white/90"
+              className="mx-auto mt-5 max-w-[42ch] text-[17px] md:text-[18px] leading-relaxed text-white/90"
             >
-              Handcrafted in Monticello by a neighbor who answers the phone. Flat price. Launched fast. You own every pixel — and it feels like home.
+              Local builder in Monticello, KY. Flat pricing. Fast launch for food trucks, restaurants &amp; Lake Cumberland businesses. You own every file and the code.
             </motion.p>
 
             {/* Primary CTAs — prominent, frictionless "Get Quote", warm local tone */}
@@ -155,14 +157,14 @@ export default function Home() {
               </Link>
             </motion.div>
 
-            {/* Trust signals — warm, local, clear value */}
+            {/* Trust signals — warm, local, honest, no hype */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.34, ease: [0.22, 1, 0.36, 1] }}
               className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2 text-[13px] text-white/80"
             >
-              {["Flat price. No surprises.", "You own everything.", "Real neighbor. Answers the phone.", "Live in 2–4 weeks."].map((t, i) => (
+              {["Flat pricing. No surprises.", "You own the site + code.", "Built by a neighbor in Monticello.", "Live in 2–4 weeks."].map((t, i) => (
                 <div key={i} className="inline-flex items-center gap-1.5">
                   <Check size={15} className="text-[#c17a5a]" /> {t}
                 </div>
@@ -180,14 +182,14 @@ export default function Home() {
           style={{ zIndex: 3 }}
         >
           <div className="trust-bar inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-black/60 backdrop-blur-3xl px-5 py-2.5 text-sm text-white/90 max-w-[94%]">
-            <span className="font-semibold text-[#f4a261]">Starter Sites from $1,200</span>
+            <span className="font-semibold text-[#f4a261]">Starter Sites from $1,200 • Flat price</span>
             <span className="text-white/25 hidden sm:inline">•</span>
-            <span className="text-[13px] text-white/75 hidden sm:inline">“Brian just gets small business on the lake. No upsells. Just results.” — Local owner</span>
-            <span className="text-[13px] text-white/75 sm:hidden">Real results. No upsells.</span>
+            <span className="text-[13px] text-white/75 hidden sm:inline">Local Monticello builder. You own everything.</span>
+            <span className="text-[13px] text-white/75 sm:hidden">Flat price. Local builder.</span>
           </div>
         </motion.div>
 
-        {/* Stats bar — clean, trustworthy */}
+        {/* Stats bar — honest, local, no hype. Tone down claims per requirements */}
         <div className="relative border-t border-white/10 bg-[#050708]/95 backdrop-blur" style={{ zIndex: 3 }}>
           <div className="mx-auto max-w-6xl px-5 py-4 grid grid-cols-2 md:grid-cols-4 gap-x-2 gap-y-1 text-center text-sm">
             <div>
@@ -199,29 +201,29 @@ export default function Home() {
               <div className="text-[10.5px] tracking-[1.6px] text-white/55">TYPICAL LAUNCH</div>
             </div>
             <div>
-              <div className="text-[22px] font-semibold tracking-[-1.4px] text-white">5★</div>
-              <div className="text-[10.5px] tracking-[1.6px] text-white/55">LOCAL OWNER RATING</div>
+              <div className="text-[22px] font-semibold tracking-[-1.4px] text-white">LOCAL</div>
+              <div className="text-[10.5px] tracking-[1.6px] text-white/55">MONTICELLO BUILDER</div>
             </div>
             <div>
-              <div className="text-[22px] font-semibold tracking-[-1.4px] text-white">100%</div>
-              <div className="text-[10.5px] tracking-[1.6px] text-white/55">YOU OWN IT ALL</div>
+              <div className="text-[22px] font-semibold tracking-[-1.4px] text-white">YOU OWN IT</div>
+              <div className="text-[10.5px] tracking-[1.6px] text-white/55">FULL OWNERSHIP + CODE</div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* MY WORK — Elevated Demo Gallery with authentic previews */}
+      {/* MY WORK — Elevated Demo Gallery. SEO keywords: Lake Cumberland business websites, Monticello KY website designer */}
       <section className="mx-auto max-w-7xl px-5 pt-14 pb-6">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-4">
           <div>
-            <div className="label tracking-[1.6px] mb-1">REAL WORK FOR REAL BUSINESSES</div>
-            <h2 className="section-title tracking-tight">See exactly what you get.</h2>
+            <div className="label tracking-[1.6px] mb-1">REAL LOCAL WORK — LAKE CUMBERLAND</div>
+            <h2 className="section-title tracking-tight">See exactly what you get from a Monticello builder.</h2>
           </div>
           <Link href="/work" className="hidden md:inline-flex items-center gap-1.5 text-[14.5px] font-medium text-[#f4a261] hover:text-[#d88a5e] group">
-            Explore all 16 live demos <ArrowRight size={16} className="group-hover:translate-x-0.5 transition" />
+            Explore all live demos <ArrowRight size={16} className="group-hover:translate-x-0.5 transition" />
           </Link>
         </div>
-        <p className="text-[#9aa6ad] max-w-2xl mb-7 text-[15px]">Live, fictional demos showing the exact quality and local Kentucky focus you get with a Bluegrass Digital Forge site. Every preview is styled for the lake region.</p>
+        <p className="text-[#9aa6ad] max-w-2xl mb-7 text-[15px]">Fictional but realistic demos built in the exact style for Wayne County and Lake Cumberland businesses. Food trucks, restaurants, marinas &amp; shops. Click to preview live.</p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {demos.map((d, i) => (
@@ -242,11 +244,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* HOW IT WORKS — Simple, trustworthy, premium spacing */}
+      {/* HOW IT WORKS — Simple, trustworthy, premium spacing + internal link */}
       <section className="mx-auto max-w-6xl px-5 py-12 border-t border-[#1a2225]">
         <div className="text-center mb-9">
           <div className="label tracking-[1.6px] mb-1">HOW IT WORKS</div>
-          <h2 className="section-title tracking-tight">Simple. Honest. Local.</h2>
+          <h2 className="section-title tracking-tight">Simple. Honest. Local. Built in Monticello.</h2>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
@@ -264,14 +266,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* TESTIMONIALS — Strengthened trust with local voices + beautiful cards */}
+      {/* TESTIMONIALS — local voices + heading hierarchy */}
       <section className="mx-auto max-w-7xl px-5 py-12 bg-[#0a0c0f] border-y border-[#1a2225]">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-7">
           <div>
             <div className="label tracking-[1.6px] mb-1">HEAR FROM NEIGHBORS</div>
-            <h2 className="section-title tracking-tight">Real results from Lake Cumberland businesses.</h2>
+            <h2 className="section-title tracking-tight">Real Lake Cumberland &amp; Wayne County results.</h2>
           </div>
-          <Link href="/work" className="text-[#f4a261] hover:text-[#d88a5e] inline-flex items-center gap-1 text-sm">See more stories →</Link>
+          <Link href="/work" className="text-[#f4a261] hover:text-[#d88a5e] inline-flex items-center gap-1 text-sm">See all demos →</Link>
         </div>
 
         <div className="grid md:grid-cols-2 gap-5">
@@ -283,29 +285,29 @@ export default function Home() {
         <p className="text-center text-[13px] mt-7 text-[#8a9599]">Every site is custom-built for the way people actually use the lake — weekend visitors, locals, and lake-lovers.</p>
       </section>
 
-      {/* FINAL CONVERSION CTA — Stronger, frictionless, prominent */}
+      {/* FINAL CONVERSION CTA — Stronger flow, local emphasis */}
       <section className="py-14 text-center border-t border-[#1a2225] bg-[#050708]">
         <div className="mx-auto max-w-[660px] px-5">
-          <h2 className="text-[29px] md:text-[33px] tracking-[-1.15px] font-semibold leading-tight">Ready for a website that actually works for your business?</h2>
-          <p className="mt-3.5 text-[15.5px] text-[#9aa6ad] max-w-[52ch] mx-auto">No pressure. No jargon. No endless discovery. Just an honest conversation with a neighbor who builds fast sites that bring customers in.</p>
+          <h2 className="text-[29px] md:text-[33px] tracking-[-1.15px] font-semibold leading-tight">Ready for a website built by your neighbor in Monticello?</h2>
+          <p className="mt-3.5 text-[15.5px] text-[#9aa6ad] max-w-[52ch] mx-auto">Flat pricing. Full ownership. No agency. Local Lake Cumberland web design for food trucks, restaurants and small businesses that actually brings people in.</p>
 
           <div className="mt-8 flex flex-col sm:flex-row gap-3.5 justify-center">
-            <Link href="/quote" className="btn btn-primary px-9 py-3.5 text-base font-semibold shadow-lg">Get your free quote →</Link>
-            <Link href="/contact" className="inline-flex items-center justify-center rounded-full border border-[#2a3437] hover:bg-[#111518] px-7 py-3.5 text-[15px] font-semibold">Or just say hi — I&apos;ll reply fast</Link>
+            <Link href="/quote" className="btn btn-primary px-9 py-3.5 text-base font-semibold shadow-lg">Get your free quote in 2 minutes →</Link>
+            <Link href="/services" className="inline-flex items-center justify-center rounded-full border border-[#2a3437] hover:bg-[#111518] px-7 py-3.5 text-[15px] font-semibold">See flat pricing &amp; services</Link>
           </div>
 
-          <p className="mt-4 text-[12.5px] text-[#8a9599]">Takes about 2 minutes. Free 15-min call or text. I’ll tell you straight if a simple site is all you need.</p>
+          <p className="mt-4 text-[12.5px] text-[#8a9599]">Or <Link href="/contact" className="underline hover:text-white">just say hi</Link>. Real replies from Monticello, KY.</p>
         </div>
       </section>
 
-      {/* FLOATING "GET QUOTE" BUTTON — Enhanced mobile conversion */}
+      {/* FLOATING "GET QUOTE" BUTTON — Enhanced mobile conversion, strong CTA flow */}
       <a
         href="/quote"
         className="fixed bottom-6 right-6 z-50 bg-[#c17a5a] hover:bg-[#a96447] text-[#050708] px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-2.5 font-semibold active:scale-[0.985] transition-all md:hidden"
-        aria-label="Get a free quote"
+        aria-label="Get a free quote from the Monticello KY website designer"
       >
         <Phone className="w-5 h-5" />
-        <span>Get Quote</span>
+        <span>Get Free Quote</span>
       </a>
     </>
   );

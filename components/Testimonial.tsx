@@ -23,7 +23,7 @@ export default function Testimonial({ quote, name, role, photo }: TestimonialPro
           <div className="w-11 h-11 rounded-full overflow-hidden ring-1 ring-white/10 shadow-md flex-shrink-0 border border-[#2a3f38]">
             <img 
               src={photo} 
-              alt={name} 
+              alt={`${name} — local Lake Cumberland business owner`}
               className="w-full h-full object-cover grayscale-[0.15] group-hover:grayscale-0 transition-all duration-300" 
               loading="lazy"
             />

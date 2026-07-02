@@ -55,10 +55,10 @@ export default function Services() {
     <div className="mx-auto max-w-6xl px-5 py-12">
       {/* Header */}
       <div className="max-w-3xl">
-        <div className="label tracking-[2px]">SERVICES &amp; PRICING</div>
-        <h1 className="section-title tracking-tight mt-2">Flat pricing. Forged honest.</h1>
-        <p className="mt-3 text-lg text-[#9aa6ad]">Two website packages. You own your site, your domain, and your content — forever. Hosting is optional.</p>
-        <p className="text-[14.5px] text-[#9aa6ad] mt-1">Handcrafted locally for Monticello, Albany, Somerset, Jamestown, Burnside, and all of Wayne County &amp; Lake Cumberland, KY.</p>
+        <div className="label tracking-[2px]">SERVICES &amp; PRICING — MONTICELLO KY WEBSITE DESIGNER</div>
+        <h1 className="section-title tracking-tight mt-2">Flat pricing. Forged honest. Built for Lake Cumberland businesses.</h1>
+        <p className="mt-3 text-lg text-[#9aa6ad]">Two website packages for food truck websites Kentucky, restaurants, shops &amp; marinas. You own your site, domain, and code — forever. No surprises.</p>
+        <p className="text-[14.5px] text-[#9aa6ad] mt-1">Local builder in Monticello serving Wayne County &amp; Lake Cumberland region.</p>
       </div>
 
       {/* Two Big Website Cards — premium modern treatment, exact content */}
@@ -120,7 +120,7 @@ export default function Services() {
         </div>
       </div>
 
-      <p className="text-[14.5px] text-center mt-6 text-[#9aa6ad]">Not sure which one? Tell me about your business — I&apos;ll point you to the Starter if that&apos;s all you need.</p>
+      <p className="text-[14.5px] text-center mt-6 text-[#9aa6ad]">Not sure which one? <Link href="/quote" className="underline hover:text-white">Tell me about your business</Link> — I&apos;ll recommend the right fit for your Lake Cumberland spot.</p>
 
       {/* Branding Add-ons */}
       <div className="branding-addons mt-16 border-t-0 pt-0">
@@ -185,9 +185,10 @@ export default function Services() {
       {/* Bottom CTA */}
       <div className="mt-14 rounded-2xl border border-[#1a2225] bg-[#0a0c0f] p-8 text-center">
         <h3 className="text-xl font-semibold tracking-tight">Not sure which one fits?</h3>
-        <p className="text-[#8a9599] mt-1">Tell me about your business — I&apos;ll give an honest recommendation, even if it&apos;s the Starter.</p>
-        <div className="mt-5">
+        <p className="text-[#8a9599] mt-1">Tell me about your Monticello or Lake Cumberland business — honest recommendation, even if Starter is all you need.</p>
+        <div className="mt-5 flex gap-3 justify-center flex-wrap">
           <Link href="/quote" className="btn btn-primary">Get a Free Recommendation →</Link>
+          <Link href="/work" className="btn btn-secondary">See real demos first</Link>
         </div>
       </div>
     </div>

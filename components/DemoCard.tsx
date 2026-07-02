@@ -46,6 +46,9 @@ export default function DemoCard({ title, subtitle, category, href, image, slug 
   const isTemplateSite = title === "Bluegrass Digital Forge Templates";
   const isDataUrl = !!previewImage && previewImage.startsWith("data:"); // Support admin-uploaded base64 images
 
+  // Strong local alt text per rules — authentic Lake Cumberland / Kentucky region context
+  const localAlt = `${title} — live website demo for ${category} business in the Lake Cumberland / Wayne County Kentucky area`;
+
   return (
     <motion.a
       href={href}
@@ -54,7 +57,7 @@ export default function DemoCard({ title, subtitle, category, href, image, slug 
       className="demo-card group block h-full flex flex-col bg-[#0c1013] border border-[#1a2225] overflow-hidden rounded-3xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c17a5a]"
       whileHover={{ y: -9, scale: 1.0035 }}
       transition={{ type: "spring", stiffness: 280, damping: 26, mass: 0.8 }}
-      aria-label={`View live demo: ${title}`}
+      aria-label={`Open live demo of ${title}`}
     >
       {/* Browser Frame */}
       <div className="relative bg-[#0a0c0f] border-b border-[#1a2225]">
@@ -70,26 +73,23 @@ export default function DemoCard({ title, subtitle, category, href, image, slug 
           {!isTemplateSite && <ExternalLink size={11} className="text-[#7f8c90]" />}
         </div>
 
-        {/* Image Area — authentic local previews + warm depth overlay */}
-        {/* MAJOR CHANGE: Supports both static asset paths and base64 data URLs from admin drag-and-drop uploads */}
+        {/* Image Area — authentic local previews */}
         <div className="relative aspect-[16/10] overflow-hidden bg-[#050708]">
           {isDataUrl ? (
-            // Regular <img> for base64 data URLs (Next/Image does not support data: URLs directly)
             <img
               src={previewImage}
-              alt={`${title} — live website preview for ${category} business on Lake Cumberland`}
+              alt={localAlt}
               className="absolute inset-0 w-full h-full object-cover object-top transition-all duration-[650ms] group-hover:scale-[1.065] group-hover:brightness-[1.03]"
             />
           ) : (
             <Image
               src={previewImage}
-              alt={`${title} — live website preview for ${category} business on Lake Cumberland`}
+              alt={localAlt}
               fill
               className="object-cover object-top transition-all duration-[650ms] group-hover:scale-[1.065] group-hover:brightness-[1.03]"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           )}
-          {/* Refined cinematic + bourbon-warm overlay */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/40 to-black/75 group-hover:via-black/30 transition-all duration-500" />
           <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[radial-gradient(at_70%_20%,rgba(193,122,90,0.12)_0%,transparent_55%)]" />
         </div>

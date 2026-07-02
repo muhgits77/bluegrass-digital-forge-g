@@ -34,9 +34,14 @@ export default function WorkPage() {
   return (
     <div className="mx-auto max-w-7xl px-5 py-12">
       <div className="max-w-2xl mb-8">
-        <div className="label tracking-[1.5px]">MY WORK</div>
-        <h1 className="section-title tracking-tight">Live demo sites for every local Lake Cumberland business.</h1>
-        <p className="mt-3 text-[15px] text-[#9aa6ad]">Click any card to open the live site. All are fictional examples showing the exact premium quality and authentic Kentucky focus you receive. Each preview reflects the warm, practical style local businesses need around the lake.</p>
+        <div className="label tracking-[1.5px]">MY WORK — LAKE CUMBERLAND &amp; WAYNE COUNTY</div>
+        <h1 className="section-title tracking-tight">Real demo websites for Monticello KY &amp; Lake Cumberland businesses.</h1>
+        <p className="mt-3 text-[15px] text-[#9aa6ad]">Click cards to view live demos. These show the exact quality and local Kentucky character you get: food truck sites, restaurants, marinas, and shops around the lake. Every site is built by a neighbor in Monticello.</p>
+      </div>
+
+      {/* Internal link to services for SEO + flow */}
+      <div className="mb-6 text-sm">
+        <Link href="/services" className="text-[#f4a261] hover:underline">See flat pricing &amp; packages →</Link>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -54,9 +59,12 @@ export default function WorkPage() {
       </div>
 
       <div className="mt-12 text-center border-t border-[#1a2225] pt-9">
-        <h3 className="text-xl font-semibold tracking-tight">Don&apos;t see your kind of business?</h3>
-        <p className="text-[14.5px] text-[#9aa6ad] mt-1">Every site is custom-built. Tell me what you do and I&apos;ll show you what makes sense.</p>
-        <Link href="/quote" className="btn btn-primary mt-5 inline-flex">Get a Quote →</Link>
+        <h2 className="text-xl font-semibold tracking-tight">Need something custom?</h2>
+        <p className="text-[14.5px] text-[#9aa6ad] mt-1">Food truck website Kentucky, restaurant site, marina or shop — tell me about your business in Monticello or around Lake Cumberland.</p>
+        <div className="mt-5 flex flex-wrap gap-3 justify-center">
+          <Link href="/quote" className="btn btn-primary">Get a Quote →</Link>
+          <Link href="/contact" className="btn btn-secondary">Contact the local builder</Link>
+        </div>
       </div>
     </div>
   );

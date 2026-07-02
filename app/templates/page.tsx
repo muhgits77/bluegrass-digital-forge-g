@@ -3,10 +3,10 @@ import Link from "next/link";
 export default function TemplatesPage() {
   return (
     <div className="mx-auto max-w-4xl px-5 py-12">
-      <div className="label">TEMPLATES</div>
-      <h1 className="section-title tracking-tight mt-1">Ready-to-launch templates</h1>
+      <div className="label tracking-[1.6px]">TEMPLATES — LAKE CUMBERLAND</div>
+      <h1 className="section-title tracking-tight mt-1">Ready-to-launch templates for Monticello &amp; Lake Cumberland businesses</h1>
       <p className="mt-3 text-[#8a9599] max-w-prose">
-        I maintain a small collection of high-quality, locally tuned templates for common Lake Cumberland businesses. Each can be customized and launched quickly.
+        High-quality, locally tuned templates for food trucks, restaurants, guides and shops around Lake Cumberland. Customizable and fast to launch by the Monticello builder.
       </p>
 
       <div className="mt-8 grid md:grid-cols-2 gap-4">

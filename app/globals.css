@@ -352,7 +352,7 @@ h1, .hero-title {
   .demo-card, .btn, .card { transition: none; transform: none !important; }
 }
 
-/* Admin panel specific (dark sleek, blue accents) */
+/* Admin panel specific (dark sleek, blue accents) — zoom & mobile readable */
 .admin-table tr:hover {
   background-color: #111518;
 }
@@ -365,4 +365,12 @@ h1, .hero-title {
 .admin-input:focus {
   border-color: #3b82f6;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Ensure admin table and forms never feel cramped at 100% zoom */
+#admin-main table {
+  font-size: 15px;
+}
+@media (max-width: 640px) {
+  .input { font-size: 16px; padding: 14px 14px; }
 }

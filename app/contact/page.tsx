@@ -30,8 +30,8 @@ export default function ContactPage() {
 
   return (
     <div className="mx-auto max-w-2xl px-5 py-12">
-      <div className="label">CONTACT</div>
-      <h1 className="section-title tracking-tight mt-1">Let&apos;s talk about your project.</h1>
+      <div className="label">CONTACT — MONTICELLO KY WEBSITE DESIGNER</div>
+      <h1 className="section-title tracking-tight mt-1">Let&apos;s talk about your Lake Cumberland website.</h1>
       <p className="text-[#8a9599] mt-2">I usually reply within a few hours during the week. No forms or tickets — just a real email.</p>
 
       {!sent ? (
@@ -68,8 +68,9 @@ export default function ContactPage() {
         Prefer to call or text? Reach out via the email above and I&apos;ll happily share my number. Based in Monticello — serving the entire Lake Cumberland &amp; Wayne County region.
       </div>
 
-      <div className="mt-6">
+      <div className="mt-6 flex flex-wrap gap-3">
         <Link href="/quote" className="btn btn-primary">Or get a full custom quote →</Link>
+        <Link href="/services" className="btn btn-secondary">See pricing &amp; packages</Link>
       </div>
     </div>
   );

@@ -5,7 +5,6 @@ import Link from "next/link";
 import { ArrowRight, Check, Phone } from "lucide-react";
 import { motion } from "framer-motion";
 import DemoCard from "@/components/DemoCard";
-import Testimonial from "@/components/Testimonial";
 import { getPublicDemos, toCardProps } from "@/lib/demos";
 
 /**
@@ -36,16 +35,6 @@ function usePublicDemos(limit = 6) {
 
 
 
-/**
- * MAJOR CHANGE: Authentic Testimonials (real local voices)
- * Using actual local business owners from the area for emotional trust.
- */
-const testimonials = [
-  { quote: "Reservations jumped almost overnight. Brian built the site in two weeks and actually answers when I call. Feels like a partner who lives down the road.", name: "Marcus Thompson", role: "Owner, Hickory Forge Steakhouse · Monticello, KY", photo: "/testimonial-marcus.jpg" },
-  { quote: "Catering leads were slipping away every weekend. Now people book straight from the truck site while they're standing in line. Best decision I've made for the business.", name: "Dana Ramirez", role: "Owner, Smoky Wheels BBQ · Somerset, KY", photo: "/testimonial-dana.jpg" },
-  { quote: "Our old site was invisible. Brian gave us something that actually shows up when folks search the lake. Clean, fast, and it works beautifully on a phone.", name: "Jeff & Linda Sutton", role: "Blue Water Marina · Jamestown, KY", photo: "/testimonial-jeff-linda.jpg" },
-  { quote: "Half my new customers now find me online and call for same-day work. Best money I've spent in years for a business on the lake.", name: "Carlos Mendoza", role: "Owner, Summit Tire & Auto · Monticello, KY", photo: "/testimonial-carlos.jpg" },
-];
 
 /**
  * Hero — Stunning photorealistic Lake Cumberland golden hour scene with rolling hills.
@@ -54,7 +43,7 @@ const testimonials = [
  * Optimized for fast loading.
  */
 export default function Home() {
-  const demos = usePublicDemos(6);
+  const demos = usePublicDemos(4);
 
   return (
     <>
@@ -66,7 +55,7 @@ export default function Home() {
         */}
         <img
           src="/hero-lake-cumberland-golden.jpg"
-          alt="Golden hour on Lake Cumberland near Monticello, Kentucky — calm water reflecting warm light, rolling forested hills in the distance"
+          alt="Golden hour view of Lake Cumberland with calm water and rolling hills near Monticello, Kentucky — authentic local scene"
           className="absolute inset-0 w-full h-full object-cover z-0"
           style={{ objectPosition: "center 38%" }}
           fetchPriority="high"
@@ -127,14 +116,14 @@ export default function Home() {
               Websites for<br />Lake Cumberland.<br />Built in Monticello.
             </motion.h1>
 
-            {/* Compelling subtext — warm, neighborly, human */}
+            {/* Compelling subtext — warm, neighborly, concise */}
             <motion.p
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.58, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-              className="mx-auto mt-5 max-w-[42ch] text-[17px] md:text-[18px] leading-relaxed text-white/90"
+              className="mx-auto mt-5 max-w-[40ch] text-[17px] md:text-[18px] leading-relaxed text-white/90"
             >
-              Handcrafted websites that feel like Lake Cumberland. Flat pricing. You own everything. Built quickly by a neighbor in Monticello who knows the water.
+              Handcrafted for Lake Cumberland businesses. Flat pricing. You own everything. Built by a neighbor in Monticello.
             </motion.p>
 
             {/* Primary CTAs — prominent, frictionless "Get Quote", warm local tone */}
@@ -186,7 +175,7 @@ export default function Home() {
             <span className="font-semibold text-[#f4a261]">Starter Sites from $1,200 • Flat price</span>
             <span className="text-white/25 hidden sm:inline">•</span>
             <span className="text-[13px] text-white/75 hidden sm:inline">Handcrafted in Monticello, KY. You own everything.</span>
-            <span className="text-[13px] text-white/75 sm:hidden">Flat price. Handcrafted local.</span>
+            <span className="text-[13px] text-white/75 sm:hidden">Flat price. Local builder.</span>
           </div>
         </motion.div>
 
@@ -213,18 +202,18 @@ export default function Home() {
         </div>
       </section>
 
-      {/* MY WORK — Elevated Demo Gallery. SEO keywords: Lake Cumberland business websites, Monticello KY website designer */}
+      {/* FEATURED WORK — Honest showcase of recent projects for local businesses */}
       <section className="mx-auto max-w-7xl px-5 pt-14 pb-6">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-4">
           <div>
-            <div className="label tracking-[1.6px] mb-1">REAL LOCAL WORK — LAKE CUMBERLAND BUSINESS WEBSITES</div>
-            <h2 className="section-title tracking-tight">Lake Cumberland Business Websites Built by the Monticello KY Website Designer</h2>
+            <div className="label tracking-[1.6px] mb-1">FEATURED WORK</div>
+            <h2 className="section-title tracking-tight">Here’s the kind of work I build for local businesses</h2>
           </div>
           <Link href="/work" className="hidden md:inline-flex items-center gap-1.5 text-[14.5px] font-medium text-[#f4a261] hover:text-[#d88a5e] group">
-            Explore all live demos <ArrowRight size={16} className="group-hover:translate-x-0.5 transition" />
+            See all projects <ArrowRight size={16} className="group-hover:translate-x-0.5 transition" />
           </Link>
         </div>
-        <p className="text-[#9aa6ad] max-w-2xl mb-7 text-[15px]">Authentic demos of Wayne County web design and Lake Cumberland business websites. Food truck website Kentucky, restaurant sites, marinas &amp; shops built by your Monticello neighbor. Click to preview live.</p>
+        <p className="text-[#9aa6ad] max-w-2xl mb-7 text-[15px]">Real websites for restaurants, food trucks, guides, and shops around Lake Cumberland — built by a neighbor in Monticello. Click to preview live.</p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {demos.map((d, i) => (
@@ -241,15 +230,15 @@ export default function Home() {
         </div>
 
         <div className="mt-5 text-center md:hidden">
-          <Link href="/work" className="inline-flex items-center gap-1 text-[14.5px] font-medium text-[#f4a261] hover:text-[#d88a5e]">See the full portfolio of 16 demos →</Link>
+          <Link href="/work" className="inline-flex items-center gap-1 text-[14.5px] font-medium text-[#f4a261] hover:text-[#d88a5e]">See all projects →</Link>
         </div>
       </section>
 
       {/* HOW IT WORKS — Simple, trustworthy, premium spacing + internal link */}
       <section className="mx-auto max-w-6xl px-5 py-12 border-t border-[#1a2225]">
         <div className="text-center mb-9">
-          <div className="label tracking-[1.6px] mb-1">HOW IT WORKS — MONTICELLO KY WEBSITE DESIGNER</div>
-          <h2 className="section-title tracking-tight">Simple. Honest. Local. Wayne County Web Design Built in Monticello.</h2>
+          <div className="label tracking-[1.6px] mb-1">HOW IT WORKS</div>
+          <h2 className="section-title tracking-tight">Simple. Honest. Local. Built in Monticello.</h2>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
@@ -267,30 +256,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* TESTIMONIALS — local voices + heading hierarchy */}
-      <section className="mx-auto max-w-7xl px-5 py-12 bg-[#0a0c0f] border-y border-[#1a2225]">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-7">
-          <div>
-            <div className="label tracking-[1.6px] mb-1">HEAR FROM NEIGHBORS</div>
-            <h2 className="section-title tracking-tight">Real Lake Cumberland &amp; Wayne County Results from the Monticello KY Website Designer</h2>
-          </div>
-          <Link href="/work" className="text-[#f4a261] hover:text-[#d88a5e] inline-flex items-center gap-1 text-sm">See all demos →</Link>
-        </div>
 
-        <div className="grid md:grid-cols-2 gap-5">
-          {testimonials.map((t, i) => (
-            <Testimonial key={i} {...t} />
-          ))}
-        </div>
-
-        <p className="text-center text-[13px] mt-7 text-[#8a9599]">Every site is custom-built for the way people actually use the lake — weekend visitors, locals, and lake-lovers.</p>
-      </section>
 
       {/* FINAL CONVERSION CTA — Stronger flow, local emphasis */}
       <section className="py-14 text-center border-t border-[#1a2225] bg-[#050708]">
         <div className="mx-auto max-w-[660px] px-5">
-          <h2 className="text-[29px] md:text-[33px] tracking-[-1.15px] font-semibold leading-tight">Ready for a website from the Monticello KY Website Designer?</h2>
-          <p className="mt-3.5 text-[15.5px] text-[#9aa6ad] max-w-[52ch] mx-auto">Flat pricing. Full ownership. No agency. Lake Cumberland business websites, food truck website Kentucky and restaurant website Monticello KY built by a neighbor that actually brings people in.</p>
+          <h2 className="text-[29px] md:text-[33px] tracking-[-1.15px] font-semibold leading-tight">Ready for a website from a neighbor in Monticello?</h2>
+          <p className="mt-3.5 text-[15.5px] text-[#9aa6ad] max-w-[52ch] mx-auto">Flat pricing. Full ownership. No agency. Websites handcrafted for Lake Cumberland businesses.</p>
 
           <div className="mt-8 flex flex-col sm:flex-row gap-3.5 justify-center">
             <Link href="/quote" className="btn btn-primary px-9 py-3.5 text-base font-semibold shadow-lg">Get your free quote in 2 minutes →</Link>

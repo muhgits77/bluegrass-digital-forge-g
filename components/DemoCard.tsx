@@ -46,8 +46,8 @@ export default function DemoCard({ title, subtitle, category, href, image, slug 
   const isTemplateSite = title === "Bluegrass Digital Forge Templates";
   const isDataUrl = !!previewImage && previewImage.startsWith("data:"); // Support admin-uploaded base64 images
 
-  // Strong local alt text per rules — authentic Lake Cumberland / Kentucky region context
-  const localAlt = `${title} — live website demo for ${category} business in the Lake Cumberland / Wayne County Kentucky area`;
+  // Strong local alt text — authentic Lake Cumberland / Kentucky context
+  const localAlt = `${title} — live demo website for a ${category.toLowerCase()} business near Lake Cumberland, handcrafted in Monticello, KY`;
 
   return (
     <motion.a

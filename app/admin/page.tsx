@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { 
   Plus, Edit2, Trash2, Eye, EyeOff, Save, RefreshCw, Download, Upload, 
-  ArrowLeft, Lock, LogOut 
+  ArrowLeft, Lock, LogOut, X 
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -67,6 +67,7 @@ export default function AdminPanel() {
 
   const [isSaving, setIsSaving] = useState(false);
   const [successToast, setSuccessToast] = useState("");
+  const formRef = useRef<HTMLFormElement>(null);
 
   // Load auth + demos on mount
   useEffect(() => {
@@ -666,175 +667,199 @@ export default function AdminPanel() {
         </div>
       </div>
 
-      {/* ==================== EDIT / NEW MODAL — generous spacing + large controls for 100% zoom readability + mobile */}
+      {/* ==================== EDIT / NEW MODAL — compact, scrollable (max 85vh), dense but usable, dark modern admin */}
       <AnimatePresence>
         {showModal && (
-          <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/80 p-3 sm:p-4 overflow-y-auto">
+          <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/80 p-3 sm:p-5 overflow-y-auto">
             <motion.div
-              initial={{ opacity: 0, scale: 0.97, y: 10 }}
+              initial={{ opacity: 0, scale: 0.985, y: 8 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.97, y: 8 }}
-              transition={{ type: "spring", bounce: 0.01, duration: 0.2 }}
-              className="w-full max-w-[680px] my-4 bg-[#0c1013] border border-[#1a2225] rounded-3xl overflow-hidden"
+              exit={{ opacity: 0, scale: 0.985, y: 6 }}
+              transition={{ type: "spring", bounce: 0.01, duration: 0.18 }}
+              className="w-full max-w-[640px] max-h-[85vh] flex flex-col my-3 sm:my-4 bg-[#0c1013] border border-[#1a2225] rounded-2xl overflow-hidden shadow-2xl"
             >
-              <div className="px-6 sm:px-8 pt-6 sm:pt-7 pb-7">
-                <div className="flex items-start justify-between mb-6">
-                  <div>
-                    <div className="text-[10.5px] tracking-[1.8px] text-[#3ddbd9] font-medium">{editingId ? "EDIT DEMO" : "NEW DEMO"}</div>
-                    <div className="text-[26px] font-semibold tracking-tight mt-1 leading-none">
-                      {editingId ? "Update Demo" : "Add New Live Demo"}
-                    </div>
+              {/* Subtle Header: "Create New Demo" title + close button */}
+              <div className="flex items-center justify-between flex-shrink-0 px-5 py-3.5 border-b border-[#1a2225] bg-[#0a0c0f]">
+                <div>
+                  <div className="uppercase tracking-[1.6px] text-[10px] text-[#3ddbd9] font-medium">LIVE DEMOS</div>
+                  <div className="text-[17px] font-semibold tracking-[-0.2px] leading-tight mt-0.5 text-[#e8e3d9]">
+                    {editingId ? "Edit Demo" : "Create New Demo"}
                   </div>
-                  <button onClick={closeModal} className="text-[#9aa6ad] hover:text-white p-3 -mr-1 text-xl leading-none" aria-label="Close modal">×</button>
                 </div>
+                <button
+                  onClick={closeModal}
+                  className="text-[#8a9599] hover:text-white p-2 -mr-1 rounded-lg hover:bg-[#1a2225] transition"
+                  aria-label="Close modal"
+                >
+                  <X size={18} />
+                </button>
+              </div>
 
-                <form onSubmit={handleSaveDemo} className="space-y-6">
-                  <div className="grid grid-cols-1 gap-5">
+              {/* Scrollable body — clean internal scroll, all fields accessible */}
+              <div className="flex-1 overflow-y-auto px-5 sm:px-6 py-4">
+                <form ref={formRef} onSubmit={handleSaveDemo} className="space-y-4">
+                  {/* Title */}
+                  <div>
+                    <label className="label mb-1 block">Title *</label>
+                    <input
+                      value={form.title}
+                      onChange={(e) => updateForm("title", e.target.value)}
+                      className="input w-full text-[15px] py-2.5"
+                      placeholder="Hickory Forge Steakhouse"
+                      required
+                    />
+                  </div>
+
+                  {/* Slug + Category — improved two-column layout */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                     <div>
-                      <label className="label mb-1.5 block">Title *</label>
+                      <label className="label mb-1 block">Slug (unique) *</label>
                       <input
-                        value={form.title}
-                        onChange={(e) => updateForm("title", e.target.value)}
-                        className="input w-full text-base py-3.5"
-                        placeholder="Hickory Forge Steakhouse"
+                        value={form.slug}
+                        onChange={(e) => updateForm("slug", e.target.value)}
+                        className="input w-full font-mono text-[13.5px] py-2"
+                        placeholder="hickory-forge-steakhouse"
                         required
                       />
+                      <p className="text-[10px] text-[#6b787e] mt-0.5">Auto-generated. Keep unique.</p>
                     </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                      <div>
-                        <label className="label mb-1.5 block">Slug (unique) *</label>
-                        <input
-                          value={form.slug}
-                          onChange={(e) => updateForm("slug", e.target.value)}
-                          className="input w-full font-mono text-sm py-3"
-                          placeholder="hickory-forge-steakhouse"
-                          required
-                        />
-                        <p className="text-[11px] text-[#6b787e] mt-1">Auto-generated. Keep unique.</p>
-                      </div>
-                      <div>
-                        <label className="label mb-1.5 block">Category *</label>
-                        <select
-                          value={form.category}
-                          onChange={(e) => updateForm("category", e.target.value)}
-                          className="input w-full py-3"
-                          required
-                        >
-                          <option value="">Select category...</option>
-                          {categories.map((cat) => (
-                            <option key={cat} value={cat}>{cat}</option>
-                          ))}
-                        </select>
-                      </div>
-                    </div>
-
                     <div>
-                      <label className="label mb-1.5 block">Live URL / Demo Link *</label>
-                      <input
-                        value={form.href}
-                        onChange={(e) => updateForm("href", e.target.value)}
-                        className="input w-full font-mono text-[14.5px] py-3"
-                        placeholder="https://your-demo.lovable.app"
+                      <label className="label mb-1 block">Category *</label>
+                      <select
+                        value={form.category}
+                        onChange={(e) => updateForm("category", e.target.value)}
+                        className="input w-full py-2 text-[14.5px]"
                         required
-                      />
-                    </div>
-
-                    <div>
-                      <label className="label mb-1.5 block">Short Description</label>
-                      <textarea
-                        value={form.description}
-                        onChange={(e) => updateForm("description", e.target.value)}
-                        className="input w-full min-h-[92px] resize-y text-[15px] py-3.5"
-                        placeholder="Warm steakhouse website with digital menu and reservations for Lake Cumberland visitors."
-                      />
-                    </div>
-
-                    {/* Drag & drop image — improved padding and clarity */}
-                    <div>
-                      <label className="label mb-1.5 block">Preview Image (Screenshot)</label>
-                      <div
-                        onClick={triggerFileSelect}
-                        onDragEnter={handleDrag}
-                        onDragLeave={handleDrag}
-                        onDragOver={handleDrag}
-                        onDrop={handleDrop}
-                        className={`group relative border-2 border-dashed rounded-2xl p-6 sm:p-7 cursor-pointer transition-all min-h-[152px] flex flex-col items-center justify-center text-center
-                          ${dragActive 
-                            ? "border-[#3b82f6] bg-[#0a1320]" 
-                            : "border-[#243530] hover:border-[#3b82f6]/70 hover:bg-[#0a0c0f]"}`}
                       >
-                        <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileInputChange} className="hidden" />
-
-                        {form.image && form.image.startsWith("data:") ? (
-                          <div className="relative w-full max-w-[340px]">
-                            <img src={form.image} alt="Demo preview" className="mx-auto max-h-[136px] rounded-xl border border-[#1a2225] object-contain" />
-                            <button type="button" onClick={removeImage} className="absolute -top-2.5 -right-2.5 bg-[#1a2225] hover:bg-red-500 text-xs rounded-full w-7 h-7 flex items-center justify-center border border-[#243530]" aria-label="Remove uploaded image">×</button>
-                            <div className="mt-2 text-[11.5px] text-[#8a9599]">Uploaded (base64 local). Click or drop to replace.</div>
-                          </div>
-                        ) : form.image ? (
-                          <div className="relative w-full max-w-[340px]">
-                            <img src={form.image} alt="Demo preview" className="mx-auto max-h-[136px] rounded-xl border border-[#1a2225] object-contain" onError={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = "0.4"; }} />
-                            <button type="button" onClick={removeImage} className="mt-2 block text-xs text-red-400 hover:text-red-400">Remove current</button>
-                          </div>
-                        ) : (
-                          <>
-                            <div className="text-3xl mb-2 opacity-70">📷</div>
-                            <div className="font-medium text-[15px]">Drop image or tap to upload</div>
-                            <div className="text-xs text-[#6b787e] mt-1">JPG/PNG/WebP • ~2MB recommended</div>
-                            <div className="text-[10px] mt-2.5 px-3 py-px rounded bg-[#1f2528] text-[#8a9599]">Stored locally as base64</div>
-                          </>
-                        )}
-                      </div>
-                      <input
-                        type="text"
-                        value={form.image || ""}
-                        onChange={(e) => updateForm("image", e.target.value)}
-                        className="input w-full mt-2 text-xs font-mono py-2.5"
-                        placeholder="Or paste /assets/demo-xxx.jpg path"
-                      />
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                      <div>
-                        <label className="label mb-1.5 block">Sort Order</label>
-                        <input
-                          type="number"
-                          value={form.sortOrder}
-                          onChange={(e) => updateForm("sortOrder", parseInt(e.target.value) || 0)}
-                          className="input w-full py-3 text-center text-lg"
-                        />
-                      </div>
-                      <div>
-                        <label className="label mb-1.5 block">Visibility</label>
-                        <label className="flex items-center gap-3 bg-[#0a0c0f] border border-[#1a2225] rounded-2xl px-5 h-14 cursor-pointer text-[15px]">
-                          <input type="checkbox" checked={form.visible} onChange={(e) => updateForm("visible", e.target.checked)} className="accent-[#3ddbd9] w-4 h-4" />
-                          <span>Visible on public site (homepage + work)</span>
-                        </label>
-                      </div>
+                        <option value="">Select category...</option>
+                        {categories.map((cat) => (
+                          <option key={cat} value={cat}>{cat}</option>
+                        ))}
+                      </select>
                     </div>
                   </div>
 
-                  {formError && <div className="text-sm text-red-400 bg-[#1a0f0f] border border-red-900/40 rounded-xl px-4 py-2.5">{formError}</div>}
+                  {/* Live URL */}
+                  <div>
+                    <label className="label mb-1 block">Live URL / Demo Link *</label>
+                    <input
+                      value={form.href}
+                      onChange={(e) => updateForm("href", e.target.value)}
+                      className="input w-full font-mono text-[13.5px] py-2"
+                      placeholder="https://your-demo.lovable.app"
+                      required
+                    />
+                  </div>
 
-                  <div className="flex flex-col-reverse sm:flex-row items-center justify-end gap-3 pt-4 border-t border-[#1a2225]">
-                    <button type="button" onClick={closeModal} className="btn btn-secondary px-7 w-full sm:w-auto">Cancel</button>
-                    <button 
-                      type="submit" 
-                      disabled={isSaving}
-                      className="btn bg-[#3b82f6] hover:bg-[#2563eb] disabled:bg-[#3b82f6]/60 disabled:cursor-wait text-white font-semibold px-8 w-full sm:w-auto py-3 flex items-center justify-center gap-2 transition-all"
+                  {/* Description — reduced height */}
+                  <div>
+                    <label className="label mb-1 block">Short Description</label>
+                    <textarea
+                      value={form.description}
+                      onChange={(e) => updateForm("description", e.target.value)}
+                      className="input w-full min-h-[68px] resize-y text-[14px] py-2"
+                      placeholder="Warm steakhouse website with digital menu and reservations for Lake Cumberland visitors."
+                    />
+                  </div>
+
+                  {/* Preview Image — tighter dropzone */}
+                  <div>
+                    <label className="label mb-1 block">Preview Image (Screenshot)</label>
+                    <div
+                      onClick={triggerFileSelect}
+                      onDragEnter={handleDrag}
+                      onDragLeave={handleDrag}
+                      onDragOver={handleDrag}
+                      onDrop={handleDrop}
+                      className={`group relative border-2 border-dashed rounded-xl p-4 sm:p-5 cursor-pointer transition-all min-h-[112px] flex flex-col items-center justify-center text-center
+                        ${dragActive 
+                          ? "border-[#3b82f6] bg-[#0a1320]" 
+                          : "border-[#243530] hover:border-[#3b82f6]/70 hover:bg-[#0a0c0f]"}`}
                     >
-                      {isSaving ? (
-                        <>
-                          <RefreshCw size={16} className="animate-spin" />
-                          {editingId ? "Saving..." : "Creating..."}
-                        </>
+                      <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileInputChange} className="hidden" />
+
+                      {form.image && form.image.startsWith("data:") ? (
+                        <div className="relative w-full max-w-[280px]">
+                          <img src={form.image} alt="Demo preview" className="mx-auto max-h-[92px] rounded-lg border border-[#1a2225] object-contain" />
+                          <button type="button" onClick={removeImage} className="absolute -top-1.5 -right-1.5 bg-[#1a2225] hover:bg-red-500 text-xs rounded-full w-6 h-6 flex items-center justify-center border border-[#243530]" aria-label="Remove uploaded image">×</button>
+                          <div className="mt-1.5 text-[10px] text-[#8a9599]">Uploaded (local base64). Tap or drop to replace.</div>
+                        </div>
+                      ) : form.image ? (
+                        <div className="relative w-full max-w-[280px]">
+                          <img src={form.image} alt="Demo preview" className="mx-auto max-h-[92px] rounded-lg border border-[#1a2225] object-contain" onError={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = "0.4"; }} />
+                          <button type="button" onClick={removeImage} className="mt-1.5 block text-[10px] text-red-400 hover:text-red-300">Remove current</button>
+                        </div>
                       ) : (
-                        editingId ? "Save Changes" : "Create Demo"
+                        <>
+                          <div className="text-2xl mb-1 opacity-60">📷</div>
+                          <div className="font-medium text-[13.5px]">Drop image or tap to upload</div>
+                          <div className="text-[10px] text-[#6b787e] mt-0.5">JPG/PNG/WebP • &lt;2.5MB</div>
+                          <div className="text-[9px] mt-1.5 px-2 py-px rounded bg-[#1f2528] text-[#8a9599]">Stored locally as base64</div>
+                        </>
                       )}
-                    </button>
+                    </div>
+                    <input
+                      type="text"
+                      value={form.image || ""}
+                      onChange={(e) => updateForm("image", e.target.value)}
+                      className="input w-full mt-1.5 text-[11px] font-mono py-1.5"
+                      placeholder="Or enter /assets/demo-xxx.jpg or external URL"
+                    />
                   </div>
+
+                  {/* Sort Order + Visibility — compact two-column */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <div>
+                      <label className="label mb-1 block">Sort Order</label>
+                      <input
+                        type="number"
+                        value={form.sortOrder}
+                        onChange={(e) => updateForm("sortOrder", parseInt(e.target.value) || 0)}
+                        className="input w-full py-2 text-center text-base tabular-nums"
+                      />
+                      <p className="text-[10px] text-[#6b787e] mt-0.5">Lower = shown first</p>
+                    </div>
+                    <div>
+                      <label className="label mb-1 block">Visibility</label>
+                      <label className="flex items-center gap-2.5 bg-[#0a0c0f] border border-[#1a2225] rounded-xl px-4 h-[42px] cursor-pointer text-[13.5px]">
+                        <input type="checkbox" checked={form.visible} onChange={(e) => updateForm("visible", e.target.checked)} className="accent-[#3ddbd9] w-3.5 h-3.5" />
+                        <span>Visible on public site</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  {formError && (
+                    <div className="text-sm text-red-400 bg-[#1a0f0f] border border-red-900/40 rounded-lg px-3 py-2">
+                      {formError}
+                    </div>
+                  )}
                 </form>
+              </div>
+
+              {/* Actions footer — always visible */}
+              <div className="flex-shrink-0 px-5 sm:px-6 py-3.5 border-t border-[#1a2225] bg-[#0a0c0f] flex flex-col-reverse sm:flex-row items-center justify-end gap-2.5">
+                <button
+                  type="button"
+                  onClick={closeModal}
+                  className="btn btn-secondary px-5 py-2 text-sm w-full sm:w-auto"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={() => formRef.current?.requestSubmit()}
+                  disabled={isSaving}
+                  className="btn bg-[#3b82f6] hover:bg-[#2563eb] disabled:bg-[#3b82f6]/60 disabled:cursor-wait text-white font-semibold px-6 w-full sm:w-auto py-2 flex items-center justify-center gap-2 transition-all text-sm"
+                >
+                  {isSaving ? (
+                    <>
+                      <RefreshCw size={15} className="animate-spin" />
+                      {editingId ? "Saving..." : "Creating..."}
+                    </>
+                  ) : (
+                    editingId ? "Save Changes" : "Create Demo"
+                  )}
+                </button>
               </div>
             </motion.div>
           </div>

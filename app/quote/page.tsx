@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { CONTACT_EMAIL } from "@/lib/constants";
 
-const EMAIL = CONTACT_EMAIL; // Centralized — all Get Quote / contact emails point to BluegrassDigitalForge@protonmail.com
+const EMAIL = CONTACT_EMAIL;
 
 interface FormData {
   name: string;
@@ -68,10 +68,21 @@ const gbpOptions = ["Yes — claimed and active", "Yes — but it needs work", "
 const domainOptions = ["Yes", "No", "I have one but it's not active yet"];
 const freqOptions = ["Daily", "Weekly", "Seasonal", "Stable"];
 
+const steps = [
+  "Your Info",
+  "Main Goal",
+  "Target Customers",
+  "Menu & Updates",
+  "Design Feedback",
+  "Must-Have Features",
+  "Practical Details",
+  "Local Presence",
+];
+
 function StepHeader({ num, title }: { num: string; title: string }) {
   return (
     <div className="mb-5">
-      <div className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[#3ddbd9] text-[#050708] text-xs font-bold mr-2 align-middle">{num}</div>
+      <div className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[#c17a5a] text-[#f8f1e6] text-xs font-bold mr-2 align-middle">{num}</div>
       <span className="font-semibold tracking-tight text-lg align-middle">{title}</span>
     </div>
   );
@@ -81,6 +92,9 @@ export default function QuotePage() {
   const [step, setStep] = useState(0);
   const [form, setForm] = useState<FormData>(initialForm);
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submittedBusiness, setSubmittedBusiness] = useState("");
 
   const update = <K extends keyof FormData>(key: K, value: FormData[K]) => {
     setForm((f) => ({ ...f, [key]: value }));
@@ -97,86 +111,98 @@ export default function QuotePage() {
     });
   };
 
+  // Basic validation per step + overall
   const canNext = () => {
-    if (step === 0) return !!form.name && !!form.business && !!form.email;
-    if (step === 1) return form.goals.length > 0 || !!form.goalOther;
+    if (step === 0) {
+      return form.name.trim().length > 1 && form.business.trim().length > 1 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email);
+    }
+    if (step === 1) return form.goals.length > 0 || form.goalOther.trim().length > 0;
     return true;
   };
 
-  const buildMailto = () => {
-    const lines: string[] = [];
-    lines.push(`Name: ${form.name}`);
-    lines.push(`Business: ${form.business}`);
-    lines.push(`Email: ${form.email}`);
-    if (form.phone) lines.push(`Phone: ${form.phone}`);
-    lines.push("");
-    lines.push("MAIN GOALS:");
-    form.goals.forEach((g) => lines.push(`• ${g}`));
-    if (form.goalOther) lines.push(`• Other: ${form.goalOther}`);
-    lines.push("");
-    lines.push(`TARGET CUSTOMERS: ${form.targetCustomers || "(not specified)"}`);
-    lines.push("");
-    lines.push(`MENU / CONTENT FREQUENCY: ${form.menuFrequency || "—"}`);
-    lines.push(`WHO HANDLES UPDATES: ${form.updatesWho || "—"}`);
-    lines.push("");
-    lines.push("DESIGN FEEDBACK:");
-    lines.push(`What you liked: ${form.likedDemos || "—"}`);
-    lines.push(`Requested changes: ${form.changesWanted || "—"}`);
-    lines.push(`Logo / brand ready: ${form.logoStatus || "—"}`);
-    lines.push("");
-    lines.push("MUST-HAVE FEATURES:");
-    form.mustHaves.forEach((m) => lines.push(`• ${m}`));
-    lines.push("");
-    lines.push(`HAS DOMAIN: ${form.hasDomain || "—"}`);
-    lines.push(`DESIRED LIVE DATE: ${form.desiredLive || "—"}`);
-    lines.push(`BUDGET: ${form.budget || "—"}`);
-    lines.push(`POST-LAUNCH UPDATES: ${form.updatesAfter || "—"}`);
-    lines.push(`GOOGLE BUSINESS PROFILE: ${form.gbpStatus || "—"}`);
-    lines.push("");
-    lines.push("Submitted via bluegrass-digital-forge.lovable.app quote form");
-
-    const subject = encodeURIComponent(`Website Quote Request — ${form.business}`);
-    const body = encodeURIComponent(lines.join("\n"));
-    return `mailto:${EMAIL}?subject=${subject}&body=${body}`;
+  const isFormValid = () => {
+    return (
+      form.name.trim().length > 1 &&
+      form.business.trim().length > 1 &&
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)
+    );
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const goToStep = (target: number) => {
+    // Allow jumping forward only if prior steps pass basic checks
+    if (target > step) {
+      for (let s = 0; s < target; s++) {
+        if (s === 0 && !(form.name.trim() && form.business.trim() && form.email)) return;
+        if (s === 1 && !(form.goals.length || form.goalOther.trim())) return;
+      }
+    }
+    setStep(Math.max(0, Math.min(steps.length - 1, target)));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const mailto = buildMailto();
-    window.location.href = mailto;
-    setSubmitted(true);
+    if (!isFormValid() || isSubmitting) return;
+
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      const res = await fetch("/api/quote", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        const msg = data?.error || "We couldn't send your request. Please try again.";
+        setSubmitError(msg);
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Success — show beautiful thank you (no email client)
+      setSubmittedBusiness(form.business);
+      setSubmitted(true);
+      setIsSubmitting(false);
+      // Scroll to top of success state
+      window.scrollTo({ top: 120, behavior: "smooth" });
+    } catch (err) {
+      console.error(err);
+      setSubmitError("Network error. Please check your connection and try again, or email us directly.");
+      setIsSubmitting(false);
+    }
   };
 
-  const steps = [
-    "Your Info",
-    "Main Goal",
-    "Target Customers",
-    "Menu & Updates",
-    "Design Feedback",
-    "Must-Have Features",
-    "Practical Details",
-    "Local Presence",
-  ];
+  const resetForm = () => {
+    setForm(initialForm);
+    setStep(0);
+    setSubmitted(false);
+    setSubmitError(null);
+    setSubmittedBusiness("");
+  };
 
   return (
     <div className="mx-auto max-w-3xl px-5 py-10">
       <div className="mb-8">
         <div className="label tracking-[2px]">CUSTOM QUOTE — MONTICELLO KY WEBSITE DESIGNER</div>
         <h1 className="section-title tracking-tight mt-1">Get a Quote from the Monticello KY Website Designer for Lake Cumberland Business Websites</h1>
-        <p className="mt-2 text-[#8a9599]">A few quick questions for your Wayne County or Lake Cumberland project. Flat price proposal from the local Monticello builder for food truck websites Kentucky and more. 4–6 minutes.</p>
+        <p className="mt-2 text-[#8a9599]">A few quick questions for your Wayne County or Lake Cumberland project. Flat price proposal from the local Monticello builder. Real responses, no automated fluff. Takes 4–6 minutes.</p>
       </div>
 
       {!submitted ? (
-        <form onSubmit={handleSubmit} className="space-y-9">
-          {/* Premium Progress */}
-          <div className="flex items-center gap-1.5 text-[12.5px] text-[#9aa6ad] flex-wrap">
+        <form onSubmit={handleSubmit} className="space-y-9" noValidate>
+          {/* Premium Progress — clickable + visual warmth */}
+          <div className="flex items-center gap-1.5 text-[12.5px] text-[#9aa6ad] flex-wrap" role="tablist" aria-label="Form steps">
             {steps.map((s, i) => (
               <React.Fragment key={i}>
                 <button
                   type="button"
-                  onClick={() => setStep(i)}
+                  onClick={() => goToStep(i)}
                   className={`step ${i === step ? "active" : i < step ? "done" : ""}`}
                   aria-current={i === step}
+                  aria-label={`Go to step ${i + 1}: ${s}`}
                 >
                   {i.toString().padStart(2, "0")}
                 </button>
@@ -192,21 +218,50 @@ export default function QuotePage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <div className="label mb-1.5">Your Name *</div>
-                  <input className="input w-full" value={form.name} onChange={(e) => update("name", e.target.value)} required placeholder="Jane Doe" />
+                  <input 
+                    className="input w-full" 
+                    value={form.name} 
+                    onChange={(e) => update("name", e.target.value)} 
+                    required 
+                    placeholder="Jane Doe" 
+                    autoComplete="name"
+                  />
                 </div>
                 <div>
                   <div className="label mb-1.5">Business Name *</div>
-                  <input className="input w-full" value={form.business} onChange={(e) => update("business", e.target.value)} required placeholder="Smoky Wheels BBQ" />
+                  <input 
+                    className="input w-full" 
+                    value={form.business} 
+                    onChange={(e) => update("business", e.target.value)} 
+                    required 
+                    placeholder="Smoky Wheels BBQ" 
+                    autoComplete="organization"
+                  />
                 </div>
                 <div>
                   <div className="label mb-1.5">Email *</div>
-                  <input type="email" className="input w-full" value={form.email} onChange={(e) => update("email", e.target.value)} required placeholder="you@business.com" />
+                  <input 
+                    type="email" 
+                    className="input w-full" 
+                    value={form.email} 
+                    onChange={(e) => update("email", e.target.value)} 
+                    required 
+                    placeholder="you@business.com" 
+                    autoComplete="email"
+                  />
                 </div>
                 <div>
                   <div className="label mb-1.5">Phone (optional)</div>
-                  <input className="input w-full" value={form.phone} onChange={(e) => update("phone", e.target.value)} placeholder="(606) 555-0123" />
+                  <input 
+                    className="input w-full" 
+                    value={form.phone} 
+                    onChange={(e) => update("phone", e.target.value)} 
+                    placeholder="(606) 555-0123" 
+                    autoComplete="tel"
+                  />
                 </div>
               </div>
+              <p className="mt-4 text-[12.5px] text-[#9aa6ad]">Your information stays private and is only used to prepare your proposal.</p>
             </div>
           )}
 
@@ -217,15 +272,25 @@ export default function QuotePage() {
               <div className="label mb-3">Select all that apply.</div>
               <div className="grid grid-cols-1 gap-2">
                 {goalOptions.map((g, idx) => (
-                  <label key={idx} className="flex items-start gap-3 rounded-xl border border-[#1a2225] p-3.5 hover:border-[#374145] cursor-pointer choice-card">
-                    <input type="checkbox" checked={form.goals.includes(g)} onChange={() => toggleArray("goals", g)} className="mt-1 accent-[#3ddbd9]" />
+                  <label key={idx} className={`flex items-start gap-3 rounded-xl border p-3.5 cursor-pointer choice-card ${form.goals.includes(g) ? 'selected' : ''}`}>
+                    <input 
+                      type="checkbox" 
+                      checked={form.goals.includes(g)} 
+                      onChange={() => toggleArray("goals", g)} 
+                      className="mt-1 accent-[#c17a5a]" 
+                    />
                     <span className="text-sm">{g}</span>
                   </label>
                 ))}
               </div>
               <div className="mt-3">
                 <div className="label mb-1.5">Other goals or details:</div>
-                <input className="input w-full" placeholder="Tell me anything else..." value={form.goalOther} onChange={(e) => update("goalOther", e.target.value)} />
+                <input 
+                  className="input w-full" 
+                  placeholder="Tell me anything else about the project..." 
+                  value={form.goalOther} 
+                  onChange={(e) => update("goalOther", e.target.value)} 
+                />
               </div>
             </div>
           )}
@@ -235,7 +300,12 @@ export default function QuotePage() {
             <div className="form-section">
               <StepHeader num="02" title="Target Customers" />
               <div className="label mb-1.5">Who are your ideal customers?</div>
-              <textarea className="input w-full min-h-[110px] resize-y" placeholder="Families at the lake, weekend visitors, local contractors, etc." value={form.targetCustomers} onChange={(e) => update("targetCustomers", e.target.value)} />
+              <textarea 
+                className="input w-full min-h-[110px] resize-y" 
+                placeholder="Families at the lake, weekend visitors, local contractors, tourists passing through..." 
+                value={form.targetCustomers} 
+                onChange={(e) => update("targetCustomers", e.target.value)} 
+              />
             </div>
           )}
 
@@ -266,10 +336,10 @@ export default function QuotePage() {
               <StepHeader num="04" title="Design Feedback" />
               <div>
                 <div className="label mb-1.5">What did you like most about the demo(s) you saw?</div>
-                <textarea className="input w-full min-h-[90px]" value={form.likedDemos} onChange={(e) => update("likedDemos", e.target.value)} />
+                <textarea className="input w-full min-h-[90px]" value={form.likedDemos} onChange={(e) => update("likedDemos", e.target.value)} placeholder="The warm tones, clean layout, the way the menu feels..." />
               </div>
               <div>
-                <div className="label mb-1.5">Any specific changes you&apos;d like? (colors, vibe, layout, etc.)</div>
+                <div className="label mb-1.5">Any specific changes you&apos;d like? (colors, vibe, layout, photos...)</div>
                 <textarea className="input w-full min-h-[90px]" value={form.changesWanted} onChange={(e) => update("changesWanted", e.target.value)} />
               </div>
               <div>
@@ -278,7 +348,7 @@ export default function QuotePage() {
                   <option value="">Choose one…</option>
                   {logoOptions.map((o) => <option key={o} value={o}>{o}</option>)}
                 </select>
-                <p className="text-[12.5px] text-[#9aa6ad] mt-1.5">Have files to share? Email them to <a href={`mailto:${EMAIL}`} className="underline">{EMAIL}</a> after you submit.</p>
+                <p className="text-[12.5px] text-[#9aa6ad] mt-1.5">Have logo files ready? You can reply to the confirmation email after submitting.</p>
               </div>
             </div>
           )}
@@ -287,11 +357,16 @@ export default function QuotePage() {
           {step === 5 && (
             <div className="form-section">
               <StepHeader num="05" title="Must-Have Features" />
-              <div className="label mb-3">Pick everything you need.</div>
+              <div className="label mb-3">Pick everything you need for launch.</div>
               <div className="grid sm:grid-cols-2 gap-2">
                 {mustHaveOptions.map((m, i) => (
-                  <label key={i} className="flex gap-3 rounded-xl border border-[#1a2225] p-3.5 cursor-pointer hover:border-[#374145] choice-card">
-                    <input type="checkbox" className="accent-[#3ddbd9] mt-0.5" checked={form.mustHaves.includes(m)} onChange={() => toggleArray("mustHaves", m)} />
+                  <label key={i} className={`flex gap-3 rounded-xl border p-3.5 cursor-pointer choice-card ${form.mustHaves.includes(m) ? 'selected' : ''}`}>
+                    <input 
+                      type="checkbox" 
+                      className="accent-[#c17a5a] mt-0.5" 
+                      checked={form.mustHaves.includes(m)} 
+                      onChange={() => toggleArray("mustHaves", m)} 
+                    />
                     <span>{m}</span>
                   </label>
                 ))}
@@ -312,7 +387,12 @@ export default function QuotePage() {
               </div>
               <div>
                 <div className="label mb-1.5">When would you like the site live?</div>
-                <input className="input w-full" placeholder="e.g. end of July, before fall festival" value={form.desiredLive} onChange={(e) => update("desiredLive", e.target.value)} />
+                <input 
+                  className="input w-full" 
+                  placeholder="e.g. end of July, before the fall festival, ASAP" 
+                  value={form.desiredLive} 
+                  onChange={(e) => update("desiredLive", e.target.value)} 
+                />
               </div>
               <div>
                 <div className="label mb-1.5">Rough budget range</div>
@@ -335,44 +415,112 @@ export default function QuotePage() {
           {step === 7 && (
             <div className="form-section">
               <StepHeader num="07" title="Local Presence" />
-              <div className="label mb-1.5">Are you on Google Business Profile?</div>
-              <select className="input w-full" value={form.gbpStatus} onChange={(e) => update("gbpStatus", e.target.value)}>
-                <option value="">Choose one…</option>
-                {gbpOptions.map((o) => <option key={o} value={o}>{o}</option>)}
-              </select>
+              <div>
+                <div className="label mb-1.5">Are you on Google Business Profile?</div>
+                <select className="input w-full" value={form.gbpStatus} onChange={(e) => update("gbpStatus", e.target.value)}>
+                  <option value="">Choose one…</option>
+                  {gbpOptions.map((o) => <option key={o} value={o}>{o}</option>)}
+                </select>
+              </div>
 
               <div className="mt-8 rounded-2xl bg-[#0a0c0f] border border-[#1a2225] p-5 text-sm text-[#8a9599]">
-                Submitting opens your email app with the answers pre-filled — just hit send. No data is stored here.
+                Your answers are sent securely to Brian at Bluegrass Digital Forge. No data is stored on this site.
               </div>
             </div>
           )}
 
-          {/* Nav buttons — premium */}
-          <div className="flex items-center justify-between pt-1">
-            <button type="button" onClick={() => setStep(Math.max(0, step - 1))} className="btn btn-ghost" disabled={step === 0}>← Back</button>
+          {/* Error banner */}
+          {submitError && (
+            <div className="rounded-xl border border-red-900/60 bg-red-950/30 px-5 py-4 text-sm text-red-200">
+              {submitError}
+              <div className="mt-2 text-[12.5px]">You can also email <a href={`mailto:${EMAIL}`} className="underline">{EMAIL}</a> directly.</div>
+            </div>
+          )}
+
+          {/* Nav buttons — premium Kentucky style */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-1">
+            <button 
+              type="button" 
+              onClick={() => setStep(Math.max(0, step - 1))} 
+              className="btn btn-secondary w-full sm:w-auto" 
+              disabled={step === 0 || isSubmitting}
+            >
+              ← Back
+            </button>
 
             {step < 7 ? (
-              <button type="button" onClick={() => setStep(Math.min(7, step + 1))} disabled={!canNext()} className="btn btn-primary disabled:opacity-50">Continue →</button>
+              <button 
+                type="button" 
+                onClick={() => setStep(Math.min(7, step + 1))} 
+                disabled={!canNext() || isSubmitting} 
+                className="btn btn-primary w-full sm:w-auto disabled:opacity-60"
+              >
+                Continue →
+              </button>
             ) : (
-              <button type="submit" className="btn btn-primary">Submit My Answers →</button>
+              <button 
+                type="submit" 
+                disabled={!isFormValid() || isSubmitting} 
+                className="btn btn-primary w-full sm:w-auto disabled:opacity-60 flex items-center justify-center gap-2"
+              >
+                {isSubmitting ? (
+                  <>
+                    <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
+                    SENDING SECURELY...
+                  </>
+                ) : (
+                  "Submit My Quote Request →"
+                )}
+              </button>
             )}
           </div>
 
-          <p className="text-center text-[12.5px] text-[#9aa6ad] -mt-2">All answers go straight to my inbox via your email client. No tracking, no storage on this site.</p>
+          <p className="text-center text-[12.5px] text-[#9aa6ad] -mt-2">
+            Submitting sends your request directly via secure email. You’ll receive a beautiful branded confirmation — no email app will open.
+          </p>
         </form>
       ) : (
-        <div className="rounded-3xl border border-[#1a2225] bg-[#0a0c0f] p-9 text-center">
-          <h3 className="text-2xl font-semibold tracking-tight">Thank you!</h3>
-          <p className="mt-2 text-[#8a9599]">Your email client opened with everything pre-filled. Hit send and I&apos;ll reply within a day (usually same day).</p>
-          <div className="mt-6">
-            <Link href="/" className="btn btn-secondary">Back to Home</Link>
+        /* Beautiful Branded Thank You — Warm Kentucky, no mailto */
+        <div className="rounded-3xl border border-[#1a2225] bg-[#0a0c0f] p-9 sm:p-12 text-center">
+          <div className="mx-auto mb-5 inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#c17a5a]/10">
+            <span className="text-3xl">✓</span>
           </div>
-          <p className="text-xs mt-8 text-[#8a9599]">Or email directly: <a href={`mailto:${EMAIL}`} className="underline">{EMAIL}</a></p>
+
+          <h3 className="text-3xl font-semibold tracking-tighter">Thank you, {submittedBusiness ? submittedBusiness.split(" ")[0] : "friend"}.</h3>
+          
+          <p className="mt-3 max-w-md mx-auto text-[#c9b9a8]">
+            Your quote request has been received. A beautiful confirmation email is on its way to your inbox.
+          </p>
+
+          <div className="my-8 mx-auto max-w-md rounded-2xl bg-[#111518] border border-[#243530] p-6 text-left text-sm">
+            <div className="uppercase tracking-[1.5px] text-xs text-[#8a9599] mb-2">What happens next</div>
+            <ul className="space-y-2.5 text-[#d9d1c4]">
+              <li className="flex gap-2.5"><span className="text-[#c17a5a] mt-1">→</span> I personally review every request.</li>
+              <li className="flex gap-2.5"><span className="text-[#c17a5a] mt-1">→</span> You’ll get a flat-price proposal within 24 hours (often same day).</li>
+              <li className="flex gap-2.5"><span className="text-[#c17a5a] mt-1">→</span> We’ll talk about your goals, timeline, and Lake Cumberland specifics.</li>
+            </ul>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Link href="/" className="btn btn-secondary">Back to Home</Link>
+            <Link href="/services" className="btn btn-primary">See Services &amp; Pricing</Link>
+          </div>
+
+          <div className="mt-10 text-xs text-[#8a9599]">
+            Questions right now? Email <a href={`mailto:${EMAIL}`} className="underline hover:text-[#c17a5a]">{EMAIL}</a>
+          </div>
+
+          <button 
+            onClick={resetForm} 
+            className="mt-6 text-xs text-[#9aa6ad] hover:text-[#c17a5a] underline"
+          >
+            Submit another request
+          </button>
         </div>
       )}
 
       <div className="mt-10 text-center text-[14.5px]">
-        <Link href="/services" className="text-[#3ddbd9] hover:underline">← Back to Services &amp; Pricing</Link>
+        <Link href="/services" className="text-[#c17a5a] hover:underline">← Back to Services &amp; Pricing</Link>
       </div>
     </div>
   );

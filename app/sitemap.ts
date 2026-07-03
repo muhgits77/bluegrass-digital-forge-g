@@ -9,7 +9,7 @@ import { MetadataRoute } from 'next';
  */
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://bluegrass-digital-forge.lovable.app';
+  const baseUrl = 'https://bluegrassdigitalforge.com';
 
   const routes = [
     { url: '', priority: 1.0, changeFrequency: 'weekly' as const },

@@ -30,7 +30,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://bluegrass-digital-forge.lovable.app"),
+  metadataBase: new URL("https://bluegrassdigitalforge.com"),
   title: "Monticello KY Website Designer | Lake Cumberland Business Websites | Bluegrass Digital Forge",
   description: "Handcrafted websites for Lake Cumberland businesses by a local designer in Monticello, KY. Flat pricing. You own the code. Food trucks, restaurants, marinas, and shops.",
   keywords: [
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     "food truck website Kentucky",
     "restaurant website Monticello KY",
   ],
-  authors: [{ name: "Brian", url: "https://bluegrass-digital-forge.lovable.app" }],
+  authors: [{ name: "Brian", url: "https://bluegrassdigitalforge.com" }],
   openGraph: {
     title: "Monticello KY Website Designer | Lake Cumberland Business Websites",
     description: "Handcrafted websites for Lake Cumberland businesses by a local designer in Monticello, KY. Flat pricing. You own the code.",
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     icon: "/favicon.ico",
   },
   alternates: {
-    canonical: "https://bluegrass-digital-forge.lovable.app",
+    canonical: "https://bluegrassdigitalforge.com",
   },
 };
 
@@ -75,7 +75,7 @@ export default function RootLayout({
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
         <link rel="manifest" href="/manifest.json" />
-        <link rel="canonical" href="https://bluegrass-digital-forge.lovable.app" />
+        <link rel="canonical" href="https://bluegrassdigitalforge.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
@@ -90,13 +90,13 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "LocalBusiness",
-            "@id": "https://bluegrass-digital-forge.lovable.app/#business",
+            "@id": "https://bluegrassdigitalforge.com/#business",
             "name": "Bluegrass Digital Forge",
             "description": "Monticello KY website designer building authentic Lake Cumberland business websites, food truck websites Kentucky, restaurant website Monticello KY, and Wayne County web design. Flat pricing, full code ownership, local builder serving the lake region.",
-            "url": "https://bluegrass-digital-forge.lovable.app",
+            "url": "https://bluegrassdigitalforge.com",
             "email": "BluegrassDigitalForge@protonmail.com",
-            "logo": "https://bluegrass-digital-forge.lovable.app/logo.jpg",
-            "image": "https://bluegrass-digital-forge.lovable.app/hero-lake-cumberland-golden.jpg",
+            "logo": "https://bluegrassdigitalforge.com/logo.jpg",
+            "image": "https://bluegrassdigitalforge.com/hero-lake-cumberland-golden.jpg",
             "address": {
               "@type": "PostalAddress",
               "streetAddress": "Monticello, KY 42633",
@@ -136,8 +136,8 @@ export default function RootLayout({
             "@context": "https://schema.org",
             "@type": "Organization",
             "name": "Bluegrass Digital Forge",
-            "url": "https://bluegrass-digital-forge.lovable.app",
-            "logo": "https://bluegrass-digital-forge.lovable.app/logo.jpg",
+            "url": "https://bluegrassdigitalforge.com",
+            "logo": "https://bluegrassdigitalforge.com/logo.jpg",
             "description": "Monticello KY website designer for Lake Cumberland business websites and Wayne County web design.",
             "email": "BluegrassDigitalForge@protonmail.com",
             "address": {
@@ -156,11 +156,11 @@ export default function RootLayout({
             "@context": "https://schema.org",
             "@type": "WebSite",
             "name": "Bluegrass Digital Forge — Monticello KY Website Designer",
-            "url": "https://bluegrass-digital-forge.lovable.app",
+            "url": "https://bluegrassdigitalforge.com",
             "description": "Local website design and Lake Cumberland business websites built in Monticello, Kentucky.",
             "potentialAction": {
               "@type": "SearchAction",
-              "target": "https://bluegrass-digital-forge.lovable.app/work?q={search_term_string}",
+              "target": "https://bluegrassdigitalforge.com/work?q={search_term_string}",
               "query-input": "required name=search_term_string"
             }
           }) }}

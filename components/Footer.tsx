@@ -39,18 +39,22 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Service Area */}
+          {/* Service Area — all Lake Cumberland boat ramp towns */}
           <div className="md:col-span-3">
             <div className="label mb-3.5">Service Area</div>
-            <ul className="space-y-[4px] text-[#8a9599]">
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-[3px] text-[#8a9599] text-[13.5px]">
               <li>Monticello, KY</li>
               <li>Albany, KY</li>
-              <li>Somerset, KY</li>
               <li>Jamestown, KY</li>
               <li>Burnside, KY</li>
-              <li>Wayne County &amp; Lake Cumberland</li>
+              <li>Somerset, KY</li>
+              <li>Russell Springs, KY</li>
+              <li>Nancy, KY</li>
+              <li>Ferguson, KY</li>
+              <li>Creelsboro, KY</li>
+              <li className="pt-0.5 sm:col-span-2 text-[12.5px] text-[#7f8c90]">+ Lake Cumberland ramps, marinas &amp; Wayne County</li>
             </ul>
-            <p className="mt-3.5 text-xs text-[#8a9599]">Kentucky businesses welcome — <Link href="/contact" className="underline hover:text-[#3ddbd9]">reach out</Link>.</p>
+            <p className="mt-3 text-xs text-[#8a9599]">Websites for marinas, guides &amp; businesses near every ramp — <Link href="/service-areas" className="underline hover:text-[#3ddbd9]">full service areas</Link>.</p>
           </div>
 
           {/* Contact + Professional QR for business cards */}

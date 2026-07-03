@@ -107,14 +107,20 @@ export default function RootLayout({
             },
             "areaServed": [
               { "@type": "City", "name": "Monticello" },
-              { "@type": "AdministrativeArea", "name": "Wayne County" },
-              { "@type": "Place", "name": "Lake Cumberland" },
-              { "@type": "City", "name": "Jamestown" },
-              { "@type": "City", "name": "Somerset" },
               { "@type": "City", "name": "Albany" },
-              { "@type": "City", "name": "Burnside" }
+              { "@type": "City", "name": "Jamestown" },
+              { "@type": "City", "name": "Burnside" },
+              { "@type": "City", "name": "Somerset" },
+              { "@type": "City", "name": "Russell Springs" },
+              { "@type": "City", "name": "Nancy" },
+              { "@type": "City", "name": "Ferguson" },
+              { "@type": "City", "name": "Creelsboro" },
+              { "@type": "AdministrativeArea", "name": "Wayne County" },
+              { "@type": "AdministrativeArea", "name": "Russell County" },
+              { "@type": "AdministrativeArea", "name": "Pulaski County" },
+              { "@type": "Place", "name": "Lake Cumberland" }
             ],
-            "serviceArea": "Lake Cumberland and Wayne County, Kentucky",
+            "serviceArea": "All Lake Cumberland boat ramp towns including Monticello, Jamestown, Burnside, Nancy, Creelsboro, Russell Springs, Somerset, Albany, Ferguson, and surrounding Wayne, Russell & Pulaski Counties, Kentucky",
             "priceRange": "$1,200 - $2,500",
             "founder": { "@type": "Person", "name": "Brian" },
             "knowsAbout": ["Website Design", "Food Truck Websites", "Restaurant Website Monticello KY", "Local SEO", "Branding for Kentucky Businesses"],
@@ -122,10 +128,12 @@ export default function RootLayout({
               "@type": "OfferCatalog",
               "name": "Website & Branding Services",
               "itemListElement": [
-                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Starter Sites — Monticello KY Website Designer", "description": "Flat $1,200 websites for food trucks and small Lake Cumberland businesses" } },
-                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Business Suites for Lake Cumberland Businesses", "description": "Premium custom Wayne County web design from $2,500" } },
-                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Food Truck Website Kentucky", "description": "Specialized fast sites with schedule, menu, and local SEO" } },
-                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Restaurant Website Monticello KY", "description": "Custom restaurant websites for Lake Cumberland" } }
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Starter Sites — Monticello KY Website Designer", "description": "Flat $1,200 websites for food trucks and small Lake Cumberland businesses near Conley Bottom and Beaver Creek" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Business Suites for Lake Cumberland Businesses", "description": "Premium custom Wayne County web design from $2,500 for marinas, guides, restaurants" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Food Truck Website Kentucky", "description": "Specialized fast sites with schedule, menu, and local SEO for Lake Cumberland food trucks" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Restaurant Website Monticello KY", "description": "Custom restaurant websites for Lake Cumberland" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Marina & Fishing Guide Websites", "description": "Websites for boat ramps, marinas and guides serving Jamestown, Burnside, Nancy, Creelsboro and Lake Cumberland" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Local SEO for Lake Cumberland Towns", "description": "Authentic local optimization for businesses in Monticello, Russell Springs, Somerset, Albany, Ferguson and all boat ramp communities" } }
               ]
             }
           }) }}

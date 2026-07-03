@@ -6,6 +6,7 @@ import { ArrowRight, Check, Phone } from "lucide-react";
 import { motion } from "framer-motion";
 import DemoCard from "@/components/DemoCard";
 import { getPublicDemos, toCardProps } from "@/lib/demos";
+import ServiceAreas from "@/components/ServiceAreas";
 
 /**
  * MAJOR CHANGE: Dynamic Demo Gallery
@@ -181,11 +182,14 @@ export default function Home() {
 
       {/* Rest of your sections unchanged — only email links cleaned */}
 
+      {/* SERVICE AREAS — robust local coverage for all Lake Cumberland boat ramp towns */}
+      <ServiceAreas />
+
       {/* FINAL CONVERSION CTA */}
       <section className="py-14 text-center border-t border-[#1a2225] bg-[#050708]">
         <div className="mx-auto max-w-[660px] px-5">
           <h2 className="text-[29px] md:text-[33px] tracking-[-1.15px] font-semibold leading-tight">Ready for a website from a neighbor in Monticello?</h2>
-          <p className="mt-3.5 text-[15.5px] text-[#9aa6ad] max-w-[52ch] mx-auto">Flat pricing. Full ownership. No agency. Websites handcrafted for Lake Cumberland businesses.</p>
+          <p className="mt-3.5 text-[15.5px] text-[#9aa6ad] max-w-[52ch] mx-auto">Flat pricing. Full ownership. No agency. Websites handcrafted for Lake Cumberland businesses — marinas, guides, and shops near every ramp from Monticello to Creelsboro, Jamestown, Burnside and Nancy.</p>
 
           <div className="mt-8 flex flex-col sm:flex-row gap-3.5 justify-center">
             <Link href="/quote" className="btn btn-primary px-9 py-3.5 text-base font-semibold shadow-lg">Get your free quote in 2 minutes →</Link>

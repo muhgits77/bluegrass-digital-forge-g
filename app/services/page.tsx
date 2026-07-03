@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Check } from "lucide-react";
 import BrandingCard from "@/components/BrandingCard";
+import ServiceAreas from "@/components/ServiceAreas";
 
 export const metadata: Metadata = {
   title: "Monticello KY Website Designer Pricing | Lake Cumberland Business Websites",
@@ -63,7 +64,7 @@ export default function Services() {
         <div className="label tracking-[2px]">SERVICES &amp; PRICING — MONTICELLO KY WEBSITE DESIGNER</div>
         <h1 className="section-title tracking-tight mt-2">Monticello KY Website Designer — Flat Pricing for Lake Cumberland Business Websites</h1>
         <p className="mt-3 text-lg text-[#9aa6ad]">Transparent one-time pricing from the local Monticello KY website designer. Starter Sites from $1,200 and Business Suites for Lake Cumberland &amp; Wayne County businesses. Food truck website Kentucky, restaurant websites, marina sites included. You own the code forever.</p>
-        <p className="text-[14.5px] text-[#9aa6ad] mt-1">Handcrafted in Monticello for Wayne County and Lake Cumberland region.</p>
+        <p className="text-[14.5px] text-[#9aa6ad] mt-1">Handcrafted in Monticello for Wayne County and Lake Cumberland region — serving businesses near the ramps at Conley Bottom, State Dock, Burnside, Lee’s Ford, Creelsboro and beyond.</p>
       </div>
 
       {/* Two Big Website Cards — premium modern treatment, exact content */}
@@ -126,6 +127,9 @@ export default function Services() {
       </div>
 
       <p className="text-[14.5px] text-center mt-6 text-[#9aa6ad]">Not sure which one? <Link href="/quote" className="underline hover:text-white">Tell me about your business</Link> — I&apos;ll recommend the right fit for your Lake Cumberland spot. Need a <Link href="/food-truck-websites" className="underline hover:text-white">food truck website Kentucky</Link>?</p>
+
+      {/* SERVICE AREAS — full list of boat ramp towns + marinas for local SEO and conversion */}
+      <ServiceAreas />
 
       {/* Branding Add-ons */}
       <div className="branding-addons mt-16 border-t-0 pt-0">

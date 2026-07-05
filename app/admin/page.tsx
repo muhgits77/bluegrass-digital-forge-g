@@ -4,12 +4,13 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { 
   Plus, Edit2, Trash2, Eye, EyeOff, Save, RefreshCw, Download, Upload, 
-  ArrowLeft, Lock, LogOut, X 
+  ArrowLeft, Lock, LogOut, X, Copy, Code2 
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   getDemos, saveDemos, addDemo, updateDemo, deleteDemo, resetToDefaults,
-  generateUniqueSlug, isSlugUnique, Demo
+  generateUniqueSlug, isSlugUnique, generateDemosTsCode, Demo,
+  uploadDemoImage, dispatchDemosPublished
 } from "@/lib/demos";
 import { CONTACT_EMAIL } from "@/lib/constants";
 
@@ -18,14 +19,12 @@ import { CONTACT_EMAIL } from "@/lib/constants";
 // Dark modern professional style (separate from warm public Kentucky theme)
 // 
 // - Password: ScotchGlitch398!1!1!1 (client-side demo only)
-// - Full CRUD for demos (Create now fully working)
-// - Form validation: title, slug, category, live URL required
-// - On submit: add to in-memory state + localStorage via addDemo
-// - Dynamic table re-render + success toast + clear form
-// - Base64 images fully preserved (drag/drop + paste)
-// - Loading state on Create/Save button
-// - Works on localhost AND Vercel (pure client localStorage + events)
-// - Robust: slug format checks, error handling, double-submit guard
+// - CRUD now uses Supabase (forge_demos) as PRIMARY + Supabase Storage for drag & drop images.
+// - Full graceful fallback to localStorage on any Supabase failure (keys missing, error, offline).
+// - Existing localStorage admin functionality is NEVER broken.
+// - "Export to demos.ts" still works for baking into source-controlled DEFAULT_DEMOS.
+// - Public pages prefer Supabase when present (already implemented) so changes go live instantly.
+// - UI, modals, validation, all buttons, and behavior kept exactly as before.
 // ==================================================================
 
 const ADMIN_PASSWORD = "ScotchGlitch398!1!1!1";
@@ -69,6 +68,11 @@ export default function AdminPanel() {
   const [successToast, setSuccessToast] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
 
+  // Export to demos.ts modal state (new targeted feature)
+  const [showTsExportModal, setShowTsExportModal] = useState(false);
+  const [tsExportCode, setTsExportCode] = useState("");
+  const [copySuccess, setCopySuccess] = useState(false);
+
   // Load auth + demos on mount
   useEffect(() => {
     const isAuthed = typeof window !== "undefined" && localStorage.getItem(AUTH_KEY) === "true";
@@ -90,9 +94,10 @@ export default function AdminPanel() {
     return () => window.removeEventListener("storage", handleStorage);
   }, []);
 
-  function loadDemos() {
-    const loaded = getDemos().sort((a, b) => a.sortOrder - b.sortOrder);
-    setDemos(loaded);
+  async function loadDemos() {
+    // Now prefers Supabase (primary) with transparent fallback to localStorage/DEFAULTS
+    const loaded = await getDemos();
+    setDemos([...loaded].sort((a, b) => a.sortOrder - b.sortOrder));
   }
 
   // Simple client-side password gate (not production security)
@@ -117,26 +122,34 @@ export default function AdminPanel() {
   }
 
   // ==================== IMAGE UPLOAD HANDLERS (Drag & Drop + Preview) ====================
-  // MAJOR CHANGE: Screenshot / hero image field now supports full drag-and-drop file upload.
-  // - Files are converted to base64 data URLs via FileReader
-  // - Stored directly in localStorage (no external hosting required)
-  // - Nice live preview with remove option
-  // - Keeps backward compatibility with URL / asset paths
-  // Improves usability dramatically for managing real local screenshots.
+  // Supabase Storage is PRIMARY for uploaded images (bucket: "demos").
+  // - Drag & drop or file select → uploadImageToDemosBucket (via uploadDemoImage wrapper)
+  // - On success: stores the returned public URL in the demo record (via Supabase + LS backup)
+  // - On ANY failure (no bucket, no keys, network, policy): falls back to base64 exactly like before
+  // - Manual URL entry and /assets/ paths remain fully supported.
+  // - UI, dropzone, preview, and remove button unchanged.
   const [dragActive, setDragActive] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  function handleImageUpload(file: File) {
+  async function handleImageUpload(file: File) {
     if (!file.type.startsWith("image/")) {
       alert("Please select a valid image file (JPG, PNG, WebP recommended).");
       return;
     }
     if (file.size > 2.5 * 1024 * 1024) {
-      if (!confirm("Image > 2.5MB. Base64 version will be larger and stored in localStorage. Continue?")) {
+      if (!confirm("Image > 2.5MB. If Supabase upload fails it will fall back to larger base64 in localStorage. Continue?")) {
         return;
       }
     }
 
+    // PRIMARY: attempt Supabase Storage upload (returns public URL or null)
+    const publicUrl = await uploadDemoImage(file);
+    if (publicUrl) {
+      updateForm("image", publicUrl);
+      return;
+    }
+
+    // FALLBACK: original base64 path (localStorage only)
     const reader = new FileReader();
     reader.onload = (event) => {
       const dataUrl = event.target?.result as string;
@@ -233,7 +246,7 @@ export default function AdminPanel() {
   }
 
   // Validate and save form — complete working logic for Create + Edit
-  function handleSaveDemo(e: React.FormEvent) {
+  async function handleSaveDemo(e: React.FormEvent) {
     e.preventDefault();
     if (isSaving) return;
 
@@ -253,7 +266,10 @@ export default function AdminPanel() {
       return;
     }
 
-    if (!isSlugUnique(trimmedSlug, editingId || undefined)) {
+    // Final uniqueness check against live data (Supabase or LS)
+    const latestForCheck = await getDemos();
+    const slugTaken = latestForCheck.some((d) => d.slug === trimmedSlug && d.id !== (editingId || undefined));
+    if (slugTaken) {
       setFormError("Slug must be unique. Change the slug or title.");
       return;
     }
@@ -267,8 +283,8 @@ export default function AdminPanel() {
         category: form.category.trim(),
         href: form.href.trim().replace(/\/$/, ""), // trim trailing slash for cleanliness
         description: (form.description || "").trim(),
-        // Handle base64 preview images properly: keep FULL data: URL intact for localStorage + Vercel
-        // Never strip or shorten base64. Also supports /assets/ paths and external URLs.
+        // Image can be: Supabase Storage public URL (preferred), /assets/ path, or base64 (fallback only)
+        // We pass through exactly what handleImageUpload or the URL field provided.
         image: form.image && form.image.startsWith("data:") 
           ? form.image 
           : (form.image?.trim() || undefined),
@@ -278,15 +294,17 @@ export default function AdminPanel() {
 
       let updated: Demo[];
       if (editingId) {
-        updated = updateDemo(editingId, demoData);
+        updated = await updateDemo(editingId, demoData);
       } else {
-        // NEW: Add to in-memory (via return) + localStorage (inside addDemo)
-        updated = addDemo(demoData);
+        updated = await addDemo(demoData);
       }
 
-      // Re-render the table dynamically
+      // Re-render the table dynamically (now reflects Supabase state or LS fallback)
       const sorted = [...updated].sort((a, b) => a.sortOrder - b.sortOrder);
       setDemos(sorted);
+
+      // Notify open public pages (same tab + other tabs) with the fresh list for instant UI update
+      dispatchDemosPublished(sorted);
 
       // Success toast + clear (close resets the form state too)
       const wasNew = !editingId;
@@ -303,32 +321,41 @@ export default function AdminPanel() {
     }
   }
 
-  function handleDelete(id: string, title: string) {
+  async function handleDelete(id: string, title: string) {
     if (!confirm(`Delete "${title}"? This cannot be undone.`)) return;
-    const updated = deleteDemo(id);
-    setDemos(updated.sort((a, b) => a.sortOrder - b.sortOrder));
+    const updated = await deleteDemo(id);
+    const sorted = updated.sort((a, b) => a.sortOrder - b.sortOrder);
+    setDemos(sorted);
+    dispatchDemosPublished(sorted);
   }
 
-  function handleToggleVisible(id: string, current: boolean) {
-    const updated = updateDemo(id, { visible: !current });
-    setDemos(updated.sort((a, b) => a.sortOrder - b.sortOrder));
+  async function handleToggleVisible(id: string, current: boolean) {
+    const updated = await updateDemo(id, { visible: !current });
+    const sorted = updated.sort((a, b) => a.sortOrder - b.sortOrder);
+    setDemos(sorted);
+    dispatchDemosPublished(sorted);
   }
 
-  function handleSortOrderChange(id: string, newOrder: number) {
-    const updated = updateDemo(id, { sortOrder: newOrder });
-    setDemos(updated.sort((a, b) => a.sortOrder - b.sortOrder));
+  async function handleSortOrderChange(id: string, newOrder: number) {
+    const updated = await updateDemo(id, { sortOrder: newOrder });
+    const sorted = updated.sort((a, b) => a.sortOrder - b.sortOrder);
+    setDemos(sorted);
+    dispatchDemosPublished(sorted);
   }
 
   // PUBLISH CHANGES — Explicit action that confirms to user
-  function handlePublish() {
+  // Note: Main saves now go directly to Supabase. This ensures LS backup matches current view
+  // and re-dispatches the event so public pages listening will re-fetch from Supabase.
+  async function handlePublish() {
     setIsPublishing(true);
-    const current = getDemos(); // ensure latest
-    saveDemos(current);
+    const current = await getDemos();
+    const sorted = [...current].sort((a, b) => a.sortOrder - b.sortOrder);
+    saveDemos(sorted);
 
-    // Notify other open tabs/pages (storage event) + same tab via custom event
-    window.dispatchEvent(new CustomEvent("bdf:demos-published"));
+    // Notify other open tabs/pages (storage + broadcast) + same tab via custom event
+    dispatchDemosPublished(sorted);
 
-    setPublishMessage("✓ Published! Changes are now live on the public homepage and /work pages.");
+    setPublishMessage("✓ Published! (LS backup refreshed). Live data is in Supabase — public pages prefer it.");
 
     setTimeout(() => {
       setPublishMessage("");
@@ -339,12 +366,15 @@ export default function AdminPanel() {
   function handleReset() {
     if (!confirm("Reset ALL demos to original defaults? Any custom entries will be lost.")) return;
     const reset = resetToDefaults();
-    setDemos(reset.sort((a, b) => a.sortOrder - b.sortOrder));
+    const sorted = reset.sort((a, b) => a.sortOrder - b.sortOrder);
+    setDemos(sorted);
+    dispatchDemosPublished(sorted);
     showPublishHint("Reset to factory defaults.");
   }
 
-  function handleExport() {
-    const data = JSON.stringify(getDemos(), null, 2);
+  async function handleExport() {
+    const current = await getDemos();
+    const data = JSON.stringify(current, null, 2);
     const blob = new Blob([data], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -354,6 +384,41 @@ export default function AdminPanel() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+  }
+
+  // Export clean TypeScript for the hardcoded DEFAULT_DEMOS in lib/demos.ts
+  // (Useful for source control / no-Supabase deployments). Public uses getPublicDemos().
+  async function handleExportToDemosTs() {
+    const currentList = await getDemos();
+    const current = [...currentList].sort((a, b) => a.sortOrder - b.sortOrder);
+    const code = generateDemosTsCode(current);
+    setTsExportCode(code);
+    setCopySuccess(false);
+    setShowTsExportModal(true);
+  }
+
+  function closeTsExportModal() {
+    setShowTsExportModal(false);
+    setTsExportCode("");
+    setCopySuccess(false);
+  }
+
+  async function copyTsCode() {
+    try {
+      await navigator.clipboard.writeText(tsExportCode);
+      setCopySuccess(true);
+      setTimeout(() => setCopySuccess(false), 2200);
+    } catch (e) {
+      // Fallback for older browsers / no clipboard permission
+      const textarea = document.createElement("textarea");
+      textarea.value = tsExportCode;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+      setCopySuccess(true);
+      setTimeout(() => setCopySuccess(false), 2200);
+    }
   }
 
   function handleImport(e: React.ChangeEvent<HTMLInputElement>) {
@@ -369,8 +434,10 @@ export default function AdminPanel() {
           const valid = imported.every((d: any) => d.title && d.href && typeof d.sortOrder === "number");
           if (!valid) throw new Error("Invalid demo format");
           saveDemos(imported);
-          loadDemos();
-          alert("Import successful. Demos updated.");
+          loadDemos(); // will prefer live Supabase if connected (import seeds LS backup)
+          // Note: to also push imported rows to Supabase, create/edit one item via the form
+          // or use the Supabase dashboard to bulk insert. Import primarily updates local fallback.
+          alert("Import successful. Demos updated (LS backup).");
         } else {
           throw new Error("File must contain an array of demos");
         }
@@ -485,7 +552,7 @@ export default function AdminPanel() {
           <div className="max-w-2xl">
             <div className="uppercase tracking-[2.2px] text-[11px] text-[#3ddbd9] font-medium mb-1.5">MANAGEMENT</div>
             <h1 className="text-[34px] md:text-4xl font-semibold tracking-[-1.6px] leading-none">Demos</h1>
-            <p className="text-[#9aa6ad] mt-2.5 text-[15px] leading-relaxed">Manage live demo sites on the homepage and /work. Changes save to browser. Publish to make visible to visitors. Contact: {CONTACT_EMAIL}</p>
+            <p className="text-[#9aa6ad] mt-2.5 text-[15px] leading-relaxed">Manage live demo sites on the homepage and /work. Saves go to Supabase (primary) + localStorage backup. Public pages auto-prefer Supabase. Contact: {CONTACT_EMAIL}</p>
           </div>
 
           <div>
@@ -542,7 +609,7 @@ export default function AdminPanel() {
             <div className="text-3xl md:text-[32px] font-semibold tabular-nums mt-1.5 leading-none">{demos.filter(d => !d.visible).length}</div>
           </div>
           <div className="bg-[#0c1013] border border-[#1a2225] rounded-2xl px-6 py-5 md:py-6 text-[13.5px] leading-relaxed text-[#9aa6ad]">
-            Auto-saved to your browser.<br />Use Publish Changes for live sync.
+            Primary: Supabase. LocalStorage is backup.<br />Changes save live; Publish refreshes LS copy.
           </div>
         </div>
 
@@ -552,6 +619,9 @@ export default function AdminPanel() {
             <button onClick={openNewDemo} className="btn flex items-center gap-2 bg-[#1f2528] hover:bg-[#2a3437] border border-[#243530] text-sm px-6 py-2.5">
               <Plus size={17} /> New Demo
             </button>
+            <button onClick={handleExportToDemosTs} className="flex items-center gap-2 text-sm px-5 py-2.5 bg-[#0f2a1f] border border-[#1f5a42] hover:bg-[#1a3a2b] rounded-xl font-medium">
+              <Code2 size={17} /> Export to demos.ts
+            </button>
             <button onClick={handleReset} className="text-sm px-4 py-2.5 text-[#9aa6ad] hover:text-white flex items-center gap-1.5 rounded-xl border border-[#243530] hover:border-[#33423c]">
               <RefreshCw size={16} /> Reset Defaults
             </button>
@@ -559,7 +629,7 @@ export default function AdminPanel() {
 
           <div className="flex items-center gap-2 flex-wrap ml-auto">
             <button onClick={handleExport} className="flex items-center gap-2 text-sm px-4 py-2.5 border border-[#243530] hover:bg-[#111518] rounded-xl">
-              <Download size={16} /> Export
+              <Download size={16} /> Export JSON
             </button>
 
             <label className="flex items-center gap-2 text-sm px-4 py-2.5 border border-[#243530] hover:bg-[#111518] rounded-xl cursor-pointer">
@@ -658,7 +728,7 @@ export default function AdminPanel() {
         </div>
 
         <div className="mt-4 text-xs text-[#6b787e] flex items-center gap-2 leading-relaxed">
-          • Changes saved instantly to browser. • Publish makes them live on public site. • Order = priority (lower first). • Table designed for perfect readability at 100% zoom on desktop and mobile.
+          • Saves go to Supabase first (with localStorage backup). • Public pages prefer Supabase when configured. • Order = priority (lower first). • Table designed for perfect readability at 100% zoom on desktop and mobile.
         </div>
 
         {/* Contact email reference in admin (dark theme) */}
@@ -782,7 +852,7 @@ export default function AdminPanel() {
                         <div className="relative w-full max-w-[280px]">
                           <img src={form.image} alt="Demo preview" className="mx-auto max-h-[92px] rounded-lg border border-[#1a2225] object-contain" />
                           <button type="button" onClick={removeImage} className="absolute -top-1.5 -right-1.5 bg-[#1a2225] hover:bg-red-500 text-xs rounded-full w-6 h-6 flex items-center justify-center border border-[#243530]" aria-label="Remove uploaded image">×</button>
-                          <div className="mt-1.5 text-[10px] text-[#8a9599]">Uploaded (local base64). Tap or drop to replace.</div>
+                          <div className="mt-1.5 text-[10px] text-[#8a9599]">Uploaded (Supabase or local). Tap or drop to replace.</div>
                         </div>
                       ) : form.image ? (
                         <div className="relative w-full max-w-[280px]">
@@ -794,7 +864,7 @@ export default function AdminPanel() {
                           <div className="text-2xl mb-1 opacity-60">📷</div>
                           <div className="font-medium text-[13.5px]">Drop image or tap to upload</div>
                           <div className="text-[10px] text-[#6b787e] mt-0.5">JPG/PNG/WebP • &lt;2.5MB</div>
-                          <div className="text-[9px] mt-1.5 px-2 py-px rounded bg-[#1f2528] text-[#8a9599]">Stored locally as base64</div>
+                          <div className="text-[9px] mt-1.5 px-2 py-px rounded bg-[#1f2528] text-[#8a9599]">Supabase Storage (base64 fallback)</div>
                         </>
                       )}
                     </div>
@@ -859,6 +929,98 @@ export default function AdminPanel() {
                   ) : (
                     editingId ? "Save Changes" : "Create Demo"
                   )}
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* ==================== EXPORT TO demos.ts MODAL — targeted addition, copyable code block */}
+      <AnimatePresence>
+        {showTsExportModal && (
+          <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/80 p-3 sm:p-5 overflow-y-auto">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.985, y: 8 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.985, y: 6 }}
+              transition={{ type: "spring", bounce: 0.01, duration: 0.18 }}
+              className="w-full max-w-[860px] max-h-[88vh] flex flex-col my-3 sm:my-4 bg-[#0c1013] border border-[#1a2225] rounded-2xl overflow-hidden shadow-2xl"
+            >
+              {/* Modal Header */}
+              <div className="flex items-center justify-between flex-shrink-0 px-5 py-3.5 border-b border-[#1a2225] bg-[#0a0c0f]">
+                <div className="flex items-center gap-2.5">
+                  <Code2 size={18} className="text-[#3ddbd9]" />
+                  <div>
+                    <div className="uppercase tracking-[1.6px] text-[10px] text-[#3ddbd9] font-medium">PERSIST WITHOUT QUOTA</div>
+                    <div className="text-[17px] font-semibold tracking-[-0.2px] leading-tight mt-0.5 text-[#e8e3d9]">
+                      Export to demos.ts
+                    </div>
+                  </div>
+                </div>
+                <button
+                  onClick={closeTsExportModal}
+                  className="text-[#8a9599] hover:text-white p-2 -mr-1 rounded-lg hover:bg-[#1a2225] transition"
+                  aria-label="Close export modal"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+
+              {/* Instructions + Code Block */}
+              <div className="flex-1 overflow-y-auto px-5 sm:px-6 py-5 space-y-4 text-[14px]">
+                <div className="text-[#9aa6ad] leading-relaxed">
+                  This generates the exact <span className="font-mono text-[#c8b48a]">DEFAULT_DEMOS</span> array used by the public site.
+                  Public pages (<code>/</code> and <code>/work</code>) read from the hardcoded array in <span className="font-mono">lib/demos.ts</span> via <span className="font-mono">getPublicDemos()</span> — no localStorage, unlimited demos.
+                  (Admin now also writes to Supabase; this export is for source-controlled / no-Supabase deploys.)
+                </div>
+
+                <div className="bg-[#0a0c0f] border border-[#243530] rounded-xl p-4 text-[13px] leading-snug text-[#a8b5bb]">
+                  <strong className="text-[#e8e3d9]">Steps to publish changes permanently:</strong>
+                  <ol className="list-decimal ml-5 mt-2 space-y-1">
+                    <li>Click <strong>Copy code</strong> below.</li>
+                    <li>Open <span className="font-mono">lib/demos.ts</span> in your editor.</li>
+                    <li>Replace the <span className="font-mono">const DEFAULT_DEMOS: Demo[] = [ ... ];</span> block with the copied code.</li>
+                    <li>If any <span className="font-mono">image</span> fields contain long base64 strings, replace them with <span className="font-mono">"/assets/demo-xxx.jpg"</span> (add real, locally-authentic photos to <span className="font-mono">public/assets/</span>).</li>
+                    <li>Save → commit → deploy. Done. The Admin localStorage is kept for convenience but public always uses the source file.</li>
+                  </ol>
+                </div>
+
+                {/* Copyable code block */}
+                <div>
+                  <div className="flex items-center justify-between mb-1.5 px-1">
+                    <div className="text-[11px] uppercase tracking-[1.5px] text-[#6b787e]">Ready-to-paste TypeScript</div>
+                    <button
+                      onClick={copyTsCode}
+                      className={`inline-flex items-center gap-1.5 text-xs px-3 py-1 rounded-lg border transition ${copySuccess ? "bg-[#0f2a1f] border-[#1f5a42] text-[#3ddbd9]" : "border-[#243530] hover:bg-[#111518] text-[#9aa6ad] hover:text-white"}`}
+                    >
+                      <Copy size={13} /> {copySuccess ? "Copied!" : "Copy code"}
+                    </button>
+                  </div>
+                  <pre className="bg-[#050708] border border-[#1a2225] rounded-xl p-4 overflow-auto text-[12.5px] leading-[1.45] font-mono text-[#c8c2b4] max-h-[46vh] whitespace-pre">
+{tsExportCode || "No code generated."}
+                  </pre>
+                  <p className="mt-2 text-[11px] text-[#6b787e] px-1">
+                    The output matches the exact object shape, key order, and style in lib/demos.ts. Keep your existing commented example templates below the array if desired.
+                  </p>
+                </div>
+              </div>
+
+              {/* Footer actions */}
+              <div className="flex-shrink-0 px-5 sm:px-6 py-3.5 border-t border-[#1a2225] bg-[#0a0c0f] flex flex-col-reverse sm:flex-row items-center justify-end gap-2.5">
+                <button
+                  type="button"
+                  onClick={closeTsExportModal}
+                  className="btn btn-secondary px-5 py-2 text-sm w-full sm:w-auto"
+                >
+                  Close
+                </button>
+                <button
+                  type="button"
+                  onClick={copyTsCode}
+                  className="btn bg-[#3b82f6] hover:bg-[#2563eb] text-white font-semibold px-6 w-full sm:w-auto py-2 flex items-center justify-center gap-2 text-sm"
+                >
+                  <Copy size={15} /> {copySuccess ? "Copied to clipboard" : "Copy code to clipboard"}
                 </button>
               </div>
             </motion.div>

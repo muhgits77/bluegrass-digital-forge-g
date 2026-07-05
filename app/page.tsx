@@ -1,41 +1,14 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Link from "next/link";
 import { ArrowRight, Check, Phone } from "lucide-react";
 import { motion } from "framer-motion";
-import DemoCard from "@/components/DemoCard";
-import { getPublicDemos, toCardProps } from "@/lib/demos";
+import { useLivePublicDemos } from "@/lib/useLivePublicDemos";
 import ServiceAreas from "@/components/ServiceAreas";
 
-/**
- * MAJOR CHANGE: Dynamic Demo Gallery
- * Homepage now consumes admin-managed demos from /lib/demos (localStorage).
- * This makes the "Publish Changes" button in /admin instantly relevant.
- * Reacts to storage changes from the admin panel.
- */
-function usePublicDemos(limit = 6) {
-  const [demos, setDemos] = useState(() =>
-    getPublicDemos().slice(0, limit).map(toCardProps)
-  );
-
-  useEffect(() => {
-    const refresh = () => {
-      setDemos(getPublicDemos().slice(0, limit).map(toCardProps));
-    };
-    window.addEventListener("storage", refresh);
-    window.addEventListener("bdf:demos-published", refresh);
-    return () => {
-      window.removeEventListener("storage", refresh);
-      window.removeEventListener("bdf:demos-published", refresh);
-    };
-  }, [limit]);
-
-  return demos;
-}
-
 export default function Home() {
-  const demos = usePublicDemos(4);
+  const demos = useLivePublicDemos(4);
 
   return (
     <>

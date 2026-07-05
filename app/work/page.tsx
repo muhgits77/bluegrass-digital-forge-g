@@ -1,35 +1,13 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import DemoCard from "@/components/DemoCard";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { getPublicDemos, toCardProps } from "@/lib/demos";
-
-/**
- * MAJOR CHANGE: Full work page now uses admin-managed dynamic demos (localStorage powered)
- * Sorted + visible only. Changes made in /admin are reflected (with storage sync).
- */
-function useAllPublicDemos() {
-  const [allDemos, setAllDemos] = useState(() => getPublicDemos().map(toCardProps));
-
-  useEffect(() => {
-    const refresh = () => setAllDemos(getPublicDemos().map(toCardProps));
-    window.addEventListener("storage", refresh);
-    window.addEventListener("bdf:demos-published", refresh);
-    return () => {
-      window.removeEventListener("storage", refresh);
-      window.removeEventListener("bdf:demos-published", refresh);
-    };
-  }, []);
-
-  return allDemos;
-}
-
-
+import { useLivePublicDemos } from "@/lib/useLivePublicDemos";
 
 export default function WorkPage() {
-  const allDemos = useAllPublicDemos();
+  const allDemos = useLivePublicDemos();
 
   return (
     <div className="mx-auto max-w-7xl px-5 py-12">

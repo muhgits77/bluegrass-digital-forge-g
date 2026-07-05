@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Food Truck Website Kentucky & Charleston SC | Monticello KY Website Designer — Lake Cumberland & Lowcountry",
-  description: "Specialized food truck website Kentucky and Charleston Food Truck Website by the Monticello KY website designer. Schedule, menus, pre-orders for Lake Cumberland & Wayne County and South Carolina Lowcountry food trucks. Fast local builds. Real-time location updates from a simple mobile dashboard.",
+  title: "Food Truck Websites in Kentucky | Lake Cumberland & Monticello",
+  description: "Food truck websites for Lake Cumberland and Monticello, Kentucky. Update your real-time location, hours, and festival schedule in seconds from a simple mobile dashboard. Beautiful menus with photos, online ordering, and fast local sites built by a neighbor.",
   keywords: ["food truck website Kentucky", "Monticello KY website designer", "Lake Cumberland business websites", "Wayne County web design", "Charleston Food Truck Website", "Lowcountry Web Design", "real-time food truck location", "food truck schedule updates"],
 };
 

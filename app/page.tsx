@@ -207,6 +207,7 @@ export default function Home() {
         <div className="mx-auto max-w-[660px] px-5">
           <h2 className="text-[29px] md:text-[33px] tracking-[-1.15px] font-semibold leading-tight">Ready for a website from a neighbor in Monticello?</h2>
           <p className="mt-3.5 text-[15.5px] text-[#9aa6ad] max-w-[52ch] mx-auto">Flat pricing. Full ownership. No agency. Websites handcrafted for Lake Cumberland businesses — marinas, guides, and shops near every ramp from Monticello to Creelsboro, Jamestown, Burnside and Nancy. Now also serving Charleston SC, Summerville, Walterboro, Ladson &amp; North Charleston with Lowcountry web design.</p>
+          <p className="mt-2 text-[13.5px] text-[#8a9599] max-w-[52ch] mx-auto">Food truck owners: easily update daily location, festival schedules, and hours on the fly from your phone. Real-time updates that keep customers coming to the right spot.</p>
 
           <div className="mt-8 flex flex-col sm:flex-row gap-3.5 justify-center">
             <Link href="/quote" className="btn btn-primary px-9 py-3.5 text-base font-semibold shadow-lg">Get your free quote in 2 minutes →</Link>

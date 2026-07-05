@@ -22,6 +22,7 @@ export default function Footer() {
             <p className="text-[#8a9599] max-w-sm leading-relaxed">
               Monticello KY website designer serving Lake Cumberland and Charleston SC / South Carolina Lowcountry. Flat pricing, fast launches, you own everything. Authentic websites for Lake Cumberland businesses and Lowcountry restaurants, food trucks &amp; small businesses: food trucks, restaurants, marinas &amp; shops.
             </p>
+            <p className="mt-1 text-[12px] text-[#9aa6ad]">Food truck sites emphasize real-time location updates, simple mobile admin, pre-orders, festival calendars, and beautiful photography so owners can focus on the food.</p>
             <p className="mt-4 text-[12.5px] text-[#9aa6ad] tracking-wide">Forged by Brian · Monticello, Kentucky</p>
           </div>
 
@@ -61,6 +62,7 @@ export default function Footer() {
               <li>North Charleston, SC</li>
             </ul>
             <p className="mt-3 text-xs text-[#8a9599]">Websites for marinas, guides &amp; businesses near every ramp — and Lowcountry restaurants, food trucks &amp; shops. <Link href="/service-areas" className="underline hover:text-[#3ddbd9]">full service areas</Link> · <Link href="/south-carolina" className="underline hover:text-[#f4a261]">South Carolina page</Link>.</p>
+            <p className="mt-1.5 text-[11px] text-[#7f8c90]">Food trucks: update daily location, festival stops, and hours from your phone with our simple dashboard.</p>
           </div>
 
           {/* Contact + Professional QR for business cards */}

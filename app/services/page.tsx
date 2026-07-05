@@ -128,6 +128,14 @@ export default function Services() {
 
       <p className="text-[14.5px] text-center mt-6 text-[#9aa6ad]">Not sure which one? <Link href="/quote" className="underline hover:text-white">Tell me about your business</Link> — I&apos;ll recommend the right fit for your Lake Cumberland spot. Need a <Link href="/food-truck-websites" className="underline hover:text-white">food truck website Kentucky</Link>? We also serve Charleston SC and the Lowcountry — <Link href="/south-carolina" className="underline hover:text-[#f4a261]">see Charleston web design services</Link>.</p>
 
+      {/* Additive food truck emphasis block on services page */}
+      <div className="mt-10 rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-7">
+        <div className="text-[#f4a261] text-xs tracking-[1.5px] mb-1">FOR FOOD TRUCK OWNERS</div>
+        <h3 className="font-semibold text-xl tracking-tight">Your location changes daily. Your website should keep up — from your phone.</h3>
+        <p className="mt-2 text-[15px] text-[#c8cfd3]">Starter Sites and Business Suites for food trucks include prominent real-time location + hours that you update yourself in under a minute. Add online pre-order links, beautiful menu photography, festival booking visibility, quick menu edits, and review collection. Perfect for Lake Cumberland BBQ and taco trucks — and Charleston SC / Lowcountry trucks rolling to festivals, waterfronts, and markets.</p>
+        <p className="mt-3"><Link href="/food-truck-websites" className="underline hover:text-[#3ddbd9] text-sm">See dedicated food truck website details and Lowcountry examples →</Link></p>
+      </div>
+
       {/* Regional Pricing — additive, honest, clean language. Kentucky as base + SC Lowcountry 25-35% higher. Two-column format. */}
       <div className="mt-10">
         <div className="max-w-3xl mb-6">

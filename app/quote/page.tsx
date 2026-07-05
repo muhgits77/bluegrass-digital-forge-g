@@ -46,6 +46,7 @@ const goalOptions = [
   "Show my weekly schedule & locations",
   "Promote catering / private events",
   "Collect emails for updates & specials",
+  "Easily update daily location and hours myself (food trucks & mobile businesses)",
 ];
 
 const mustHaveOptions = [
@@ -53,6 +54,7 @@ const mustHaveOptions = [
   "Live schedule & location page",
   "Catering / events inquiry form",
   "Email signup for specials & alerts",
+  "Simple mobile dashboard to update location/hours/menu myself",
 ];
 
 const budgetOptions = [

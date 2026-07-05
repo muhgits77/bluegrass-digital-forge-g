@@ -3,8 +3,8 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Food Truck Website Kentucky & Charleston SC | Monticello KY Website Designer — Lake Cumberland & Lowcountry",
-  description: "Specialized food truck website Kentucky and Charleston Food Truck Website by the Monticello KY website designer. Schedule, menus, pre-orders for Lake Cumberland & Wayne County and South Carolina Lowcountry food trucks. Fast local builds.",
-  keywords: ["food truck website Kentucky", "Monticello KY website designer", "Lake Cumberland business websites", "Wayne County web design", "Charleston Food Truck Website", "Lowcountry Web Design"],
+  description: "Specialized food truck website Kentucky and Charleston Food Truck Website by the Monticello KY website designer. Schedule, menus, pre-orders for Lake Cumberland & Wayne County and South Carolina Lowcountry food trucks. Fast local builds. Real-time location updates from a simple mobile dashboard.",
+  keywords: ["food truck website Kentucky", "Monticello KY website designer", "Lake Cumberland business websites", "Wayne County web design", "Charleston Food Truck Website", "Lowcountry Web Design", "real-time food truck location", "food truck schedule updates"],
 };
 
 export default function FoodTruckWebsites() {
@@ -13,6 +13,8 @@ export default function FoodTruckWebsites() {
       <div className="label tracking-[1.6px]">SPECIALTY — FOOD TRUCK WEBSITE KENTUCKY</div>
       <h1 className="section-title tracking-tight">Food Truck Website Kentucky | Lake Cumberland &amp; Wayne County by Monticello KY Website Designer</h1>
       <p className="mt-3 text-lg text-[#8a9599]">Bold, fast-loading food truck websites Kentucky built locally in Monticello for Lake Cumberland &amp; Wayne County. Perfect for BBQ, tacos, donuts and more. Custom Lake Cumberland business websites. We also build Charleston Food Truck Websites and Lowcountry food truck sites with the same attention to local detail.</p>
+
+      <p className="mt-3 text-[15px] text-[#c8cfd3]">The difference that matters most: your customers can always find you today. Real-time location, today’s hours, and festival stops update in seconds from your phone — no laptop, no waiting on a designer, no complicated backend. Warm, practical sites that turn “where are you today?” into “see you in 10 minutes.”</p>
 
       <div className="mt-8 card p-7 rounded-3xl space-y-4 text-[15px]">
         <p>Typical inclusions for food truck sites:</p>
@@ -26,10 +28,100 @@ export default function FoodTruckWebsites() {
         </ul>
       </div>
 
+      {/* Additive emphasis block — real-time location as a major benefit */}
+      <div className="mt-8 rounded-3xl border border-[#1f282b] bg-[#0a0c0f] p-7">
+        <div className="uppercase tracking-[1.5px] text-[11px] text-[#f4a261] mb-2">THE #1 PAIN POINT WE SOLVE</div>
+        <h2 className="text-2xl font-semibold tracking-tight">Real-time location updates that actually work on the road.</h2>
+        <p className="mt-3 text-[15px] text-[#c8cfd3]">Food truck owners don’t sit at desks. You’re prepping, driving, serving, breaking down. Our sites give you a dead-simple, mobile-friendly admin dashboard. Tap in today’s spot before you leave the house. Update hours on the fly if a festival runs long or the crowd moves. Change your festival schedule between stops. Your website, Google, and customers see the truth instantly.</p>
+        <ul className="mt-4 grid sm:grid-cols-2 gap-x-6 gap-y-2 text-[14.5px] text-[#c8cfd3]">
+          <li className="flex gap-2">• Post “at the riverfront today 11–3” from the passenger seat</li>
+          <li className="flex gap-2">• Mark sold-out items or add the daily special while the grill’s hot</li>
+          <li className="flex gap-2">• Lock in a full month of festival dates in one sitting</li>
+          <li className="flex gap-2">• Customers get accurate directions and pre-order links without calling</li>
+        </ul>
+        <p className="mt-4 text-[13px] text-[#8a9599]">No training videos. No confusing CMS. We set it up so it feels like texting a friend who already knows your truck.</p>
+      </div>
+
       <div className="mt-8">
         <Link href="/quote" className="btn btn-primary">Get a food truck site quote →</Link>
         <span className="mx-3 text-[#8a9599]">or</span>
         <Link href="/work" className="underline text-[#3ddbd9]">see the Smoky Wheels live demo</Link>
+      </div>
+
+      {/* Additive — full benefits grid focused on practical wins for owners */}
+      <div className="mt-12">
+        <div className="max-w-2xl">
+          <div className="label tracking-[1.5px]">MORE THAN A PRETTY MENU</div>
+          <h2 className="text-2xl font-semibold tracking-tight mt-1">Benefits that help you sell more barbecue, tacos, and donuts.</h2>
+          <p className="mt-2 text-[15px] text-[#9aa6ad]">Every feature is chosen because it solves a real problem food truck owners face in Lake Cumberland, Wayne County, and the South Carolina Lowcountry.</p>
+        </div>
+
+        <div className="mt-6 grid md:grid-cols-2 gap-4">
+          <div className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-6">
+            <div className="font-semibold tracking-tight mb-1">Online ordering &amp; pre-orders</div>
+            <p className="text-[14.5px] text-[#c8cfd3]">Let customers place orders or reserve their favorites before you arrive. Great for office park lunches, large groups at festivals, or busy waterfront days. Reduces waste and line frustration.</p>
+          </div>
+          <div className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-6">
+            <div className="font-semibold tracking-tight mb-1">Beautiful food photography</div>
+            <p className="text-[14.5px] text-[#c8cfd3]">We use your real shots or guide you on simple phone photos that look mouth-watering on every device. No stock photos of someone else’s brisket. Your truck, your food, your style.</p>
+          </div>
+          <div className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-6">
+            <div className="font-semibold tracking-tight mb-1">Festival &amp; event booking calendar</div>
+            <p className="text-[14.5px] text-[#c8cfd3]">Show organizers and private clients exactly when you’re available. Display confirmed festivals, markets, and private events so customers know where the good stuff will be all season.</p>
+          </div>
+          <div className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-6">
+            <div className="font-semibold tracking-tight mb-1">Instant menu updates</div>
+            <p className="text-[14.5px] text-[#c8cfd3]">Sold out of pulled pork? Added a smoked brisket special? Toggle items live from the truck or the parking lot. Your site and your customers stay in sync without a middleman.</p>
+          </div>
+          <div className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-6">
+            <div className="font-semibold tracking-tight mb-1">Customer reviews on the site</div>
+            <p className="text-[14.5px] text-[#c8cfd3]">Collect and display real reviews so new customers at a new stop see that the locals already love you. Builds instant trust when you’re the new truck in town or rolling into a big festival.</p>
+          </div>
+          <div className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-6">
+            <div className="font-semibold tracking-tight mb-1">Mobile-first everything</div>
+            <p className="text-[14.5px] text-[#c8cfd3]">Your customers are on phones. You’re on a phone between services. The whole experience — from viewing today’s location to placing a pre-order — is fast, big-tap friendly, and reliable on spotty festival Wi-Fi.</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Charleston SC & Lowcountry specific messaging — additive, warm and practical */}
+      <div className="mt-12 rounded-3xl border border-[#243530] bg-[#0a0c0f] p-8">
+        <div className="label tracking-[1.5px] text-[#f4a261]">CHARLESTON SC &amp; LOWCOUNTRY FOOD TRUCKS</div>
+        <h2 className="mt-2 text-2xl font-semibold tracking-tight">Websites that understand the Lowcountry rhythm.</h2>
+        <p className="mt-3 text-[15px] text-[#c8cfd3]">Charleston food trucks roll to the waterfront, King Street pop-ups, North Charleston markets, Firefly Distillery events, Summerville town days, and festivals across the Lowcountry. Your customers are tourists on King Street, locals heading to the beach, and families at weekend markets. They need to know exactly where the good food is — right now.</p>
+
+        <div className="mt-5 grid sm:grid-cols-2 gap-x-8 gap-y-4 text-[14.5px] text-[#c8cfd3]">
+          <div>
+            <span className="font-medium text-white">Real-time location for coastal days</span><br />
+            Update “Serving at the Battery today” or “North Charleston park pop-up 5–9” from your phone while you’re setting up. Tourists and locals alike see accurate directions and times.
+          </div>
+          <div>
+            <span className="font-medium text-white">Festival &amp; event friendly</span><br />
+            Lowcountry Food Truck Festival, weekend rodeos, distillery events, private catering on the islands — show your confirmed dates and let people pre-order for big groups before you even arrive.
+          </div>
+          <div>
+            <span className="font-medium text-white">Simple dashboard for busy owners</span><br />
+            No time for website drama between services and the drive back to the commissary. Change hours, swap the special, or post tomorrow’s spot between customers. It just works.
+          </div>
+          <div>
+            <span className="font-medium text-white">Photography that sells Lowcountry flavors</span><br />
+            We highlight your actual food — shrimp &amp; grits tacos, smoked Lowcountry classics, fresh seafood plates — the way it looks on a sunny Charleston afternoon.
+          </div>
+        </div>
+
+        <p className="mt-6 text-[14px] text-[#8a9599]">Same flat pricing and neighborly process as our Lake Cumberland food truck sites. You own the code. We speak your language whether you’re at Conley Bottom or the Charleston harbor.</p>
+
+        <div className="mt-5">
+          <Link href="/south-carolina" className="text-[#f4a261] underline hover:text-white">Learn more about Charleston SC &amp; Lowcountry websites →</Link>
+        </div>
+      </div>
+
+      {/* Practical closing encouragement — warm, benefit-focused */}
+      <div className="mt-10 text-center max-w-xl mx-auto">
+        <p className="text-[15px] text-[#9aa6ad]">You didn’t start a food truck to wrestle with a website. You started it to feed people good food. Let us handle the online side so you can focus on the line, the smoke, and the next stop.</p>
+        <div className="mt-5">
+          <Link href="/quote" className="btn btn-primary">Tell me about your truck →</Link>
+        </div>
       </div>
     </div>
   );

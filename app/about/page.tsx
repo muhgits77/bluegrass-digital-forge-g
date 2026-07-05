@@ -15,6 +15,7 @@ export default function AboutPage() {
 
       <div className="prose prose-invert mt-5 max-w-none text-[#c8cfd3] text-[15.5px] leading-relaxed">
         <p>I live and work right here on Lake Cumberland — not a 1-800 number or a chat window halfway across the country. When you hire Bluegrass Digital Forge, the Monticello KY website designer, you get a real neighbor who knows the difference between a Wayne County food truck at the marina and a Somerset storefront. I pick up the phone. I answer texts on weekends before a busy Saturday.</p>
+        <p className="mt-3">For food truck owners, that means a site where you can post your real-time location and today’s hours from your phone between services — whether you’re in Monticello or serving the Charleston waterfront.</p>
         <p>Monticello KY web design serving every major Lake Cumberland boat ramp town: Monticello (Conley Bottom, Beaver Creek), Albany, Jamestown &amp; Russell Springs (State Dock, Lake Cumberland Marina), Burnside (Burnside Marina), Nancy (Lee’s Ford), Somerset, Ferguson, Creelsboro, and all of Wayne, Russell &amp; Pulaski Counties. Authentic Lake Cumberland business websites for marinas, guides, restaurants and shops.</p>
       </div>
 

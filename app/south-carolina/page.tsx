@@ -202,6 +202,20 @@ export default function SouthCarolinaPage() {
         </div>
       </div>
 
+      {/* Additive deep food truck section for Lowcountry — real-time location emphasis */}
+      <div className="mt-8 rounded-3xl border border-[#1f282b] bg-[#0a0c0f] p-7">
+        <div className="text-[#f4a261] text-xs uppercase tracking-[1.5px] mb-1">FOOD TRUCKS IN THE LOWCOUNTRY</div>
+        <h3 className="text-xl font-semibold tracking-tight">Real-time location updates built for Charleston festivals and waterfront life.</h3>
+        <p className="mt-3 text-[15px] text-[#c8cfd3]">Whether you’re serving near the harbor, at a North Charleston market, rolling through a Summerville weekend event, or booked for the Lowcountry Food Truck Festival and distillery pop-ups — your customers need to know your spot and hours without guessing. Our Charleston Food Truck Websites put a simple phone-friendly dashboard in your hands so you can post today’s location, update the menu, or lock festival dates while you’re prepping or between services.</p>
+        <ul className="mt-4 text-[14.5px] text-[#c8cfd3] space-y-1.5">
+          <li>• Update “at the waterfront” or “Ladson event today” from your truck in seconds</li>
+          <li>• Show pre-order options for big groups and office catering common in the Charleston area</li>
+          <li>• Beautiful photos of your actual Lowcountry plates — shrimp, brisket, tacos, whatever you’re known for</li>
+          <li>• Festival calendar that helps event organizers and hungry locals find you fast</li>
+        </ul>
+        <p className="mt-4 text-sm"><Link href="/food-truck-websites" className="underline hover:text-[#f4a261]">See full food truck website details including Lake Cumberland + Charleston examples →</Link></p>
+      </div>
+
       {/* Pricing teaser — reuses familiar language */}
       <div className="mt-12 text-center">
         <p className="text-[#9aa6ad] max-w-md mx-auto">

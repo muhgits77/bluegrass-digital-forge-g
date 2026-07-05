@@ -44,7 +44,7 @@ const DEFAULT_DEMOS: Demo[] = [
     slug: "smoky-wheels",
     category: "Food Truck",
     href: "https://smoky-wheels.lovable.app",
-    description: "Bold food truck website Kentucky with live schedule, menu and ordering for Lake Cumberland businesses. Built by the Monticello KY website designer.",
+    description: "Bold food truck website Kentucky with live schedule, real-time location updates from a simple mobile dashboard, menu and ordering for Lake Cumberland businesses. Built by the Monticello KY website designer.",
     image: "/assets/demo-smoky-wheels.jpg",
     sortOrder: 2,
     visible: true,

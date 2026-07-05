@@ -549,7 +549,7 @@ export function generateDemosTsCode(demos: Demo[]): string {
 
 // NOTE FOR FUTURE EDITS:
 // To add many more demos (e.g. 30+ food trucks), just append objects to DEFAULT_DEMOS above.
-// Keep descriptions short (they become the card subtitles).
+// Descriptions render on demo cards (line-clamp-2 mobile, line-clamp-3 desktop).
 // Always provide accurate local thumbnail paths.
 // No other files need changes for new demos to appear on /work and homepage featured area.
 // The structure is: title | href (as url) | description | category | image (thumbnail)

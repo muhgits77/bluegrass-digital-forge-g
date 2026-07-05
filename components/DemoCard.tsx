@@ -111,7 +111,7 @@ export default function DemoCard({ title, subtitle, category, href, image, slug 
         <h3 className="font-semibold text-[17px] leading-[1.2] mb-2 group-hover:text-[#f4a261] transition-colors duration-200">
           {title}
         </h3>
-        <p className="text-[#9aa6ad] text-[14.5px] leading-snug flex-1 line-clamp-3 pr-1">{subtitle}</p>
+        <p className="text-[#9aa6ad] text-[14.5px] leading-snug flex-1 min-h-0 line-clamp-2 sm:line-clamp-3 pr-1">{subtitle}</p>
 
         <div className="mt-auto pt-5 text-[#f4a261] font-medium flex items-center gap-2 group-hover:gap-2.5 transition-all text-[14px]">
           Open live site

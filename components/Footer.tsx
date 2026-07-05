@@ -62,7 +62,7 @@ export default function Footer() {
               <li>North Charleston, SC</li>
             </ul>
             <p className="mt-3 text-xs text-[#8a9599]">Websites for marinas, guides &amp; businesses near every ramp — and Lowcountry restaurants, food trucks &amp; shops. <Link href="/service-areas" className="underline hover:text-[#3ddbd9]">full service areas</Link> · <Link href="/south-carolina" className="underline hover:text-[#f4a261]">South Carolina page</Link>.</p>
-            <p className="mt-1.5 text-[11px] text-[#7f8c90]">Food trucks: update daily location, festival stops, and hours from your phone with our simple dashboard.</p>
+            <p className="mt-1.5 text-[11px] text-[#7f8c90]">Food trucks lead with easy on-the-fly “Where We Are Today” updates from a simple mobile dashboard — daily spots, festivals, events — plus festival calendar, online ordering, beautiful food photos &amp; menu updates.</p>
           </div>
 
           {/* Contact + Professional QR for business cards */}

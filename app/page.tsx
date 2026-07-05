@@ -105,7 +105,7 @@ export default function Home() {
               transition={{ duration: 0.58, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
               className="mx-auto mt-5 max-w-[40ch] text-[17px] md:text-[18px] leading-relaxed text-white/90"
             >
-              Handcrafted for Lake Cumberland businesses and South Carolina Lowcountry. Flat pricing. You own everything. Built by a neighbor in Monticello. Serving Kentucky Bluegrass &amp; South Carolina Lowcountry.
+              Handcrafted for Lake Cumberland businesses and South Carolina Lowcountry food trucks, restaurants &amp; local gems. Flat pricing. You own everything. Built by a neighbor in Monticello.
             </motion.p>
 
             <motion.div
@@ -153,7 +153,7 @@ export default function Home() {
           <div className="trust-bar inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-black/60 backdrop-blur-3xl px-5 py-2.5 text-sm text-white/90 max-w-[94%]">
             <span className="font-semibold text-[#f4a261]">Starter Sites from $1,200 • Flat price</span>
             <span className="text-white/25 hidden sm:inline">•</span>
-            <span className="text-[13px] text-white/75 hidden sm:inline">Handcrafted in Monticello, KY. Serving Lowcountry too. You own everything.</span>
+            <span className="text-[13px] text-white/75 hidden sm:inline">Handcrafted in Monticello, KY. Bluegrass &amp; Lowcountry. You own everything.</span>
             <span className="text-[13px] text-white/75 sm:hidden">Flat price. KY + SC Lowcountry.</span>
           </div>
         </motion.div>
@@ -207,7 +207,7 @@ export default function Home() {
         <div className="mx-auto max-w-[660px] px-5">
           <h2 className="text-[29px] md:text-[33px] tracking-[-1.15px] font-semibold leading-tight">Ready for a website from a neighbor in Monticello?</h2>
           <p className="mt-3.5 text-[15.5px] text-[#9aa6ad] max-w-[52ch] mx-auto">Flat pricing. Full ownership. No agency. Websites handcrafted for Lake Cumberland businesses — marinas, guides, and shops near every ramp from Monticello to Creelsboro, Jamestown, Burnside and Nancy. Now also serving Charleston SC, Summerville, Walterboro, Ladson &amp; North Charleston with Lowcountry web design.</p>
-          <p className="mt-2 text-[13.5px] text-[#8a9599] max-w-[52ch] mx-auto">Food truck owners: easily update daily location, festival schedules, and hours on the fly from your phone. Real-time updates that keep customers coming to the right spot.</p>
+          <p className="mt-2 text-[13.5px] text-[#8a9599] max-w-[52ch] mx-auto">Food truck owners lead with the biggest perk: easy on-the-fly location updates for daily spots and festivals using a simple mobile dashboard. Change “Where We Are Today” in seconds from your phone, plus festival calendar, online ordering, beautiful food photos, and menu updates.</p>
 
           <div className="mt-8 flex flex-col sm:flex-row gap-3.5 justify-center">
             <Link href="/quote" className="btn btn-primary px-9 py-3.5 text-base font-semibold shadow-lg">Get your free quote in 2 minutes →</Link>

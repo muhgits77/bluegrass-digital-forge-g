@@ -16,6 +16,16 @@ export default function FoodTruckWebsites() {
 
       <p className="mt-3 text-[15px] text-[#c8cfd3]">The difference that matters most: your customers can always find you today. Real-time location, today’s hours, and festival stops update in seconds from your phone — no laptop, no waiting on a designer, no complicated backend. Warm, practical sites that turn “where are you today?” into “see you in 10 minutes.”</p>
 
+      {/* Stronger leading emphasis — biggest perk front and center */}
+      <div className="mt-6 p-6 rounded-3xl bg-[#0a0c0f] border border-[#f4a261]/30">
+        <div className="uppercase text-[10px] tracking-[2px] text-[#f4a261] mb-1">THE BIGGEST PERK FOR FOOD TRUCKS</div>
+        <h2 className="text-[21px] leading-tight font-semibold tracking-tight">“Where We Are Today” — update your location in seconds, from your phone.</h2>
+        <p className="mt-2 text-[15px] text-[#c8cfd3]">Daily spots, festival grounds, last-minute changes — post it before you roll out or while you’re setting up. Customers, Google, and your site all see the right place at the right time. No more “we’re around here somewhere” texts.</p>
+        <div className="mt-3 text-[14.5px] text-[#8a9599]">
+          Simple mobile dashboard. Big friendly buttons. One tap to say you’re at the riverfront, the distillery, or the park today. Change it again mid-service if the crowd moves.
+        </div>
+      </div>
+
       <div className="mt-8 card p-7 rounded-3xl space-y-4 text-[15px]">
         <p>Typical inclusions for food truck sites:</p>
         <ul className="list-disc pl-5 space-y-1 text-[#c8cfd3]">
@@ -33,6 +43,7 @@ export default function FoodTruckWebsites() {
         <div className="uppercase tracking-[1.5px] text-[11px] text-[#f4a261] mb-2">THE #1 PAIN POINT WE SOLVE</div>
         <h2 className="text-2xl font-semibold tracking-tight">Real-time location updates that actually work on the road.</h2>
         <p className="mt-3 text-[15px] text-[#c8cfd3]">Food truck owners don’t sit at desks. You’re prepping, driving, serving, breaking down. Our sites give you a dead-simple, mobile-friendly admin dashboard. Tap in today’s spot before you leave the house. Update hours on the fly if a festival runs long or the crowd moves. Change your festival schedule between stops. Your website, Google, and customers see the truth instantly.</p>
+        <p className="mt-3 text-[15px] text-[#c8cfd3]">The quick-update screen is designed for real life: big tap targets, clear “Where We Are Today” field, and a simple save that pushes everywhere in seconds. No menus to dig through, no desktop required.</p>
         <ul className="mt-4 grid sm:grid-cols-2 gap-x-6 gap-y-2 text-[14.5px] text-[#c8cfd3]">
           <li className="flex gap-2">• Post “at the riverfront today 11–3” from the passenger seat</li>
           <li className="flex gap-2">• Mark sold-out items or add the daily special while the grill’s hot</li>
@@ -57,6 +68,11 @@ export default function FoodTruckWebsites() {
         </div>
 
         <div className="mt-6 grid md:grid-cols-2 gap-4">
+          {/* Lead benefit — location updates */}
+          <div className="rounded-2xl border border-[#f4a261]/40 bg-[#0a0c0f] p-6">
+            <div className="font-semibold tracking-tight mb-1 text-[#f4a261]">Where We Are Today — real-time location updates</div>
+            <p className="text-[14.5px] text-[#c8cfd3]">Easy on-the-fly updates for daily spots, festivals, and events. Change your location and hours in seconds using the simple mobile dashboard. Customers always know exactly where to find you — no more guessing or missed sales.</p>
+          </div>
           <div className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-6">
             <div className="font-semibold tracking-tight mb-1">Online ordering &amp; pre-orders</div>
             <p className="text-[14.5px] text-[#c8cfd3]">Let customers place orders or reserve their favorites before you arrive. Great for office park lunches, large groups at festivals, or busy waterfront days. Reduces waste and line frustration.</p>
@@ -90,6 +106,8 @@ export default function FoodTruckWebsites() {
         <h2 className="mt-2 text-2xl font-semibold tracking-tight">Websites that understand the Lowcountry rhythm.</h2>
         <p className="mt-3 text-[15px] text-[#c8cfd3]">Charleston food trucks roll to the waterfront, King Street pop-ups, North Charleston markets, Firefly Distillery events, Summerville town days, and festivals across the Lowcountry. Your customers are tourists on King Street, locals heading to the beach, and families at weekend markets. They need to know exactly where the good food is — right now.</p>
 
+        <p className="mt-3 text-[14.5px] text-[#c8cfd3]">Lead with your location: tell them you’re parked at Waterfront Park, serving near the Battery, or set up at Marion Square for the lunch crowd. Update it again when you move to the next spot on James Island or after a private event on the islands. The “Where We Are Today” field makes it effortless.</p>
+
         <div className="mt-5 grid sm:grid-cols-2 gap-x-8 gap-y-4 text-[14.5px] text-[#c8cfd3]">
           <div>
             <span className="font-medium text-white">Real-time location for coastal days</span><br />
@@ -106,6 +124,14 @@ export default function FoodTruckWebsites() {
           <div>
             <span className="font-medium text-white">Photography that sells Lowcountry flavors</span><br />
             We highlight your actual food — shrimp &amp; grits tacos, smoked Lowcountry classics, fresh seafood plates — the way it looks on a sunny Charleston afternoon.
+          </div>
+          <div>
+            <span className="font-medium text-white">Quick location updates on the go</span><br />
+            “At King Street pop-up until 2” or “Folly Beach area this evening” — change “Where We Are Today” in seconds between customers. No laptop, no waiting.
+          </div>
+          <div>
+            <span className="font-medium text-white">Pre-orders for big Lowcountry events</span><br />
+            Office groups near the harbor, beach house parties, or festival crowds can place ahead so you show up ready instead of guessing.
           </div>
         </div>
 

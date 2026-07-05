@@ -67,7 +67,7 @@ export default function ServiceAreas() {
           <p className="mt-3 text-[15.5px] text-[#9aa6ad]">
             From Conley Bottom and Beaver Creek in Monticello to State Dock in Jamestown, Burnside Marina, Lee’s Ford near Nancy, Creelsboro, and all the ramps between — I build sites for the marinas, fishing guides, restaurants, and shops that serve Lake Cumberland visitors and locals. Real places. Real customers. Built by a neighbor in Monticello.
           </p>
-          <p className="mt-2 text-[14.5px] text-[#c8cfd3]">Food truck owners especially love the real-time location and schedule tools — update today’s spot, hours, and festival stops from your phone so customers always find the truck.</p>
+          <p className="mt-2 text-[14.5px] text-[#c8cfd3]">Food truck owners lead with easy on-the-fly location updates — change “Where We Are Today” for daily spots, festivals, and events in seconds from a simple mobile dashboard. Plus festival calendar, online ordering, beautiful food photos, and menu updates.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

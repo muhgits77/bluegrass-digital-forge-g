@@ -131,8 +131,8 @@ export default function Services() {
       {/* Additive food truck emphasis block on services page */}
       <div className="mt-10 rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-7">
         <div className="text-[#f4a261] text-xs tracking-[1.5px] mb-1">FOR FOOD TRUCK OWNERS</div>
-        <h3 className="font-semibold text-xl tracking-tight">Your location changes daily. Your website should keep up — from your phone.</h3>
-        <p className="mt-2 text-[15px] text-[#c8cfd3]">Starter Sites and Business Suites for food trucks include prominent real-time location + hours that you update yourself in under a minute. Add online pre-order links, beautiful menu photography, festival booking visibility, quick menu edits, and review collection. Perfect for Lake Cumberland BBQ and taco trucks — and Charleston SC / Lowcountry trucks rolling to festivals, waterfronts, and markets.</p>
+        <h3 className="font-semibold text-xl tracking-tight">Lead with your location: easy on-the-fly updates for daily spots, festivals, and events.</h3>
+        <p className="mt-2 text-[15px] text-[#c8cfd3]">The biggest perk is a simple mobile dashboard that lets you change “Where We Are Today” in seconds — right from your phone while you’re parked or between services. Starter Sites and Business Suites for food trucks put real-time location and hours front and center so customers always know where to find you. Add festival calendar, online ordering, beautiful food photography, and instant menu updates. Perfect for Lake Cumberland BBQ and taco trucks — and Charleston SC / Lowcountry trucks at the Battery, waterfront markets, Firefly, or the Lowcountry Food Truck Festival.</p>
         <p className="mt-3"><Link href="/food-truck-websites" className="underline hover:text-[#3ddbd9] text-sm">See dedicated food truck website details and Lowcountry examples →</Link></p>
       </div>
 

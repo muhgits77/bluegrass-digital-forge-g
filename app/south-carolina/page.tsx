@@ -62,6 +62,17 @@ const scBenefits = [
 export default function SouthCarolinaPage() {
   return (
     <div className="mx-auto max-w-6xl px-5 py-12">
+      {/* Hero image — additive photorealistic Charleston Lowcountry golden hour (follows Critical Image Rule: authentic, researched local details, warm premium natural lighting) */}
+      <div className="relative -mx-5 mb-10 overflow-hidden border-b border-[#1a2225]">
+        <img
+          src="/sc-charleston-harbor-hero.jpg"
+          alt="Golden hour over Charleston SC harbor with historic waterfront, Ravenel Bridge, and authentic Lowcountry marsh grass in foreground — photorealistic warm natural light photography for Charleston web design"
+          className="w-full h-[340px] md:h-[460px] object-cover"
+          style={{ objectPosition: "center 38%" }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050708]/25 via-[#050708]/10 to-[#050708]/70" />
+      </div>
+
       {/* Header */}
       <div className="max-w-3xl">
         <div className="label tracking-[2px]">SOUTH CAROLINA LOWCOUNTRY</div>
@@ -116,6 +127,30 @@ export default function SouthCarolinaPage() {
         </div>
       </div>
 
+      {/* Authentic Lowcountry photography — additive only, placed after city sections for visual support. All images photorealistic, location-accurate, warm premium style matching Kentucky site assets. */}
+      <div className="mt-10">
+        <div className="label tracking-[1.5px] mb-4">SCENES FROM THE LOWCOUNTRY</div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <figure className="overflow-hidden rounded-2xl border border-[#1f282b] bg-[#0a0c0f]">
+            <img src="/sc-edisto-river.jpg" alt="Peaceful Edisto River Lowcountry scenic view at golden hour with calm water, marsh grass and live oaks — authentic South Carolina river photography" className="w-full h-44 object-cover" />
+            <figcaption className="p-3 text-[13px] text-[#9aa6ad]">Edisto River — peaceful marsh at golden hour</figcaption>
+          </figure>
+          <figure className="overflow-hidden rounded-2xl border border-[#1f282b] bg-[#0a0c0f]">
+            <img src="/sc-lake-moultrie.jpg" alt="Lake Moultrie South Carolina landscape with cypress trees in water and boating at golden hour sunset, authentic Lowcountry lake photography for local businesses" className="w-full h-44 object-cover" />
+            <figcaption className="p-3 text-[13px] text-[#9aa6ad]">Lake Moultrie — cypress waters, fishing vibe</figcaption>
+          </figure>
+          <figure className="overflow-hidden rounded-2xl border border-[#1f282b] bg-[#0a0c0f]">
+            <img src="/sc-palmetto-marsh.jpg" alt="South Carolina Lowcountry coastal marsh with palmetto trees at golden hour sunset, warm natural light reflections in tidal creek — authentic palmetto marsh photography" className="w-full h-44 object-cover" />
+            <figcaption className="p-3 text-[13px] text-[#9aa6ad]">Coastal marsh &amp; palmettos — golden hour</figcaption>
+          </figure>
+          <figure className="overflow-hidden rounded-2xl border border-[#1f282b] bg-[#0a0c0f]">
+            <img src="/sc-beaufort-waterfront.jpg" alt="Beaufort SC historic district waterfront with antebellum homes, moss-draped oaks and boats at golden hour, authentic Lowcountry historic photography" className="w-full h-44 object-cover" />
+            <figcaption className="p-3 text-[13px] text-[#9aa6ad]">Beaufort waterfront — historic Southern charm</figcaption>
+          </figure>
+        </div>
+        <p className="mt-3 text-center text-xs text-[#8a9599]">Real places. Real light. The same authenticity we bring to every website we craft.</p>
+      </div>
+
       {/* Why Lowcountry businesses choose us */}
       <div className="mt-14">
         <div className="max-w-3xl mb-6">
@@ -131,6 +166,17 @@ export default function SouthCarolinaPage() {
             </div>
           ))}
         </div>
+      </div>
+
+      {/* Small-town charm visual — additive, using Walterboro/Summerville image in benefits area flow */}
+      <div className="mt-6 overflow-hidden rounded-2xl border border-[#1f282b]">
+        <img
+          src="/sc-summerville-walterboro.jpg"
+          alt="Historic small-town Southern charm in Walterboro or Summerville SC at golden hour: moss-draped live oaks, white church steeple, and quaint streets — authentic Lowcountry photography for small business websites"
+          className="w-full h-64 md:h-72 object-cover"
+          style={{ objectPosition: "center 45%" }}
+        />
+        <div className="bg-[#0a0c0f] px-5 py-3 text-[13px] text-[#9aa6ad] border-t border-[#1f282b]">Walterboro &amp; Summerville — genuine small-town Lowcountry character</div>
       </div>
 
       {/* Specific keyword-rich offerings */}

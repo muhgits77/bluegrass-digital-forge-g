@@ -185,9 +185,19 @@ export default function Home() {
       {/* SERVICE AREAS — robust local coverage for all Lake Cumberland boat ramp towns */}
       <ServiceAreas />
 
-      {/* Additive internal link to new SC page — placed after existing ServiceAreas */}
-      <div className="border-t border-[#1a2225] bg-[#050708] py-6">
-        <div className="mx-auto max-w-6xl px-5 text-center text-[14.5px] text-[#9aa6ad]">
+      {/* Additive internal link to new SC page — placed after existing ServiceAreas. Includes optional photorealistic Lowcountry teaser image (additive, no KY content or structure changed) */}
+      <div className="border-t border-[#1a2225] bg-[#050708]">
+        <div className="mx-auto max-w-6xl px-5 pt-6">
+          <div className="overflow-hidden rounded-2xl border border-[#1f282b] mb-6">
+            <img
+              src="/sc-palmetto-marsh.jpg"
+              alt="South Carolina Lowcountry coastal marsh with palmetto trees glowing at golden hour — authentic photorealistic photography representing Charleston SC and Summerville web design expansion"
+              className="w-full h-40 md:h-52 object-cover"
+              style={{ objectPosition: "center 40%" }}
+            />
+          </div>
+        </div>
+        <div className="mx-auto max-w-6xl px-5 pb-6 text-center text-[14.5px] text-[#9aa6ad]">
           Expanding our handcrafted websites to the South Carolina Lowcountry. <Link href="/south-carolina" className="text-[#f4a261] underline hover:text-white font-medium">Charleston SC web design, Summerville small business sites &amp; Lowcountry projects →</Link>
         </div>
       </div>

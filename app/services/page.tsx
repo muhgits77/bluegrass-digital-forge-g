@@ -128,6 +128,52 @@ export default function Services() {
 
       <p className="text-[14.5px] text-center mt-6 text-[#9aa6ad]">Not sure which one? <Link href="/quote" className="underline hover:text-white">Tell me about your business</Link> — I&apos;ll recommend the right fit for your Lake Cumberland spot. Need a <Link href="/food-truck-websites" className="underline hover:text-white">food truck website Kentucky</Link>? We also serve Charleston SC and the Lowcountry — <Link href="/south-carolina" className="underline hover:text-[#f4a261]">see Charleston web design services</Link>.</p>
 
+      {/* Regional Pricing — additive, honest, clean language. Kentucky as base + SC Lowcountry 25-35% higher. Two-column format. */}
+      <div className="mt-10">
+        <div className="max-w-3xl mb-6">
+          <div className="label tracking-[1.5px]">REGIONAL PRICING</div>
+          <h2 className="text-2xl font-semibold tracking-tight mt-1">Honest rates by service area.</h2>
+          <p className="mt-2 text-[15px] text-[#9aa6ad]">Kentucky prices are our base. South Carolina Lowcountry rates reflect local market conditions for premium coastal work.</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {/* Kentucky Base */}
+          <div className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-6">
+            <div className="text-[#c17a5a] text-xs uppercase tracking-[1.5px] mb-1">KENTUCKY — BASE RATES</div>
+            <div className="font-semibold tracking-tight">Lake Cumberland / Monticello area</div>
+            <div className="mt-4 space-y-3 text-[15px]">
+              <div className="flex justify-between items-baseline">
+                <span>Starter Sites</span>
+                <span className="font-semibold tabular-nums text-xl">$1,200</span>
+              </div>
+              <div className="flex justify-between items-baseline">
+                <span>Business Suites</span>
+                <span className="font-semibold tabular-nums text-xl">$2,500</span>
+              </div>
+            </div>
+            <p className="mt-4 text-xs text-[#8a9599]">Flat one-time pricing for our core Kentucky service area.</p>
+          </div>
+
+          {/* SC Lowcountry */}
+          <div className="rounded-2xl border border-[#243530] bg-[#0a0c0f] p-6">
+            <div className="text-[#f4a261] text-xs uppercase tracking-[1.5px] mb-1">SOUTH CAROLINA LOWCOUNTRY</div>
+            <div className="font-semibold tracking-tight">Premium coastal service area (adjusted for local market rates)</div>
+            <div className="mt-4 space-y-3 text-[15px]">
+              <div className="flex justify-between items-baseline">
+                <span>Starter Sites</span>
+                <span className="font-semibold tabular-nums text-xl">$1,550</span>
+              </div>
+              <div className="flex justify-between items-baseline">
+                <span>Business Suites</span>
+                <span className="font-semibold tabular-nums text-xl">$3,250</span>
+              </div>
+            </div>
+            <p className="mt-4 text-xs text-[#8a9599]">~25–30% higher to match premium coastal market rates.</p>
+          </div>
+        </div>
+        <p className="mt-4 text-[13px] text-[#9aa6ad]">All projects include the same high-quality handcrafted work and full code ownership. Final quote depends on scope.</p>
+      </div>
+
       {/* SERVICE AREAS — full list of boat ramp towns + marinas for local SEO and conversion */}
       <ServiceAreas />
 

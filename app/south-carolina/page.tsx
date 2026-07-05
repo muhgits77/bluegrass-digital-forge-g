@@ -207,6 +207,47 @@ export default function SouthCarolinaPage() {
         <p className="text-[#9aa6ad] max-w-md mx-auto">
           Same flat pricing as our Kentucky projects. Starter Sites from <span className="font-semibold text-white">$1,200</span>. Business Suites from <span className="font-semibold text-white">$2,500</span>. 2–4 week typical launch.
         </p>
+
+        {/* Regional Pricing — additive, honest, clean language on SC page. Kentucky as base + SC Lowcountry 25-35% higher. Two-column format. */}
+        <div className="mt-8 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-left">
+            {/* Kentucky Base */}
+            <div className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-6">
+              <div className="text-[#c17a5a] text-xs uppercase tracking-[1.5px] mb-1">KENTUCKY — BASE RATES</div>
+              <div className="font-semibold tracking-tight">Lake Cumberland / Monticello area</div>
+              <div className="mt-4 space-y-3 text-[15px]">
+                <div className="flex justify-between items-baseline">
+                  <span>Starter Sites</span>
+                  <span className="font-semibold tabular-nums text-xl">$1,200</span>
+                </div>
+                <div className="flex justify-between items-baseline">
+                  <span>Business Suites</span>
+                  <span className="font-semibold tabular-nums text-xl">$2,500</span>
+                </div>
+              </div>
+              <p className="mt-4 text-xs text-[#8a9599]">Flat one-time pricing for our core Kentucky service area.</p>
+            </div>
+
+            {/* SC Lowcountry */}
+            <div className="rounded-2xl border border-[#243530] bg-[#0a0c0f] p-6">
+              <div className="text-[#f4a261] text-xs uppercase tracking-[1.5px] mb-1">SOUTH CAROLINA LOWCOUNTRY</div>
+              <div className="font-semibold tracking-tight">Premium coastal service area (adjusted for local market rates)</div>
+              <div className="mt-4 space-y-3 text-[15px]">
+                <div className="flex justify-between items-baseline">
+                  <span>Starter Sites</span>
+                  <span className="font-semibold tabular-nums text-xl">$1,550</span>
+                </div>
+                <div className="flex justify-between items-baseline">
+                  <span>Business Suites</span>
+                  <span className="font-semibold tabular-nums text-xl">$3,250</span>
+                </div>
+              </div>
+              <p className="mt-4 text-xs text-[#8a9599]">~25–30% higher to match premium coastal market rates.</p>
+            </div>
+          </div>
+          <p className="mt-4 text-[13px] text-[#9aa6ad]">All projects include the same high-quality handcrafted work and full code ownership. Final quote depends on scope.</p>
+        </div>
+
         <div className="mt-5 flex flex-wrap gap-3 justify-center">
           <Link href="/services" className="btn btn-secondary">See full pricing details →</Link>
           <Link href="/quote" className="btn btn-primary">Start your Charleston or Summerville site →</Link>

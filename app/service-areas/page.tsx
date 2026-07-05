@@ -3,8 +3,8 @@ import Link from "next/link";
 import ServiceAreas from "@/components/ServiceAreas";
 
 export const metadata: Metadata = {
-  title: "Lake Cumberland Boat Ramp Towns | Service Areas | Monticello KY Website Designer",
-  description: "Bluegrass Digital Forge serves all major Lake Cumberland boat ramp towns: Monticello, Jamestown, Burnside, Nancy, Creelsboro, Russell Springs, Somerset, Albany, Ferguson and Wayne County. Local websites for marinas, fishing guides, restaurants and shops.",
+  title: "Lake Cumberland Boat Ramp Towns & Charleston SC | Service Areas | Monticello KY Website Designer",
+  description: "Bluegrass Digital Forge serves all major Lake Cumberland boat ramp towns and now Charleston SC, Summerville, Walterboro, Ladson, North Charleston. Local websites for marinas, fishing guides, restaurants, food trucks and Lowcountry small businesses.",
   keywords: [
     "Lake Cumberland boat ramp towns",
     "Monticello KY website designer",
@@ -12,6 +12,8 @@ export const metadata: Metadata = {
     "Burnside marina website",
     "Creelsboro fishing guide site",
     "Lake Cumberland business websites",
+    "Web Design Charleston SC",
+    "Lowcountry Web Design",
   ],
 };
 
@@ -32,6 +34,16 @@ export default function ServiceAreasPage() {
       {/* The rich areas grid */}
       <div className="mt-10">
         <ServiceAreas />
+      </div>
+
+      {/* Additive: South Carolina Lowcountry service areas (reversible, does not alter KY content) */}
+      <div className="mt-12 rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-8">
+        <div className="label tracking-[1.5px] text-[#c17a5a]">NOW SERVING THE SOUTH CAROLINA LOWCOUNTRY</div>
+        <h3 className="text-2xl tracking-tight font-semibold mt-2">Charleston SC Web Design &amp; Lowcountry Business Websites</h3>
+        <p className="mt-3 text-[15px] text-[#9aa6ad]">Same flat-price, handcrafted approach now available for Charleston, Summerville, Walterboro, Ladson, North Charleston and surrounding Lowcountry towns. Perfect for restaurants, food trucks, small retail, and professional services that want an authentic, fast-loading site that ranks for local searches like &ldquo;Web Design Charleston SC&rdquo; or &ldquo;Summerville Small Business Website&rdquo;.</p>
+        <div className="mt-4 text-sm">
+          <Link href="/south-carolina" className="text-[#f4a261] hover:underline font-medium">Visit dedicated South Carolina page for details and local examples →</Link>
+        </div>
       </div>
 
       {/* Why local matters — helpful, non-stuffed */}
@@ -65,7 +77,7 @@ export default function ServiceAreasPage() {
           <Link href="/work" className="btn btn-secondary px-7">See Lake Cumberland demos</Link>
           <Link href="/contact" className="inline-flex items-center justify-center rounded-full border border-[#2a3437] hover:bg-[#111518] px-7 py-3.5 text-[15px] font-semibold">Contact me directly</Link>
         </div>
-        <p className="mt-4 text-xs text-[#8a9599]">Serving every ramp town on Lake Cumberland from the heart of Monticello, KY.</p>
+        <p className="mt-4 text-xs text-[#8a9599]">Serving every ramp town on Lake Cumberland from the heart of Monticello, KY — and Charleston SC, Summerville &amp; the full Lowcountry.</p>
       </div>
     </div>
   );

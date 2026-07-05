@@ -1,4 +1,11 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "About the Monticello KY & Charleston SC Website Designer | Bluegrass Digital Forge",
+  description: "Meet Brian, the Monticello KY website designer now also serving Charleston SC, Summerville and the South Carolina Lowcountry. Authentic, handcrafted websites for Lake Cumberland and Lowcountry businesses. Flat pricing, full ownership.",
+  keywords: ["Monticello KY website designer", "Lake Cumberland business websites", "Web Design Charleston SC", "Lowcountry Web Design"],
+};
 
 export default function AboutPage() {
   return (
@@ -26,7 +33,7 @@ export default function AboutPage() {
       </div>
 
       <div className="mt-10 rounded-2xl bg-[#0a0c0f] border border-[#1a2225] p-8 text-center">
-        <p className="text-[#8a9599]">Curious what a local, honest build looks like? See the <Link href="/work" className="underline hover:text-[#f4a261]">live Lake Cumberland business websites demos</Link> or <Link href="/food-truck-websites" className="underline hover:text-[#f4a261]">food truck website Kentucky examples</Link>.</p>
+        <p className="text-[#8a9599]">Curious what a local, honest build looks like? See the <Link href="/work" className="underline hover:text-[#f4a261]">live Lake Cumberland business websites demos</Link> or <Link href="/food-truck-websites" className="underline hover:text-[#f4a261]">food truck website Kentucky examples</Link>. We bring the same approach to Charleston SC web design and Lowcountry projects — <Link href="/south-carolina" className="underline hover:text-[#f4a261]">learn more</Link>.</p>
         <div className="flex flex-wrap gap-3 mt-5 justify-center">
           <Link href="/work" className="btn btn-secondary">Browse the live demos</Link>
           <Link href="/services" className="btn btn-secondary">See Monticello KY Website Designer Pricing</Link>

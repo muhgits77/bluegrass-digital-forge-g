@@ -51,8 +51,8 @@ export default function ContactPage() {
   return (
     <div className="mx-auto max-w-2xl px-5 py-12">
       <div className="label">CONTACT — MONTICELLO KY WEBSITE DESIGNER</div>
-      <h1 className="section-title tracking-tight mt-1">Contact the Monticello KY Website Designer for Lake Cumberland Business Websites</h1>
-      <p className="text-[#8a9599] mt-2">Talk to the Monticello KY website designer serving Lake Cumberland business websites and Wayne County web design. I usually reply within a few hours.</p>
+      <h1 className="section-title tracking-tight mt-1">Contact the Monticello KY Website Designer for Lake Cumberland &amp; Charleston SC Business Websites</h1>
+      <p className="text-[#8a9599] mt-2">Talk to the Monticello KY website designer serving Lake Cumberland business websites, Wayne County web design, and now Charleston SC, Summerville &amp; the South Carolina Lowcountry. I usually reply within a few hours.</p>
 
       {!sent ? (
         <form onSubmit={handleSubmit} className="mt-8 space-y-4" noValidate>

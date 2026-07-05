@@ -31,27 +31,32 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bluegrassdigitalforge.com"),
-  title: "Monticello KY Website Designer | Lake Cumberland Business Websites | Bluegrass Digital Forge",
-  description: "Handcrafted websites for Lake Cumberland businesses by a local designer in Monticello, KY. Flat pricing. You own the code. Food trucks, restaurants, marinas, and shops.",
+  title: "Monticello KY & Charleston SC Website Designer | Lake Cumberland & Lowcountry Business Websites | Bluegrass Digital Forge",
+  description: "Handcrafted websites for Lake Cumberland businesses in Monticello, KY and Charleston SC, Summerville, North Charleston & the South Carolina Lowcountry. Flat pricing. You own the code. Food trucks, restaurants, marinas, small businesses, and shops.",
   keywords: [
     "Monticello KY website designer",
     "Lake Cumberland business websites",
     "Wayne County web design",
     "food truck website Kentucky",
     "restaurant website Monticello KY",
+    "Web Design Charleston SC",
+    "Charleston Food Truck Website",
+    "Summerville Small Business Website",
+    "North Charleston Restaurant Website",
+    "Lowcountry Web Design",
   ],
   authors: [{ name: "Brian", url: "https://bluegrassdigitalforge.com" }],
   openGraph: {
-    title: "Monticello KY Website Designer | Lake Cumberland Business Websites",
-    description: "Handcrafted websites for Lake Cumberland businesses by a local designer in Monticello, KY. Flat pricing. You own the code.",
+    title: "Monticello KY & Charleston SC Website Designer | Lake Cumberland & Lowcountry Business Websites",
+    description: "Handcrafted websites for Lake Cumberland businesses by a local designer in Monticello, KY and Charleston SC, Summerville & the South Carolina Lowcountry. Flat pricing. You own the code.",
     images: [{ url: "/hero-lake-cumberland-golden.jpg", alt: "Golden hour on Lake Cumberland near Monticello, Kentucky — calm water, rolling forested hills" }],
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Monticello KY Website Designer | Lake Cumberland Business Websites",
-    description: "Handcrafted websites for Lake Cumberland businesses. Local in Monticello, KY. Flat pricing and full ownership.",
+    title: "Monticello KY & Charleston SC Website Designer | Lake Cumberland & Lowcountry Business Websites",
+    description: "Handcrafted websites for Lake Cumberland and Lowcountry businesses. Local in Monticello, KY. Flat pricing and full ownership.",
     images: ["/hero-lake-cumberland-golden.jpg"],
   },
   icons: {
@@ -118,12 +123,18 @@ export default function RootLayout({
               { "@type": "AdministrativeArea", "name": "Wayne County" },
               { "@type": "AdministrativeArea", "name": "Russell County" },
               { "@type": "AdministrativeArea", "name": "Pulaski County" },
-              { "@type": "Place", "name": "Lake Cumberland" }
+              { "@type": "Place", "name": "Lake Cumberland" },
+              { "@type": "City", "name": "Charleston" },
+              { "@type": "City", "name": "Summerville" },
+              { "@type": "City", "name": "Walterboro" },
+              { "@type": "City", "name": "Ladson" },
+              { "@type": "City", "name": "North Charleston" },
+              { "@type": "Place", "name": "South Carolina Lowcountry" }
             ],
-            "serviceArea": "All Lake Cumberland boat ramp towns including Monticello, Jamestown, Burnside, Nancy, Creelsboro, Russell Springs, Somerset, Albany, Ferguson, and surrounding Wayne, Russell & Pulaski Counties, Kentucky",
+            "serviceArea": "All Lake Cumberland boat ramp towns including Monticello, Jamestown, Burnside, Nancy, Creelsboro, Russell Springs, Somerset, Albany, Ferguson, and surrounding Wayne, Russell & Pulaski Counties, Kentucky plus Charleston SC, Summerville, Walterboro, Ladson, North Charleston and the South Carolina Lowcountry",
             "priceRange": "$1,200 - $2,500",
             "founder": { "@type": "Person", "name": "Brian" },
-            "knowsAbout": ["Website Design", "Food Truck Websites", "Restaurant Website Monticello KY", "Local SEO", "Branding for Kentucky Businesses"],
+            "knowsAbout": ["Website Design", "Food Truck Websites", "Restaurant Website Monticello KY", "Local SEO", "Branding for Kentucky Businesses", "Charleston SC Web Design", "Lowcountry Web Design"],
             "hasOfferCatalog": {
               "@type": "OfferCatalog",
               "name": "Website & Branding Services",
@@ -155,7 +166,7 @@ export default function RootLayout({
               "postalCode": "42633",
               "addressCountry": "US"
             },
-            "areaServed": "Wayne County, KY and Lake Cumberland region"
+            "areaServed": "Wayne County, KY and Lake Cumberland region; also serving Charleston, Summerville, Walterboro, Ladson, North Charleston and the South Carolina Lowcountry"
           }) }}
         />
         <script
@@ -163,9 +174,9 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebSite",
-            "name": "Bluegrass Digital Forge — Monticello KY Website Designer",
+            "name": "Bluegrass Digital Forge — Monticello KY & Charleston SC Website Designer",
             "url": "https://bluegrassdigitalforge.com",
-            "description": "Local website design and Lake Cumberland business websites built in Monticello, Kentucky.",
+            "description": "Local website design and Lake Cumberland business websites built in Monticello, Kentucky, now also serving Charleston SC and the South Carolina Lowcountry with handcrafted sites for restaurants, food trucks and small businesses.",
             "potentialAction": {
               "@type": "SearchAction",
               "target": "https://bluegrassdigitalforge.com/work?q={search_term_string}",

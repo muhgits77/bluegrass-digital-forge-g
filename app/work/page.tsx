@@ -36,7 +36,7 @@ export default function WorkPage() {
       <div className="max-w-2xl mb-8">
         <div className="label tracking-[1.5px]">MY WORK — LAKE CUMBERLAND BUSINESS WEBSITES</div>
         <h1 className="section-title tracking-tight">Lake Cumberland Business Websites &amp; Wayne County Web Design Demos — Monticello KY Website Designer</h1>
-        <p className="mt-3 text-[15px] text-[#9aa6ad]">Browse live demos of custom Lake Cumberland business websites built by the Monticello KY website designer. Real examples of food truck website Kentucky, restaurant sites, marina websites and shops. Authentic Wayne County web design you can preview.</p>
+        <p className="mt-3 text-[15px] text-[#9aa6ad]">Browse live demos of custom Lake Cumberland business websites built by the Monticello KY website designer. Real examples of food truck website Kentucky, restaurant sites, marina websites and shops. Authentic Wayne County web design you can preview. We also deliver the same quality Charleston SC web design and Lowcountry sites.</p>
       </div>
 
       {/* Internal link to services for SEO + flow */}

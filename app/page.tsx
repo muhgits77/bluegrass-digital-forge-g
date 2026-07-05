@@ -105,7 +105,7 @@ export default function Home() {
               transition={{ duration: 0.58, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
               className="mx-auto mt-5 max-w-[40ch] text-[17px] md:text-[18px] leading-relaxed text-white/90"
             >
-              Handcrafted for Lake Cumberland businesses. Flat pricing. You own everything. Built by a neighbor in Monticello.
+              Handcrafted for Lake Cumberland businesses and South Carolina Lowcountry. Flat pricing. You own everything. Built by a neighbor in Monticello. Serving Kentucky Bluegrass &amp; South Carolina Lowcountry.
             </motion.p>
 
             <motion.div
@@ -153,8 +153,8 @@ export default function Home() {
           <div className="trust-bar inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-black/60 backdrop-blur-3xl px-5 py-2.5 text-sm text-white/90 max-w-[94%]">
             <span className="font-semibold text-[#f4a261]">Starter Sites from $1,200 • Flat price</span>
             <span className="text-white/25 hidden sm:inline">•</span>
-            <span className="text-[13px] text-white/75 hidden sm:inline">Handcrafted in Monticello, KY. You own everything.</span>
-            <span className="text-[13px] text-white/75 sm:hidden">Flat price. Local builder.</span>
+            <span className="text-[13px] text-white/75 hidden sm:inline">Handcrafted in Monticello, KY. Serving Lowcountry too. You own everything.</span>
+            <span className="text-[13px] text-white/75 sm:hidden">Flat price. KY + SC Lowcountry.</span>
           </div>
         </motion.div>
 
@@ -185,11 +185,18 @@ export default function Home() {
       {/* SERVICE AREAS — robust local coverage for all Lake Cumberland boat ramp towns */}
       <ServiceAreas />
 
+      {/* Additive internal link to new SC page — placed after existing ServiceAreas */}
+      <div className="border-t border-[#1a2225] bg-[#050708] py-6">
+        <div className="mx-auto max-w-6xl px-5 text-center text-[14.5px] text-[#9aa6ad]">
+          Expanding our handcrafted websites to the South Carolina Lowcountry. <Link href="/south-carolina" className="text-[#f4a261] underline hover:text-white font-medium">Charleston SC web design, Summerville small business sites &amp; Lowcountry projects →</Link>
+        </div>
+      </div>
+
       {/* FINAL CONVERSION CTA */}
       <section className="py-14 text-center border-t border-[#1a2225] bg-[#050708]">
         <div className="mx-auto max-w-[660px] px-5">
           <h2 className="text-[29px] md:text-[33px] tracking-[-1.15px] font-semibold leading-tight">Ready for a website from a neighbor in Monticello?</h2>
-          <p className="mt-3.5 text-[15.5px] text-[#9aa6ad] max-w-[52ch] mx-auto">Flat pricing. Full ownership. No agency. Websites handcrafted for Lake Cumberland businesses — marinas, guides, and shops near every ramp from Monticello to Creelsboro, Jamestown, Burnside and Nancy.</p>
+          <p className="mt-3.5 text-[15.5px] text-[#9aa6ad] max-w-[52ch] mx-auto">Flat pricing. Full ownership. No agency. Websites handcrafted for Lake Cumberland businesses — marinas, guides, and shops near every ramp from Monticello to Creelsboro, Jamestown, Burnside and Nancy. Now also serving Charleston SC, Summerville, Walterboro, Ladson &amp; North Charleston with Lowcountry web design.</p>
 
           <div className="mt-8 flex flex-col sm:flex-row gap-3.5 justify-center">
             <Link href="/quote" className="btn btn-primary px-9 py-3.5 text-base font-semibold shadow-lg">Get your free quote in 2 minutes →</Link>
@@ -198,7 +205,7 @@ export default function Home() {
           </div>
 
           <p className="mt-4 text-[12.5px] text-[#8a9599]">
-            Or <Link href="/contact" className="underline hover:text-white">just say hi</Link>. Real replies from Monticello, KY.
+            Or <Link href="/contact" className="underline hover:text-white">just say hi</Link>. Real replies from Monticello, KY. <Link href="/south-carolina" className="underline hover:text-[#f4a261]">See our South Carolina Lowcountry services →</Link>
           </p>
         </div>
       </section>

@@ -5,9 +5,9 @@ import BrandingCard from "@/components/BrandingCard";
 import ServiceAreas from "@/components/ServiceAreas";
 
 export const metadata: Metadata = {
-  title: "Monticello KY Website Designer Pricing | Lake Cumberland Business Websites",
-  description: "Flat pricing from the Monticello KY website designer. Starter Sites $1,200 and Business Suites for Lake Cumberland & Wayne County businesses. Food truck website Kentucky packages. You own the code.",
-  keywords: ["Monticello KY website designer", "Lake Cumberland business websites", "food truck website Kentucky", "Wayne County web design", "Monticello KY web design pricing"],
+  title: "Monticello KY & Charleston SC Website Designer Pricing | Lake Cumberland & Lowcountry Business Websites",
+  description: "Flat pricing from the Monticello KY website designer, now serving Charleston SC, Summerville & South Carolina Lowcountry. Starter Sites $1,200 and Business Suites for Lake Cumberland & Lowcountry businesses. Charleston food truck websites, restaurant sites included. You own the code.",
+  keywords: ["Monticello KY website designer", "Lake Cumberland business websites", "food truck website Kentucky", "Wayne County web design", "Monticello KY web design pricing", "Web Design Charleston SC", "Charleston Food Truck Website", "Summerville Small Business Website", "Lowcountry Web Design"],
 };
 
 const starterFeatures = [
@@ -64,7 +64,7 @@ export default function Services() {
         <div className="label tracking-[2px]">SERVICES &amp; PRICING — MONTICELLO KY WEBSITE DESIGNER</div>
         <h1 className="section-title tracking-tight mt-2">Monticello KY Website Designer — Flat Pricing for Lake Cumberland Business Websites</h1>
         <p className="mt-3 text-lg text-[#9aa6ad]">Transparent one-time pricing from the local Monticello KY website designer. Starter Sites from $1,200 and Business Suites for Lake Cumberland &amp; Wayne County businesses. Food truck website Kentucky, restaurant websites, marina sites included. You own the code forever.</p>
-        <p className="text-[14.5px] text-[#9aa6ad] mt-1">Handcrafted in Monticello for Wayne County and Lake Cumberland region — serving businesses near the ramps at Conley Bottom, State Dock, Burnside, Lee’s Ford, Creelsboro and beyond.</p>
+        <p className="text-[14.5px] text-[#9aa6ad] mt-1">Handcrafted in Monticello for Wayne County and Lake Cumberland region — serving businesses near the ramps at Conley Bottom, State Dock, Burnside, Lee’s Ford, Creelsboro and beyond. Also serving Charleston SC, Summerville, North Charleston and Lowcountry businesses with the same premium web design.</p>
       </div>
 
       {/* Two Big Website Cards — premium modern treatment, exact content */}
@@ -126,7 +126,7 @@ export default function Services() {
         </div>
       </div>
 
-      <p className="text-[14.5px] text-center mt-6 text-[#9aa6ad]">Not sure which one? <Link href="/quote" className="underline hover:text-white">Tell me about your business</Link> — I&apos;ll recommend the right fit for your Lake Cumberland spot. Need a <Link href="/food-truck-websites" className="underline hover:text-white">food truck website Kentucky</Link>?</p>
+      <p className="text-[14.5px] text-center mt-6 text-[#9aa6ad]">Not sure which one? <Link href="/quote" className="underline hover:text-white">Tell me about your business</Link> — I&apos;ll recommend the right fit for your Lake Cumberland spot. Need a <Link href="/food-truck-websites" className="underline hover:text-white">food truck website Kentucky</Link>? We also serve Charleston SC and the Lowcountry — <Link href="/south-carolina" className="underline hover:text-[#f4a261]">see Charleston web design services</Link>.</p>
 
       {/* SERVICE AREAS — full list of boat ramp towns + marinas for local SEO and conversion */}
       <ServiceAreas />

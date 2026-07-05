@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Website Templates | Monticello KY Website Designer — Lake Cumberland",
-  description: "Ready-to-launch templates for Lake Cumberland business websites and food truck website Kentucky. Customizable by the Monticello KY website designer for Wayne County.",
-  keywords: ["Monticello KY website designer", "Lake Cumberland business websites", "food truck website Kentucky", "Wayne County web design"],
+  title: "Website Templates | Monticello KY & Charleston SC Website Designer — Lake Cumberland & Lowcountry",
+  description: "Ready-to-launch templates for Lake Cumberland business websites, food truck website Kentucky, and Charleston SC / Lowcountry small business sites. Customizable by the Monticello KY website designer.",
+  keywords: ["Monticello KY website designer", "Lake Cumberland business websites", "food truck website Kentucky", "Wayne County web design", "Web Design Charleston SC", "Summerville Small Business Website"],
 };
 
 export default function TemplatesPage() {
@@ -13,7 +13,7 @@ export default function TemplatesPage() {
       <div className="label tracking-[1.6px]">TEMPLATES — LAKE CUMBERLAND BUSINESS WEBSITES</div>
       <h1 className="section-title tracking-tight mt-1">Ready-to-Launch Templates for Monticello KY Website Designer &amp; Lake Cumberland Businesses</h1>
       <p className="mt-3 text-[#8a9599] max-w-prose">
-        High-quality, locally tuned templates for food truck website Kentucky, restaurants, marinas and shops. Built by the Monticello KY website designer for Wayne County web design. Fast to customize and launch.
+        High-quality, locally tuned templates for food truck website Kentucky, restaurants, marinas and shops. Built by the Monticello KY website designer for Wayne County web design. Fast to customize and launch. The same templates and approach power our new Charleston SC and Lowcountry web design work for Summerville small businesses and North Charleston restaurants.
       </p>
 
       <div className="mt-8 grid md:grid-cols-2 gap-4">

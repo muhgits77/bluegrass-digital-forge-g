@@ -20,7 +20,7 @@ export default function Footer() {
               <span className="font-semibold tracking-tight text-[15.5px]">Bluegrass Digital Forge</span>
             </div>
             <p className="text-[#8a9599] max-w-sm leading-relaxed">
-              Monticello KY website designer. Flat pricing, fast launches, you own everything. Authentic websites for Lake Cumberland businesses: food trucks, restaurants, marinas &amp; shops.
+              Monticello KY website designer serving Lake Cumberland and Charleston SC / South Carolina Lowcountry. Flat pricing, fast launches, you own everything. Authentic websites for Lake Cumberland businesses and Lowcountry restaurants, food trucks &amp; small businesses: food trucks, restaurants, marinas &amp; shops.
             </p>
             <p className="mt-4 text-[12.5px] text-[#9aa6ad] tracking-wide">Forged by Brian · Monticello, Kentucky</p>
           </div>
@@ -53,8 +53,14 @@ export default function Footer() {
               <li>Ferguson, KY</li>
               <li>Creelsboro, KY</li>
               <li className="pt-0.5 sm:col-span-2 text-[12.5px] text-[#7f8c90]">+ Lake Cumberland ramps, marinas &amp; Wayne County</li>
+              <li className="pt-1 sm:col-span-2 text-[12.5px] text-[#c17a5a]/90 font-medium border-t border-[#1f282b] mt-1">Now serving South Carolina Lowcountry:</li>
+              <li>Charleston, SC</li>
+              <li>Summerville, SC</li>
+              <li>Walterboro, SC</li>
+              <li>Ladson, SC</li>
+              <li>North Charleston, SC</li>
             </ul>
-            <p className="mt-3 text-xs text-[#8a9599]">Websites for marinas, guides &amp; businesses near every ramp — <Link href="/service-areas" className="underline hover:text-[#3ddbd9]">full service areas</Link>.</p>
+            <p className="mt-3 text-xs text-[#8a9599]">Websites for marinas, guides &amp; businesses near every ramp — and Lowcountry restaurants, food trucks &amp; shops. <Link href="/service-areas" className="underline hover:text-[#3ddbd9]">full service areas</Link> · <Link href="/south-carolina" className="underline hover:text-[#f4a261]">South Carolina page</Link>.</p>
           </div>
 
           {/* Contact + Professional QR for business cards */}

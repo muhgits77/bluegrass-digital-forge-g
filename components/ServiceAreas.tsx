@@ -107,6 +107,14 @@ export default function ServiceAreas() {
             Or just tell me about your spot
           </Link>
         </div>
+
+        {/* Additive South Carolina expansion — does not modify existing Lake Cumberland content */}
+        <div className="mt-10 pt-6 border-t border-[#1a2225]">
+          <div className="text-[12.5px] uppercase tracking-[1.5px] text-[#c17a5a] mb-1">EXPANDING OUR REACH</div>
+          <p className="text-[14.5px] text-[#9aa6ad]">
+            We now also build websites for businesses across the South Carolina Lowcountry. <Link href="/south-carolina" className="text-[#f4a261] underline hover:text-white">See Charleston SC web design, Summerville small business websites, North Charleston restaurant sites &amp; more →</Link>
+          </p>
+        </div>
       </div>
     </section>
   );

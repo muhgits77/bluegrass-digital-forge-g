@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { ArrowRight, Check, Phone } from "lucide-react";
 import { motion } from "framer-motion";
+import DemoCard from "@/components/DemoCard";
 import { useLivePublicDemos } from "@/lib/useLivePublicDemos";
 import ServiceAreas from "@/components/ServiceAreas";
 
@@ -153,7 +154,41 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Rest of your sections unchanged — only email links cleaned */}
+      {/* FEATURED WORK */}
+      <section className="mx-auto max-w-7xl px-5 pt-14 pb-6 border-b border-[#1a2225]">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-4">
+          <div>
+            <div className="label tracking-[1.6px] mb-1">FEATURED WORK</div>
+            <h2 className="section-title tracking-tight">Here&apos;s the kind of work I build for local businesses</h2>
+          </div>
+          <Link href="/work" className="hidden md:inline-flex items-center gap-1.5 text-[14.5px] font-medium text-[#f4a261] hover:text-[#d88a5e] group">
+            See all projects <ArrowRight size={16} className="group-hover:translate-x-0.5 transition" />
+          </Link>
+        </div>
+        <p className="text-[#9aa6ad] max-w-2xl mb-7 text-[15px]">
+          Real websites for restaurants, food trucks, guides, and shops around Lake Cumberland — built by a neighbor in Monticello. Click to preview live.
+        </p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          {demos.map((d, i) => (
+            <motion.div
+              key={d.href}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-70px" }}
+              transition={{ duration: 0.5, delay: Math.min(i * 0.03, 0.18), ease: [0.22, 1, 0.36, 1] }}
+            >
+              <DemoCard {...d} />
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="mt-5 text-center md:hidden">
+          <Link href="/work" className="inline-flex items-center gap-1 text-[14.5px] font-medium text-[#f4a261] hover:text-[#d88a5e]">
+            See all projects →
+          </Link>
+        </div>
+      </section>
 
       {/* SERVICE AREAS — robust local coverage for all Lake Cumberland boat ramp towns */}
       <ServiceAreas />

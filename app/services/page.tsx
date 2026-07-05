@@ -132,7 +132,7 @@ export default function Services() {
       <ServiceAreas />
 
       {/* Branding Add-ons */}
-      <div className="branding-addons mt-16 border-t-0 pt-0">
+      <div className="branding-addons">
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-y-3 gap-x-8 mb-8 md:mb-10">
           <div className="max-w-xl">
             <div className="label tracking-[1.5px]">BRANDING ADD-ONS</div>

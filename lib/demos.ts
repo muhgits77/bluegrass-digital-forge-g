@@ -8,14 +8,12 @@
  *   - Public pages (/, /work) use this + optional live Supabase via getDemosFromSupabase().
  *   - To permanently bake changes: use Admin "Export to demos.ts" → paste into this file.
  *
- * ADMIN PANEL (Supabase primary + safe localStorage fallback):
- *   - getDemos(), addDemo(), updateDemo(), deleteDemo() now use Supabase (forge_demos) as PRIMARY target.
- *   - Every write also writes a backup copy to localStorage (bdf_demos_v1).
- *   - On any Supabase failure (no keys, error, network) → fully falls back to previous localStorage + DEFAULT behavior.
- *   - Drag & drop images: Admin calls uploadDemoImage() → Supabase Storage bucket "demos" (public URL stored).
- *     Falls back to base64 data URL stored only in localStorage when upload fails.
- *   - Admin UI + all existing features (JSON export/import, Export to demos.ts, reset, publish) remain intact.
- *   - "Publish Changes" keeps LS in sync; main data now lives in Supabase for live public updates.
+ * ADMIN PANEL (Supabase primary + lightweight local backup):
+ *   - getDemos(), addDemo(), updateDemo(), deleteDemo() write to Supabase FIRST (forge_demos).
+ *   - localStorage stores minimal metadata only (no base64). Full copy in IndexedDB.
+ *   - On Supabase failure → surfaces error to admin UI; IndexedDB/localStorage used for read fallback.
+ *   - forceSyncToSupabase() bulk-pushes all demos; "Force Sync" in admin panel.
+ *   - Drag & drop images → Supabase Storage "demos" bucket. Base64 never saved to Supabase.
  *
  * Fields used by cards: title, href (url), description (short), category, image (thumbnail).
  * All existing demos preserved exactly.
@@ -24,11 +22,25 @@
  */
 
 import {
-  getAllDemosFromSupabase,
+  getAllDemosFromSupabaseResult,
   uploadImageToDemosBucket,
-  upsertDemoToSupabase,
-  deleteDemoFromSupabase,
+  upsertDemoToSupabaseResult,
+  deleteDemoFromSupabaseResult,
+  syncAllDemosToSupabase,
+  checkSupabaseConnection,
+  type SupabaseConnectionStatus,
+  type BulkSyncResult,
+  type SupabaseError,
 } from './supabase';
+import {
+  saveBackup,
+  loadMinimalBackup,
+  loadFullBackup,
+  clearLocalBackups,
+  getStorageStatus,
+  type StorageStatus,
+  type SaveBackupResult,
+} from './demoStorage';
 
 export interface Demo {
   id: string;
@@ -42,7 +54,27 @@ export interface Demo {
   visible: boolean;
 }
 
-const STORAGE_KEY = "bdf_demos_v1";
+export type DemoDataSource = 'supabase' | 'indexeddb' | 'localStorage' | 'defaults';
+
+export type DemosLoadResult = {
+  demos: Demo[];
+  source: DemoDataSource;
+  supabaseConfigured: boolean;
+  supabaseError?: string;
+};
+
+export type DemoOperationResult = {
+  demos: Demo[];
+  supabaseOk: boolean;
+  backup: SaveBackupResult;
+  error?: string;
+  warning?: string;
+};
+
+export type ForceSyncResult = BulkSyncResult & {
+  demos: Demo[];
+  backup: SaveBackupResult;
+};
 
 /** Custom event name fired when admin publishes or mutates demos. */
 export const DEMOS_PUBLISHED_EVENT = "bdf:demos-published";
@@ -291,46 +323,85 @@ function slugify(text: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
-/** Internal: pure localStorage + DEFAULT fallback (used for safety net + fast slug checks) */
+/** Internal: localStorage → defaults (sync, for slug checks). */
 function loadFromLocalOrDefaults(): Demo[] {
   if (typeof window === "undefined") return [...DEFAULT_DEMOS];
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      const parsed = JSON.parse(stored) as Demo[];
-      if (Array.isArray(parsed) && parsed.length > 0) {
-        return parsed;
+  const fromLocal = loadMinimalBackup();
+  return fromLocal && fromLocal.length > 0 ? fromLocal : [...DEFAULT_DEMOS];
+}
+
+/** Load with full source metadata for admin status display. */
+export async function getDemosWithMeta(): Promise<DemosLoadResult> {
+  const supaResult = await getAllDemosFromSupabaseResult();
+
+  if (supaResult.ok && supaResult.data) {
+    if (supaResult.data.length > 0) {
+      return {
+        demos: supaResult.data,
+        source: 'supabase',
+        supabaseConfigured: supaResult.configured,
+      };
+    }
+    // Connected but empty — try local backups before showing empty table
+    if (typeof window !== "undefined") {
+      const fromIdb = await loadFullBackup();
+      if (fromIdb && fromIdb.length > 0) {
+        return { demos: fromIdb, source: 'indexeddb', supabaseConfigured: true };
+      }
+      const fromLocal = loadMinimalBackup();
+      if (fromLocal && fromLocal.length > 0) {
+        return { demos: fromLocal, source: 'localStorage', supabaseConfigured: true };
       }
     }
-  } catch (e) {
-    console.warn("Failed to load demos from localStorage", e);
+    return { demos: [], source: 'supabase', supabaseConfigured: supaResult.configured };
   }
-  return [...DEFAULT_DEMOS];
-}
 
-/**
- * Get all demos for Admin.
- * PRIMARY: Supabase (getAllDemosFromSupabase) — returns [] if table empty but connected.
- * FALLBACK: localStorage or DEFAULT_DEMOS (exact previous behavior).
- * This powers the admin table while keeping every old code path safe.
- */
-export async function getDemos(): Promise<Demo[]> {
-  // Supabase is now the primary save target for admin CRUD.
-  // If client not configured or fetch fails for any reason → seamless local fallback.
-  try {
-    const fromSupa = await getAllDemosFromSupabase();
-    if (fromSupa !== null) {
-      return fromSupa; // authoritative (may legitimately be empty)
+  if (typeof window !== "undefined") {
+    const fromIdb = await loadFullBackup();
+    if (fromIdb && fromIdb.length > 0) {
+      return {
+        demos: fromIdb,
+        source: 'indexeddb',
+        supabaseConfigured: supaResult.configured,
+        supabaseError: supaResult.error?.message,
+      };
     }
-  } catch (e) {
-    console.warn('[Supabase] getDemos Supabase path failed — using localStorage fallback', e);
+    const fromLocal = loadMinimalBackup();
+    if (fromLocal && fromLocal.length > 0) {
+      return {
+        demos: fromLocal,
+        source: 'localStorage',
+        supabaseConfigured: supaResult.configured,
+        supabaseError: supaResult.error?.message,
+      };
+    }
   }
-  return loadFromLocalOrDefaults();
+
+  return {
+    demos: [...DEFAULT_DEMOS],
+    source: 'defaults',
+    supabaseConfigured: supaResult.configured,
+    supabaseError: supaResult.error?.message,
+  };
 }
 
-/** Sync snapshot used only for slug uniqueness checks during form typing (responsive, no await). */
+/** Get all demos for Admin. Prefers Supabase, then IndexedDB, localStorage, defaults. */
+export async function getDemos(): Promise<Demo[]> {
+  const { demos } = await getDemosWithMeta();
+  return demos;
+}
+
+/** Sync snapshot for slug uniqueness during form typing. */
 function getDemosForChecks(): Demo[] {
   return loadFromLocalOrDefaults();
+}
+
+export async function getSupabaseStatus(): Promise<SupabaseConnectionStatus> {
+  return checkSupabaseConnection();
+}
+
+export function getLocalStorageStatus(): StorageStatus {
+  return getStorageStatus();
 }
 
 /** Get only visible demos, sorted by sortOrder (for public pages) */
@@ -385,102 +456,176 @@ export function dispatchDemosPublished(
   }
 }
 
-/** Save demos array to localStorage — used as backup / safety net for admin (Supabase is primary). */
-export function saveDemos(demos: Demo[]): void {
-  if (typeof window === "undefined") return;
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(demos));
-    // Dispatch storage event so other tabs/pages (and multi-tab admin) can react
-    window.dispatchEvent(new StorageEvent("storage", { key: STORAGE_KEY }));
-  } catch (e) {
-    console.error("Failed to save demos to localStorage backup", e);
-  }
+/** Save minimal localStorage + IndexedDB backup (Supabase is primary). */
+export async function saveDemos(demos: Demo[], source: 'admin' | 'import' | 'sync' | 'reset' = 'admin'): Promise<SaveBackupResult> {
+  return saveBackup(demos, source);
 }
 
-/** Add a new demo.
- * PRIMARY: writes to Supabase via upsert.
- * ALWAYS also writes backup to localStorage.
- * Returns authoritative list (prefers fresh Supabase list on success).
- */
-export async function addDemo(newDemo: Omit<Demo, "id">): Promise<Demo[]> {
+function formatSupabaseError(err: SupabaseError | null): string {
+  if (!err) return 'Unknown Supabase error';
+  let msg = err.message;
+  if (err.hint) msg += ` (${err.hint})`;
+  if (
+    err.code === '42501' ||
+    err.code === 'delete_no_rows' ||
+    err.code === 'sync_delete_partial' ||
+    err.message.toLowerCase().includes('row-level security')
+  ) {
+    msg += ' — Check RLS policies on forge_demos (see supabase/schema.sql).';
+  }
+  if (err.code === 'not_configured') {
+    msg += ' — Copy .env.local.example to .env.local and restart dev server.';
+  }
+  return msg;
+}
+
+async function finalizeOperation(
+  demos: Demo[],
+  supabaseOk: boolean,
+  error?: string,
+  warning?: string
+): Promise<DemoOperationResult> {
+  const backup = await saveBackup(demos, 'admin');
+  return { demos, supabaseOk, backup, error, warning };
+}
+
+/** Add a new demo — Supabase first, then local backup. */
+export async function addDemo(newDemo: Omit<Demo, "id">): Promise<DemoOperationResult> {
   const id = `demo-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
   const demoWithId: Demo = { ...newDemo, id };
 
-  // Always maintain localStorage backup (safety)
-  const localCurrent = loadFromLocalOrDefaults();
-  const lsUpdated = [...localCurrent.filter((d) => d.id !== id), demoWithId];
-  saveDemos(lsUpdated);
-
-  // Primary target: Supabase
-  const supaSuccess = await upsertDemoToSupabase(demoWithId);
-  if (supaSuccess) {
-    // Return live state from Supabase when possible
-    const fresh = await getAllDemosFromSupabase();
-    if (fresh !== null) return fresh;
-  } else {
-    console.warn('[Admin] Supabase addDemo failed — localStorage backup is active.');
+  const supaResult = await upsertDemoToSupabaseResult(demoWithId);
+  if (!supaResult.ok) {
+    const current = await getDemos();
+    const fallbackList = [...current.filter((d) => d.id !== id), demoWithId]
+      .sort((a, b) => a.sortOrder - b.sortOrder);
+    return finalizeOperation(
+      fallbackList,
+      false,
+      `Supabase save failed: ${formatSupabaseError(supaResult.error)}`,
+      'Demo saved to local backup only. Use Force Sync when Supabase is available.'
+    );
   }
-  return lsUpdated.sort((a, b) => a.sortOrder - b.sortOrder);
+
+  const fresh = await getAllDemosFromSupabaseResult();
+  const list = fresh.ok && fresh.data && fresh.data.length > 0
+    ? fresh.data
+    : [...(await getDemos()).filter((d) => d.id !== id), demoWithId];
+
+  return finalizeOperation(
+    list.sort((a, b) => a.sortOrder - b.sortOrder),
+    true,
+    undefined,
+    demoWithId.image?.startsWith('data:')
+      ? 'Image stored locally only. Upload to Supabase Storage or use /assets/ path.'
+      : undefined
+  );
 }
 
-/** Update existing demo by id.
- * PRIMARY: Supabase upsert with merged fields.
- * Backup written to localStorage on every call.
- */
-export async function updateDemo(id: string, updates: Partial<Demo>): Promise<Demo[]> {
-  // Build local backup version
-  const localCurrent = loadFromLocalOrDefaults();
-  const lsUpdated = localCurrent.map((d) => (d.id === id ? { ...d, ...updates } : d));
-  saveDemos(lsUpdated);
+/** Update existing demo — Supabase first, then local backup. */
+export async function updateDemo(id: string, updates: Partial<Demo>): Promise<DemoOperationResult> {
+  const baseList = await getDemos();
+  const existing = baseList.find((d) => d.id === id);
+  if (!existing) {
+    return finalizeOperation(baseList, false, `Demo "${id}" not found.`);
+  }
 
-  // Get a base (prefer live) then merge for Supabase write
-  const baseList = await getDemos(); // safe — will not infinitely recurse
-  const existing = baseList.find((d) => d.id === id) || ({} as Demo);
   const merged: Demo = { ...existing, ...updates, id };
+  const supaResult = await upsertDemoToSupabaseResult(merged);
 
-  const supaSuccess = await upsertDemoToSupabase(merged);
-  if (supaSuccess) {
-    const fresh = await getAllDemosFromSupabase();
-    if (fresh !== null) return fresh.sort((a, b) => a.sortOrder - b.sortOrder);
-  } else {
-    console.warn('[Admin] Supabase updateDemo failed — localStorage backup is active.');
+  if (!supaResult.ok) {
+    const fallbackList = baseList
+      .map((d) => (d.id === id ? merged : d))
+      .sort((a, b) => a.sortOrder - b.sortOrder);
+    return finalizeOperation(
+      fallbackList,
+      false,
+      `Supabase save failed: ${formatSupabaseError(supaResult.error)}`,
+      'Changes saved to local backup only. Use Force Sync when Supabase is available.'
+    );
   }
-  return lsUpdated.sort((a, b) => a.sortOrder - b.sortOrder);
+
+  const fresh = await getAllDemosFromSupabaseResult();
+  const list = fresh.ok && fresh.data
+    ? fresh.data
+    : baseList.map((d) => (d.id === id ? merged : d));
+
+  return finalizeOperation(
+    list.sort((a, b) => a.sortOrder - b.sortOrder),
+    true,
+    undefined,
+    merged.image?.startsWith('data:')
+      ? 'Image stored locally only. Upload to Supabase Storage or use /assets/ path.'
+      : undefined
+  );
 }
 
-/** Delete demo by id.
- * PRIMARY: Supabase delete.
- * Always keeps an updated localStorage backup of the remaining list.
- */
-export async function deleteDemo(id: string): Promise<Demo[]> {
+/** Delete demo — Supabase first, then local/IndexedDB backup only after confirmed removal. */
+export async function deleteDemo(id: string): Promise<DemoOperationResult> {
   const current = await getDemos();
-  const updated = current.filter((d) => d.id !== id);
-  saveDemos(updated);
-
-  const supaSuccess = await deleteDemoFromSupabase(id);
-  if (supaSuccess) {
-    const fresh = await getAllDemosFromSupabase();
-    if (fresh !== null) return fresh;
-  } else {
-    console.warn('[Admin] Supabase deleteDemo failed — localStorage backup is active.');
+  const existing = current.find((d) => d.id === id);
+  if (!existing) {
+    return finalizeOperation(current, false, `Demo "${id}" not found.`);
   }
-  return updated;
+
+  const updated = current.filter((d) => d.id !== id);
+
+  const supaResult = await deleteDemoFromSupabaseResult(id);
+  if (!supaResult.ok) {
+    return finalizeOperation(
+      current,
+      false,
+      `Supabase delete failed: ${formatSupabaseError(supaResult.error)}`,
+      'Demo was NOT removed. Check Supabase connection, RLS delete policy, or use Force Sync after fixing.'
+    );
+  }
+
+  // Belt-and-suspenders: confirm the row is gone before mutating local backups.
+  const fresh = await getAllDemosFromSupabaseResult();
+  if (fresh.ok && fresh.data?.some((d) => d.id === id)) {
+    return finalizeOperation(
+      current,
+      false,
+      `Supabase delete failed: row "${id}" still exists after delete. Check forge_demos DELETE RLS policy.`,
+      'Demo was NOT removed from Supabase or local backup.'
+    );
+  }
+
+  const list = fresh.ok && fresh.data ? fresh.data : updated;
+  return finalizeOperation(list, true);
 }
 
-/** Wrapper so admin imports only from @/lib/demos (keeps surface minimal).
- * Tries Supabase Storage upload first. Returns public URL or null (caller falls back).
- */
+/** Upload image to Supabase Storage. Returns public URL or null. */
 export async function uploadDemoImage(file: File): Promise<string | null> {
-  return uploadImageToDemosBucket(file);
+  const result = await uploadImageToDemosBucket(file);
+  if (!result.ok) {
+    console.warn('[Supabase] Image upload failed:', result.error?.message);
+    return null;
+  }
+  return result.data;
 }
 
-/** Reset to original defaults (localStorage only).
- * Does not clear Supabase table — use for local recovery or when Supabase is not connected.
- * To clear Supabase data, use the Supabase dashboard or delete rows manually.
- */
-export function resetToDefaults(): Demo[] {
-  saveDemos([...DEFAULT_DEMOS]);
-  return [...DEFAULT_DEMOS];
+/** Push all demos to Supabase and refresh local backups. */
+export async function forceSyncToSupabase(demos?: Demo[]): Promise<ForceSyncResult> {
+  const list = demos ?? (await getDemos());
+  const syncResult = await syncAllDemosToSupabase(list);
+  const backup = await saveBackup(list, 'sync');
+
+  let freshList = list;
+  if (syncResult.ok) {
+    const fresh = await getAllDemosFromSupabaseResult();
+    if (fresh.ok && fresh.data) freshList = fresh.data;
+  }
+
+  return { ...syncResult, demos: freshList, backup };
+}
+
+/** Reset local backups to factory defaults. Does NOT clear Supabase. */
+export async function resetToDefaults(): Promise<DemoOperationResult> {
+  const defaults = [...DEFAULT_DEMOS];
+  clearLocalBackups();
+  const backup = await saveBackup(defaults, 'reset');
+  return { demos: defaults, supabaseOk: true, backup };
 }
 
 /** Check if slug is unique (excluding optional current id). Uses fast local snapshot for typing UX. */
@@ -519,7 +664,12 @@ export function toCardProps(d: Demo) {
  * Includes a helpful header comment for the user.
  */
 export function generateDemosTsCode(demos: Demo[]): string {
-  const sorted = [...demos].sort((a, b) => a.sortOrder - b.sortOrder);
+  const sorted = [...demos]
+    .map((d) => ({
+      ...d,
+      image: d.image?.startsWith("data:") ? undefined : d.image,
+    }))
+    .sort((a, b) => a.sortOrder - b.sortOrder);
 
   const header = `// ======================================================\n// BLUEGRASS DIGITAL FORGE — DEFAULT_DEMOS (ready to paste)\n// \n// HOW TO USE:\n// 1. Copy everything below (the const DEFAULT_DEMOS ... ] block).\n// 2. In lib/demos.ts, find and REPLACE the entire "const DEFAULT_DEMOS: Demo[] = [ ... ];" section.\n// 3. (Strongly recommended) Replace any base64 data: URLs in "image" fields with\n//    clean paths like "/assets/demo-your-name.jpg" (add real photos to public/assets/).\n//    This keeps the JS bundle small and follows the Critical Image & Visuals Rule.\n// 4. Save, commit, push, and deploy. Public pages will now use the updated hardcoded list.\n// 5. The commented example templates at the bottom of the array in lib/demos.ts can stay.\n// ======================================================\n\nconst DEFAULT_DEMOS: Demo[] = [\n`;
 

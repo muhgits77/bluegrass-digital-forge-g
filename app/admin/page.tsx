@@ -4,14 +4,16 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { 
   Plus, Edit2, Trash2, Eye, EyeOff, Save, RefreshCw, Download, Upload, 
-  ArrowLeft, Lock, LogOut, X, Copy, Code2 
+  ArrowLeft, Lock, LogOut, X, Copy, Code2, Cloud, CloudOff, AlertTriangle
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  getDemos, saveDemos, addDemo, updateDemo, deleteDemo, resetToDefaults,
-  generateUniqueSlug, isSlugUnique, generateDemosTsCode, Demo,
-  uploadDemoImage, dispatchDemosPublished
+  getDemos, getDemosWithMeta, saveDemos, addDemo, updateDemo, deleteDemo, resetToDefaults,
+  generateUniqueSlug, generateDemosTsCode, Demo, DemoDataSource,
+  uploadDemoImage, dispatchDemosPublished, forceSyncToSupabase,
+  getSupabaseStatus, getLocalStorageStatus,
 } from "@/lib/demos";
+import type { SupabaseConnectionStatus } from "@/lib/supabase";
 import { CONTACT_EMAIL } from "@/lib/constants";
 
 // ==================================================================
@@ -62,10 +64,17 @@ export default function AdminPanel() {
   const [formError, setFormError] = useState("");
 
   const [publishMessage, setPublishMessage] = useState("");
+  const [publishMessageType, setPublishMessageType] = useState<"success" | "error" | "warning">("success");
   const [isPublishing, setIsPublishing] = useState(false);
+  const [isForceSyncing, setIsForceSyncing] = useState(false);
+
+  const [dataSource, setDataSource] = useState<DemoDataSource>("defaults");
+  const [supabaseStatus, setSupabaseStatus] = useState<SupabaseConnectionStatus | null>(null);
+  const [storageBytes, setStorageBytes] = useState(0);
 
   const [isSaving, setIsSaving] = useState(false);
   const [successToast, setSuccessToast] = useState("");
+  const [errorToast, setErrorToast] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
 
   // Export to demos.ts modal state (new targeted feature)
@@ -94,10 +103,43 @@ export default function AdminPanel() {
     return () => window.removeEventListener("storage", handleStorage);
   }, []);
 
+  async function refreshStatus() {
+    const [status, storage] = await Promise.all([
+      getSupabaseStatus(),
+      Promise.resolve(getLocalStorageStatus()),
+    ]);
+    setSupabaseStatus(status);
+    setStorageBytes(storage.localBytes);
+  }
+
   async function loadDemos() {
-    // Now prefers Supabase (primary) with transparent fallback to localStorage/DEFAULTS
-    const loaded = await getDemos();
-    setDemos([...loaded].sort((a, b) => a.sortOrder - b.sortOrder));
+    const result = await getDemosWithMeta();
+    setDemos([...result.demos].sort((a, b) => a.sortOrder - b.sortOrder));
+    setDataSource(result.source);
+    await refreshStatus();
+    if (result.supabaseError && result.source !== "supabase") {
+      setErrorToast(`Loaded from ${result.source} — Supabase unavailable: ${result.supabaseError}`);
+      setTimeout(() => setErrorToast(""), 6000);
+    }
+  }
+
+  function applyOperationResult(
+    result: { demos: Demo[]; supabaseOk: boolean; error?: string; warning?: string },
+    successMsg: string
+  ) {
+    const sorted = [...result.demos].sort((a, b) => a.sortOrder - b.sortOrder);
+    setDemos(sorted);
+    dispatchDemosPublished(sorted);
+
+    if (result.supabaseOk) {
+      showSuccessToast(successMsg);
+      if (result.warning) showWarningToast(result.warning);
+    } else {
+      showErrorToast(result.error ?? "Save failed — data kept in local backup only.");
+      if (result.warning) showWarningToast(result.warning);
+    }
+    void refreshStatus();
+    return sorted;
   }
 
   // Simple client-side password gate (not production security)
@@ -137,25 +179,20 @@ export default function AdminPanel() {
       return;
     }
     if (file.size > 2.5 * 1024 * 1024) {
-      if (!confirm("Image > 2.5MB. If Supabase upload fails it will fall back to larger base64 in localStorage. Continue?")) {
-        return;
-      }
-    }
-
-    // PRIMARY: attempt Supabase Storage upload (returns public URL or null)
-    const publicUrl = await uploadDemoImage(file);
-    if (publicUrl) {
-      updateForm("image", publicUrl);
+      alert("Image must be under 2.5 MB. Compress the file or add it to /public/assets/ manually.");
       return;
     }
 
-    // FALLBACK: original base64 path (localStorage only)
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const dataUrl = event.target?.result as string;
-      updateForm("image", dataUrl);
-    };
-    reader.readAsDataURL(file);
+    const publicUrl = await uploadDemoImage(file);
+    if (publicUrl) {
+      updateForm("image", publicUrl);
+      showSuccessToast("Image uploaded to Supabase Storage.");
+      return;
+    }
+
+    showErrorToast(
+      "Supabase image upload failed. Enter an /assets/demo-name.jpg path or check Storage bucket policies."
+    );
   }
 
   function handleDrag(e: React.DragEvent<HTMLDivElement>) {
@@ -285,34 +322,29 @@ export default function AdminPanel() {
         description: (form.description || "").trim(),
         // Image can be: Supabase Storage public URL (preferred), /assets/ path, or base64 (fallback only)
         // We pass through exactly what handleImageUpload or the URL field provided.
-        image: form.image && form.image.startsWith("data:") 
-          ? form.image 
-          : (form.image?.trim() || undefined),
+        image: form.image?.trim() || undefined,
         sortOrder: Number(form.sortOrder) || 99,
         visible: !!form.visible,
       };
 
-      let updated: Demo[];
-      if (editingId) {
-        updated = await updateDemo(editingId, demoData);
-      } else {
-        updated = await addDemo(demoData);
+      if (demoData.image?.startsWith("data:")) {
+        setFormError(
+          "Base64 images cannot be saved to Supabase. Upload via drag-and-drop or use an /assets/ path."
+        );
+        setIsSaving(false);
+        return;
       }
 
-      // Re-render the table dynamically (now reflects Supabase state or LS fallback)
-      const sorted = [...updated].sort((a, b) => a.sortOrder - b.sortOrder);
-      setDemos(sorted);
+      const result = editingId
+        ? await updateDemo(editingId, demoData)
+        : await addDemo(demoData);
 
-      // Notify open public pages (same tab + other tabs) with the fresh list for instant UI update
-      dispatchDemosPublished(sorted);
+      applyOperationResult(
+        result,
+        editingId ? "Demo updated successfully." : "Demo created successfully."
+      );
 
-      // Success toast + clear (close resets the form state too)
-      const wasNew = !editingId;
-      showSuccessToast(wasNew ? "Demo created successfully." : "Demo updated successfully.");
-
-      // Close modal (this clears the form via closeModal)
-      // NOTE: Table already re-rendered above before close
-      closeModal();
+      if (result.supabaseOk) closeModal();
     } catch (err) {
       console.error("Save demo failed:", err);
       setFormError("Failed to save demo. Check console and try again.");
@@ -322,54 +354,110 @@ export default function AdminPanel() {
   }
 
   async function handleDelete(id: string, title: string) {
-    if (!confirm(`Delete "${title}"? This cannot be undone.`)) return;
-    const updated = await deleteDemo(id);
-    const sorted = updated.sort((a, b) => a.sortOrder - b.sortOrder);
-    setDemos(sorted);
-    dispatchDemosPublished(sorted);
+    if (!confirm(`Delete "${title}"? This permanently removes it from Supabase and local backups.`)) return;
+    const result = await deleteDemo(id);
+    applyOperationResult(result, `"${title}" deleted from Supabase and local backup.`);
   }
 
   async function handleToggleVisible(id: string, current: boolean) {
-    const updated = await updateDemo(id, { visible: !current });
-    const sorted = updated.sort((a, b) => a.sortOrder - b.sortOrder);
-    setDemos(sorted);
-    dispatchDemosPublished(sorted);
+    const result = await updateDemo(id, { visible: !current });
+    applyOperationResult(result, current ? "Demo hidden." : "Demo visible.");
   }
 
   async function handleSortOrderChange(id: string, newOrder: number) {
-    const updated = await updateDemo(id, { sortOrder: newOrder });
-    const sorted = updated.sort((a, b) => a.sortOrder - b.sortOrder);
-    setDemos(sorted);
-    dispatchDemosPublished(sorted);
+    const result = await updateDemo(id, { sortOrder: newOrder });
+    applyOperationResult(result, "Sort order updated.");
   }
 
-  // PUBLISH CHANGES — Explicit action that confirms to user
-  // Note: Main saves now go directly to Supabase. This ensures LS backup matches current view
-  // and re-dispatches the event so public pages listening will re-fetch from Supabase.
   async function handlePublish() {
     setIsPublishing(true);
-    const current = await getDemos();
-    const sorted = [...current].sort((a, b) => a.sortOrder - b.sortOrder);
-    saveDemos(sorted);
+    const sorted = [...demos].sort((a, b) => a.sortOrder - b.sortOrder);
 
-    // Notify other open tabs/pages (storage + broadcast) + same tab via custom event
-    dispatchDemosPublished(sorted);
+    const syncResult = await forceSyncToSupabase(sorted);
+    setDemos(syncResult.demos.sort((a, b) => a.sortOrder - b.sortOrder));
+    dispatchDemosPublished(syncResult.demos);
 
-    setPublishMessage("✓ Published! (LS backup refreshed). Live data is in Supabase — public pages prefer it.");
+    if (syncResult.ok) {
+      showPublishHint(
+        `✓ Published to Supabase (${syncResult.upserted} demos${syncResult.deleted ? `, ${syncResult.deleted} removed` : ""}). Local backup refreshed.`,
+        "success"
+      );
+    } else if (syncResult.upserted > 0 || syncResult.deleted > 0) {
+      showPublishHint(
+        `Publish partially failed: ${syncResult.error?.message ?? "Unknown error"}${syncResult.error?.hint ? ` — ${syncResult.error.hint}` : ""}.`,
+        "warning"
+      );
+    } else {
+      showPublishHint(
+        `Publish failed: ${syncResult.error?.message ?? "Unknown error"}. Export JSON as backup.`,
+        "error"
+      );
+    }
 
-    setTimeout(() => {
-      setPublishMessage("");
-      setIsPublishing(false);
-    }, 4200);
+    await refreshStatus();
+    setIsPublishing(false);
   }
 
-  function handleReset() {
-    if (!confirm("Reset ALL demos to original defaults? Any custom entries will be lost.")) return;
-    const reset = resetToDefaults();
-    const sorted = reset.sort((a, b) => a.sortOrder - b.sortOrder);
-    setDemos(sorted);
-    dispatchDemosPublished(sorted);
-    showPublishHint("Reset to factory defaults.");
+  async function handleForceSync() {
+    setIsForceSyncing(true);
+    const syncResult = await forceSyncToSupabase(demos);
+    setDemos(syncResult.demos.sort((a, b) => a.sortOrder - b.sortOrder));
+    dispatchDemosPublished(syncResult.demos);
+
+    if (syncResult.ok) {
+      showPublishHint(
+        `✓ Force Sync complete — ${syncResult.upserted} upserted${syncResult.deleted ? `, ${syncResult.deleted} orphans removed` : ""}.`,
+        "success"
+      );
+      setDataSource("supabase");
+    } else if (syncResult.upserted > 0 || syncResult.deleted > 0) {
+      showPublishHint(
+        `Force Sync partially failed: ${syncResult.error?.message ?? "Check console"}${syncResult.error?.hint ? ` — ${syncResult.error.hint}` : ""}.`,
+        "warning"
+      );
+    } else {
+      showPublishHint(
+        `Force Sync failed: ${syncResult.error?.message ?? "Check console"}. Data preserved in IndexedDB/local backup.`,
+        "error"
+      );
+    }
+
+    await refreshStatus();
+    setIsForceSyncing(false);
+  }
+
+  async function handleReset() {
+    const customCount = demos.length;
+    const msg = [
+      "Reset local backups to factory defaults?",
+      `You currently have ${customCount} demos loaded from ${dataSource}.`,
+      "This does NOT delete Supabase rows — use Force Sync afterward to reconcile.",
+      "Export JSON first if you want a safety copy.",
+    ].join("\n\n");
+    if (!confirm(msg)) return;
+
+    const result = await resetToDefaults();
+    setDemos(result.demos);
+    setDataSource("defaults");
+    dispatchDemosPublished(result.demos);
+    showPublishHint("Local backups reset to factory defaults. Supabase unchanged.", "warning");
+    await refreshStatus();
+  }
+
+  async function handleClearLocalStorage() {
+    const msg = [
+      "Clear local browser backups (localStorage + IndexedDB)?",
+      "Your Supabase data will NOT be deleted.",
+      "After clearing, click Reload or Force Sync to restore from Supabase.",
+      "If Supabase is unavailable, unsynced local-only demos may be lost.",
+    ].join("\n\n");
+    if (!confirm(msg)) return;
+
+    const { clearLocalBackups, clearIndexedDbBackup } = await import("@/lib/demoStorage");
+    clearLocalBackups();
+    await clearIndexedDbBackup();
+    await loadDemos();
+    showPublishHint("Local backups cleared. Reloaded from best available source.", "warning");
   }
 
   async function handleExport() {
@@ -426,38 +514,71 @@ export default function AdminPanel() {
     if (!file) return;
 
     const reader = new FileReader();
-    reader.onload = (event) => {
+    reader.onload = async (event) => {
       try {
         const imported = JSON.parse(event.target?.result as string);
-        if (Array.isArray(imported) && imported.length > 0) {
-          // Basic validation
-          const valid = imported.every((d: any) => d.title && d.href && typeof d.sortOrder === "number");
-          if (!valid) throw new Error("Invalid demo format");
-          saveDemos(imported);
-          loadDemos(); // will prefer live Supabase if connected (import seeds LS backup)
-          // Note: to also push imported rows to Supabase, create/edit one item via the form
-          // or use the Supabase dashboard to bulk insert. Import primarily updates local fallback.
-          alert("Import successful. Demos updated (LS backup).");
-        } else {
+        if (!Array.isArray(imported) || imported.length === 0) {
           throw new Error("File must contain an array of demos");
         }
-      } catch (err) {
-        alert("Import failed. Make sure it's a valid exported JSON file.");
+        const valid = imported.every((d: Demo) => d.title && d.href && typeof d.sortOrder === "number");
+        if (!valid) throw new Error("Invalid demo format");
+
+        const cleaned = imported.map((d: Demo) => ({
+          ...d,
+          image: d.image?.startsWith("data:") ? undefined : d.image,
+        }));
+
+        setDemos(cleaned.sort((a, b) => a.sortOrder - b.sortOrder));
+        const syncResult = await forceSyncToSupabase(cleaned);
+        dispatchDemosPublished(syncResult.demos);
+        setDemos(syncResult.demos.sort((a, b) => a.sortOrder - b.sortOrder));
+
+        if (syncResult.ok) {
+          showPublishHint(`Import successful — ${syncResult.upserted} demos synced to Supabase.`, "success");
+          setDataSource("supabase");
+        } else {
+          showPublishHint(
+            `Import saved locally but Supabase sync failed: ${syncResult.error?.message}. Use Force Sync.`,
+            "warning"
+          );
+        }
+        await refreshStatus();
+      } catch {
+        showErrorToast("Import failed. Use a valid exported JSON file.");
       }
     };
     reader.readAsText(file);
-    e.target.value = ""; // reset input
+    e.target.value = "";
   }
 
-  function showPublishHint(msg: string) {
+  function showPublishHint(msg: string, type: "success" | "error" | "warning" = "success") {
     setPublishMessage(msg);
-    setTimeout(() => setPublishMessage(""), 2200);
+    setPublishMessageType(type);
+    setTimeout(() => setPublishMessage(""), type === "error" ? 8000 : 5000);
   }
 
   function showSuccessToast(msg: string) {
     setSuccessToast(msg);
-    // Auto clear toast — works on localhost and Vercel (pure client)
     setTimeout(() => setSuccessToast(""), 3200);
+  }
+
+  function showErrorToast(msg: string) {
+    setErrorToast(msg);
+    setTimeout(() => setErrorToast(""), 7000);
+  }
+
+  function showWarningToast(msg: string) {
+    showPublishHint(msg, "warning");
+  }
+
+  function dataSourceLabel(source: DemoDataSource): string {
+    const labels: Record<DemoDataSource, string> = {
+      supabase: "Supabase (live)",
+      indexeddb: "IndexedDB backup",
+      localStorage: "localStorage backup",
+      defaults: "Factory defaults",
+    };
+    return labels[source];
   }
 
   // ==================== PASSWORD GATE ====================
@@ -552,13 +673,23 @@ export default function AdminPanel() {
           <div className="max-w-2xl">
             <div className="uppercase tracking-[2.2px] text-[11px] text-[#3ddbd9] font-medium mb-1.5">MANAGEMENT</div>
             <h1 className="text-[34px] md:text-4xl font-semibold tracking-[-1.6px] leading-none">Demos</h1>
-            <p className="text-[#9aa6ad] mt-2.5 text-[15px] leading-relaxed">Manage live demo sites on the homepage and /work. Saves go to Supabase (primary) + localStorage backup. Public pages auto-prefer Supabase. Contact: {CONTACT_EMAIL}</p>
+            <p className="text-[#9aa6ad] mt-2.5 text-[15px] leading-relaxed">
+              Manage live demo sites on the homepage and /work. Supabase is the primary store; local backups are lightweight (no base64). Contact: {CONTACT_EMAIL}
+            </p>
           </div>
 
-          <div>
+          <div className="flex flex-wrap items-center gap-2.5">
+            <button
+              onClick={handleForceSync}
+              disabled={isForceSyncing || isPublishing}
+              className="inline-flex items-center gap-2 rounded-2xl border border-[#243530] hover:bg-[#111518] disabled:opacity-60 px-5 py-3 text-[14px] font-medium transition whitespace-nowrap"
+            >
+              <RefreshCw size={16} className={isForceSyncing ? "animate-spin" : ""} />
+              {isForceSyncing ? "Syncing..." : "Force Sync"}
+            </button>
             <button
               onClick={handlePublish}
-              disabled={isPublishing}
+              disabled={isPublishing || isForceSyncing}
               className="inline-flex items-center gap-2 rounded-2xl bg-[#3b82f6] hover:bg-[#2563eb] disabled:opacity-70 px-7 py-3 text-[15px] font-semibold transition active:scale-[0.985] whitespace-nowrap"
             >
               <Save size={17} /> {isPublishing ? "Publishing..." : "Publish Changes"}
@@ -566,21 +697,59 @@ export default function AdminPanel() {
           </div>
         </div>
 
-        {/* Publish confirmation banner */}
+        {/* Sync status bar */}
+        <div className="mb-6 flex flex-wrap items-center gap-3 rounded-2xl border border-[#1a2225] bg-[#0c1013] px-5 py-3.5 text-sm">
+          {supabaseStatus?.connected ? (
+            <span className="inline-flex items-center gap-2 text-[#34d399]">
+              <Cloud size={16} /> Supabase connected
+              {supabaseStatus.rowCount != null && (
+                <span className="text-[#6b787e]">({supabaseStatus.rowCount} rows)</span>
+              )}
+            </span>
+          ) : supabaseStatus?.configured ? (
+            <span className="inline-flex items-center gap-2 text-amber-400">
+              <CloudOff size={16} /> Supabase error: {supabaseStatus.error?.message ?? "unreachable"}
+            </span>
+          ) : (
+            <span className="inline-flex items-center gap-2 text-[#9aa6ad]">
+              <CloudOff size={16} /> Supabase not configured — using local backups only
+            </span>
+          )}
+          <span className="h-4 w-px bg-[#1f2528] hidden sm:block" />
+          <span className="text-[#8a9599]">
+            Data source: <span className="text-[#e8e3d9]">{dataSourceLabel(dataSource)}</span>
+          </span>
+          <span className="h-4 w-px bg-[#1f2528] hidden sm:block" />
+          <span className="text-[#8a9599]">
+            Local backup: ~{Math.round(storageBytes / 1024)} KB
+            {storageBytes > 400_000 && (
+              <span className="text-amber-400 ml-1.5 inline-flex items-center gap-1">
+                <AlertTriangle size={13} /> large
+              </span>
+            )}
+          </span>
+        </div>
+
+        {/* Publish / warning / error banner */}
         <AnimatePresence>
           {publishMessage && (
             <motion.div
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              className="mb-6 rounded-2xl border border-[#3b82f6]/30 bg-[#0a1320] px-5 py-3 text-sm flex items-center gap-3 text-[#a5c3ff]"
+              className={`mb-6 rounded-2xl px-5 py-3 text-sm flex items-center gap-3 ${
+                publishMessageType === "error"
+                  ? "border border-red-900/50 bg-[#1a0f0f] text-red-300"
+                  : publishMessageType === "warning"
+                  ? "border border-amber-900/40 bg-[#1a1508] text-amber-200"
+                  : "border border-[#3b82f6]/30 bg-[#0a1320] text-[#a5c3ff]"
+              }`}
             >
               {publishMessage}
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* Success toast for Create/Edit (robust, auto-dismiss, works localhost + Vercel) */}
         <AnimatePresence>
           {successToast && (
             <motion.div
@@ -590,6 +759,19 @@ export default function AdminPanel() {
               className="mb-6 rounded-2xl border border-[#10b981]/40 bg-[#061c14] px-5 py-3.5 text-sm flex items-center gap-3 text-[#34d399] shadow-sm"
             >
               <span className="font-medium">✓</span> {successToast}
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {errorToast && (
+            <motion.div
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              className="mb-6 rounded-2xl border border-red-900/50 bg-[#1a0f0f] px-5 py-3.5 text-sm flex items-start gap-3 text-red-300"
+            >
+              <AlertTriangle size={16} className="mt-0.5 shrink-0" /> {errorToast}
             </motion.div>
           )}
         </AnimatePresence>
@@ -609,7 +791,7 @@ export default function AdminPanel() {
             <div className="text-3xl md:text-[32px] font-semibold tabular-nums mt-1.5 leading-none">{demos.filter(d => !d.visible).length}</div>
           </div>
           <div className="bg-[#0c1013] border border-[#1a2225] rounded-2xl px-6 py-5 md:py-6 text-[13.5px] leading-relaxed text-[#9aa6ad]">
-            Primary: Supabase. LocalStorage is backup.<br />Changes save live; Publish refreshes LS copy.
+            Supabase primary.<br />IndexedDB + minimal localStorage backup.<br />Supports 30+ demos.
           </div>
         </div>
 
@@ -624,6 +806,9 @@ export default function AdminPanel() {
             </button>
             <button onClick={handleReset} className="text-sm px-4 py-2.5 text-[#9aa6ad] hover:text-white flex items-center gap-1.5 rounded-xl border border-[#243530] hover:border-[#33423c]">
               <RefreshCw size={16} /> Reset Defaults
+            </button>
+            <button onClick={handleClearLocalStorage} className="text-sm px-4 py-2.5 text-amber-400/80 hover:text-amber-300 flex items-center gap-1.5 rounded-xl border border-amber-900/30 hover:border-amber-700/40">
+              <AlertTriangle size={15} /> Clear Local Backup
             </button>
           </div>
 
@@ -727,8 +912,10 @@ export default function AdminPanel() {
           </table>
         </div>
 
-        <div className="mt-4 text-xs text-[#6b787e] flex items-center gap-2 leading-relaxed">
-          • Saves go to Supabase first (with localStorage backup). • Public pages prefer Supabase when configured. • Order = priority (lower first). • Table designed for perfect readability at 100% zoom on desktop and mobile.
+        <div className="mt-4 text-xs text-[#6b787e] leading-relaxed space-y-1">
+          <p>• Saves go to Supabase first; local backup strips base64 to avoid quota limits.</p>
+          <p>• Use Force Sync to push all demos to Supabase or recover after clearing local backup.</p>
+          <p>• Export JSON / demos.ts always reads current table — safe even if localStorage is full.</p>
         </div>
 
         {/* Contact email reference in admin (dark theme) */}
@@ -848,13 +1035,7 @@ export default function AdminPanel() {
                     >
                       <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileInputChange} className="hidden" />
 
-                      {form.image && form.image.startsWith("data:") ? (
-                        <div className="relative w-full max-w-[280px]">
-                          <img src={form.image} alt="Demo preview" className="mx-auto max-h-[92px] rounded-lg border border-[#1a2225] object-contain" />
-                          <button type="button" onClick={removeImage} className="absolute -top-1.5 -right-1.5 bg-[#1a2225] hover:bg-red-500 text-xs rounded-full w-6 h-6 flex items-center justify-center border border-[#243530]" aria-label="Remove uploaded image">×</button>
-                          <div className="mt-1.5 text-[10px] text-[#8a9599]">Uploaded (Supabase or local). Tap or drop to replace.</div>
-                        </div>
-                      ) : form.image ? (
+                      {form.image ? (
                         <div className="relative w-full max-w-[280px]">
                           <img src={form.image} alt="Demo preview" className="mx-auto max-h-[92px] rounded-lg border border-[#1a2225] object-contain" onError={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = "0.4"; }} />
                           <button type="button" onClick={removeImage} className="mt-1.5 block text-[10px] text-red-400 hover:text-red-300">Remove current</button>
@@ -864,7 +1045,7 @@ export default function AdminPanel() {
                           <div className="text-2xl mb-1 opacity-60">📷</div>
                           <div className="font-medium text-[13.5px]">Drop image or tap to upload</div>
                           <div className="text-[10px] text-[#6b787e] mt-0.5">JPG/PNG/WebP • &lt;2.5MB</div>
-                          <div className="text-[9px] mt-1.5 px-2 py-px rounded bg-[#1f2528] text-[#8a9599]">Supabase Storage (base64 fallback)</div>
+                          <div className="text-[9px] mt-1.5 px-2 py-px rounded bg-[#1f2528] text-[#8a9599]">Uploads to Supabase Storage</div>
                         </>
                       )}
                     </div>

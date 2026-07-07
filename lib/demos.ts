@@ -595,14 +595,15 @@ export async function deleteDemo(id: string): Promise<DemoOperationResult> {
   return finalizeOperation(list, true);
 }
 
-/** Upload image to Supabase Storage. Returns public URL or null. */
-export async function uploadDemoImage(file: File): Promise<string | null> {
+/** Upload image to Supabase Storage. Returns the public URL and any error details. */
+export async function uploadDemoImage(file: File): Promise<{ url: string | null; error?: string; code?: string }> {
   const result = await uploadImageToDemosBucket(file);
   if (!result.ok) {
-    console.warn('[Supabase] Image upload failed:', result.error?.message);
-    return null;
+    const message = result.error?.message || 'Unknown Supabase storage error';
+    console.warn('[Supabase] Image upload failed:', message);
+    return { url: null, error: message, code: result.error?.code };
   }
-  return result.data;
+  return { url: result.data };
 }
 
 /** Push all demos to Supabase and refresh local backups. */

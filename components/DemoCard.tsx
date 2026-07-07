@@ -55,71 +55,76 @@ export default function DemoCard({ title, subtitle, category, href, image, slug 
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="demo-card group block h-full flex flex-col bg-[#0c1013] border border-[#1a2225] overflow-hidden rounded-3xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c17a5a]"
-      whileHover={{ y: -9, scale: 1.0035 }}
-      transition={{ type: "spring", stiffness: 280, damping: 26, mass: 0.8 }}
+      // Add `shimmer-hover` utility class to enable the warm amber sweep on hover.
+      className={"demo-card shimmer-hover group block h-[460px] sm:h-[480px] md:h-[500px] lg:h-[520px] flex flex-col bg-[#07100f] border border-[#16201f] overflow-hidden rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c17a5a] shadow-lg transition-shadow duration-300 " +
+        "hover:shadow-[0_18px_50px_rgba(193,122,90,0.12)]"}
+      whileHover={{ y: -10, scale: 1.004 }}
+      transition={{ type: "spring", stiffness: 260, damping: 24, mass: 0.8 }}
       aria-label={`Open live demo of ${title}`}
     >
-      {/* Browser Frame — compact chrome to prioritize description space */}
-      <div className="relative bg-[#0a0c0f] border-b border-[#1a2225]">
-        <div className="flex items-center gap-1.5 px-2.5 py-1.5 bg-[#0c1013]">
-          <div className="flex gap-1 shrink-0">
-            <div className="w-2 h-2 rounded-full bg-[#ff5f56]" />
-            <div className="w-2 h-2 rounded-full bg-[#ffbd2e]" />
-            <div className="w-2 h-2 rounded-full bg-[#27c93f]" />
-          </div>
-          <div className="flex-1 min-w-0 mx-1 text-[9px] text-[#8a9599] font-mono truncate bg-[#050708] border border-[#1f2528] rounded-full px-2 py-0.5">
-            {displaySlug}
-          </div>
-          {!isTemplateSite && <ExternalLink size={10} className="text-[#7f8c90] shrink-0" />}
+      {/*
+        Minimal browser chrome: thin top bar with traffic lights and an optional subtle site title.
+        NO address bar, NO visible URL chrome. Keeps focus on the screenshot itself.
+      */}
+      <div className="flex items-center gap-3 px-3 py-2 bg-[#06100f] border-b border-[#14201f]">
+        <div className="flex gap-2">
+          <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
+          <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
+          <span className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
         </div>
-
-        {/* Image Area — shorter preview, more room for copy below */}
-        <div className="relative aspect-[2/1] overflow-hidden bg-[#050708]">
-          {isDataUrl ? (
-            <img
-              src={previewImage}
-              alt={localAlt}
-              className="absolute inset-0 w-full h-full object-cover object-top transition-all duration-[650ms] group-hover:scale-[1.065] group-hover:brightness-[1.03]"
-            />
-          ) : (
-            <Image
-              src={previewImage}
-              alt={localAlt}
-              fill
-              className="object-cover object-top transition-all duration-[650ms] group-hover:scale-[1.065] group-hover:brightness-[1.03]"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            />
-          )}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/40 to-black/75 group-hover:via-black/30 transition-all duration-500" />
-          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[radial-gradient(at_70%_20%,rgba(193,122,90,0.12)_0%,transparent_55%)]" />
-        </div>
+        {/* Optional subtle site title to the right of the dots — keeps chrome minimal */}
+        <div className="ml-2 text-[11px] text-[#859497] font-medium truncate">{displaySlug}</div>
       </div>
 
-      {/* Content — description + tagline get priority over preview height */}
+      {/*
+        Image Area: Use a 16:9 (aspect-video) preview and `object-contain object-top` so images
+        are never cropped. Background fills with the card color to avoid harsh letterboxing.
+      */}
+      <div className="relative aspect-[16/9] overflow-hidden bg-[#050708]">
+        {isDataUrl ? (
+          <img
+            src={previewImage}
+            alt={localAlt}
+            className="absolute inset-0 w-full h-full object-contain object-top transition-transform duration-500 group-hover:scale-[1.02]"
+          />
+        ) : (
+          <Image
+            src={previewImage}
+            alt={localAlt}
+            fill
+            className="object-contain object-top transition-transform duration-500 group-hover:scale-[1.02]"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+        )}
+
+        {/* subtle vignette and warm amber highlight on hover */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/20 to-black/40 pointer-events-none" />
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[radial-gradient(at_70%_20%,rgba(193,122,90,0.10)_0%,transparent_55%)] pointer-events-none" />
+      </div>
+
+      {/*
+        Content area: standardized padding, consistent typography, and clipped description so
+        all cards remain uniform height. LIVE DEMO tag is consistent across all cards.
+      */}
       <div className="p-4 flex-1 flex flex-col min-h-0">
-        <div className="flex flex-wrap gap-1.5 mb-2.5">
-          <span className="text-[10px] uppercase tracking-[1.5px] font-semibold px-2.5 py-px bg-[#111518] border border-[#1f2528] rounded text-[#8a9599]">
-            {category}
-          </span>
+        <div className="flex items-center gap-2 mb-3">
+          <span className="text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 bg-[#0e1615] border border-[#1b2726] rounded text-[#9fb0ae]">{category}</span>
           {!isTemplateSite && (
-            <span className="text-[10px] uppercase tracking-[1.5px] font-semibold px-2.5 py-px bg-[#2a2118] border border-[#463424] rounded text-[#f4a261]">
-              LIVE DEMO
-            </span>
+            <span className="text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 bg-[#2b1f16] border border-[#463424] rounded text-[#f4a261]">LIVE DEMO</span>
           )}
         </div>
 
-        <h3 className="font-semibold text-[16.5px] leading-[1.2] mb-1.5 group-hover:text-[#f4a261] transition-colors duration-200">
-          {title}
-        </h3>
-        <p className="text-[#9aa6ad] text-[14px] leading-relaxed line-clamp-3 sm:line-clamp-4 pr-0.5">{subtitle}</p>
-        <p className="mt-2.5 text-[11.5px] sm:text-[12px] font-medium tracking-[0.05em] text-[#c17a5a]/90 shrink-0">
-          {SITE_TAGLINE}
-        </p>
+        <h3 className="font-semibold text-[17px] leading-[1.18] mb-1 group-hover:text-[#f4a261] transition-colors duration-200">{title}</h3>
+        <p className="text-[#9aa6ad] text-[14px] leading-relaxed line-clamp-3 sm:line-clamp-4">{subtitle}</p>
 
-        <div className="mt-auto pt-3.5 text-[#f4a261] font-medium flex items-center gap-2 group-hover:gap-2.5 transition-all text-[14px] shrink-0">
-          Open live site
-          <ArrowUpRight size={16} className="group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
+        <p className="mt-3 text-[12px] font-medium tracking-[0.03em] text-[#c17a5a]">{SITE_TAGLINE}</p>
+
+        {/* Footer action — visually consistent button-like row */}
+        <div className="mt-auto pt-4">
+          <div className="inline-flex items-center gap-2 text-[14px] font-semibold text-[#f4a261] hover:text-[#ffd6b8] transition-colors">
+            <span>Open live site</span>
+            <ArrowUpRight size={16} className="transform transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          </div>
         </div>
       </div>
     </motion.a>

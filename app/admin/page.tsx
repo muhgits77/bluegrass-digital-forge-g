@@ -7,6 +7,7 @@ import {
   ArrowLeft, Lock, LogOut, X, Copy, Code2, Cloud, CloudOff, AlertTriangle
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import AdminAnalytics from "@/components/AdminAnalytics";
 import {
   getDemos, getDemosWithMeta, saveDemos, addDemo, updateDemo, deleteDemo, resetToDefaults,
   generateUniqueSlug, generateDemosTsCode, Demo, DemoDataSource,
@@ -45,11 +46,27 @@ const emptyForm: FormData = {
   visible: true,
 };
 
+// Suggested categories for the admin form. Used by the datalist for quick selection
+// but the input remains freeform so users can type arbitrary custom categories.
 const categories = [
-  "Restaurant", "Food Truck", "Steakhouse", "Mexican Restaurant", "Korean BBQ",
-  "Fitness", "Auto Service", "Car Dealership", "Furniture Store", "Florist",
-  "Fishing Guide", "Donut Shop", "Bait & Tackle Shop", "Land & Pasture Services",
-  "Specialty Retail", "Template Library", "Other"
+  "Restaurant",
+  "Steakhouse",
+  "Food Truck",
+  "Mexican Restaurant",
+  "Korean BBQ",
+  "Bakery",
+  "Coffee Shop",
+  "Donut Shop",
+  "Bookstore",
+  "Wedding Venue",
+  "Fencing Services",
+  "Land & Pasture Services",
+  "Auto Service",
+  "Fitness Studio",
+  "Retail",
+  "Specialty Retail",
+  "Template Library",
+  "Other",
 ];
 
 export default function AdminPanel() {
@@ -76,6 +93,7 @@ export default function AdminPanel() {
   const [successToast, setSuccessToast] = useState("");
   const [errorToast, setErrorToast] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
+  const [showAnalytics, setShowAnalytics] = useState(false);
 
   // Export to demos.ts modal state (new targeted feature)
   const [showTsExportModal, setShowTsExportModal] = useState(false);
@@ -183,16 +201,18 @@ export default function AdminPanel() {
       return;
     }
 
-    const publicUrl = await uploadDemoImage(file);
-    if (publicUrl) {
-      updateForm("image", publicUrl);
+    const uploadResult = await uploadDemoImage(file);
+    if (uploadResult.url) {
+      updateForm("image", uploadResult.url);
       showSuccessToast("Image uploaded to Supabase Storage.");
       return;
     }
 
-    showErrorToast(
-      "Supabase image upload failed. Enter an /assets/demo-name.jpg path or check Storage bucket policies."
-    );
+    const detail = uploadResult.error
+      ? `Supabase upload failed: ${uploadResult.error}`
+      : "Supabase image upload failed. Enter an /assets/demo-name.jpg path or check Storage bucket policies.";
+
+    showErrorToast(detail);
   }
 
   function handleDrag(e: React.DragEvent<HTMLDivElement>) {
@@ -652,7 +672,15 @@ export default function AdminPanel() {
             </Link>
             <div className="h-4 w-px bg-[#1f2528]" />
             <div className="font-semibold tracking-tight text-lg">Admin</div>
-            <div className="text-[10px] px-2.5 py-px rounded bg-[#1f2528] text-[#3ddbd9] tracking-widest hidden sm:inline">DEMO MANAGER</div>
+            <div className="hidden sm:flex items-center gap-2">
+              <div className="text-[10px] px-2.5 py-px rounded bg-[#1f2528] text-[#3ddbd9] tracking-widest">DEMO MANAGER</div>
+              <button
+                onClick={() => setShowAnalytics((s) => !s)}
+                className={`text-[10px] px-2.5 py-px rounded ${showAnalytics ? "bg-[#2b1f16] text-[#f4a261]" : "bg-[#0f1514] text-[#9aa6ad]"} tracking-widest transition`}
+              >
+                ANALYTICS
+              </button>
+            </div>
           </div>
 
           <div className="flex items-center gap-3 text-sm">
@@ -668,6 +696,8 @@ export default function AdminPanel() {
       </div>
 
       <div className="mx-auto max-w-7xl px-5 sm:px-6 py-8 md:py-10">
+        {showAnalytics && <AdminAnalytics />}
+        <div className={showAnalytics ? 'hidden' : ''}>
         {/* Header — generous spacing for readability at 100% zoom */}
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-8">
           <div className="max-w-2xl">
@@ -923,6 +953,7 @@ export default function AdminPanel() {
           Support &amp; inquiries: <a href={`mailto:${CONTACT_EMAIL}`} className="text-[#3ddbd9] hover:underline">{CONTACT_EMAIL}</a>
         </div>
       </div>
+      </div>
 
       {/* ==================== EDIT / NEW MODAL — compact, scrollable (max 85vh), dense but usable, dark modern admin */}
       <AnimatePresence>
@@ -982,17 +1013,24 @@ export default function AdminPanel() {
                     </div>
                     <div>
                       <label className="label mb-1 block">Category *</label>
-                      <select
+                      {/*
+                        Hybrid category input: users may type freely, but a datalist
+                        provides common suggestions for quick selection. This keeps the
+                        field fully accessible and mobile-friendly without shadcn/ui.
+                      */}
+                      <input
+                        list="category-suggestions"
                         value={form.category}
                         onChange={(e) => updateForm("category", e.target.value)}
                         className="input w-full py-2 text-[14.5px]"
+                        placeholder="e.g., Restaurant, Food Truck, Steakhouse"
                         required
-                      >
-                        <option value="">Select category...</option>
+                      />
+                      <datalist id="category-suggestions">
                         {categories.map((cat) => (
-                          <option key={cat} value={cat}>{cat}</option>
+                          <option key={cat} value={cat} />
                         ))}
-                      </select>
+                      </datalist>
                     </div>
                   </div>
 

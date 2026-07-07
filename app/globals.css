@@ -400,6 +400,62 @@ button:focus-visible {
   transform: translateY(-8px);
 }
 
+/* Amber shimmer sweep — performant, CSS-only using transform & opacity
+   - Uses a large gradient that translates left→right on hover
+   - Disabled on touch devices (hover:none) and respects reduced-motion
+   - Keep animation single-run per hover to avoid continuous GPU work
+*/
+
+/* Shimmer utility: add `shimmer-hover` to any card to enable the amber sweep on hover.
+   This makes it easy to toggle per-card using Tailwind-like utility classes.
+*/
+.shimmer-hover {
+  position: relative;
+}
+.shimmer-hover::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 300%;
+  height: 100%;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(193,122,90,0.04) 35%, rgba(244,162,97,0.08) 50%, rgba(193,122,90,0.04) 65%, rgba(255,255,255,0) 100%);
+  transform: translateX(0);
+  opacity: 0;
+}
+
+@keyframes bdf-shimmer {
+  from { transform: translateX(-50%); opacity: 0.0; }
+  50% { opacity: 0.85; }
+  to { transform: translateX(50%); opacity: 0; }
+}
+
+.shimmer-hover:hover::after {
+  animation: bdf-shimmer 1s cubic-bezier(0.22, 1, 0.36, 1) 1;
+  opacity: 1;
+}
+
+/* Reduce intensity on small screens for better mobile feel */
+@media (max-width: 768px) {
+  .shimmer-hover::after {
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(193,122,90,0.025) 35%, rgba(244,162,97,0.05) 50%, rgba(193,122,90,0.025) 65%, rgba(255,255,255,0) 100%);
+  }
+  .shimmer-hover:hover::after {
+    animation: bdf-shimmer 0.85s cubic-bezier(0.22, 1, 0.36, 1) 1;
+    opacity: 0.9;
+  }
+}
+
+/* Disable shimmer on devices that don't support hover (touch) for performance */
+@media (hover: none) {
+  .shimmer-hover::after { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shimmer-hover::after, .shimmer-hover { transition: none; animation: none !important; }
+}
+
 .demo-card .browser-chrome {
   background: #0c1013;
 }

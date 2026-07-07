@@ -18,6 +18,17 @@ export const supabase: SupabaseClient | null =
       })
     : null;
 
+// Server-side Supabase client that uses the service role key when available.
+// Use this in server API routes that require elevated privileges (analytics, admin uploads, etc.).
+const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SERVICE_ROLE || '';
+
+export const supabaseServer: SupabaseClient | null =
+  supabaseUrl && supabaseServiceRoleKey
+    ? createClient(supabaseUrl, supabaseServiceRoleKey, {
+        auth: { persistSession: false },
+      })
+    : null;
+
 export type SupabaseError = {
   code: string;
   message: string;
@@ -178,7 +189,30 @@ export async function getAllDemosFromSupabase(): Promise<Demo[] | null> {
 }
 
 export async function uploadImageToDemosBucket(file: File): Promise<SupabaseResult<string>> {
-  if (!supabase) return notConfigured();
+  const shouldUseServerUpload = process.env.NODE_ENV === 'production' || !!process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!supabase || shouldUseServerUpload) {
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      const response = await fetch('/api/supabase/upload', {
+        method: 'POST',
+        body: formData,
+      });
+      const json = (await response.json()) as { ok?: boolean; url?: string; error?: string; code?: string };
+
+      if (!response.ok || !json.ok || !json.url) {
+        return failure({
+          code: json.code || 'storage_upload',
+          message: json.error || 'Image upload failed through the server endpoint',
+        });
+      }
+
+      return success(json.url);
+    } catch (err) {
+      return failure(toSupabaseError(err, 'storage_exception'));
+    }
+  }
 
   try {
     const safe = file.name.replace(/[^a-zA-Z0-9._-]/g, '_').slice(0, 80);

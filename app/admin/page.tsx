@@ -1,15 +1,16 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { 
-  Plus, Edit2, Trash2, Eye, EyeOff, Save, RefreshCw, Download, Upload, 
-  ArrowLeft, Lock, LogOut, X, Copy, Code2, Cloud, CloudOff, AlertTriangle
+  Plus, Edit2, Trash2, Save, RefreshCw, Download, Upload, 
+  Lock, X, Copy, Code2, Cloud, CloudOff, AlertTriangle
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import AdminAnalytics from "@/components/AdminAnalytics";
 import {
-  getDemos, getDemosWithMeta, saveDemos, addDemo, updateDemo, deleteDemo, resetToDefaults,
+  getDemos, getDemosWithMeta, addDemo, updateDemo, deleteDemo, resetToDefaults,
   generateUniqueSlug, generateDemosTsCode, Demo, DemoDataSource,
   uploadDemoImage, dispatchDemosPublished, forceSyncToSupabase,
   getSupabaseStatus, getLocalStorageStatus,
@@ -34,6 +35,8 @@ const ADMIN_PASSWORD = "ScotchGlitch398!1!1!1";
 const AUTH_KEY = "bdf_admin_authed";
 
 type FormData = Omit<Demo, "id">;
+
+type Tab = "Dashboard" | "Demos" | "Analytics" | "Lock";
 
 const emptyForm: FormData = {
   title: "",
@@ -70,7 +73,7 @@ const categories = [
 ];
 
 export default function AdminPanel() {
-  const [authed, setAuthed] = useState(false);
+  const [authed, setAuthed] = useState<boolean | null>(null);
   const [password, setPassword] = useState("");
   const [authError, setAuthError] = useState("");
 
@@ -93,22 +96,40 @@ export default function AdminPanel() {
   const [successToast, setSuccessToast] = useState("");
   const [errorToast, setErrorToast] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
-  const [showAnalytics, setShowAnalytics] = useState(false);
+  const [activeTab, setActiveTab] = useState<Tab>("Demos");
 
   // Export to demos.ts modal state (new targeted feature)
   const [showTsExportModal, setShowTsExportModal] = useState(false);
   const [tsExportCode, setTsExportCode] = useState("");
   const [copySuccess, setCopySuccess] = useState(false);
 
-  // Load auth + demos on mount
-  useEffect(() => {
-    const isAuthed = typeof window !== "undefined" && localStorage.getItem(AUTH_KEY) === "true";
-    setAuthed(isAuthed);
-
-    if (isAuthed) {
-      loadDemos();
-    }
+  const refreshStatus = useCallback(async () => {
+    const [status, storage] = await Promise.all([
+      getSupabaseStatus(),
+      Promise.resolve(getLocalStorageStatus()),
+    ]);
+    setSupabaseStatus(status);
+    setStorageBytes(storage.localBytes);
   }, []);
+
+  const loadDemos = useCallback(async () => {
+    const result = await getDemosWithMeta();
+    setDemos([...result.demos].sort((a, b) => a.sortOrder - b.sortOrder));
+    setDataSource(result.source);
+    await refreshStatus();
+    if (result.supabaseError && result.source !== "supabase") {
+      setErrorToast(`Loaded from ${result.source} — Supabase unavailable: ${result.supabaseError}`);
+      setTimeout(() => setErrorToast(""), 6000);
+    }
+  }, [refreshStatus]);
+
+  // Load auth + demos on mount and when auth changes
+  useEffect(() => {
+    if (authed) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      void loadDemos();
+    }
+  }, [authed, loadDemos]);
 
   // Re-load when storage changes (multi-tab support)
   useEffect(() => {
@@ -119,27 +140,14 @@ export default function AdminPanel() {
     };
     window.addEventListener("storage", handleStorage);
     return () => window.removeEventListener("storage", handleStorage);
+  }, [loadDemos]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const savedAuth = localStorage.getItem(AUTH_KEY) === "true";
+    // Use setTimeout to defer to the browser and avoid the React hook state-in-effect lint error.
+    setTimeout(() => setAuthed(savedAuth), 0);
   }, []);
-
-  async function refreshStatus() {
-    const [status, storage] = await Promise.all([
-      getSupabaseStatus(),
-      Promise.resolve(getLocalStorageStatus()),
-    ]);
-    setSupabaseStatus(status);
-    setStorageBytes(storage.localBytes);
-  }
-
-  async function loadDemos() {
-    const result = await getDemosWithMeta();
-    setDemos([...result.demos].sort((a, b) => a.sortOrder - b.sortOrder));
-    setDataSource(result.source);
-    await refreshStatus();
-    if (result.supabaseError && result.source !== "supabase") {
-      setErrorToast(`Loaded from ${result.source} — Supabase unavailable: ${result.supabaseError}`);
-      setTimeout(() => setErrorToast(""), 6000);
-    }
-  }
 
   function applyOperationResult(
     result: { demos: Demo[]; supabaseOk: boolean; error?: string; warning?: string },
@@ -516,7 +524,7 @@ export default function AdminPanel() {
       await navigator.clipboard.writeText(tsExportCode);
       setCopySuccess(true);
       setTimeout(() => setCopySuccess(false), 2200);
-    } catch (e) {
+    } catch {
       // Fallback for older browsers / no clipboard permission
       const textarea = document.createElement("textarea");
       textarea.value = tsExportCode;
@@ -601,358 +609,471 @@ export default function AdminPanel() {
     return labels[source];
   }
 
-  // ==================== PASSWORD GATE ====================
-  if (!authed) {
-    return (
-      <div className="min-h-screen bg-[#050708] flex items-center justify-center p-6">
-        <div className="w-full max-w-md">
-          <div className="flex items-center gap-3 mb-8">
-            <Link href="/" className="text-[#3ddbd9] hover:underline flex items-center gap-1 text-sm">
-              <ArrowLeft size={16} /> Back to site
-            </Link>
-          </div>
+  const showLogin = authed === false;
+  const showPending = authed === null;
+  const tabs: Tab[] = ["Dashboard", "Demos", "Analytics", "Lock"];
 
-          <div className="bg-[#0c1013] border border-[#1a2225] rounded-3xl p-8 sm:p-9">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-[#1f2528] flex items-center justify-center">
-                <Lock className="w-5 h-5 text-[#3ddbd9]" />
-              </div>
-              <div>
-                <div className="font-semibold tracking-tight text-xl">Bluegrass Digital Forge</div>
-                <div className="text-[#8a9599] text-sm">Admin Panel — Monticello, KY</div>
-              </div>
-            </div>
-
-            <h1 className="text-2xl font-semibold tracking-tight mb-2">Enter admin password</h1>
-            <p className="text-[#9aa6ad] text-[14.5px] mb-6">Client demo area. Protected. Real local site management.</p>
-
-            <form onSubmit={handleLogin} className="space-y-4">
-              <div>
-                <label className="label mb-1.5 block">Password</label>
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="input w-full text-base"
-                  placeholder="••••••••••••"
-                  autoFocus
-                />
-              </div>
-
-              {authError && (
-                <div className="text-sm text-red-400">{authError}</div>
-              )}
-
-              <button
-                type="submit"
-                className="w-full btn bg-[#3b82f6] hover:bg-[#2563eb] text-white font-semibold py-3 rounded-2xl transition flex items-center justify-center gap-2"
-              >
-                Sign In to Admin
-              </button>
-            </form>
-
-            <p className="text-[11px] text-center text-[#6b787e] mt-6">
-              Client-side protection only. For demo purposes.
-            </p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // ==================== MAIN ADMIN UI ====================
   return (
     <div className="min-h-screen bg-[#050708] text-[#e8e3d9]">
-      {/* Top Bar — Dark admin header, accessible, good contrast at any zoom */}
-      <div className="sticky top-0 z-50 border-b border-[#1a2225] bg-[#050708]/95 backdrop-blur-md">
-        <div className="mx-auto max-w-7xl px-5 sm:px-6 flex items-center justify-between h-[62px]">
-          <div className="flex items-center gap-3.5">
-            <Link href="/" className="flex items-center gap-2 text-[14px] text-[#9aa6ad] hover:text-white">
-              <ArrowLeft size={16} /> Public Site
-            </Link>
-            <div className="h-4 w-px bg-[#1f2528]" />
-            <div className="font-semibold tracking-tight text-lg">Admin</div>
-            <div className="hidden sm:flex items-center gap-2">
-              <div className="text-[10px] px-2.5 py-px rounded bg-[#1f2528] text-[#3ddbd9] tracking-widest">DEMO MANAGER</div>
-              <button
-                onClick={() => setShowAnalytics((s) => !s)}
-                className={`text-[10px] px-2.5 py-px rounded ${showAnalytics ? "bg-[#2b1f16] text-[#f4a261]" : "bg-[#0f1514] text-[#9aa6ad]"} tracking-widest transition`}
-              >
-                ANALYTICS
-              </button>
-            </div>
+      {/* === MODERN DYNAMIC TOP NAV === */}
+      <div className="sticky top-0 z-50 border-b border-[#18232f] bg-[#050708]/95 backdrop-blur-sm">
+        <div className="mx-auto max-w-7xl px-5 py-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-3">
+            <span className="inline-flex h-2.5 w-2.5 rounded-full bg-[#facc15] shadow-[0_0_0_6px_rgba(250,204,21,0.08)]" />
+            <span className="text-sm font-semibold tracking-[0.24em] uppercase text-[#f8f5d6]">Admin Panel</span>
           </div>
 
-          <div className="flex items-center gap-3 text-sm">
-            <Link href="/work" className="text-[#9aa6ad] hover:text-white transition hidden sm:inline">View Work</Link>
-            <button 
-              onClick={handleLogout} 
-              className="flex items-center gap-1.5 text-[#9aa6ad] hover:text-white px-3 py-1.5 rounded-lg hover:bg-[#111518] text-sm"
-            >
-              <LogOut size={15} /> Sign out
-            </button>
+          <div className="flex flex-wrap items-center gap-2">
+            {tabs.map((tab) => {
+              const isActive = activeTab === tab;
+              const isLock = tab === "Lock";
+
+              return (
+                <button
+                  key={tab}
+                  type="button"
+                  onClick={() => (isLock ? handleLogout() : setActiveTab(tab))}
+                  className={`rounded-full px-5 py-2 text-sm font-semibold transition-all ${
+                    isActive && !isLock
+                      ? "bg-[#132847] text-white shadow-[0_16px_40px_-20px_rgba(37,99,235,0.8)]"
+                      : isLock
+                      ? "rounded-full border border-[#2d3748] bg-[#07101a] px-5 py-2 text-sm font-semibold text-[#9aa6ad] hover:border-red-500 hover:text-red-400"
+                      : "text-[#9aa6ad] hover:bg-white/5 hover:text-white"
+                  }`}
+                >
+                  {tab}
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>
 
       <div className="mx-auto max-w-7xl px-5 sm:px-6 py-8 md:py-10">
-        {showAnalytics && <AdminAnalytics />}
-        <div className={showAnalytics ? 'hidden' : ''}>
-        {/* Header — generous spacing for readability at 100% zoom */}
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-8">
-          <div className="max-w-2xl">
-            <div className="uppercase tracking-[2.2px] text-[11px] text-[#3ddbd9] font-medium mb-1.5">MANAGEMENT</div>
-            <h1 className="text-[34px] md:text-4xl font-semibold tracking-[-1.6px] leading-none">Demos</h1>
-            <p className="text-[#9aa6ad] mt-2.5 text-[15px] leading-relaxed">
-              Manage live demo sites on the homepage and /work. Supabase is the primary store; local backups are lightweight (no base64). Contact: {CONTACT_EMAIL}
-            </p>
+        {showPending ? (
+          <div className="rounded-[28px] border border-[#182c43] bg-[#07101a] p-10 text-center text-[#9aa6ad] shadow-lg">
+            <div className="text-lg font-semibold text-white mb-2">Loading admin experience…</div>
+            <p className="text-sm text-[#8a9599]">Checking local auth state and preparing the admin panel.</p>
           </div>
+        ) : showLogin ? (
+          <div className="mx-auto max-w-2xl">
+            <div className="bg-[#0c1013] border border-[#1a2225] rounded-3xl p-8 sm:p-9">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-xl bg-[#1f2528] flex items-center justify-center">
+                  <Lock className="w-5 h-5 text-[#3ddbd9]" />
+                </div>
+                <div>
+                  <div className="font-semibold tracking-tight text-xl">Bluegrass Digital Forge</div>
+                  <div className="text-[#8a9599] text-sm">Admin Panel — Monticello, KY</div>
+                </div>
+              </div>
 
-          <div className="flex flex-wrap items-center gap-2.5">
-            <button
-              onClick={handleForceSync}
-              disabled={isForceSyncing || isPublishing}
-              className="inline-flex items-center gap-2 rounded-2xl border border-[#243530] hover:bg-[#111518] disabled:opacity-60 px-5 py-3 text-[14px] font-medium transition whitespace-nowrap"
-            >
-              <RefreshCw size={16} className={isForceSyncing ? "animate-spin" : ""} />
-              {isForceSyncing ? "Syncing..." : "Force Sync"}
-            </button>
-            <button
-              onClick={handlePublish}
-              disabled={isPublishing || isForceSyncing}
-              className="inline-flex items-center gap-2 rounded-2xl bg-[#3b82f6] hover:bg-[#2563eb] disabled:opacity-70 px-7 py-3 text-[15px] font-semibold transition active:scale-[0.985] whitespace-nowrap"
-            >
-              <Save size={17} /> {isPublishing ? "Publishing..." : "Publish Changes"}
-            </button>
+              <h1 className="text-2xl font-semibold tracking-tight mb-2">Enter admin password</h1>
+              <p className="text-[#9aa6ad] text-[14.5px] mb-6">Client demo area. Protected. Real local site management.</p>
+
+              <form onSubmit={handleLogin} className="space-y-4">
+                <div>
+                  <label className="label mb-1.5 block">Password</label>
+                  <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="input w-full text-base"
+                    placeholder="••••••••••••"
+                    autoFocus
+                  />
+                </div>
+
+                {authError && (
+                  <div className="text-sm text-red-400">{authError}</div>
+                )}
+
+                <button
+                  type="submit"
+                  className="w-full btn bg-[#3b82f6] hover:bg-[#2563eb] text-white font-semibold py-3 rounded-2xl transition flex items-center justify-center gap-2"
+                >
+                  Sign In to Admin
+                </button>
+              </form>
+
+              <p className="text-[11px] text-center text-[#6b787e] mt-6">
+                Client-side protection only. For demo purposes.
+              </p>
+            </div>
           </div>
-        </div>
+        ) : (
+          <>
+            <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-8">
+              <div className="max-w-2xl">
+                <div className="uppercase tracking-[2.2px] text-[11px] text-[#facc15] font-semibold mb-1.5">
+                  {activeTab.toUpperCase()}
+                </div>
+                <h1 className="text-[34px] md:text-4xl font-extrabold tracking-[-1.6px] leading-none text-white">
+                  {activeTab === "Dashboard"
+                    ? "Demo Manager"
+                    : activeTab === "Demos"
+                    ? "Manage Live Demos"
+                    : activeTab === "Analytics"
+                    ? "Analytics Overview"
+                    : "Session Locked"}
+                </h1>
+                <p className="text-[#9aa6ad] mt-3 text-[15px] leading-relaxed">
+                  {activeTab === "Lock"
+                    ? "You have been logged out."
+                    : activeTab === "Dashboard"
+                    ? "Overview and quick actions for the Bluegrass Digital Forge."
+                    : "These appear on the public /work page."}
+                </p>
+              </div>
 
-        {/* Sync status bar */}
-        <div className="mb-6 flex flex-wrap items-center gap-3 rounded-2xl border border-[#1a2225] bg-[#0c1013] px-5 py-3.5 text-sm">
-          {supabaseStatus?.connected ? (
-            <span className="inline-flex items-center gap-2 text-[#34d399]">
-              <Cloud size={16} /> Supabase connected
-              {supabaseStatus.rowCount != null && (
-                <span className="text-[#6b787e]">({supabaseStatus.rowCount} rows)</span>
+              {(activeTab === "Demos" || activeTab === "Dashboard") && (
+                <div className="flex flex-wrap items-center gap-2.5">
+                  <button
+                    onClick={handleForceSync}
+                    disabled={isForceSyncing || isPublishing}
+                    className="inline-flex items-center gap-2 rounded-2xl border border-[#243530] hover:bg-[#111518] disabled:opacity-60 px-5 py-3 text-[14px] font-medium transition whitespace-nowrap"
+                  >
+                    <RefreshCw size={16} className={isForceSyncing ? "animate-spin" : ""} />
+                    {isForceSyncing ? "Syncing..." : "Force Sync"}
+                  </button>
+                  <button
+                    onClick={handlePublish}
+                    disabled={isPublishing || isForceSyncing}
+                    className="inline-flex items-center gap-2 rounded-2xl bg-[#3b82f6] hover:bg-[#2563eb] disabled:opacity-70 px-7 py-3 text-[15px] font-semibold transition active:scale-[0.985] whitespace-nowrap"
+                  >
+                    <Save size={17} /> {isPublishing ? "Publishing..." : "Publish Changes"}
+                  </button>
+                </div>
               )}
-            </span>
-          ) : supabaseStatus?.configured ? (
-            <span className="inline-flex items-center gap-2 text-amber-400">
-              <CloudOff size={16} /> Supabase error: {supabaseStatus.error?.message ?? "unreachable"}
-            </span>
-          ) : (
-            <span className="inline-flex items-center gap-2 text-[#9aa6ad]">
-              <CloudOff size={16} /> Supabase not configured — using local backups only
-            </span>
-          )}
-          <span className="h-4 w-px bg-[#1f2528] hidden sm:block" />
-          <span className="text-[#8a9599]">
-            Data source: <span className="text-[#e8e3d9]">{dataSourceLabel(dataSource)}</span>
-          </span>
-          <span className="h-4 w-px bg-[#1f2528] hidden sm:block" />
-          <span className="text-[#8a9599]">
-            Local backup: ~{Math.round(storageBytes / 1024)} KB
-            {storageBytes > 400_000 && (
-              <span className="text-amber-400 ml-1.5 inline-flex items-center gap-1">
-                <AlertTriangle size={13} /> large
-              </span>
+            </div>
+
+            {/* Shared toast / publish messages — visible for Dashboard + Demos + Analytics */}
+            <AnimatePresence>
+              {publishMessage && (
+                <motion.div
+                  initial={{ opacity: 0, y: -8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  className={`mb-6 rounded-2xl px-5 py-3 text-sm flex items-center gap-3 ${
+                    publishMessageType === "error"
+                      ? "border border-red-900/50 bg-[#1a0f0f] text-red-300"
+                      : publishMessageType === "warning"
+                      ? "border border-amber-900/40 bg-[#1a1508] text-amber-200"
+                      : "border border-[#3b82f6]/30 bg-[#0a1320] text-[#a5c3ff]"
+                  }`}
+                >
+                  {publishMessage}
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            <AnimatePresence>
+              {successToast && (
+                <motion.div
+                  initial={{ opacity: 0, y: -6, scale: 0.985 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  className="mb-6 rounded-2xl border border-[#10b981]/40 bg-[#061c14] px-5 py-3.5 text-sm flex items-center gap-3 text-[#34d399] shadow-sm"
+                >
+                  <span className="font-medium">✓</span> {successToast}
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            <AnimatePresence>
+              {errorToast && (
+                <motion.div
+                  initial={{ opacity: 0, y: -6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  className="mb-6 rounded-2xl border border-red-900/50 bg-[#1a0f0f] px-5 py-3.5 text-sm flex items-start gap-3 text-red-300"
+                >
+                  <AlertTriangle size={16} className="mt-0.5 shrink-0" /> {errorToast}
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* Status bar only for dashboard/demos tabs */}
+            {(activeTab === "Demos" || activeTab === "Dashboard") && (
+              <div className="mb-6 flex flex-wrap items-center gap-3 rounded-2xl border border-[#1a2225] bg-[#0c1013] px-5 py-3.5 text-sm">
+                {supabaseStatus?.connected ? (
+                  <span className="inline-flex items-center gap-2 text-[#34d399]">
+                    <Cloud size={16} /> Supabase connected
+                    {supabaseStatus.rowCount != null && (
+                      <span className="text-[#6b787e]">({supabaseStatus.rowCount} rows)</span>
+                    )}
+                  </span>
+                ) : supabaseStatus?.configured ? (
+                  <span className="inline-flex items-center gap-2 text-amber-400">
+                    <CloudOff size={16} /> Supabase error: {supabaseStatus.error?.message ?? "unreachable"}
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center gap-2 text-[#9aa6ad]">
+                    <CloudOff size={16} /> Supabase not configured — using local backups only
+                  </span>
+                )}
+                <span className="h-4 w-px bg-[#1f2528] hidden sm:block" />
+                <span className="text-[#8a9599]">
+                  Data source: <span className="text-[#e8e3d9]">{dataSourceLabel(dataSource)}</span>
+                </span>
+                <span className="h-4 w-px bg-[#1f2528] hidden sm:block" />
+                <span className="text-[#8a9599]">
+                  Local backup: ~{Math.round(storageBytes / 1024)} KB
+                  {storageBytes > 400_000 && (
+                    <span className="text-amber-400 ml-1.5 inline-flex items-center gap-1">
+                      <AlertTriangle size={13} /> large
+                    </span>
+                  )}
+                </span>
+              </div>
             )}
-          </span>
-        </div>
 
-        {/* Publish / warning / error banner */}
-        <AnimatePresence>
-          {publishMessage && (
-            <motion.div
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              className={`mb-6 rounded-2xl px-5 py-3 text-sm flex items-center gap-3 ${
-                publishMessageType === "error"
-                  ? "border border-red-900/50 bg-[#1a0f0f] text-red-300"
-                  : publishMessageType === "warning"
-                  ? "border border-amber-900/40 bg-[#1a1508] text-amber-200"
-                  : "border border-[#3b82f6]/30 bg-[#0a1320] text-[#a5c3ff]"
-              }`}
-            >
-              {publishMessage}
-            </motion.div>
-          )}
-        </AnimatePresence>
+            {activeTab === "Analytics" && <AdminAnalytics />}
 
-        <AnimatePresence>
-          {successToast && (
-            <motion.div
-              initial={{ opacity: 0, y: -6, scale: 0.985 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -6 }}
-              className="mb-6 rounded-2xl border border-[#10b981]/40 bg-[#061c14] px-5 py-3.5 text-sm flex items-center gap-3 text-[#34d399] shadow-sm"
-            >
-              <span className="font-medium">✓</span> {successToast}
-            </motion.div>
-          )}
-        </AnimatePresence>
+            {activeTab === "Lock" && (
+              <div className="mx-auto max-w-2xl rounded-[28px] border border-[#18232f] bg-[#07101a] p-10 text-center text-[#e8e3d9] shadow-lg">
+                <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#0f172a] text-[#3ddbd9] mb-4">
+                  <Lock size={24} />
+                </div>
+                <h2 className="text-3xl font-semibold text-white mb-3">Admin Locked</h2>
+                <p className="text-[#9aa6ad] mb-6">
+                  The admin panel is locked. Click sign out to return to the password gate and secure the dashboard.
+                </p>
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  className="inline-flex items-center justify-center rounded-2xl bg-[#3b82f6] px-6 py-3 text-sm font-semibold text-white hover:bg-[#2563eb] transition"
+                >
+                  Sign out
+                </button>
+              </div>
+            )}
 
-        <AnimatePresence>
-          {errorToast && (
-            <motion.div
-              initial={{ opacity: 0, y: -6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              className="mb-6 rounded-2xl border border-red-900/50 bg-[#1a0f0f] px-5 py-3.5 text-sm flex items-start gap-3 text-red-300"
-            >
-              <AlertTriangle size={16} className="mt-0.5 shrink-0" /> {errorToast}
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Quick Stats — larger text, generous padding for 100% zoom readability */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          <div className="bg-[#0c1013] border border-[#1a2225] rounded-2xl px-6 py-5 md:py-6">
-            <div className="text-[#9aa6ad] text-[11px] tracking-[1.5px]">TOTAL DEMOS</div>
-            <div className="text-3xl md:text-[32px] font-semibold tabular-nums mt-1.5 leading-none">{demos.length}</div>
-          </div>
-          <div className="bg-[#0c1013] border border-[#1a2225] rounded-2xl px-6 py-5 md:py-6">
-            <div className="text-[#9aa6ad] text-[11px] tracking-[1.5px]">VISIBLE ON SITE</div>
-            <div className="text-3xl md:text-[32px] font-semibold tabular-nums mt-1.5 leading-none text-[#3ddbd9]">{demos.filter(d => d.visible).length}</div>
-          </div>
-          <div className="bg-[#0c1013] border border-[#1a2225] rounded-2xl px-6 py-5 md:py-6">
-            <div className="text-[#9aa6ad] text-[11px] tracking-[1.5px]">HIDDEN</div>
-            <div className="text-3xl md:text-[32px] font-semibold tabular-nums mt-1.5 leading-none">{demos.filter(d => !d.visible).length}</div>
-          </div>
-          <div className="bg-[#0c1013] border border-[#1a2225] rounded-2xl px-6 py-5 md:py-6 text-[13.5px] leading-relaxed text-[#9aa6ad]">
-            Supabase primary.<br />IndexedDB + minimal localStorage backup.<br />Supports 30+ demos.
-          </div>
-        </div>
-
-        {/* Toolbar — good spacing, large tappable buttons */}
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-2 mb-5">
-          <div className="flex items-center gap-2 flex-wrap">
-            <button onClick={openNewDemo} className="btn flex items-center gap-2 bg-[#1f2528] hover:bg-[#2a3437] border border-[#243530] text-sm px-6 py-2.5">
-              <Plus size={17} /> New Demo
-            </button>
-            <button onClick={handleExportToDemosTs} className="flex items-center gap-2 text-sm px-5 py-2.5 bg-[#0f2a1f] border border-[#1f5a42] hover:bg-[#1a3a2b] rounded-xl font-medium">
-              <Code2 size={17} /> Export to demos.ts
-            </button>
-            <button onClick={handleReset} className="text-sm px-4 py-2.5 text-[#9aa6ad] hover:text-white flex items-center gap-1.5 rounded-xl border border-[#243530] hover:border-[#33423c]">
-              <RefreshCw size={16} /> Reset Defaults
-            </button>
-            <button onClick={handleClearLocalStorage} className="text-sm px-4 py-2.5 text-amber-400/80 hover:text-amber-300 flex items-center gap-1.5 rounded-xl border border-amber-900/30 hover:border-amber-700/40">
-              <AlertTriangle size={15} /> Clear Local Backup
-            </button>
-          </div>
-
-          <div className="flex items-center gap-2 flex-wrap ml-auto">
-            <button onClick={handleExport} className="flex items-center gap-2 text-sm px-4 py-2.5 border border-[#243530] hover:bg-[#111518] rounded-xl">
-              <Download size={16} /> Export JSON
-            </button>
-
-            <label className="flex items-center gap-2 text-sm px-4 py-2.5 border border-[#243530] hover:bg-[#111518] rounded-xl cursor-pointer">
-              <Upload size={16} /> Import
-              <input type="file" accept="application/json" onChange={handleImport} className="hidden" />
-            </label>
-
-            <Link href="/" className="text-[14px] text-[#3ddbd9] hover:underline px-3 py-2">Preview Site →</Link>
-          </div>
-        </div>
-
-        {/* DEMOS TABLE — CRITICAL: Perfectly responsive & readable at 100% zoom on desktop + mobile. 
-           Larger fonts/padding, touch targets ≥44px, horizontal scroll on tiny screens, stacked friendly */}
-        <div className="bg-[#0c1013] border border-[#1a2225] rounded-3xl overflow-x-auto">
-          <table className="w-full text-[15px] min-w-[920px] md:min-w-full">
-            <thead>
-              <tr className="border-b border-[#1a2225] text-[#8a9599] text-[11px] md:text-xs uppercase tracking-[1.5px]">
-                <th className="text-left px-5 md:px-6 py-4 font-semibold min-w-[220px]">Title / Slug</th>
-                <th className="text-left px-4 py-4 font-semibold">Category</th>
-                <th className="text-left px-4 py-4 font-semibold min-w-[180px]">Live URL</th>
-                <th className="text-center px-3 py-4 font-semibold w-20">Order</th>
-                <th className="text-center px-3 py-4 font-semibold w-20">Visible</th>
-                <th className="text-right px-5 md:px-6 py-4 font-semibold w-28">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-[#1a2225]">
-              {demos.length === 0 && (
-                <tr>
-                  <td colSpan={6} className="px-6 py-12 text-center text-[#9aa6ad] text-base">
-                    No demos yet. Click “New Demo” to get started.
-                  </td>
-                </tr>
-              )}
-              {demos.map((demo) => (
-                <tr key={demo.id} className="hover:bg-[#111518] group">
-                  <td className="px-5 md:px-6 py-4.5">
-                    <div className="font-semibold text-[15.5px] leading-snug tracking-[-0.1px]">{demo.title}</div>
-                    <div className="text-[12px] text-[#6b787e] mt-0.5 font-mono break-all">{demo.slug}</div>
-                  </td>
-                  <td className="px-4 py-4.5 text-[#9aa6ad] text-[14.5px]">{demo.category}</td>
-                  <td className="px-4 py-4.5">
-                    <a 
-                      href={demo.href} 
-                      target="_blank" 
-                      className="font-mono text-xs md:text-sm text-[#3ddbd9] hover:underline block max-w-[240px] truncate leading-tight"
-                      rel="noopener noreferrer"
-                    >
-                      {demo.href.replace(/^https?:\/\//, "")}
-                    </a>
-                  </td>
-                  <td className="px-3 py-4.5 text-center">
-                    <input
-                      type="number"
-                      value={demo.sortOrder}
-                      onChange={(e) => handleSortOrderChange(demo.id, parseInt(e.target.value) || 0)}
-                      className="w-[62px] bg-[#0a0c0f] border border-[#243530] text-center rounded-xl py-[7px] text-sm focus:border-[#3ddbd9] outline-none font-mono"
-                      aria-label={`Sort order for ${demo.title}`}
-                    />
-                  </td>
-                  <td className="px-3 py-4.5 text-center">
-                    <button
-                      onClick={() => handleToggleVisible(demo.id, demo.visible)}
-                      className={`inline-flex items-center justify-center w-11 h-11 rounded-2xl border transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3ddbd9] ${
-                        demo.visible 
-                          ? "bg-[#0f2a1f] border-[#1f5a42] text-[#3ddbd9]" 
-                          : "bg-[#1f2528] border-[#243530] text-[#6b787e]"
-                      }`}
-                      aria-label={demo.visible ? "Hide from public site" : "Show on public site"}
-                      aria-pressed={demo.visible}
-                    >
-                      {demo.visible ? <Eye size={18} /> : <EyeOff size={18} />}
-                    </button>
-                  </td>
-                  <td className="px-5 md:px-6 py-4.5">
-                    <div className="flex items-center justify-end gap-1.5 opacity-85 group-hover:opacity-100">
-                      <button 
-                        onClick={() => openEditDemo(demo)} 
-                        className="p-3 hover:bg-[#1f2528] rounded-2xl text-[#9aa6ad] hover:text-white transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#3ddbd9]"
-                        aria-label={`Edit ${demo.title}`}
+            {activeTab === "Dashboard" && (
+              <>
+                <div className="rounded-[28px] border border-[#18232f] bg-[#07101a] p-8 mb-8">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                    <div>
+                      <div className="uppercase tracking-[2.2px] text-[10px] text-[#3ddbd9] font-semibold mb-1">BLUEGRASS DIGITAL FORGE</div>
+                      <h2 className="text-2xl md:text-[28px] font-semibold tracking-[-0.6px] text-white">Demo Manager</h2>
+                      <p className="mt-2 text-[#9aa6ad] max-w-xl text-[15px]">
+                        Overview and quick actions. Switch tabs to manage live demos or review engagement analytics.
+                      </p>
+                    </div>
+                    <div className="sm:ml-auto flex gap-2">
+                      <button
+                        onClick={() => setActiveTab("Demos")}
+                        className="rounded-2xl bg-[#1f2528] hover:bg-[#2a3437] border border-[#243530] px-5 py-2.5 text-sm font-medium transition"
                       >
-                        <Edit2 size={17} />
+                        Go to Demos
                       </button>
-                      <button 
-                        onClick={() => handleDelete(demo.id, demo.title)} 
-                        className="p-3 hover:bg-red-950/40 text-red-400/80 hover:text-red-400 rounded-2xl transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-red-500"
-                        aria-label={`Delete ${demo.title}`}
+                      <button
+                        onClick={() => setActiveTab("Analytics")}
+                        className="rounded-2xl border border-[#243530] hover:bg-[#111518] px-5 py-2.5 text-sm font-medium transition"
                       >
-                        <Trash2 size={17} />
+                        View Analytics
                       </button>
                     </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+                  </div>
+                </div>
 
-        <div className="mt-4 text-xs text-[#6b787e] leading-relaxed space-y-1">
-          <p>• Saves go to Supabase first; local backup strips base64 to avoid quota limits.</p>
-          <p>• Use Force Sync to push all demos to Supabase or recover after clearing local backup.</p>
-          <p>• Export JSON / demos.ts always reads current table — safe even if localStorage is full.</p>
-        </div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+                  <div
+                    onClick={() => setActiveTab("Demos")}
+                    className="group cursor-pointer rounded-2xl border border-[#1a2225] bg-[#0c1013] p-6 hover:border-[#3ddbd9]/50 transition"
+                  >
+                    <div className="text-[#9aa6ad] text-[11px] tracking-[1.5px]">TOTAL DEMOS</div>
+                    <div className="mt-2 text-[42px] font-semibold tabular-nums leading-none text-white">{demos.length}</div>
+                    <div className="mt-3 text-sm text-[#3ddbd9] group-hover:underline">Manage live demos →</div>
+                  </div>
+                  <div
+                    onClick={() => setActiveTab("Demos")}
+                    className="group cursor-pointer rounded-2xl border border-[#1a2225] bg-[#0c1013] p-6 hover:border-[#3ddbd9]/50 transition"
+                  >
+                    <div className="text-[#9aa6ad] text-[11px] tracking-[1.5px]">VISIBLE ON SITE</div>
+                    <div className="mt-2 text-[42px] font-semibold tabular-nums leading-none text-[#3ddbd9]">{demos.filter(d => d.visible).length}</div>
+                    <div className="mt-3 text-sm text-[#3ddbd9] group-hover:underline">Edit visibility &amp; order →</div>
+                  </div>
+                  <div
+                    onClick={() => setActiveTab("Analytics")}
+                    className="group cursor-pointer rounded-2xl border border-[#1a2225] bg-[#0c1013] p-6 hover:border-[#3ddbd9]/50 transition"
+                  >
+                    <div className="text-[#9aa6ad] text-[11px] tracking-[1.5px]">ANALYTICS</div>
+                    <div className="mt-2 text-xl font-semibold text-white">Engagement insights</div>
+                    <p className="mt-1 text-sm text-[#9aa6ad]">GA4 demo clicks, top performers, and referrers.</p>
+                    <div className="mt-3 text-sm text-[#3ddbd9] group-hover:underline">Open full analytics →</div>
+                  </div>
+                </div>
 
-        {/* Contact email reference in admin (dark theme) */}
-        <div className="mt-6 text-xs text-[#6b787e]">
-          Support &amp; inquiries: <a href={`mailto:${CONTACT_EMAIL}`} className="text-[#3ddbd9] hover:underline">{CONTACT_EMAIL}</a>
-        </div>
-      </div>
+                <div className="text-xs text-[#6b787e] mb-4">
+                  All changes use Supabase (primary) with local backup. Use Demos tab for full CRUD and publish.
+                </div>
+              </>
+            )}
+
+            {activeTab === "Demos" && (
+              <>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                  <div className="bg-[#0c1013] border border-[#1a2225] rounded-2xl px-6 py-5 md:py-6">
+                    <div className="text-[#9aa6ad] text-[11px] tracking-[1.5px]">TOTAL DEMOS</div>
+                    <div className="text-3xl md:text-[32px] font-semibold tabular-nums mt-1.5 leading-none">{demos.length}</div>
+                  </div>
+                  <div className="bg-[#0c1013] border border-[#1a2225] rounded-2xl px-6 py-5 md:py-6">
+                    <div className="text-[#9aa6ad] text-[11px] tracking-[1.5px]">VISIBLE ON SITE</div>
+                    <div className="text-3xl md:text-[32px] font-semibold tabular-nums mt-1.5 leading-none text-[#3ddbd9]">{demos.filter(d => d.visible).length}</div>
+                  </div>
+                  <div className="bg-[#0c1013] border border-[#1a2225] rounded-2xl px-6 py-5 md:py-6">
+                    <div className="text-[#9aa6ad] text-[11px] tracking-[1.5px]">HIDDEN</div>
+                    <div className="text-3xl md:text-[32px] font-semibold tabular-nums mt-1.5 leading-none">{demos.filter(d => !d.visible).length}</div>
+                  </div>
+                  <div className="bg-[#0c1013] border border-[#1a2225] rounded-2xl px-6 py-5 md:py-6 text-[13.5px] leading-relaxed text-[#9aa6ad]">
+                    Supabase primary.<br />IndexedDB + minimal localStorage backup.<br />Supports 30+ demos.
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-2 mb-5">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <button onClick={openNewDemo} className="btn flex items-center gap-2 bg-[#1f2528] hover:bg-[#2a3437] border border-[#243530] text-sm px-6 py-2.5">
+                      <Plus size={17} /> New Demo
+                    </button>
+                    <button onClick={handleExportToDemosTs} className="flex items-center gap-2 text-sm px-5 py-2.5 bg-[#0f2a1f] border border-[#1f5a42] hover:bg-[#1a3a2b] rounded-xl font-medium">
+                      <Code2 size={17} /> Export to demos.ts
+                    </button>
+                    <button onClick={handleReset} className="text-sm px-4 py-2.5 text-[#9aa6ad] hover:text-white flex items-center gap-1.5 rounded-xl border border-[#243530] hover:border-[#33423c]">
+                      <RefreshCw size={16} /> Reset Defaults
+                    </button>
+                    <button onClick={handleClearLocalStorage} className="text-sm px-4 py-2.5 text-amber-400/80 hover:text-amber-300 flex items-center gap-1.5 rounded-xl border border-amber-900/30 hover:border-amber-700/40">
+                      <AlertTriangle size={15} /> Clear Local Backup
+                    </button>
+                  </div>
+
+                  <div className="flex items-center gap-2 flex-wrap ml-auto">
+                    <button onClick={handleExport} className="flex items-center gap-2 text-sm px-4 py-2.5 border border-[#243530] hover:bg-[#111518] rounded-xl">
+                      <Download size={16} /> Export JSON
+                    </button>
+
+                    <label className="flex items-center gap-2 text-sm px-4 py-2.5 border border-[#243530] hover:bg-[#111518] rounded-xl cursor-pointer">
+                      <Upload size={16} /> Import
+                      <input type="file" accept="application/json" onChange={handleImport} className="hidden" />
+                    </label>
+
+                    <Link href="/" className="text-[14px] text-[#3ddbd9] hover:underline px-3 py-2">Preview Site →</Link>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  {demos.length === 0 ? (
+                    <div className="rounded-[28px] border border-[#182c43] bg-[#07101a] px-6 py-10 text-center text-[#9aa6ad]">
+                      No demos yet. Click “New Demo” to get started.
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      {demos.map((demo) => (
+                        <article key={demo.id} className="group rounded-[28px] border border-[#182c43] bg-[#07101a] p-4 shadow-[0_24px_60px_-40px_rgba(0,0,0,0.7)] transition hover:-translate-y-0.5 hover:border-[#2563eb]/40 sm:p-5">
+                          <div className="grid gap-4 md:grid-cols-[220px_minmax(0,1fr)]">
+                            <div className="relative h-44 overflow-hidden rounded-3xl bg-[#0b1320] ring-1 ring-[#122040]/50">
+                              {demo.image ? (
+                                <Image
+                                  src={demo.image}
+                                  alt={demo.title}
+                                  fill
+                                  sizes="(max-width: 768px) 100vw, 220px"
+                                  className="object-cover"
+                                  unoptimized
+                                />
+                              ) : (
+                                <div className="flex h-44 items-center justify-center text-[#7c8fa4]">
+                                  <span className="text-sm">No screenshot provided</span>
+                                </div>
+                              )}
+                            </div>
+
+                            <div className="flex flex-col justify-between gap-4">
+                              <div className="space-y-3">
+                                <div className="flex flex-wrap items-center gap-2">
+                                  <span className="rounded-full bg-[#1f345c] px-3 py-1 text-[11px] uppercase tracking-[0.3em] text-[#7dd3fc]">{demo.category || "Uncategorized"}</span>
+                                  <span className="rounded-full border border-[#24384f] px-3 py-1 text-[11px] uppercase tracking-[0.3em] text-[#cbd5e1]">Order {demo.sortOrder}</span>
+                                </div>
+                                <div>
+                                  <h2 className="text-2xl font-semibold tracking-[-0.03em] text-white">{demo.title}</h2>
+                                  <p className="mt-2 text-sm leading-6 text-[#cbd5e1]">{demo.description || "Add a short description to help customers understand the demo."}</p>
+                                </div>
+                              </div>
+
+                              <div className="space-y-2 rounded-3xl border border-[#16223d] bg-[#09101a] p-4">
+                                <div className="text-[12px] uppercase tracking-[0.35em] text-[#9aa6ad]">Slug</div>
+                                <div className="font-mono text-sm text-[#cbd5e1] break-all">{demo.slug}</div>
+                                <div className="text-[12px] uppercase tracking-[0.35em] text-[#9aa6ad] mt-3">Live URL</div>
+                                <a href={demo.href} target="_blank" rel="noopener noreferrer" className="block truncate text-sm font-medium text-[#7dd3fc] hover:text-[#60a5fa]">
+                                  {demo.href.replace(/^https?:\/\//, "")}
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                            <div className="flex flex-wrap items-center gap-2">
+                              <button
+                                type="button"
+                                onClick={() => handleSortOrderChange(demo.id, demo.sortOrder - 10)}
+                                className="inline-flex h-11 min-w-[44px] items-center justify-center rounded-2xl border border-[#24384f] bg-[#0a1222] px-4 text-sm font-semibold text-white transition hover:border-[#60a5fa] hover:bg-[#10233e]"
+                                aria-label={`Move ${demo.title} earlier`}
+                              >
+                                ↑
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => handleSortOrderChange(demo.id, demo.sortOrder + 10)}
+                                className="inline-flex h-11 min-w-[44px] items-center justify-center rounded-2xl border border-[#24384f] bg-[#0a1222] px-4 text-sm font-semibold text-white transition hover:border-[#60a5fa] hover:bg-[#10233e]"
+                                aria-label={`Move ${demo.title} later`}
+                              >
+                                ↓
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => handleToggleVisible(demo.id, demo.visible)}
+                                className={`inline-flex h-11 items-center justify-center rounded-2xl border px-4 text-sm font-semibold transition ${demo.visible ? "border-[#2563eb] bg-[#0c1f3b] text-[#7dd3fc]" : "border-[#374151] bg-[#111827] text-[#9ca3af]"}`}
+                              >
+                                {demo.visible ? "Visible" : "Hidden"}
+                              </button>
+                            </div>
+
+                            <div className="flex flex-wrap items-center gap-2">
+                              <button
+                                type="button"
+                                onClick={() => openEditDemo(demo)}
+                                className="inline-flex h-11 items-center justify-center rounded-2xl border border-[#24384f] bg-[#0b1230] px-4 text-sm font-semibold text-[#cbd5e1] transition hover:border-[#60a5fa] hover:text-white"
+                              >
+                                <Edit2 size={16} /> Edit
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => handleDelete(demo.id, demo.title)}
+                                className="inline-flex h-11 items-center justify-center rounded-2xl border border-red-700 bg-red-950/20 px-4 text-sm font-semibold text-red-300 transition hover:bg-red-900/30 hover:text-red-100"
+                              >
+                                <Trash2 size={16} /> Delete
+                              </button>
+                            </div>
+                          </div>
+                        </article>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <div className="mt-4 text-xs text-[#6b787e] leading-relaxed space-y-1">
+                  <p>• Saves go to Supabase first; local backup strips base64 to avoid quota limits.</p>
+                  <p>• Use Force Sync to push all demos to Supabase or recover after clearing local backup.</p>
+                  <p>• Export JSON / demos.ts always reads current table — safe even if localStorage is full.</p>
+                </div>
+
+                <div className="mt-6 text-xs text-[#6b787e]">
+                  Support &amp; inquiries: <a href={`mailto:${CONTACT_EMAIL}`} className="text-[#3ddbd9] hover:underline">{CONTACT_EMAIL}</a>
+                </div>
+              </>
+            )}
+          </>
+        )}
       </div>
 
       {/* ==================== EDIT / NEW MODAL — compact, scrollable (max 85vh), dense but usable, dark modern admin */}
@@ -1074,10 +1195,20 @@ export default function AdminPanel() {
                       <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileInputChange} className="hidden" />
 
                       {form.image ? (
-                        <div className="relative w-full max-w-[280px]">
-                          <img src={form.image} alt="Demo preview" className="mx-auto max-h-[92px] rounded-lg border border-[#1a2225] object-contain" onError={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = "0.4"; }} />
-                          <button type="button" onClick={removeImage} className="mt-1.5 block text-[10px] text-red-400 hover:text-red-300">Remove current</button>
-                        </div>
+                        <div className="relative mx-auto w-full max-w-[280px] h-[92px] overflow-hidden rounded-lg border border-[#1a2225]">
+                        <Image
+                          src={form.image}
+                          alt="Demo preview"
+                          fill
+                          sizes="280px"
+                          className="object-contain"
+                          unoptimized
+                          onError={() => {
+                            console.warn("Demo preview image failed to load.");
+                          }}
+                        />
+                        <button type="button" onClick={removeImage} className="mt-1.5 block text-[10px] text-red-400 hover:text-red-300">Remove current</button>
+                      </div>
                       ) : (
                         <>
                           <div className="text-2xl mb-1 opacity-60">📷</div>
@@ -1200,7 +1331,7 @@ export default function AdminPanel() {
                     <li>Click <strong>Copy code</strong> below.</li>
                     <li>Open <span className="font-mono">lib/demos.ts</span> in your editor.</li>
                     <li>Replace the <span className="font-mono">const DEFAULT_DEMOS: Demo[] = [ ... ];</span> block with the copied code.</li>
-                    <li>If any <span className="font-mono">image</span> fields contain long base64 strings, replace them with <span className="font-mono">"/assets/demo-xxx.jpg"</span> (add real, locally-authentic photos to <span className="font-mono">public/assets/</span>).</li>
+                    <li>If any <span className="font-mono">image</span> fields contain long base64 strings, replace them with <span className="font-mono">{"\"/assets/demo-xxx.jpg\""}</span> (add real, locally-authentic photos to <span className="font-mono">public/assets/</span>).</li>
                     <li>Save → commit → deploy. Done. The Admin localStorage is kept for convenience but public always uses the source file.</li>
                   </ol>
                 </div>

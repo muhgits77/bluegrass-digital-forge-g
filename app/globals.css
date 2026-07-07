@@ -278,6 +278,103 @@ button:focus-visible {
   color: #6b787e;
 }
 
+/* Admin panel refinements */
+.admin-shell {
+  background: #050708;
+  color: #edf2f7;
+}
+
+.admin-card {
+  background: #07101a;
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  border-radius: 28px;
+  box-shadow: 0 28px 68px -42px rgba(0, 0, 0, 0.7);
+}
+
+.admin-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 32px 80px -38px rgba(0, 0, 0, 0.75);
+}
+
+.admin-button-primary,
+.admin-button-cta {
+  background: #2563eb;
+  color: #f8fafc;
+  border: 1px solid rgba(96, 165, 250, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.admin-button-primary:hover,
+.admin-button-cta:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.admin-button-secondary,
+.admin-button-muted {
+  background: rgba(255, 255, 255, 0.03);
+  color: #d1d5db;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.admin-button-danger {
+  background: rgba(220, 38, 38, 0.16);
+  color: #fecaca;
+  border: 1px solid rgba(220, 38, 38, 0.35);
+}
+
+.admin-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+
+.admin-pill-accent {
+  background: rgba(96, 165, 250, 0.12);
+  color: #7dd3fc;
+}
+
+.admin-pill-strong {
+  background: rgba(250, 204, 21, 0.14);
+  color: #facc15;
+}
+
+.admin-input {
+  background: #08101d;
+  border: 1px solid #243145;
+  color: #e2e8f0;
+  border-radius: 16px;
+  padding: 0.9rem 1rem;
+}
+
+.admin-input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.16);
+  background: #091120;
+}
+
+.admin-panel-heading {
+  color: #ffffff;
+}
+
+.admin-subtitle {
+  color: #94a3b8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-card,
+  .admin-button-primary,
+  .admin-button-cta,
+  .btn {
+    transition: none !important;
+  }
+}
+
 .form-section {
   background: #0a0c0f;
   border: 1px solid var(--border);

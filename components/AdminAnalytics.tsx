@@ -2,28 +2,45 @@ import React, { useEffect, useState } from "react";
 
 /**
  * AdminAnalytics
- * Lightweight admin-facing analytics panel.
- * - Attempts to fetch from `/api/analytics/summary`, `/api/analytics/visits`, `/api/analytics/top`
- * - Falls back to safe mock data if no backend is available yet.
- * - Uses simple inline SVG charts (no extra deps) to stay fast-loading.
- * - Secure: rendered only inside the authenticated Admin panel.
- *
- * Integration: import and render inside `app/admin/page.tsx` when admin auth is true.
+ * - Fetches click-focused GA4 metrics from `/api/analytics/ga4-clicks`
+ * - Falls back to safe mock metrics in development or when GA4 is not configured.
+ * - Exposes click counts for demo cards, quote requests, top clicked demos, and referrer sources.
  */
 
-type Summary = {
-  totalViews: number;
-  uniqueVisitors30d: number;
+type TopDemo = { title: string; clicks: number; path?: string };
+type Referrer = { source: string; clicks: number };
+type AnalyticsData = {
+  demoClicks: number;
+  quoteClicks: number;
+  totalClicks: number;
+  topDemos: TopDemo[];
+  topReferrers: Referrer[];
 };
 
-type VisitPoint = { date: string; value: number };
-type TopDemo = { title: string; views: number; href?: string };
+const MOCK_DATA: AnalyticsData = {
+  demoClicks: 378,
+  quoteClicks: 92,
+  totalClicks: 720,
+  topDemos: [
+    { title: "Hickory Forge Steakhouse", clicks: 142, path: "/templates/steakhouse" },
+    { title: "Smoky Wheels", clicks: 118, path: "/templates/food-truck" },
+    { title: "Fiesta Taqueria", clicks: 96, path: "/templates/mexican" },
+    { title: "Bluegrass Fence Co.", clicks: 78, path: "/templates/fencing" },
+    { title: "Anchorline Guide Service", clicks: 64, path: "/templates/outdoor" },
+  ],
+  topReferrers: [
+    { source: "google.com", clicks: 194 },
+    { source: "facebook.com", clicks: 148 },
+    { source: "bing.com", clicks: 78 },
+    { source: "newsletter", clicks: 62 },
+    { source: "direct", clicks: 54 },
+  ],
+};
 
 export default function AdminAnalytics() {
+  const [range, setRange] = useState<"24h" | "7d" | "30d">("30d");
+  const [data, setData] = useState<AnalyticsData>(MOCK_DATA);
   const [loading, setLoading] = useState(true);
-  const [summary, setSummary] = useState<Summary | null>(null);
-  const [visits, setVisits] = useState<VisitPoint[]>([]);
-  const [topDemos, setTopDemos] = useState<TopDemo[]>([]);
 
   useEffect(() => {
     let mounted = true;
@@ -31,37 +48,22 @@ export default function AdminAnalytics() {
     async function load() {
       setLoading(true);
       try {
-        const [sRes, vRes, tRes] = await Promise.all([
-          fetch("/api/analytics/summary").then((r) => (r.ok ? r.json() : null)).catch(() => null),
-          fetch("/api/analytics/visits").then((r) => (r.ok ? r.json() : null)).catch(() => null),
-          fetch("/api/analytics/top-demos").then((r) => (r.ok ? r.json() : null)).catch(() => null),
-        ]);
-
+        const res = await fetch(`/api/analytics/ga4-clicks?range=${range}`);
         if (!mounted) return;
 
-        if (sRes && vRes && tRes) {
-          setSummary(sRes.summary ?? null);
-          setVisits(vRes.visits ?? []);
-          setTopDemos(tRes.top ?? []);
+        if (res.ok) {
+          const payload = await res.json();
+          if (payload?.ok && payload?.analytics) {
+            setData(payload.analytics);
+          } else {
+            setData(MOCK_DATA);
+          }
         } else {
-          // Fallback mock data — safe to show while backend hooks are added.
-          const days = 30;
-          const mockVisits: VisitPoint[] = Array.from({ length: days }).map((_, i) => {
-            const d = new Date();
-            d.setDate(d.getDate() - (days - 1 - i));
-            return { date: d.toISOString().slice(0, 10), value: Math.max(5, Math.round(40 + Math.sin(i / 3) * 12 + Math.random() * 18)) };
-          });
-          setSummary({ totalViews: mockVisits.reduce((s, p) => s + p.value, 0), uniqueVisitors30d: Math.round(0.6 * mockVisits.reduce((s, p) => s + p.value, 0)) });
-          setVisits(mockVisits);
-          setTopDemos([
-            { title: "Hickory Forge Steakhouse", views: 432 },
-            { title: "Smoky Wheels", views: 378 },
-            { title: "Fiesta Taqueria", views: 289 },
-            { title: "Bluegrass Fence Co.", views: 210 },
-          ]);
+          setData(MOCK_DATA);
         }
-      } catch (err) {
-        console.warn("Analytics fetch failed, using mock data", err);
+      } catch (error) {
+        console.warn("GA4 analytics fetch failed", error);
+        if (mounted) setData(MOCK_DATA);
       } finally {
         if (mounted) setLoading(false);
       }
@@ -71,98 +73,135 @@ export default function AdminAnalytics() {
     return () => {
       mounted = false;
     };
-  }, []);
+  }, [range]);
 
-  const maxVisit = Math.max(...visits.map((v) => v.value), 1);
+  const buttons = [
+    { key: "24h", label: "24 hours" },
+    { key: "7d", label: "7 days" },
+    { key: "30d", label: "30 days" },
+  ] as const;
 
   return (
-    <div className="mx-auto max-w-7xl px-5 sm:px-6 py-8">
-      <div className="flex items-center justify-between mb-6">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-6">
         <div>
-          <div className="uppercase tracking-[1.6px] text-[10px] text-[#c17a5a] font-medium">Analytics</div>
-          <h2 className="text-2xl font-semibold text-white mt-1">Site performance — last 30 days</h2>
+          <div className="uppercase tracking-wider text-[11px] text-[#c17a5a] font-semibold">Click Insights</div>
+          <h2 className="mt-2 text-3xl sm:text-4xl font-extrabold text-white leading-tight">Demo click performance — {range === "24h" ? "Last 24 hours" : range === "7d" ? "Last 7 days" : "Last 30 days"}</h2>
         </div>
-        <div className="text-sm text-[#9aa6ad]">Secure • Admin only</div>
+
+        <div role="tablist" aria-label="Analytics time range" className="inline-flex rounded-full bg-[#07100f] border border-[#1a2225] p-1">
+          {buttons.map((button) => {
+            const active = range === button.key;
+            return (
+              <button
+                key={button.key}
+                type="button"
+                role="tab"
+                aria-pressed={active}
+                onClick={() => setRange(button.key)}
+                className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${active ? "bg-[#c17a5a] text-black" : "text-[#c8c2b4] hover:bg-white/10"}`}
+              >
+                {button.label}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <div className="bg-[#0c1013] border border-[#1a2225] rounded-2xl p-4">
-          <div className="text-sm text-[#9aa6ad]">Total Demo Views</div>
-          <div className="text-2xl font-semibold text-white mt-2">{loading ? "—" : summary?.totalViews.toLocaleString()}</div>
+      <div className="grid gap-5 md:grid-cols-3 mb-6">
+        <div className="rounded-3xl border border-[#1a2225] bg-[#0a0f12] p-6 shadow-[0_22px_60px_rgba(2,6,23,0.55)]">
+          <div className="text-sm text-[#9aa6ad]">Demo Card Clicks</div>
+          <div className="mt-4 flex items-center gap-3">
+            <div className="text-4xl font-extrabold text-white tabular-nums">{loading ? "—" : data.demoClicks.toLocaleString()}</div>
+            <span className="inline-flex rounded-full bg-[#c17a5a]/15 px-3 py-1 text-[11px] uppercase tracking-[0.15em] text-[#f3d7b4]">Open live site</span>
+          </div>
+          <p className="mt-3 text-sm leading-6 text-[#8d9ca2]">How many times visitors opened a live demo from the card CTA.</p>
         </div>
-        <div className="bg-[#0c1013] border border-[#1a2225] rounded-2xl p-4">
-          <div className="text-sm text-[#9aa6ad]">Unique Visitors (30d)</div>
-          <div className="text-2xl font-semibold text-white mt-2">{loading ? "—" : summary?.uniqueVisitors30d.toLocaleString()}</div>
+
+        <div className="rounded-3xl border border-[#1a2225] bg-[#0a0f12] p-6 shadow-[0_22px_60px_rgba(2,6,23,0.55)]">
+          <div className="text-sm text-[#9aa6ad]">Quote Button Clicks</div>
+          <div className="mt-4 flex items-center gap-3">
+            <div className="text-4xl font-extrabold text-white tabular-nums">{loading ? "—" : data.quoteClicks.toLocaleString()}</div>
+            <span className="inline-flex rounded-full bg-[#c17a5a]/15 px-3 py-1 text-[11px] uppercase tracking-[0.15em] text-[#f3d7b4]">Get Custom Quote</span>
+          </div>
+          <p className="mt-3 text-sm leading-6 text-[#8d9ca2]">Quote CTA interaction volume from the admin and public experience.</p>
         </div>
-        <div className="bg-[#0c1013] border border-[#1a2225] rounded-2xl p-4">
-          <div className="text-sm text-[#9aa6ad]">Top Demo (30d)</div>
-          <div className="text-base font-semibold text-white mt-2">{loading ? "—" : (topDemos[0]?.title ?? "—")}</div>
-          <div className="text-[13px] text-[#9aa6ad] mt-1">{loading ? "" : `${topDemos[0]?.views ?? 0} views`}</div>
+
+        <div className="rounded-3xl border border-[#1a2225] bg-[#0a0f12] p-6 shadow-[0_22px_60px_rgba(2,6,23,0.55)]">
+          <div className="text-sm text-[#9aa6ad]">Total Click Signals</div>
+          <div className="mt-4 text-4xl font-extrabold text-white tabular-nums">{loading ? "—" : data.totalClicks.toLocaleString()}</div>
+          <p className="mt-3 text-sm leading-6 text-[#8d9ca2]">A broad indicator of CTA interest across demos and quote actions.</p>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <div className="bg-[#0c1013] border border-[#1a2225] rounded-2xl p-4">
-          <div className="flex items-center justify-between mb-3">
-            <div className="text-sm text-[#9aa6ad]">Visits over time</div>
-            <div className="text-[13px] text-[#c17a5a]">Last 30 days</div>
+      <div className="grid gap-6 xl:grid-cols-[1.3fr_0.7fr]">
+        <section className="rounded-3xl border border-[#1a2225] bg-[#0a0f12] p-6 shadow-[0_22px_60px_rgba(2,6,23,0.55)]">
+          <div className="flex items-center justify-between mb-5">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#c17a5a]">Top clicked demos</p>
+              <h3 className="mt-2 text-2xl font-semibold text-white">Top 5 demos by click volume</h3>
+            </div>
+            <span className="rounded-full bg-[#c17a5a]/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#f3d7b4]">{range === "24h" ? "24h" : range === "7d" ? "7d" : "30d"}</span>
           </div>
 
-          {/* Simple sparkline / area chart using SVG */}
-          <div className="w-full h-40">
-            <svg viewBox={`0 0 ${visits.length || 30} 100`} preserveAspectRatio="none" className="w-full h-full">
-              {/* Area fill */}
-              <defs>
-                <linearGradient id="g1" x1="0" x2="0" y1="0" y2="1">
-                  <stop offset="0%" stopColor="#c17a5a" stopOpacity="0.18" />
-                  <stop offset="100%" stopColor="#c17a5a" stopOpacity="0.02" />
-                </linearGradient>
-              </defs>
-              <polyline
-                fill="url(#g1)"
-                stroke="none"
-                points={visits.map((v, i) => `${i},${100 - (v.value / maxVisit) * 90}`).join(" ")}
-              />
-              <polyline
-                fill="none"
-                stroke="#c17a5a"
-                strokeWidth={0.9}
-                points={visits.map((v, i) => `${i},${100 - (v.value / maxVisit) * 90}`).join(" ")}
-              />
-            </svg>
-          </div>
-
-          <div className="text-[12px] text-[#9aa6ad] mt-2">{loading ? "Loading data…" : `Peak: ${maxVisit} visits`}</div>
-        </div>
-
-        <div className="bg-[#0c1013] border border-[#1a2225] rounded-2xl p-4">
-          <div className="flex items-center justify-between mb-3">
-            <div className="text-sm text-[#9aa6ad]">Most viewed demos</div>
-            <div className="text-[13px] text-[#c17a5a]">Top 6</div>
-          </div>
-
-          <div className="space-y-3">
-            {(topDemos.slice(0, 6)).map((d, idx) => {
-              const max = Math.max(...topDemos.map((t) => t.views), 1);
-              const pct = Math.round((d.views / max) * 100);
+          <div className="space-y-4">
+            {data.topDemos.map((demo, index) => {
+              const max = Math.max(...data.topDemos.map((item) => item.clicks), 1);
+              const width = Math.round((demo.clicks / max) * 100);
               return (
-                <div key={d.title} className="flex items-center gap-3">
-                  <div className="w-8 text-[13px] text-[#9aa6ad]">{idx + 1}.</div>
-                  <div className="flex-1">
-                    <div className="font-medium text-white text-sm truncate">{d.title}</div>
-                    <div className="h-2 bg-[#07100f] rounded mt-1 overflow-hidden">
-                      <div className="h-2 bg-[#c17a5a]" style={{ width: `${pct}%` }} />
+                <div key={demo.title} className="rounded-3xl bg-[#07100f] p-4">
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="min-w-0">
+                      <p className="truncate text-sm font-semibold text-white">{index + 1}. {demo.title}</p>
+                      {demo.path ? <p className="mt-1 text-xs text-[#8d9ca2] truncate">{demo.path}</p> : null}
                     </div>
+                    <div className="text-sm font-semibold text-[#c17a5a] tabular-nums">{demo.clicks}</div>
                   </div>
-                  <div className="text-[13px] text-[#9aa6ad] tabular-nums w-16 text-right">{d.views}</div>
+                  <div className="mt-3 h-2 overflow-hidden rounded-full bg-white/5">
+                    <div className="h-full rounded-full bg-[#c17a5a]" style={{ width: `${width}%` }} />
+                  </div>
                 </div>
               );
             })}
           </div>
-        </div>
+        </section>
+
+        <aside className="rounded-3xl border border-[#1a2225] bg-[#0a0f12] p-6 shadow-[0_22px_60px_rgba(2,6,23,0.55)]">
+          <div className="mb-5">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#c17a5a]">Top referrers</p>
+            <h3 className="mt-2 text-2xl font-semibold text-white">Traffic sources</h3>
+          </div>
+
+          <div className="space-y-4">
+            {data.topReferrers.map((referrer) => (
+              <div key={referrer.source} className="flex items-center justify-between gap-3 rounded-3xl bg-[#07100f] p-4">
+                <div>
+                  <p className="text-sm font-medium text-white">{referrer.source}</p>
+                  <p className="mt-1 text-xs text-[#8d9ca2]">{Math.round((referrer.clicks / Math.max(data.totalClicks, 1)) * 100)}% of click traffic</p>
+                </div>
+                <div className="text-sm font-semibold text-[#c17a5a] tabular-nums">{referrer.clicks}</div>
+              </div>
+            ))}
+          </div>
+        </aside>
       </div>
 
-      <div className="mt-6 text-sm text-[#9aa6ad]">Note: This panel reads from your analytics provider. Server-side Supabase proxies are implemented at <code className="bg-[#07100f] px-1 py-px rounded text-[#c8c2b4]">/api/analytics/summary</code>, <code className="bg-[#07100f] px-1 py-px rounded text-[#c8c2b4]">/api/analytics/visits</code>, and <code className="bg-[#07100f] px-1 py-px rounded text-[#c8c2b4]">/api/analytics/top-demos</code>. Set <code className="bg-[#07100f] px-1 py-px rounded text-[#c8c2b4]">SUPABASE_SERVICE_ROLE_KEY</code> and <code className="bg-[#07100f] px-1 py-px rounded text-[#c8c2b4]">NEXT_PUBLIC_SUPABASE_URL</code> in your environment for live data.</div>
+      <div className="mt-6 rounded-3xl border border-[#1a2225] bg-[#07100f]/50 p-5 text-sm text-[#b1b8be]">
+        <p className="font-semibold text-[#f3d7b4]">GA4 service account setup</p>
+        <p className="mt-3 leading-7">
+          To enable live GA4 analytics, set these environment variables:
+        </p>
+        <ul className="mt-3 space-y-2 list-disc pl-5 text-[#9aa6ad]">
+          <li><code className="rounded bg-[#0b1418] px-1 py-px">GOOGLE_SERVICE_ACCOUNT_EMAIL</code></li>
+          <li><code className="rounded bg-[#0b1418] px-1 py-px">GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY</code> (preserve newline escapes as <code className="rounded bg-[#0b1418] px-1 py-px">\n</code>)</li>
+          <li><code className="rounded bg-[#0b1418] px-1 py-px">GOOGLE_GA4_PROPERTY_ID</code></li>
+          <li><code className="rounded bg-[#0b1418] px-1 py-px">GOOGLE_GA4_DEMO_CLICK_EVENT_NAMES</code> (optional)</li>
+          <li><code className="rounded bg-[#0b1418] px-1 py-px">GOOGLE_GA4_QUOTE_CLICK_EVENT_NAMES</code> (optional)</li>
+        </ul>
+        <p className="mt-3 leading-7 text-[#8d9ca2]">
+          The service account needs Analytics Data API access for your GA4 property. If the API is not configured, the panel continues to show mock fallback data.
+        </p>
+      </div>
     </div>
   );
 }

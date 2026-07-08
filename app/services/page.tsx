@@ -12,22 +12,22 @@ export const metadata: Metadata = {
 
 const starterFeatures = [
   "Up to 4 pages (Home, Menu/Services, About, Contact)",
-  "Mobile-first design that looks great on a phone",
-  "Tap-to-call, tap-to-directions, contact form",
-  "Domain & hosting setup walkthrough",
+  "Mobile-first design",
+  "Tap-to-call / directions / contact form",
+  "Domain & hosting setup",
   "Google Business Profile basics",
   "30 days of post-launch tweaks included",
 ];
 
 const businessFeatures = [
-  "Up to 10 pages, fully custom",
-  "Online menu, schedule, gallery, or service catalog",
-  "Booking, reservation, ordering link, or lead forms",
-  "Google Business Profile setup & local SEO tune-up",
-  "Review collection link + analytics dashboard",
-  "Photo touch-ups & on-brand styling",
-  "Branded email signature & social cover graphics",
-  "60 days of post-launch tweaks included",
+  "Up to 10 pages fully custom",
+  "Online menu/schedule/gallery",
+  "Booking/lead forms",
+  "Google Business + local SEO",
+  "Review collection + analytics",
+  "Photo touch-ups & branding",
+  "Branded email/social graphics",
+  "60 days post-launch tweaks",
 ];
 
 const brandingAddons = [
@@ -67,23 +67,25 @@ export default function Services() {
         <p className="text-[14.5px] text-[#9aa6ad] mt-1">Handcrafted in Monticello for Wayne County and Lake Cumberland region — serving businesses near the ramps at Conley Bottom, State Dock, Burnside, Lee’s Ford, Creelsboro and beyond. Also serving Charleston SC, Summerville, North Charleston and Lowcountry businesses with the same premium web design.</p>
       </div>
 
-      {/* Two Big Website Cards — premium modern treatment, exact content */}
+      {/* Two Big Website Cards — updated layout & copy per specs. Premium dark with warm amber accents. */}
       <div className="mt-9 grid lg:grid-cols-2 gap-5">
+        {/* Starter Sites */}
         <div className="pricing-card rounded-3xl p-8 md:p-9 flex flex-col border border-[#1a2225]">
           <div>
             <h3 className="text-3xl font-semibold tracking-tight">Starter Sites</h3>
             <p className="text-[#8a9599] mt-1">Food trucks, barbers &amp; small shops</p>
           </div>
-          <div className="mt-4">
-            <span className="text-5xl font-semibold tracking-[-2.5px] tabular-nums">$1,200</span>
-            <span className="ml-1.5 text-[14px] text-[#9aa6ad]">starting at • one-time</span>
-          </div>
-          <div className="mt-1 text-[11px] uppercase tracking-widest text-[#3ddbd9]">FLAT SCOPE-BASED PRICING</div>
 
-          <ul className="mt-7 space-y-[11px] text-[15px]">
+          <div className="mt-4 flex items-baseline gap-1.5">
+            <span className="text-5xl font-semibold tracking-[-2.5px] tabular-nums">$1,200</span>
+            <span className="text-[14px] text-[#9aa6ad]">starting at • one-time</span>
+          </div>
+          <div className="mt-1 text-[11px] uppercase tracking-[1.5px] text-[#f4a261]">FLAT SCOPE-BASED PRICING</div>
+
+          <ul className="mt-7 space-y-3 text-[15px]">
             {starterFeatures.map((f, i) => (
               <li key={i} className="flex gap-3 text-[#c8cfd3]">
-                <Check size={18} className="check mt-[3px] shrink-0" /> {f}
+                <Check size={18} className="check mt-[3px] shrink-0 text-[#c17a5a]" /> {f}
               </li>
             ))}
           </ul>
@@ -91,11 +93,12 @@ export default function Services() {
           <div className="mt-auto pt-8">
             <Link href="/quote" className="btn btn-secondary w-full">Start a Starter Site →</Link>
             <p className="text-center text-[12.5px] text-[#9aa6ad] mt-3">
-              See it live: <a href="https://smoky-wheels.lovable.app" target="_blank" className="underline hover:text-[#3ddbd9]">Smoky Wheels demo</a>
+              See it live: <a href="https://smoky-wheels.lovable.app" target="_blank" className="underline hover:text-[#f4a261]">Smoky Wheels demo</a>
             </p>
           </div>
         </div>
 
+        {/* Business Suites — highlighted as MOST POPULAR with warm amber glow/border */}
         <div className="pricing-card popular rounded-3xl p-8 md:p-9 flex flex-col">
           <div className="flex items-center gap-2 mb-1">
             <h3 className="text-3xl font-semibold tracking-tight">Business Suites</h3>
@@ -103,16 +106,17 @@ export default function Services() {
           </div>
           <p className="text-[#8a9599]">Restaurants, shops &amp; co-ops</p>
 
-          <div className="mt-4">
+          <div className="mt-4 flex items-baseline gap-1.5">
             <span className="text-5xl font-semibold tracking-[-2.5px] tabular-nums">$2,500</span>
-            <span className="ml-1.5 text-[14px] text-[#9aa6ad]">starting at • one-time</span>
+            <span className="text-[14px] text-[#9aa6ad]">starting at • one-time</span>
           </div>
-          <div className="mt-1 text-[11px] uppercase tracking-widest text-[#3ddbd9]">FLAT SCOPE-BASED PRICING</div>
+          <div className="mt-1 text-[11px] uppercase tracking-[1.5px] text-[#f4a261]">FLAT SCOPE-BASED PRICING</div>
+          <p className="mt-1.5 text-[12.5px] text-[#9aa6ad]">Most local businesses complete their suite between $2,500–$4,500 depending on custom needs.</p>
 
-          <ul className="mt-7 space-y-[11px] text-[15px]">
+          <ul className="mt-7 space-y-3 text-[15px]">
             {businessFeatures.map((f, i) => (
               <li key={i} className="flex gap-3 text-[#c8cfd3]">
-                <Check size={18} className="check mt-[3px] shrink-0" /> {f}
+                <Check size={18} className="check mt-[3px] shrink-0 text-[#c17a5a]" /> {f}
               </li>
             ))}
           </ul>
@@ -120,7 +124,7 @@ export default function Services() {
           <div className="mt-auto pt-8">
             <Link href="/quote" className="btn btn-primary w-full">Start a Business Suite →</Link>
             <p className="text-center text-[12.5px] text-[#9aa6ad] mt-3">
-              See it live: <a href="https://hickory-forge-steakhouse.lovable.app" target="_blank" className="underline hover:text-[#3ddbd9]">Hickory Forge demo</a>
+              See it live: <a href="https://hickory-forge-steakhouse.lovable.app" target="_blank" className="underline hover:text-[#f4a261]">Hickory Forge demo</a>
             </p>
           </div>
         </div>

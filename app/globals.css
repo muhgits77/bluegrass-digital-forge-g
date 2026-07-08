@@ -103,8 +103,13 @@ h1, h2, h3, .section-title {
 }
 
 .pricing-card.popular {
-  border-color: var(--warm);
-  box-shadow: 0 0 0 1px var(--warm), 0 30px 70px -20px rgb(0 0 0 / 0.5);
+  border: 1px solid var(--warm);
+  box-shadow: 0 0 0 1px var(--warm), 0 0 26px rgba(193, 122, 90, 0.22), 0 30px 70px -20px rgb(0 0 0 / 0.55);
+}
+
+.pricing-card.popular:hover {
+  border-color: #d88a5e;
+  box-shadow: 0 0 0 1px #d88a5e, 0 0 32px rgba(193, 122, 90, 0.28), 0 34px 80px -18px rgb(0 0 0 / 0.6);
 }
 
 /* Branding Add-ons — restored to original clean, well-formatted grid + card styling (5-col on large, equal height, hover lift, consistent with pricing/demo cards and dark theme) */
@@ -432,14 +437,14 @@ button:focus-visible {
 
 .badge {
   display: inline-block;
-  font-size: 10px;
+  font-size: 9.5px;
   font-weight: 700;
-  letter-spacing: 0.8px;
-  padding: 1px 9px 2px;
+  letter-spacing: 0.6px;
+  padding: 2px 10px;
   border-radius: 999px;
-  background: #2a2118;
-  color: #f4a261;
-  border: 1px solid #463424;
+  background: #c17a5a;
+  color: #050708;
+  border: none;
 }
 
 .badge-gold {

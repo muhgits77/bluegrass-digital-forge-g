@@ -3,20 +3,22 @@ import Link from "next/link";
 
 export default function Logo() {
   return (
-    <Link 
-      href="/" 
-      className="flex items-center gap-2.5 sm:gap-3 group min-w-0 shrink pr-1 sm:pr-2 max-w-[calc(100%-2.75rem)] sm:max-w-none" 
+    <Link
+      href="/"
+      className="flex items-center gap-2.5 sm:gap-3 group min-w-0 shrink pr-1 sm:pr-2 max-w-[calc(100%-2.75rem)] sm:max-w-none"
       aria-label="Bluegrass Digital Forge home"
     >
-      <div className="relative shrink-0">
+      <div className="relative shrink-0 h-10 w-10 md:h-11 md:w-11">
         <Image
           src="/logo.jpg"
           alt="Bluegrass Digital Forge — Monticello KY website designer for Lake Cumberland business websites"
-          width={48}
-          height={48}
-          className="h-10 w-auto object-contain md:h-11 rounded-sm ring-1 ring-white/10 shadow-sm transition-transform group-hover:scale-105"
-          priority
-          sizes="(max-width: 768px) 40px, 48px"
+          fill
+          sizes="44px"
+          quality={75}
+          // Eager so the nav logo paints with first paint; no fetchPriority so hero remains LCP
+          loading="eager"
+          decoding="async"
+          className="object-contain rounded-sm ring-1 ring-white/10 shadow-sm transition-transform group-hover:scale-105"
         />
       </div>
 

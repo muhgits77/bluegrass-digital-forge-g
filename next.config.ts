@@ -38,13 +38,26 @@ function getRemoteImagePatterns(): NonNullable<NextConfig["images"]>["remotePatt
 }
 
 const nextConfig: NextConfig = {
+  // Gzip responses when using `next start` (platform CDNs may override)
+  compress: true,
+  poweredByHeader: false,
+
+  // Silence multi-lockfile root inference when a parent package-lock exists
+  turbopack: {
+    root: process.cwd(),
+  },
+
   images: {
     formats: ["image/avif", "image/webp"],
+    // Mobile-first sizes — fewer oversized variants, faster LCP on phones
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    minimumCacheTTL: 60 * 60 * 24 * 365, // 1 year for public static
+    minimumCacheTTL: 60 * 60 * 24 * 365, // 1 year for optimized public assets
+    // Must include every quality= value used in <Image /> (default is only [75])
+    qualities: [60, 70, 75, 85],
     remotePatterns: getRemoteImagePatterns(),
   },
+
   async headers() {
     return [
       {
@@ -52,18 +65,23 @@ const nextConfig: NextConfig = {
         headers: [
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "X-Frame-Options", value: "DENY" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
         ],
       },
       {
         // Long cache for images and static assets (speed + SEO)
-        source: "/:all*(svg|jpg|png|ico|webp|avif)",
+        source: "/:all*(svg|jpg|jpeg|png|ico|webp|avif|woff2)",
         headers: [
-          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
         ],
       },
     ];
   },
-  // Optimize package imports for smaller bundles
+
+  // Tree-shake heavy icon / motion packages when statically imported
   experimental: {
     optimizePackageImports: ["lucide-react", "framer-motion"],
   },

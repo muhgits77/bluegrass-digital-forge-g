@@ -10,12 +10,16 @@ export default function Footer() {
           {/* Brand */}
           <div className="md:col-span-5">
             <div className="flex items-center gap-2.5 mb-3.5">
-              <Image 
-                src="/logo.jpg" 
-                alt="Bluegrass Digital Forge logo — Monticello KY website designer" 
-                width={88} 
-                height={22} 
-                className="h-[22px] w-auto object-contain" 
+              <Image
+                src="/logo.jpg"
+                alt="Bluegrass Digital Forge logo — Monticello KY website designer"
+                width={88}
+                height={22}
+                quality={70}
+                loading="lazy"
+                decoding="async"
+                sizes="88px"
+                className="h-[22px] w-auto object-contain"
               />
               <span className="font-semibold tracking-tight text-[15.5px]">Bluegrass Digital Forge</span>
             </div>

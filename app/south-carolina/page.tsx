@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { Check } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -132,19 +133,63 @@ export default function SouthCarolinaPage() {
         <div className="label tracking-[1.5px] mb-4">SCENES FROM THE LOWCOUNTRY</div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <figure className="overflow-hidden rounded-2xl border border-[#1f282b] bg-[#0a0c0f]">
-            <img src="/sc-edisto-river.jpg" alt="Peaceful Edisto River Lowcountry scenic view at golden hour with calm water, marsh grass and live oaks — authentic South Carolina river photography" className="w-full h-44 object-cover" />
+            <div className="relative h-44 w-full">
+              <Image
+                src="/sc-edisto-river.jpg"
+                alt="Peaceful Edisto River Lowcountry scenic view at golden hour with calm water, marsh grass and live oaks — authentic South Carolina river photography"
+                fill
+                loading="lazy"
+                decoding="async"
+                quality={70}
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                className="object-cover"
+              />
+            </div>
             <figcaption className="p-3 text-[13px] text-[#9aa6ad]">Edisto River — peaceful marsh at golden hour</figcaption>
           </figure>
           <figure className="overflow-hidden rounded-2xl border border-[#1f282b] bg-[#0a0c0f]">
-            <img src="/sc-lake-moultrie.jpg" alt="Lake Moultrie South Carolina landscape with cypress trees in water and boating at golden hour sunset, authentic Lowcountry lake photography for local businesses" className="w-full h-44 object-cover" />
+            <div className="relative h-44 w-full">
+              <Image
+                src="/sc-lake-moultrie.jpg"
+                alt="Lake Moultrie South Carolina landscape with cypress trees in water and boating at golden hour sunset, authentic Lowcountry lake photography for local businesses"
+                fill
+                loading="lazy"
+                decoding="async"
+                quality={70}
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                className="object-cover"
+              />
+            </div>
             <figcaption className="p-3 text-[13px] text-[#9aa6ad]">Lake Moultrie — cypress waters, fishing vibe</figcaption>
           </figure>
           <figure className="overflow-hidden rounded-2xl border border-[#1f282b] bg-[#0a0c0f]">
-            <img src="/sc-palmetto-marsh.jpg" alt="South Carolina Lowcountry coastal marsh with palmetto trees at golden hour sunset, warm natural light reflections in tidal creek — authentic palmetto marsh photography" className="w-full h-44 object-cover" />
+            <div className="relative h-44 w-full">
+              <Image
+                src="/sc-palmetto-marsh.jpg"
+                alt="South Carolina Lowcountry coastal marsh with palmetto trees at golden hour sunset, warm natural light reflections in tidal creek — authentic palmetto marsh photography"
+                fill
+                loading="lazy"
+                decoding="async"
+                quality={70}
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                className="object-cover"
+              />
+            </div>
             <figcaption className="p-3 text-[13px] text-[#9aa6ad]">Coastal marsh &amp; palmettos — golden hour</figcaption>
           </figure>
           <figure className="overflow-hidden rounded-2xl border border-[#1f282b] bg-[#0a0c0f]">
-            <img src="/sc-beaufort-waterfront.jpg" alt="Beaufort SC historic district waterfront with antebellum homes, moss-draped oaks and boats at golden hour, authentic Lowcountry historic photography" className="w-full h-44 object-cover" />
+            <div className="relative h-44 w-full">
+              <Image
+                src="/sc-beaufort-waterfront.jpg"
+                alt="Beaufort SC historic district waterfront with antebellum homes, moss-draped oaks and boats at golden hour, authentic Lowcountry historic photography"
+                fill
+                loading="lazy"
+                decoding="async"
+                quality={70}
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                className="object-cover"
+              />
+            </div>
             <figcaption className="p-3 text-[13px] text-[#9aa6ad]">Beaufort waterfront — historic Southern charm</figcaption>
           </figure>
         </div>

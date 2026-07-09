@@ -6,11 +6,10 @@ import Footer from "@/components/Footer";
 
 /**
  * Font strategy (LCP / render-blocking):
- * - next/font self-hosts fonts (no Google network at runtime)
+ * - next/font self-hosts (NO fonts.googleapis.com preconnect — fixes PSI warning)
  * - display: "swap" avoids FOIT
- * - Only the primary body + display fonts are preloaded
- * - Mono is not preloaded (rarely needed above the fold)
- * - Fewer weights = smaller font payload on mobile
+ * - Preload only body font; display + mono load with swap (less render-blocking)
+ * - Fewer weights = smaller mobile payload
  */
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,7 +23,7 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: ["400"],
   display: "swap",
   preload: false,
   adjustFontFallback: true,
@@ -33,8 +32,9 @@ const geistMono = Geist_Mono({
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  weight: ["600", "700"],
   display: "swap",
+  // Preload display for hero h1 (LCP text) without Google network
   preload: true,
   adjustFontFallback: true,
 });
@@ -115,12 +115,10 @@ export default function RootLayout({
       <head>
         <link rel="manifest" href="/manifest.json" />
         {/*
-          next/font already self-hosts — do NOT preconnect fonts.googleapis.com.
-          Preconnect only to first-party origin helpers and remote media hosts.
-          Do NOT preload the raw hero .jpg (bypasses next/image AVIF/WebP sizing).
-          Hero LCP is handled via <Image priority> on the homepage.
+          No fonts.googleapis.com / gstatic preconnect (next/font is self-hosted).
+          No raw hero.jpg preload (would bypass AVIF/WebP + sized srcset).
+          Hero LCP: <Image priority fetchPriority="high"> on app/page.tsx only.
         */}
-        <link rel="dns-prefetch" href="https://nikppnqnwtwgwzfktzuu.supabase.co" />
       </head>
       <body className="min-h-full flex flex-col bg-[#050708] text-zinc-200 scroll-smooth">
         {/* Aggressive LocalBusiness + Organization + WebSite schema for Monticello KY website designer + Lake Cumberland SEO */}

@@ -1,32 +1,107 @@
 import type { CSSProperties } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Check, Phone } from "lucide-react";
-import FeaturedDemos from "@/components/FeaturedDemos";
+import dynamic from "next/dynamic";
 import ServiceAreas from "@/components/ServiceAreas";
 
 /**
  * Homepage — Server Component for critical LCP path.
- * Hero uses next/image with priority (AVIF/WebP, sized for device).
- * Demo grid is a small client island (FeaturedDemos) for live data only.
- * Framer Motion removed from hero — CSS fade-ins keep the warm feel without JS cost.
+ * Hero: next/image priority + fetchPriority high (discoverable LCP in HTML).
+ * FeaturedDemos is a deferred client island (no Framer; Supabase loads idle).
  */
+const FeaturedDemos = dynamic(() => import("@/components/FeaturedDemos"), {
+  loading: () => (
+    <div
+      className="grid grid-cols-1 sm:grid-cols-2 gap-5"
+      aria-busy="true"
+      aria-label="Loading featured demos"
+    >
+      {[0, 1, 2, 3].map((i) => (
+        <div
+          key={i}
+          className="h-[460px] sm:h-[480px] rounded-2xl border border-[#16201f] bg-[#07100f] animate-pulse"
+        />
+      ))}
+    </div>
+  ),
+});
+
+function IconCheck({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      width="15"
+      height="15"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M20 6 9 17l-5-5" />
+    </svg>
+  );
+}
+
+function IconArrowRight({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M5 12h14" />
+      <path d="m12 5 7 7-7 7" />
+    </svg>
+  );
+}
+
+function IconPhone({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+    </svg>
+  );
+}
+
 export default function Home() {
   return (
     <>
-      {/* HERO — LCP-critical: optimized Image, no client JS, no Framer Motion */}
+      {/* HERO — LCP-critical: relative parent + Image fill + priority */}
       <section className="relative min-h-[100dvh] flex flex-col overflow-hidden border-b border-[#243530] bg-[#0b1715]">
-        <Image
-          src="/hero-lake-cumberland-golden.jpg"
-          alt="Golden hour view of Lake Cumberland with calm water and rolling hills near Monticello, Kentucky — authentic local scene"
-          fill
-          priority
-          fetchPriority="high"
-          quality={70}
-          sizes="100vw"
-          className="object-cover z-0"
-          style={{ objectPosition: "center 38%" }}
-        />
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/hero-lake-cumberland-golden.jpg"
+            alt="Golden hour view of Lake Cumberland with calm water and rolling hills near Monticello, Kentucky — authentic local scene"
+            fill
+            priority
+            fetchPriority="high"
+            quality={75}
+            sizes="100vw"
+            className="object-cover"
+            style={{ objectPosition: "center 38%" }}
+          />
+        </div>
 
         <div className="absolute inset-0 bg-gradient-to-b from-[#050708]/88 via-[#0b1715]/50 to-[#050708]/96 z-10" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#050708]/75 via-[#050708]/20 to-transparent z-10" />
@@ -100,7 +175,7 @@ export default function Home() {
                 "Live in 2–4 weeks.",
               ].map((t, i) => (
                 <div key={i} className="inline-flex items-center gap-1.5">
-                  <Check size={15} className="text-[#c17a5a]" aria-hidden /> {t}
+                  <IconCheck className="text-[#c17a5a]" /> {t}
                 </div>
               ))}
             </div>
@@ -175,11 +250,7 @@ export default function Home() {
             className="hidden md:inline-flex items-center gap-1.5 text-[14.5px] font-medium text-[#f4a261] hover:text-[#d88a5e] group"
           >
             See all projects{" "}
-            <ArrowRight
-              size={16}
-              className="group-hover:translate-x-0.5 transition"
-              aria-hidden
-            />
+            <IconArrowRight className="group-hover:translate-x-0.5 transition" />
           </Link>
         </div>
         <p className="text-[#9aa6ad] max-w-2xl mb-7 text-[15px]">
@@ -214,7 +285,7 @@ export default function Home() {
               loading="lazy"
               decoding="async"
               quality={70}
-              sizes="(max-width: 768px) 100vw, 1152px"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1152px"
               className="object-cover"
               style={{ objectPosition: "center 40%" }}
             />
@@ -295,7 +366,7 @@ export default function Home() {
         className="fixed bottom-6 right-6 z-50 bg-[#c17a5a] hover:bg-[#a96447] text-[#050708] px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-2.5 font-semibold active:scale-[0.985] transition-all md:hidden"
         aria-label="Get a free quote from the Monticello KY website designer"
       >
-        <Phone className="w-5 h-5" aria-hidden />
+        <IconPhone className="w-5 h-5" />
         <span>Get Free Quote</span>
       </a>
     </>

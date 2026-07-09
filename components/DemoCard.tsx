@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { ArrowUpRight } from "lucide-react";
 import { SITE_TAGLINE } from "@/lib/constants";
 
 interface DemoCardProps {
@@ -139,11 +138,21 @@ export default function DemoCard({
         <div className="mt-auto pt-4">
           <div className="inline-flex items-center gap-2 text-[14px] font-semibold text-[#f4a261] group-hover:text-[#ffd6b8] transition-colors">
             <span>Open live site</span>
-            <ArrowUpRight
-              size={16}
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               className="transform transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
               aria-hidden
-            />
+            >
+              <path d="M7 7h10v10" />
+              <path d="M7 17 17 7" />
+            </svg>
           </div>
         </div>
       </div>

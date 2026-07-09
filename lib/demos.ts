@@ -21,16 +21,10 @@
  * Follows Master Project Settings + Critical Safety Rules.
  */
 
-import {
-  getAllDemosFromSupabaseResult,
-  uploadImageToDemosBucket,
-  upsertDemoToSupabaseResult,
-  deleteDemoFromSupabaseResult,
-  syncAllDemosToSupabase,
-  checkSupabaseConnection,
-  type SupabaseConnectionStatus,
-  type BulkSyncResult,
-  type SupabaseError,
+import type {
+  SupabaseConnectionStatus,
+  BulkSyncResult,
+  SupabaseError,
 } from './supabase';
 import {
   saveBackup,
@@ -41,6 +35,14 @@ import {
   type StorageStatus,
   type SaveBackupResult,
 } from './demoStorage';
+
+/**
+ * Dynamic import keeps @supabase/supabase-js out of the public homepage bundle.
+ * Admin/API paths still load it on demand when these helpers run.
+ */
+async function supabaseApi() {
+  return import('./supabase');
+}
 
 export interface Demo {
   id: string;
@@ -332,7 +334,7 @@ function loadFromLocalOrDefaults(): Demo[] {
 
 /** Load with full source metadata for admin status display. */
 export async function getDemosWithMeta(): Promise<DemosLoadResult> {
-  const supaResult = await getAllDemosFromSupabaseResult();
+  const supaResult = await (await supabaseApi()).getAllDemosFromSupabaseResult();
 
   if (supaResult.ok && supaResult.data) {
     if (supaResult.data.length > 0) {
@@ -397,7 +399,7 @@ function getDemosForChecks(): Demo[] {
 }
 
 export async function getSupabaseStatus(): Promise<SupabaseConnectionStatus> {
-  return checkSupabaseConnection();
+  return (await supabaseApi()).checkSupabaseConnection();
 }
 
 export function getLocalStorageStatus(): StorageStatus {
@@ -494,7 +496,7 @@ export async function addDemo(newDemo: Omit<Demo, "id">): Promise<DemoOperationR
   const id = `demo-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
   const demoWithId: Demo = { ...newDemo, id };
 
-  const supaResult = await upsertDemoToSupabaseResult(demoWithId);
+  const supaResult = await (await supabaseApi()).upsertDemoToSupabaseResult(demoWithId);
   if (!supaResult.ok) {
     const current = await getDemos();
     const fallbackList = [...current.filter((d) => d.id !== id), demoWithId]
@@ -507,7 +509,7 @@ export async function addDemo(newDemo: Omit<Demo, "id">): Promise<DemoOperationR
     );
   }
 
-  const fresh = await getAllDemosFromSupabaseResult();
+  const fresh = await (await supabaseApi()).getAllDemosFromSupabaseResult();
   const list = fresh.ok && fresh.data && fresh.data.length > 0
     ? fresh.data
     : [...(await getDemos()).filter((d) => d.id !== id), demoWithId];
@@ -531,7 +533,7 @@ export async function updateDemo(id: string, updates: Partial<Demo>): Promise<De
   }
 
   const merged: Demo = { ...existing, ...updates, id };
-  const supaResult = await upsertDemoToSupabaseResult(merged);
+  const supaResult = await (await supabaseApi()).upsertDemoToSupabaseResult(merged);
 
   if (!supaResult.ok) {
     const fallbackList = baseList
@@ -545,7 +547,7 @@ export async function updateDemo(id: string, updates: Partial<Demo>): Promise<De
     );
   }
 
-  const fresh = await getAllDemosFromSupabaseResult();
+  const fresh = await (await supabaseApi()).getAllDemosFromSupabaseResult();
   const list = fresh.ok && fresh.data
     ? fresh.data
     : baseList.map((d) => (d.id === id ? merged : d));
@@ -570,7 +572,7 @@ export async function deleteDemo(id: string): Promise<DemoOperationResult> {
 
   const updated = current.filter((d) => d.id !== id);
 
-  const supaResult = await deleteDemoFromSupabaseResult(id);
+  const supaResult = await (await supabaseApi()).deleteDemoFromSupabaseResult(id);
   if (!supaResult.ok) {
     return finalizeOperation(
       current,
@@ -581,7 +583,7 @@ export async function deleteDemo(id: string): Promise<DemoOperationResult> {
   }
 
   // Belt-and-suspenders: confirm the row is gone before mutating local backups.
-  const fresh = await getAllDemosFromSupabaseResult();
+  const fresh = await (await supabaseApi()).getAllDemosFromSupabaseResult();
   if (fresh.ok && fresh.data?.some((d) => d.id === id)) {
     return finalizeOperation(
       current,
@@ -597,7 +599,7 @@ export async function deleteDemo(id: string): Promise<DemoOperationResult> {
 
 /** Upload image to Supabase Storage. Returns the public URL and any error details. */
 export async function uploadDemoImage(file: File): Promise<{ url: string | null; error?: string; code?: string }> {
-  const result = await uploadImageToDemosBucket(file);
+  const result = await (await supabaseApi()).uploadImageToDemosBucket(file);
   if (!result.ok) {
     const message = result.error?.message || 'Unknown Supabase storage error';
     console.warn('[Supabase] Image upload failed:', message);
@@ -609,12 +611,12 @@ export async function uploadDemoImage(file: File): Promise<{ url: string | null;
 /** Push all demos to Supabase and refresh local backups. */
 export async function forceSyncToSupabase(demos?: Demo[]): Promise<ForceSyncResult> {
   const list = demos ?? (await getDemos());
-  const syncResult = await syncAllDemosToSupabase(list);
+  const syncResult = await (await supabaseApi()).syncAllDemosToSupabase(list);
   const backup = await saveBackup(list, 'sync');
 
   let freshList = list;
   if (syncResult.ok) {
-    const fresh = await getAllDemosFromSupabaseResult();
+    const fresh = await (await supabaseApi()).getAllDemosFromSupabaseResult();
     if (fresh.ok && fresh.data) freshList = fresh.data;
   }
 

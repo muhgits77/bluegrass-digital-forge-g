@@ -9,13 +9,14 @@ import {
   getPublicDemosFromLocalStorage,
   toCardProps,
 } from "./demos";
-import { getDemosFromSupabase } from "./supabase";
 
 const DEMOS_BROADCAST_CHANNEL = "bdf-demos-sync";
 const SUPABASE_CONFIRM_DELAY_MS = 450;
 const SUPABASE_RETRY_MS = 500;
 const SUPABASE_MAX_RETRIES = 4;
 const VISIBILITY_POLL_MS = 45_000;
+/** Defer first Supabase fetch so LCP paints before ~100KB+ client SDK work. */
+const SUPABASE_IDLE_DELAY_MS = 1800;
 
 type CardProps = ReturnType<typeof toCardProps>;
 
@@ -26,11 +27,9 @@ function toCards(demos: Demo[], limit?: number): CardProps[] {
 
 /**
  * Shared hook for public pages (/, /work).
- * - Instant update from admin payload / localStorage on publish events
- * - Delayed Supabase re-fetch to avoid replication race after writes
+ * - Instant paint from hardcoded DEFAULT_DEMOS (no network, no Supabase JS)
+ * - Supabase client is dynamically imported after idle / publish events only
  * - Cross-tab sync via BroadcastChannel + storage events
- * - Visibility + light polling when tab is active
- * - Full fallback to hardcoded DEFAULT_DEMOS when Supabase unavailable
  */
 export function useLivePublicDemos(limit?: number): CardProps[] {
   const [demos, setDemos] = useState<CardProps[]>(() =>
@@ -74,6 +73,10 @@ export function useLivePublicDemos(limit?: number): CardProps[] {
         abortRef.current = controller;
 
         try {
+          // Dynamic import: keeps @supabase/supabase-js out of initial public JS
+          const { getDemosFromSupabase } = await import("./supabase");
+          if (controller.signal.aborted) return;
+
           const fromSupa = await getDemosFromSupabase();
           if (controller.signal.aborted) return;
 
@@ -142,7 +145,21 @@ export function useLivePublicDemos(limit?: number): CardProps[] {
   );
 
   useEffect(() => {
-    void confirmFromSupabase(0);
+    // First paint uses DEFAULT_DEMOS. Pull live data after idle so LCP isn't blocked.
+    let idleId: number | undefined;
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
+
+    const scheduleInitial = () => {
+      void confirmFromSupabase(0);
+    };
+
+    if (typeof window !== "undefined" && "requestIdleCallback" in window) {
+      idleId = window.requestIdleCallback(scheduleInitial, {
+        timeout: SUPABASE_IDLE_DELAY_MS,
+      });
+    } else {
+      timeoutId = setTimeout(scheduleInitial, SUPABASE_IDLE_DELAY_MS);
+    }
 
     const onCustomPublished = (event: Event) => {
       const detail = (event as CustomEvent<DemosPublishedDetail>).detail;
@@ -199,6 +216,10 @@ export function useLivePublicDemos(limit?: number): CardProps[] {
     return () => {
       abortRef.current?.abort();
       if (confirmTimerRef.current) clearTimeout(confirmTimerRef.current);
+      if (idleId != null && "cancelIdleCallback" in window) {
+        window.cancelIdleCallback(idleId);
+      }
+      if (timeoutId) clearTimeout(timeoutId);
       window.clearInterval(pollId);
       window.removeEventListener(DEMOS_PUBLISHED_EVENT, onCustomPublished);
       window.removeEventListener("storage", onStorage);

@@ -1,12 +1,12 @@
 import type { NextConfig } from "next";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const projectRoot = path.dirname(fileURLToPath(import.meta.url));
 
 /**
  * Allow Next.js <Image> to optimize demo preview screenshots hosted in
  * Supabase Storage (uploaded via /admin drag-and-drop).
- *
- * Paths are restricted to public Storage objects only — not arbitrary
- * Supabase endpoints. Hostname comes from NEXT_PUBLIC_SUPABASE_URL when set,
- * with a wildcard fallback for any *.supabase.co project.
  */
 function getRemoteImagePatterns(): NonNullable<NextConfig["images"]>["remotePatterns"] {
   const storagePublicPath = "/storage/v1/object/public/**";
@@ -26,8 +26,6 @@ function getRemoteImagePatterns(): NonNullable<NextConfig["images"]>["remotePatt
     }
   }
 
-  // Covers any Supabase project (e.g. nikppnqnwtwgwzfktzuu.supabase.co) when env is unset
-  // or during local builds without .env.local. Pathname keeps this scoped to Storage only.
   patterns.push({
     protocol: "https",
     hostname: "**.supabase.co",
@@ -38,22 +36,21 @@ function getRemoteImagePatterns(): NonNullable<NextConfig["images"]>["remotePatt
 }
 
 const nextConfig: NextConfig = {
-  // Gzip responses when using `next start` (platform CDNs may override)
   compress: true,
   poweredByHeader: false,
 
-  // Silence multi-lockfile root inference when a parent package-lock exists
+  // Pin Turbopack root to this project (avoids parent package-lock confusion)
   turbopack: {
-    root: process.cwd(),
+    root: projectRoot,
   },
 
   images: {
     formats: ["image/avif", "image/webp"],
-    // Mobile-first sizes — fewer oversized variants, faster LCP on phones
+    // Mobile-first — avoid shipping 1920px to phones when not needed
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    minimumCacheTTL: 60 * 60 * 24 * 365, // 1 year for optimized public assets
-    // Must include every quality= value used in <Image /> (default is only [75])
+    minimumCacheTTL: 60 * 60 * 24 * 365,
+    // Must include every quality= used in <Image />
     qualities: [60, 70, 75, 85],
     remotePatterns: getRemoteImagePatterns(),
   },
@@ -69,7 +66,6 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        // Long cache for images and static assets (speed + SEO)
         source: "/:all*(svg|jpg|jpeg|png|ico|webp|avif|woff2)",
         headers: [
           {
@@ -81,8 +77,9 @@ const nextConfig: NextConfig = {
     ];
   },
 
-  // Tree-shake heavy icon / motion packages when statically imported
   experimental: {
+    // Critters: inline critical CSS, defer the rest (cuts render-blocking CSS)
+    optimizeCss: true,
     optimizePackageImports: ["lucide-react", "framer-motion"],
   },
 };

@@ -125,7 +125,7 @@ const DEFAULT_DEMOS: Demo[] = [
     slug: "smoky-wheels",
     category: "Food Truck",
     href: "https://smoky-wheels.lovable.app",
-    description: "Bold food truck website Kentucky that leads with easy on-the-fly “Where We Are Today” location updates from a simple mobile dashboard — plus festival calendar, online ordering, beautiful food photos, and menu updates. Built by the Monticello KY website designer.",
+    description: "Kentucky food truck site with live “Where We Are Today” location updates, festival calendar, online ordering, and easy menu photos from a mobile dashboard.",
     image: "/assets/demo-smoky-wheels.jpg",
     sortOrder: 2,
     visible: true,
@@ -806,7 +806,7 @@ export function generateDemosTsCode(demos: Demo[]): string {
 
 // NOTE FOR FUTURE EDITS:
 // To add many more demos (e.g. 30+ food trucks), just append objects to DEFAULT_DEMOS above.
-// Descriptions render on demo cards (line-clamp-3 mobile, line-clamp-4 desktop).
+// Descriptions render on demo cards (line-clamp-3; keep blurbs ~2–3 lines / ~140–160 chars).
 // Always provide accurate local thumbnail paths.
 // Set featured: true (and a low sortOrder) for homepage "Featured Work" cards (max 4 shown).
 // Prefer Admin Panel → Featured Work section to swap demos without editing this file.

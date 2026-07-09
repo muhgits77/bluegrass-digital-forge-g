@@ -61,7 +61,8 @@ export default function DemoCard({
       target="_blank"
       rel="noopener noreferrer"
       className={
-        "demo-card shimmer-hover group block h-[460px] sm:h-[480px] md:h-[500px] lg:h-[520px] flex flex-col bg-[#07100f] border border-[#16201f] overflow-hidden rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c17a5a] shadow-lg transition-shadow duration-300 " +
+        // min-h (not fixed h) so 2–3 description lines never get clipped by overflow-hidden
+        "demo-card shimmer-hover group block min-h-[480px] sm:min-h-[500px] md:min-h-[520px] flex flex-col bg-[#07100f] border border-[#16201f] overflow-hidden rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c17a5a] shadow-lg transition-shadow duration-300 " +
         "hover:shadow-[0_18px_50px_rgba(193,122,90,0.12)]"
       }
       aria-label={`Open live demo of ${title}`}
@@ -70,7 +71,7 @@ export default function DemoCard({
         Minimal browser chrome: thin top bar with traffic lights and subtle site title.
         NO address bar — keeps focus on the screenshot.
       */}
-      <div className="flex items-center gap-3 px-3 py-2 bg-[#06100f] border-b border-[#14201f]">
+      <div className="flex items-center gap-3 px-3 py-2 bg-[#06100f] border-b border-[#14201f] shrink-0">
         <div className="flex gap-2" aria-hidden>
           <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
           <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
@@ -85,7 +86,7 @@ export default function DemoCard({
         Image area: 16:9 preview, object-contain object-top so screenshots are not cropped.
         Lazy by default (below fold on home); next/image serves AVIF/WebP at correct size.
       */}
-      <div className="relative aspect-[16/9] overflow-hidden bg-[#050708]">
+      <div className="relative aspect-[16/9] overflow-hidden bg-[#050708] shrink-0">
         {isDataUrl ? (
           // eslint-disable-next-line @next/next/no-img-element -- data: URLs from admin uploads
           <img
@@ -112,8 +113,8 @@ export default function DemoCard({
         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[radial-gradient(at_70%_20%,rgba(193,122,90,0.10)_0%,transparent_55%)] pointer-events-none" />
       </div>
 
-      <div className="p-4 flex-1 flex flex-col min-h-0">
-        <div className="flex items-center gap-2 mb-3">
+      <div className="p-4 sm:p-5 flex-1 flex flex-col min-h-0">
+        <div className="flex items-center gap-2 mb-2.5">
           <span className="text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 bg-[#0e1615] border border-[#1b2726] rounded text-[#9fb0ae]">
             {category}
           </span>
@@ -124,18 +125,22 @@ export default function DemoCard({
           )}
         </div>
 
-        <h3 className="font-semibold text-[17px] leading-[1.18] mb-1 group-hover:text-[#f4a261] transition-colors duration-200">
+        <h3 className="font-semibold text-[17px] leading-[1.18] mb-1.5 group-hover:text-[#f4a261] transition-colors duration-200">
           {title}
         </h3>
-        <p className="text-[#9aa6ad] text-[14px] leading-relaxed line-clamp-3 sm:line-clamp-4">
+        {/*
+          3-line blurb: min-h reserves full 3 lines (14px × 1.625 leading × 3).
+          line-clamp-3 caps longer copy cleanly — no wall of text, no mid-card clip.
+        */}
+        <p className="text-[#9aa6ad] text-[14px] leading-relaxed line-clamp-3 min-h-[4.35rem]">
           {subtitle}
         </p>
 
-        <p className="mt-3 text-[12px] font-medium tracking-[0.03em] text-[#c17a5a]">
+        <p className="mt-2.5 text-[12px] font-medium tracking-[0.03em] text-[#c17a5a]">
           {SITE_TAGLINE}
         </p>
 
-        <div className="mt-auto pt-4">
+        <div className="mt-auto pt-3">
           <div className="inline-flex items-center gap-2 text-[14px] font-semibold text-[#f4a261] group-hover:text-[#ffd6b8] transition-colors">
             <span>Open live site</span>
             <svg

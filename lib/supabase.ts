@@ -101,7 +101,19 @@ function mapRowToDemo(row: Record<string, unknown>): Demo {
   };
 
   const sortOrderRaw = get(['sortOrder', 'sort_order', 'sortorder', 'order'], 99);
+  const sortOrder = Number(sortOrderRaw) || 99;
   const visibleRaw = get(['visible', 'is_visible', 'Visible'], true);
+  const featuredRaw = get(['featured', 'is_featured', 'Featured'], undefined);
+
+  // When featured column is missing/null, treat first 4 by sortOrder as featured (legacy back-compat)
+  let featured: boolean;
+  if (featuredRaw === true || featuredRaw === 'true' || featuredRaw === 1 || featuredRaw === 't') {
+    featured = true;
+  } else if (featuredRaw === false || featuredRaw === 'false' || featuredRaw === 0 || featuredRaw === 'f') {
+    featured = false;
+  } else {
+    featured = sortOrder > 0 && sortOrder <= 4;
+  }
 
   return {
     id: String(get(['id', 'ID', 'uuid'], `sb-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`)),
@@ -111,13 +123,14 @@ function mapRowToDemo(row: Record<string, unknown>): Demo {
     href: String(get(['href', 'url', 'link', 'Href'], '')),
     description: String(get(['description', 'Description', 'desc', 'short_desc'], '')),
     image: (get(['image', 'Image', 'thumbnail', 'thumb', 'img']) as string | undefined) || undefined,
-    sortOrder: Number(sortOrderRaw) || 99,
+    sortOrder,
     visible: visibleRaw === true || visibleRaw === 'true' || visibleRaw === 1 || visibleRaw === 't',
+    featured,
   };
 }
 
-function demoToRow(demo: Demo): Record<string, unknown> {
-  return {
+function demoToRow(demo: Demo, includeFeatured = true): Record<string, unknown> {
+  const row: Record<string, unknown> = {
     id: demo.id,
     title: demo.title,
     slug: demo.slug,
@@ -128,6 +141,20 @@ function demoToRow(demo: Demo): Record<string, unknown> {
     sort_order: demo.sortOrder,
     visible: !!demo.visible,
   };
+  if (includeFeatured) {
+    row.featured = !!demo.featured;
+  }
+  return row;
+}
+
+/** True when PostgREST rejects the row because `featured` column is not migrated yet. */
+function isMissingFeaturedColumnError(error: { message?: string; code?: string } | null): boolean {
+  if (!error) return false;
+  const msg = (error.message || '').toLowerCase();
+  return (
+    msg.includes('featured') &&
+    (msg.includes('column') || msg.includes('schema cache') || msg.includes('could not find'))
+  );
 }
 
 /** Quick health check — verifies table access and returns row count. */
@@ -251,6 +278,15 @@ export async function upsertDemoToSupabaseResult(demo: Demo): Promise<SupabaseRe
       .from('forge_demos')
       .upsert(demoToRow(demo), { onConflict: 'id' });
 
+    if (error && isMissingFeaturedColumnError(error)) {
+      // Graceful path until migration runs: persist without featured column
+      const { error: retryError } = await supabase
+        .from('forge_demos')
+        .upsert(demoToRow(demo, false), { onConflict: 'id' });
+      if (retryError) return failure(toSupabaseError(retryError, 'upsert'));
+      return success(demo);
+    }
+
     if (error) return failure(toSupabaseError(error, 'upsert'));
     return success(demo);
   } catch (err) {
@@ -310,7 +346,7 @@ export async function bulkUpsertDemosToSupabase(demos: Demo[]): Promise<BulkSync
 
   const rows = demos
     .filter((d) => !d.image?.startsWith('data:'))
-    .map(demoToRow);
+    .map((d) => demoToRow(d));
 
   if (rows.length === 0 && demos.length > 0) {
     return {
@@ -328,6 +364,24 @@ export async function bulkUpsertDemosToSupabase(demos: Demo[]): Promise<BulkSync
     const { error } = await supabase
       .from('forge_demos')
       .upsert(rows, { onConflict: 'id' });
+
+    if (error && isMissingFeaturedColumnError(error)) {
+      const rowsWithoutFeatured = demos
+        .filter((d) => !d.image?.startsWith('data:'))
+        .map((d) => demoToRow(d, false));
+      const { error: retryError } = await supabase
+        .from('forge_demos')
+        .upsert(rowsWithoutFeatured, { onConflict: 'id' });
+      if (retryError) {
+        const supaErr = toSupabaseError(retryError, 'bulk_upsert');
+        console.error('[Supabase] bulkUpsert failed (no featured column):', supaErr);
+        return { ok: false, upserted: 0, deleted: 0, error: supaErr };
+      }
+      console.warn(
+        '[Supabase] forge_demos.featured column missing — synced without it. Run migration in supabase/schema.sql.'
+      );
+      return { ok: true, upserted: rowsWithoutFeatured.length, deleted: 0, error: null };
+    }
 
     if (error) {
       const supaErr = toSupabaseError(error, 'bulk_upsert');

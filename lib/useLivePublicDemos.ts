@@ -3,10 +3,14 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
   DEMOS_PUBLISHED_EVENT,
+  FEATURED_HOMEPAGE_LIMIT,
   type Demo,
   type DemosPublishedDetail,
+  getFeaturedPublicDemos,
+  getFeaturedPublicDemosFromLocalStorage,
   getPublicDemos,
   getPublicDemosFromLocalStorage,
+  selectFeaturedDemos,
   toCardProps,
 } from "./demos";
 
@@ -20,9 +24,23 @@ const SUPABASE_IDLE_DELAY_MS = 1800;
 
 type CardProps = ReturnType<typeof toCardProps>;
 
-function toCards(demos: Demo[], limit?: number): CardProps[] {
-  const sliced = limit != null ? demos.slice(0, limit) : demos;
-  return sliced.map(toCardProps);
+export type UseLivePublicDemosOptions = {
+  /** Max cards to return (homepage featured uses 4). Omit for full /work gallery. */
+  limit?: number;
+  /**
+   * When true, only demos flagged `featured` are returned (homepage Featured Work).
+   * Falls back to first `limit` visible demos if none are featured (legacy data).
+   */
+  featuredOnly?: boolean;
+};
+
+function toCards(demos: Demo[], limit?: number, featuredOnly?: boolean): CardProps[] {
+  const selected = featuredOnly
+    ? selectFeaturedDemos(demos, limit ?? FEATURED_HOMEPAGE_LIMIT)
+    : limit != null
+      ? demos.slice(0, limit)
+      : demos;
+  return selected.map(toCardProps);
 }
 
 /**
@@ -30,10 +48,25 @@ function toCards(demos: Demo[], limit?: number): CardProps[] {
  * - Instant paint from hardcoded DEFAULT_DEMOS (no network, no Supabase JS)
  * - Supabase client is dynamically imported after idle / publish events only
  * - Cross-tab sync via BroadcastChannel + storage events
+ * - Homepage: useLivePublicDemos({ limit: 4, featuredOnly: true })
+ * - Work page: useLivePublicDemos() — all visible demos
  */
-export function useLivePublicDemos(limit?: number): CardProps[] {
+export function useLivePublicDemos(
+  limitOrOptions?: number | UseLivePublicDemosOptions
+): CardProps[] {
+  const options: UseLivePublicDemosOptions =
+    typeof limitOrOptions === "number"
+      ? { limit: limitOrOptions, featuredOnly: false }
+      : limitOrOptions ?? {};
+
+  const { limit, featuredOnly = false } = options;
+
   const [demos, setDemos] = useState<CardProps[]>(() =>
-    toCards(getPublicDemos(), limit)
+    toCards(
+      featuredOnly ? getFeaturedPublicDemos(limit ?? FEATURED_HOMEPAGE_LIMIT) : getPublicDemos(),
+      featuredOnly ? undefined : limit,
+      featuredOnly
+    )
   );
 
   const abortRef = useRef<AbortController | null>(null);
@@ -44,18 +77,26 @@ export function useLivePublicDemos(limit?: number): CardProps[] {
     (next: Demo[], ts = Date.now()) => {
       if (ts < lastAppliedTsRef.current) return;
       lastAppliedTsRef.current = ts;
-      setDemos(toCards(next, limit));
+      setDemos(toCards(next, limit, featuredOnly));
     },
-    [limit]
+    [limit, featuredOnly]
   );
 
   const applyFallback = useCallback(() => {
-    applyDemos(getPublicDemos(), Date.now());
-  }, [applyDemos]);
+    applyDemos(
+      featuredOnly
+        ? getFeaturedPublicDemos(limit ?? FEATURED_HOMEPAGE_LIMIT)
+        : getPublicDemos(),
+      Date.now()
+    );
+  }, [applyDemos, featuredOnly, limit]);
 
   const demoFingerprint = useCallback((items: Demo[]) => {
     return items
-      .map((d) => `${d.id}:${d.sortOrder}:${d.visible ? 1 : 0}:${d.title}:${d.href}`)
+      .map(
+        (d) =>
+          `${d.id}:${d.sortOrder}:${d.visible ? 1 : 0}:${d.featured ? 1 : 0}:${d.title}:${d.href}`
+      )
       .sort()
       .join("|");
   }, []);
@@ -103,10 +144,20 @@ export function useLivePublicDemos(limit?: number): CardProps[] {
 
         if (controller.signal.aborted) return;
 
-        const fromLocal = getPublicDemosFromLocalStorage();
-        if (fromLocal && fromLocal.length > 0) {
-          applyDemos(fromLocal, Date.now());
-          return;
+        if (featuredOnly) {
+          const fromLocalFeatured = getFeaturedPublicDemosFromLocalStorage(
+            limit ?? FEATURED_HOMEPAGE_LIMIT
+          );
+          if (fromLocalFeatured && fromLocalFeatured.length > 0) {
+            applyDemos(fromLocalFeatured, Date.now());
+            return;
+          }
+        } else {
+          const fromLocal = getPublicDemosFromLocalStorage();
+          if (fromLocal && fromLocal.length > 0) {
+            applyDemos(fromLocal, Date.now());
+            return;
+          }
         }
 
         applyFallback();
@@ -121,7 +172,7 @@ export function useLivePublicDemos(limit?: number): CardProps[] {
         await run();
       }
     },
-    [applyDemos, applyFallback, demoFingerprint]
+    [applyDemos, applyFallback, demoFingerprint, featuredOnly, limit]
   );
 
   const handlePublishedDetail = useCallback(
@@ -132,7 +183,9 @@ export function useLivePublicDemos(limit?: number): CardProps[] {
         applyDemos(detail.demos, detail.ts);
         expected = detail.demos;
       } else if (detail?.source === "storage") {
-        const fromLocal = getPublicDemosFromLocalStorage();
+        const fromLocal = featuredOnly
+          ? getFeaturedPublicDemosFromLocalStorage(limit ?? FEATURED_HOMEPAGE_LIMIT)
+          : getPublicDemosFromLocalStorage();
         if (fromLocal && fromLocal.length > 0) {
           applyDemos(fromLocal, detail.ts);
           expected = fromLocal;
@@ -141,7 +194,7 @@ export function useLivePublicDemos(limit?: number): CardProps[] {
 
       void confirmFromSupabase(delayMs, expected);
     },
-    [applyDemos, confirmFromSupabase]
+    [applyDemos, confirmFromSupabase, featuredOnly, limit]
   );
 
   useEffect(() => {

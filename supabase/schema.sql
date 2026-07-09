@@ -12,12 +12,32 @@ create table if not exists public.forge_demos (
   image text,
   sort_order integer not null default 99,
   visible boolean not null default true,
+  -- Homepage "Featured Work" flag (first 4 by sort_order among featured show on /)
+  featured boolean not null default false,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
 
+-- ============================================================
+-- MIGRATION (run once if forge_demos already exists without featured)
+-- Supabase Dashboard → SQL Editor → paste & run:
+-- ============================================================
+alter table public.forge_demos
+  add column if not exists featured boolean not null default false;
+
+-- Seed homepage Featured Work from lowest sort_order (only if none featured yet)
+update public.forge_demos
+set featured = true
+where id in (
+  select id from public.forge_demos
+  order by sort_order asc
+  limit 4
+)
+and (select count(*) from public.forge_demos where featured = true) = 0;
+
 create index if not exists forge_demos_sort_order_idx on public.forge_demos (sort_order);
 create index if not exists forge_demos_visible_idx on public.forge_demos (visible);
+create index if not exists forge_demos_featured_idx on public.forge_demos (featured);
 create unique index if not exists forge_demos_slug_unique on public.forge_demos (slug);
 
 -- 2. Auto-update updated_at

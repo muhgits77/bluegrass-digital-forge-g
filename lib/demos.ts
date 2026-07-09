@@ -15,11 +15,15 @@
  *   - forceSyncToSupabase() bulk-pushes all demos; "Force Sync" in admin panel.
  *   - Drag & drop images → Supabase Storage "demos" bucket. Base64 never saved to Supabase.
  *
- * Fields used by cards: title, href (url), description (short), category, image (thumbnail).
+ * Fields used by cards: title, href (url), description (short), category (badge), image (thumbnail).
+ * Featured Work (homepage): demos with featured=true, sorted by sortOrder, max FEATURED_HOMEPAGE_LIMIT.
  * All existing demos preserved exactly.
  *
  * Follows Master Project Settings + Critical Safety Rules.
  */
+
+/** How many featured cards the homepage "Featured Work" section shows. */
+export const FEATURED_HOMEPAGE_LIMIT = 4;
 
 import type {
   SupabaseConnectionStatus,
@@ -48,12 +52,20 @@ export interface Demo {
   id: string;
   title: string;
   slug: string;
+  /** Badge label on the card (e.g. "Food Truck", "Restaurant"). */
   category: string;
   href: string;
+  /** Subtitle / short description shown under the title. */
   description: string;
   image?: string; // Can be /assets/... path, Supabase Storage public URL, or base64 (fallback only)
   sortOrder: number;
   visible: boolean;
+  /**
+   * When true, eligible for the homepage "Featured Work" section.
+   * Homepage shows featured + visible demos sorted by sortOrder (first FEATURED_HOMEPAGE_LIMIT).
+   * /work still lists all visible demos.
+   */
+  featured: boolean;
 }
 
 export type DemoDataSource = 'supabase' | 'indexeddb' | 'localStorage' | 'defaults';
@@ -105,6 +117,7 @@ const DEFAULT_DEMOS: Demo[] = [
     image: "/assets/demo-hickory-forge.jpg",
     sortOrder: 1,
     visible: true,
+    featured: true,
   },
   {
     id: "demo-2",
@@ -116,6 +129,7 @@ const DEFAULT_DEMOS: Demo[] = [
     image: "/assets/demo-smoky-wheels.jpg",
     sortOrder: 2,
     visible: true,
+    featured: true,
   },
   {
     id: "demo-3",
@@ -127,6 +141,7 @@ const DEFAULT_DEMOS: Demo[] = [
     image: "/assets/demo-fiesta-taqueria.jpg",
     sortOrder: 3,
     visible: true,
+    featured: true,
   },
   {
     id: "demo-4",
@@ -138,6 +153,7 @@ const DEFAULT_DEMOS: Demo[] = [
     image: "/assets/demo-ignite-fitness.jpg",
     sortOrder: 4,
     visible: true,
+    featured: true,
   },
   {
     id: "demo-5",
@@ -149,6 +165,7 @@ const DEFAULT_DEMOS: Demo[] = [
     image: "/assets/demo-summit-tire.jpg",
     sortOrder: 5,
     visible: true,
+    featured: false,
   },
   {
     id: "demo-6",
@@ -160,6 +177,7 @@ const DEFAULT_DEMOS: Demo[] = [
     image: "/assets/demo-summit-auto.jpg",
     sortOrder: 6,
     visible: true,
+    featured: false,
   },
   {
     id: "demo-7",
@@ -171,6 +189,7 @@ const DEFAULT_DEMOS: Demo[] = [
     image: "/assets/demo-heritage-home.png",
     sortOrder: 7,
     visible: true,
+    featured: false,
   },
   {
     id: "demo-8",
@@ -182,6 +201,7 @@ const DEFAULT_DEMOS: Demo[] = [
     image: "/assets/demo-hickory-bloom.png",
     sortOrder: 8,
     visible: true,
+    featured: false,
   },
   {
     id: "demo-9",
@@ -193,6 +213,7 @@ const DEFAULT_DEMOS: Demo[] = [
     image: "/assets/demo-anchorline.png",
     sortOrder: 9,
     visible: true,
+    featured: false,
   },
   {
     id: "demo-10",
@@ -204,6 +225,7 @@ const DEFAULT_DEMOS: Demo[] = [
     image: "/assets/demo-sunny-hollow.png",
     sortOrder: 10,
     visible: true,
+    featured: false,
   },
   {
     id: "demo-11",
@@ -215,6 +237,7 @@ const DEFAULT_DEMOS: Demo[] = [
     image: "/assets/demo-cumberland-forge.png",
     sortOrder: 11,
     visible: true,
+    featured: false,
   },
   {
     id: "demo-12",
@@ -226,6 +249,7 @@ const DEFAULT_DEMOS: Demo[] = [
     image: "/assets/demo-han-river.png",
     sortOrder: 12,
     visible: true,
+    featured: false,
   },
   {
     id: "demo-13",
@@ -237,6 +261,7 @@ const DEFAULT_DEMOS: Demo[] = [
     image: "/assets/demo-landing-point.jpg",
     sortOrder: 13,
     visible: true,
+    featured: false,
   },
   {
     id: "demo-14",
@@ -248,6 +273,7 @@ const DEFAULT_DEMOS: Demo[] = [
     image: "/assets/demo-ridge-pasture.jpg",
     sortOrder: 14,
     visible: true,
+    featured: false,
   },
   {
     id: "demo-15",
@@ -259,6 +285,7 @@ const DEFAULT_DEMOS: Demo[] = [
     image: "/assets/demo-blade-haven.jpg",
     sortOrder: 15,
     visible: true,
+    featured: false,
   },
     
   // ============================================================
@@ -279,6 +306,7 @@ const DEFAULT_DEMOS: Demo[] = [
   //   image: "/assets/demo-marsh-to-market.jpg",
   //   sortOrder: 18,
   //   visible: true,
+  //   featured: false,
   // },
   // {
   //   id: "demo-palmetto-wheels",
@@ -290,6 +318,7 @@ const DEFAULT_DEMOS: Demo[] = [
   //   image: "/assets/demo-palmetto-wheels.jpg",
   //   sortOrder: 19,
   //   visible: true,
+  //   featured: false,
   // },
   // {
   //   id: "demo-palmetto-boil",
@@ -301,6 +330,7 @@ const DEFAULT_DEMOS: Demo[] = [
   //   image: "/assets/demo-palmetto-boil.jpg",
   //   sortOrder: 20,
   //   visible: true,
+  //   featured: false,
   // },
   // {
   //   id: "demo-sea-island-soul",
@@ -312,8 +342,64 @@ const DEFAULT_DEMOS: Demo[] = [
   //   image: "/assets/demo-sea-island-soul.jpg",
   //   sortOrder: 21,
   //   visible: true,
+  //   featured: false,
   // },
 ];
+
+/**
+ * Normalize a demo object from storage/import/Supabase so older payloads
+ * without `featured` still work (back-compat: first 4 by sortOrder are featured).
+ */
+export function normalizeDemo(raw: Partial<Demo> & { title?: string; href?: string }): Demo {
+  const sortOrder = Number(raw.sortOrder) || 99;
+  const featuredRaw = raw.featured as unknown;
+  let featured: boolean;
+  if (featuredRaw === true || featuredRaw === "true" || featuredRaw === 1 || featuredRaw === "t") {
+    featured = true;
+  } else if (featuredRaw === false || featuredRaw === "false" || featuredRaw === 0 || featuredRaw === "f") {
+    featured = false;
+  } else {
+    // Legacy data without featured flag → first N by sortOrder count as featured
+    featured = sortOrder > 0 && sortOrder <= FEATURED_HOMEPAGE_LIMIT;
+  }
+
+  const visibleRaw = raw.visible as unknown;
+  const visible =
+    visibleRaw === false || visibleRaw === "false" || visibleRaw === 0 || visibleRaw === "f"
+      ? false
+      : true;
+
+  return {
+    id: String(raw.id || `demo-${Date.now()}`),
+    title: String(raw.title || ""),
+    slug: String(raw.slug || ""),
+    category: String(raw.category || "Other"),
+    href: String(raw.href || ""),
+    description: String(raw.description || ""),
+    image: raw.image || undefined,
+    sortOrder,
+    visible,
+    featured,
+  };
+}
+
+export function normalizeDemos(list: Partial<Demo>[]): Demo[] {
+  return list.map((d) => normalizeDemo(d)).sort((a, b) => a.sortOrder - b.sortOrder);
+}
+
+/** Select demos for homepage Featured Work (or fall back to first N visible). */
+export function selectFeaturedDemos(demos: Demo[], limit = FEATURED_HOMEPAGE_LIMIT): Demo[] {
+  const visible = demos
+    .filter((d) => d.visible && d.title.trim() && d.href.trim())
+    .sort((a, b) => a.sortOrder - b.sortOrder);
+
+  const featured = visible.filter((d) => d.featured);
+  if (featured.length > 0) {
+    return featured.slice(0, limit);
+  }
+  // Back-compat: no featured flags set → show first N like before
+  return visible.slice(0, limit);
+}
 
 /** Slugify helper for unique slugs */
 function slugify(text: string): string {
@@ -325,11 +411,12 @@ function slugify(text: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
-/** Internal: localStorage → defaults (sync, for slug checks). */
+/** Internal: localStorage → defaults (sync, for slug checks). Always normalized. */
 function loadFromLocalOrDefaults(): Demo[] {
   if (typeof window === "undefined") return [...DEFAULT_DEMOS];
   const fromLocal = loadMinimalBackup();
-  return fromLocal && fromLocal.length > 0 ? fromLocal : [...DEFAULT_DEMOS];
+  if (fromLocal && fromLocal.length > 0) return normalizeDemos(fromLocal);
+  return [...DEFAULT_DEMOS];
 }
 
 /** Load with full source metadata for admin status display. */
@@ -339,7 +426,7 @@ export async function getDemosWithMeta(): Promise<DemosLoadResult> {
   if (supaResult.ok && supaResult.data) {
     if (supaResult.data.length > 0) {
       return {
-        demos: supaResult.data,
+        demos: normalizeDemos(supaResult.data),
         source: 'supabase',
         supabaseConfigured: supaResult.configured,
       };
@@ -348,11 +435,11 @@ export async function getDemosWithMeta(): Promise<DemosLoadResult> {
     if (typeof window !== "undefined") {
       const fromIdb = await loadFullBackup();
       if (fromIdb && fromIdb.length > 0) {
-        return { demos: fromIdb, source: 'indexeddb', supabaseConfigured: true };
+        return { demos: normalizeDemos(fromIdb), source: 'indexeddb', supabaseConfigured: true };
       }
       const fromLocal = loadMinimalBackup();
       if (fromLocal && fromLocal.length > 0) {
-        return { demos: fromLocal, source: 'localStorage', supabaseConfigured: true };
+        return { demos: normalizeDemos(fromLocal), source: 'localStorage', supabaseConfigured: true };
       }
     }
     return { demos: [], source: 'supabase', supabaseConfigured: supaResult.configured };
@@ -362,7 +449,7 @@ export async function getDemosWithMeta(): Promise<DemosLoadResult> {
     const fromIdb = await loadFullBackup();
     if (fromIdb && fromIdb.length > 0) {
       return {
-        demos: fromIdb,
+        demos: normalizeDemos(fromIdb),
         source: 'indexeddb',
         supabaseConfigured: supaResult.configured,
         supabaseError: supaResult.error?.message,
@@ -371,7 +458,7 @@ export async function getDemosWithMeta(): Promise<DemosLoadResult> {
     const fromLocal = loadMinimalBackup();
     if (fromLocal && fromLocal.length > 0) {
       return {
-        demos: fromLocal,
+        demos: normalizeDemos(fromLocal),
         source: 'localStorage',
         supabaseConfigured: supaResult.configured,
         supabaseError: supaResult.error?.message,
@@ -406,7 +493,7 @@ export function getLocalStorageStatus(): StorageStatus {
   return getStorageStatus();
 }
 
-/** Get only visible demos, sorted by sortOrder (for public pages) */
+/** Get only visible demos, sorted by sortOrder (for public pages / work gallery) */
 export function getPublicDemos(): Demo[] {
   // Switched to hardcoded source (DEFAULT_DEMOS). Ignores any localStorage data.
   // Guarantees no quota issues + keeps public demos in version control.
@@ -416,13 +503,28 @@ export function getPublicDemos(): Demo[] {
     .sort((a, b) => a.sortOrder - b.sortOrder);
 }
 
+/** Homepage Featured Work — featured + visible, or first N if none flagged. */
+export function getFeaturedPublicDemos(limit = FEATURED_HOMEPAGE_LIMIT): Demo[] {
+  return selectFeaturedDemos(getPublicDemos(), limit);
+}
+
 /** Visible demos from localStorage backup — used for instant cross-tab refresh before Supabase confirms. */
 export function getPublicDemosFromLocalStorage(): Demo[] | null {
   const all = loadFromLocalOrDefaults();
-  const visible = all
+  const visible = normalizeDemos(all)
     .filter((d) => d.visible && d.title.trim() && d.href.trim())
     .sort((a, b) => a.sortOrder - b.sortOrder);
   return visible.length > 0 ? visible : null;
+}
+
+/** Featured subset from localStorage for instant homepage refresh. */
+export function getFeaturedPublicDemosFromLocalStorage(
+  limit = FEATURED_HOMEPAGE_LIMIT
+): Demo[] | null {
+  const all = getPublicDemosFromLocalStorage();
+  if (!all) return null;
+  const featured = selectFeaturedDemos(all, limit);
+  return featured.length > 0 ? featured : null;
 }
 
 /** Notify open public pages (same tab + other tabs) that demos changed. */
@@ -432,13 +534,14 @@ export function dispatchDemosPublished(
 ): void {
   if (typeof window === "undefined") return;
 
-  const visible = demos
+  const normalized = normalizeDemos(demos);
+  const visible = normalized
     .filter((d) => d.visible && d.title.trim() && d.href.trim())
     .sort((a, b) => a.sortOrder - b.sortOrder);
 
   const detail: DemosPublishedDetail = {
     demos: visible,
-    allDemos: demos,
+    allDemos: normalized,
     ts: Date.now(),
     source,
   };
@@ -690,6 +793,7 @@ export function generateDemosTsCode(demos: Demo[]): string {
     }
     fields.push(`    sortOrder: ${d.sortOrder},`);
     fields.push(`    visible: ${d.visible},`);
+    fields.push(`    featured: ${d.featured === true},`);
     const closing = `  }${idx < sorted.length - 1 ? "," : ""}`;
     return `  {\n${fields.join("\n")}\n${closing}`;
   });
@@ -704,6 +808,7 @@ export function generateDemosTsCode(demos: Demo[]): string {
 // To add many more demos (e.g. 30+ food trucks), just append objects to DEFAULT_DEMOS above.
 // Descriptions render on demo cards (line-clamp-3 mobile, line-clamp-4 desktop).
 // Always provide accurate local thumbnail paths.
-// No other files need changes for new demos to appear on /work and homepage featured area.
-// The structure is: title | href (as url) | description | category | image (thumbnail)
+// Set featured: true (and a low sortOrder) for homepage "Featured Work" cards (max 4 shown).
+// Prefer Admin Panel → Featured Work section to swap demos without editing this file.
+// The structure is: title | href | description (subtitle) | category (badge) | image | featured
 

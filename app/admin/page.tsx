@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { 
   Plus, Edit2, Trash2, Save, RefreshCw, Download, Upload, 
-  Lock, X, Copy, Code2, Cloud, CloudOff, AlertTriangle
+  Lock, X, Copy, Code2, Cloud, CloudOff, AlertTriangle, Star
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import AdminAnalytics from "@/components/AdminAnalytics";
@@ -13,7 +13,8 @@ import {
   getDemos, getDemosWithMeta, addDemo, updateDemo, deleteDemo, resetToDefaults,
   generateUniqueSlug, generateDemosTsCode, Demo, DemoDataSource,
   uploadDemoImage, dispatchDemosPublished, forceSyncToSupabase,
-  getSupabaseStatus, getLocalStorageStatus,
+  getSupabaseStatus, getLocalStorageStatus, FEATURED_HOMEPAGE_LIMIT,
+  normalizeDemos,
 } from "@/lib/demos";
 import type { SupabaseConnectionStatus } from "@/lib/supabase";
 import { CONTACT_EMAIL } from "@/lib/constants";
@@ -47,6 +48,7 @@ const emptyForm: FormData = {
   image: "",
   sortOrder: 99,
   visible: true,
+  featured: false,
 };
 
 // Suggested categories for the admin form. Used by the datalist for quick selection
@@ -66,6 +68,7 @@ const categories = [
   "Land & Pasture Services",
   "Auto Service",
   "Fitness Studio",
+  "Food Truck Tool",
   "Retail",
   "Specialty Retail",
   "Template Library",
@@ -268,6 +271,7 @@ export default function AdminPanel() {
     setForm({
       ...emptyForm,
       sortOrder: nextOrder,
+      featured: false,
     });
     setFormError("");
     setShowModal(true);
@@ -285,6 +289,7 @@ export default function AdminPanel() {
       image: demo.image || "",
       sortOrder: demo.sortOrder,
       visible: demo.visible,
+      featured: !!demo.featured,
     });
     setFormError("");
     setShowModal(true);
@@ -353,6 +358,7 @@ export default function AdminPanel() {
         image: form.image?.trim() || undefined,
         sortOrder: Number(form.sortOrder) || 99,
         visible: !!form.visible,
+        featured: !!form.featured,
       };
 
       if (demoData.image?.startsWith("data:")) {
@@ -392,9 +398,61 @@ export default function AdminPanel() {
     applyOperationResult(result, current ? "Demo hidden." : "Demo visible.");
   }
 
+  async function handleToggleFeatured(id: string, current: boolean) {
+    const nextFeatured = !current;
+    if (nextFeatured) {
+      const featuredCount = demos.filter((d) => d.featured).length;
+      if (featuredCount >= FEATURED_HOMEPAGE_LIMIT) {
+        showWarningToast(
+          `Homepage shows only ${FEATURED_HOMEPAGE_LIMIT} featured cards (by sort order). This demo is marked featured — reorder or unfeature another if needed.`
+        );
+      }
+    }
+    const result = await updateDemo(id, { featured: nextFeatured });
+    applyOperationResult(
+      result,
+      nextFeatured ? "Added to homepage Featured Work." : "Removed from homepage Featured Work."
+    );
+  }
+
   async function handleSortOrderChange(id: string, newOrder: number) {
     const result = await updateDemo(id, { sortOrder: newOrder });
     applyOperationResult(result, "Sort order updated.");
+  }
+
+  /** Swap sortOrder with neighboring featured demo (↑ / ↓ in Featured Work section). */
+  async function handleFeaturedReorder(id: string, direction: "up" | "down") {
+    const featured = [...demos]
+      .filter((d) => d.featured)
+      .sort((a, b) => a.sortOrder - b.sortOrder);
+    const idx = featured.findIndex((d) => d.id === id);
+    if (idx < 0) return;
+    const swapIdx = direction === "up" ? idx - 1 : idx + 1;
+    if (swapIdx < 0 || swapIdx >= featured.length) return;
+
+    const a = featured[idx];
+    const b = featured[swapIdx];
+    const orderA = a.sortOrder;
+    const orderB = b.sortOrder;
+
+    // Optimistic UI
+    setDemos((prev) =>
+      prev
+        .map((d) => {
+          if (d.id === a.id) return { ...d, sortOrder: orderB };
+          if (d.id === b.id) return { ...d, sortOrder: orderA };
+          return d;
+        })
+        .sort((x, y) => x.sortOrder - y.sortOrder)
+    );
+
+    const resultA = await updateDemo(a.id, { sortOrder: orderB });
+    if (!resultA.supabaseOk && resultA.error) {
+      applyOperationResult(resultA, "Reorder partially failed.");
+      return;
+    }
+    const resultB = await updateDemo(b.id, { sortOrder: orderA });
+    applyOperationResult(resultB, "Featured order updated.");
   }
 
   async function handlePublish() {
@@ -551,12 +609,14 @@ export default function AdminPanel() {
         const valid = imported.every((d: Demo) => d.title && d.href && typeof d.sortOrder === "number");
         if (!valid) throw new Error("Invalid demo format");
 
-        const cleaned = imported.map((d: Demo) => ({
-          ...d,
-          image: d.image?.startsWith("data:") ? undefined : d.image,
-        }));
+        const cleaned = normalizeDemos(
+          imported.map((d: Demo) => ({
+            ...d,
+            image: d.image?.startsWith("data:") ? undefined : d.image,
+          }))
+        );
 
-        setDemos(cleaned.sort((a, b) => a.sortOrder - b.sortOrder));
+        setDemos(cleaned);
         const syncResult = await forceSyncToSupabase(cleaned);
         dispatchDemosPublished(syncResult.demos);
         setDemos(syncResult.demos.sort((a, b) => a.sortOrder - b.sortOrder));
@@ -612,6 +672,12 @@ export default function AdminPanel() {
   const showLogin = authed === false;
   const showPending = authed === null;
   const tabs: Tab[] = ["Dashboard", "Demos", "Analytics", "Lock"];
+
+  /** Homepage Featured Work queue — sorted for reorder UI (max shown on site = FEATURED_HOMEPAGE_LIMIT). */
+  const featuredDemos = demos
+    .filter((d) => d.featured)
+    .sort((a, b) => a.sortOrder - b.sortOrder);
+  const featuredOnHomepage = featuredDemos.slice(0, FEATURED_HOMEPAGE_LIMIT);
 
   return (
     <div className="min-h-screen bg-[#050708] text-[#e8e3d9]">
@@ -923,13 +989,160 @@ export default function AdminPanel() {
                     <div className="text-3xl md:text-[32px] font-semibold tabular-nums mt-1.5 leading-none text-[#3ddbd9]">{demos.filter(d => d.visible).length}</div>
                   </div>
                   <div className="bg-[#0c1013] border border-[#1a2225] rounded-2xl px-6 py-5 md:py-6">
-                    <div className="text-[#9aa6ad] text-[11px] tracking-[1.5px]">HIDDEN</div>
-                    <div className="text-3xl md:text-[32px] font-semibold tabular-nums mt-1.5 leading-none">{demos.filter(d => !d.visible).length}</div>
+                    <div className="text-[#9aa6ad] text-[11px] tracking-[1.5px]">FEATURED HOMEPAGE</div>
+                    <div className="text-3xl md:text-[32px] font-semibold tabular-nums mt-1.5 leading-none text-[#f4a261]">
+                      {featuredOnHomepage.length}
+                      <span className="text-lg text-[#6b787e]">/{FEATURED_HOMEPAGE_LIMIT}</span>
+                    </div>
                   </div>
                   <div className="bg-[#0c1013] border border-[#1a2225] rounded-2xl px-6 py-5 md:py-6 text-[13.5px] leading-relaxed text-[#9aa6ad]">
-                    Supabase primary.<br />IndexedDB + minimal localStorage backup.<br />Supports 30+ demos.
+                    Edit Featured Work below to swap homepage demos — no code edits needed.
                   </div>
                 </div>
+
+                {/* ==================== FEATURED WORK (HOMEPAGE) — primary edit surface for the 4 cards ==================== */}
+                <section className="mb-10 rounded-[28px] border border-[#3a2a1a] bg-gradient-to-b from-[#12100c] to-[#0a0c0f] p-5 sm:p-6 shadow-[0_24px_60px_-40px_rgba(193,122,90,0.35)]">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-5">
+                    <div>
+                      <div className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[2px] font-semibold text-[#f4a261] mb-1.5">
+                        <Star size={13} className="fill-[#f4a261]" /> Featured Work · Homepage
+                      </div>
+                      <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-white">
+                        Here&apos;s the kind of work I build
+                      </h2>
+                      <p className="mt-1.5 text-[14px] text-[#9aa6ad] max-w-2xl leading-relaxed">
+                        These cards appear on the homepage under <span className="text-[#c8b48a]">Featured Work</span>.
+                        Edit <strong className="text-[#e8e3d9] font-medium">Title</strong>,{" "}
+                        <strong className="text-[#e8e3d9] font-medium">Badge</strong>,{" "}
+                        <strong className="text-[#e8e3d9] font-medium">Subtitle</strong>,{" "}
+                        <strong className="text-[#e8e3d9] font-medium">Image</strong>, and{" "}
+                        <strong className="text-[#e8e3d9] font-medium">Link</strong> — reorder with ↑↓.
+                        Homepage shows up to {FEATURED_HOMEPAGE_LIMIT} (lowest sort order first).
+                      </p>
+                    </div>
+                    <Link
+                      href="/#featured-work"
+                      className="shrink-0 inline-flex items-center gap-1.5 text-[13.5px] font-medium text-[#f4a261] hover:text-[#ffd6b8] border border-[#463424] rounded-xl px-4 py-2.5 bg-[#1a140f]"
+                    >
+                      Preview homepage →
+                    </Link>
+                  </div>
+
+                  {featuredDemos.length === 0 ? (
+                    <div className="rounded-2xl border border-dashed border-[#463424] bg-[#0c1013]/80 px-5 py-8 text-center text-[14px] text-[#9aa6ad]">
+                      No demos marked as Featured yet. Toggle{" "}
+                      <span className="text-[#f4a261] font-medium">Feature on homepage</span> on any demo below,
+                      or open Edit and check the Featured box.
+                    </div>
+                  ) : (
+                    <div className="space-y-3">
+                      {featuredDemos.map((demo, index) => {
+                        const onHomepage = index < FEATURED_HOMEPAGE_LIMIT;
+                        return (
+                          <article
+                            key={demo.id}
+                            className={`rounded-2xl border p-3.5 sm:p-4 transition ${
+                              onHomepage
+                                ? "border-[#463424] bg-[#0f1210]"
+                                : "border-[#2a2220] bg-[#0a0c0f] opacity-75"
+                            }`}
+                          >
+                            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 sm:items-center">
+                              <div className="flex items-center gap-3 min-w-0 flex-1">
+                                <div
+                                  className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-sm font-bold tabular-nums ${
+                                    onHomepage
+                                      ? "bg-[#2b1f16] text-[#f4a261] border border-[#463424]"
+                                      : "bg-[#1a2225] text-[#6b787e] border border-[#243530]"
+                                  }`}
+                                  title={onHomepage ? `Homepage slot ${index + 1}` : "Beyond homepage limit — raise order or unfeature others"}
+                                >
+                                  {onHomepage ? index + 1 : "—"}
+                                </div>
+                                <div className="relative h-16 w-28 shrink-0 overflow-hidden rounded-xl bg-[#0b1320] ring-1 ring-[#243530]">
+                                  {demo.image ? (
+                                    <Image
+                                      src={demo.image}
+                                      alt={demo.title}
+                                      fill
+                                      sizes="112px"
+                                      className="object-cover object-top"
+                                      unoptimized
+                                    />
+                                  ) : (
+                                    <div className="flex h-full items-center justify-center text-[10px] text-[#6b787e]">No image</div>
+                                  )}
+                                </div>
+                                <div className="min-w-0 flex-1">
+                                  <div className="flex flex-wrap items-center gap-1.5 mb-0.5">
+                                    <span className="rounded-full bg-[#1f345c] px-2 py-0.5 text-[10px] uppercase tracking-wider text-[#7dd3fc]">
+                                      {demo.category || "Badge"}
+                                    </span>
+                                    {!demo.visible && (
+                                      <span className="rounded-full border border-[#374151] px-2 py-0.5 text-[10px] uppercase tracking-wider text-[#9ca3af]">
+                                        Hidden
+                                      </span>
+                                    )}
+                                    {!onHomepage && (
+                                      <span className="rounded-full border border-amber-900/50 px-2 py-0.5 text-[10px] uppercase tracking-wider text-amber-400/90">
+                                        Not on homepage (slot full)
+                                      </span>
+                                    )}
+                                  </div>
+                                  <h3 className="text-[15px] sm:text-base font-semibold text-white truncate">{demo.title}</h3>
+                                  <p className="text-[12.5px] text-[#8a9599] line-clamp-1 mt-0.5">
+                                    {demo.description || "No subtitle yet — click Edit to add one."}
+                                  </p>
+                                </div>
+                              </div>
+
+                              <div className="flex flex-wrap items-center gap-2 sm:justify-end shrink-0">
+                                <button
+                                  type="button"
+                                  onClick={() => handleFeaturedReorder(demo.id, "up")}
+                                  disabled={index === 0}
+                                  className="inline-flex h-10 min-w-[40px] items-center justify-center rounded-xl border border-[#463424] bg-[#1a140f] px-3 text-sm font-semibold text-[#f4a261] transition hover:bg-[#2b1f16] disabled:opacity-30 disabled:cursor-not-allowed"
+                                  aria-label={`Move ${demo.title} earlier on homepage`}
+                                >
+                                  ↑
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => handleFeaturedReorder(demo.id, "down")}
+                                  disabled={index === featuredDemos.length - 1}
+                                  className="inline-flex h-10 min-w-[40px] items-center justify-center rounded-xl border border-[#463424] bg-[#1a140f] px-3 text-sm font-semibold text-[#f4a261] transition hover:bg-[#2b1f16] disabled:opacity-30 disabled:cursor-not-allowed"
+                                  aria-label={`Move ${demo.title} later on homepage`}
+                                >
+                                  ↓
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => openEditDemo(demo)}
+                                  className="inline-flex h-10 items-center justify-center gap-1.5 rounded-xl border border-[#24384f] bg-[#0b1230] px-3.5 text-sm font-semibold text-[#cbd5e1] transition hover:border-[#60a5fa] hover:text-white"
+                                >
+                                  <Edit2 size={14} /> Edit
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => handleToggleFeatured(demo.id, true)}
+                                  className="inline-flex h-10 items-center justify-center rounded-xl border border-[#463424] bg-[#1a140f] px-3.5 text-sm font-semibold text-[#c8b48a] transition hover:bg-[#2b1f16]"
+                                >
+                                  Unfeature
+                                </button>
+                              </div>
+                            </div>
+                          </article>
+                        );
+                      })}
+                    </div>
+                  )}
+
+                  <p className="mt-4 text-[12px] text-[#6b787e] leading-relaxed">
+                    Tip: To swap in TruckDash (or any demo), open it below → check{" "}
+                    <span className="text-[#c8b48a]">Feature on homepage</span> → use ↑↓ here to place it in slots 1–4.
+                    Unfeature one of the current four if you only want four stars.
+                  </p>
+                </section>
 
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-2 mb-5">
                   <div className="flex items-center gap-2 flex-wrap">
@@ -959,6 +1172,15 @@ export default function AdminPanel() {
 
                     <Link href="/" className="text-[14px] text-[#3ddbd9] hover:underline px-3 py-2">Preview Site →</Link>
                   </div>
+                </div>
+
+                <div className="mb-3 flex items-baseline justify-between gap-2">
+                  <h3 className="text-sm font-semibold tracking-wide text-[#e8e3d9] uppercase">
+                    All demos
+                  </h3>
+                  <span className="text-[12px] text-[#6b787e]">
+                    Full gallery on /work · Featured subset on homepage
+                  </span>
                 </div>
 
                 <div className="space-y-4">
@@ -993,6 +1215,11 @@ export default function AdminPanel() {
                                 <div className="flex flex-wrap items-center gap-2">
                                   <span className="rounded-full bg-[#1f345c] px-3 py-1 text-[11px] uppercase tracking-[0.3em] text-[#7dd3fc]">{demo.category || "Uncategorized"}</span>
                                   <span className="rounded-full border border-[#24384f] px-3 py-1 text-[11px] uppercase tracking-[0.3em] text-[#cbd5e1]">Order {demo.sortOrder}</span>
+                                  {demo.featured && (
+                                    <span className="inline-flex items-center gap-1 rounded-full border border-[#463424] bg-[#2b1f16] px-3 py-1 text-[11px] uppercase tracking-[0.3em] text-[#f4a261]">
+                                      <Star size={10} className="fill-[#f4a261]" /> Featured
+                                    </span>
+                                  )}
                                 </div>
                                 <div>
                                   <h2 className="text-2xl font-semibold tracking-[-0.03em] text-white">{demo.title}</h2>
@@ -1036,6 +1263,18 @@ export default function AdminPanel() {
                               >
                                 {demo.visible ? "Visible" : "Hidden"}
                               </button>
+                              <button
+                                type="button"
+                                onClick={() => handleToggleFeatured(demo.id, !!demo.featured)}
+                                className={`inline-flex h-11 items-center justify-center gap-1.5 rounded-2xl border px-4 text-sm font-semibold transition ${
+                                  demo.featured
+                                    ? "border-[#463424] bg-[#2b1f16] text-[#f4a261]"
+                                    : "border-[#374151] bg-[#111827] text-[#9ca3af] hover:border-[#463424] hover:text-[#c8b48a]"
+                                }`}
+                              >
+                                <Star size={14} className={demo.featured ? "fill-[#f4a261]" : ""} />
+                                {demo.featured ? "Featured" : "Feature on homepage"}
+                              </button>
                             </div>
 
                             <div className="flex flex-wrap items-center gap-2">
@@ -1064,6 +1303,7 @@ export default function AdminPanel() {
                 <div className="mt-4 text-xs text-[#6b787e] leading-relaxed space-y-1">
                   <p>• Saves go to Supabase first; local backup strips base64 to avoid quota limits.</p>
                   <p>• Use Force Sync to push all demos to Supabase or recover after clearing local backup.</p>
+                  <p>• Featured Work on the homepage is controlled by the Featured toggle + sort order above — no code edits needed.</p>
                   <p>• Export JSON / demos.ts always reads current table — safe even if localStorage is full.</p>
                 </div>
 
@@ -1117,9 +1357,10 @@ export default function AdminPanel() {
                       placeholder="Hickory Forge Steakhouse"
                       required
                     />
+                    <p className="text-[10px] text-[#6b787e] mt-0.5">Card headline on homepage &amp; /work.</p>
                   </div>
 
-                  {/* Slug + Category — improved two-column layout */}
+                  {/* Slug + Badge (Category) */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                     <div>
                       <label className="label mb-1 block">Slug (unique) *</label>
@@ -1133,7 +1374,7 @@ export default function AdminPanel() {
                       <p className="text-[10px] text-[#6b787e] mt-0.5">Auto-generated. Keep unique.</p>
                     </div>
                     <div>
-                      <label className="label mb-1 block">Category *</label>
+                      <label className="label mb-1 block">Badge (Category) *</label>
                       {/*
                         Hybrid category input: users may type freely, but a datalist
                         provides common suggestions for quick selection. This keeps the
@@ -1144,7 +1385,7 @@ export default function AdminPanel() {
                         value={form.category}
                         onChange={(e) => updateForm("category", e.target.value)}
                         className="input w-full py-2 text-[14.5px]"
-                        placeholder="e.g., Restaurant, Food Truck, Steakhouse"
+                        placeholder="e.g., Food Truck Tool, Restaurant, Fitness"
                         required
                       />
                       <datalist id="category-suggestions">
@@ -1152,12 +1393,13 @@ export default function AdminPanel() {
                           <option key={cat} value={cat} />
                         ))}
                       </datalist>
+                      <p className="text-[10px] text-[#6b787e] mt-0.5">Small pill on the card (e.g. Food Truck).</p>
                     </div>
                   </div>
 
-                  {/* Live URL */}
+                  {/* Live URL / Link */}
                   <div>
-                    <label className="label mb-1 block">Live URL / Demo Link *</label>
+                    <label className="label mb-1 block">Link (Live URL) *</label>
                     <input
                       value={form.href}
                       onChange={(e) => updateForm("href", e.target.value)}
@@ -1165,22 +1407,24 @@ export default function AdminPanel() {
                       placeholder="https://your-demo.lovable.app"
                       required
                     />
+                    <p className="text-[10px] text-[#6b787e] mt-0.5">Where “Open live site” goes.</p>
                   </div>
 
-                  {/* Description — reduced height */}
+                  {/* Subtitle / Description */}
                   <div>
-                    <label className="label mb-1 block">Short Description</label>
+                    <label className="label mb-1 block">Subtitle / Description</label>
                     <textarea
                       value={form.description}
                       onChange={(e) => updateForm("description", e.target.value)}
                       className="input w-full min-h-[68px] resize-y text-[14px] py-2"
                       placeholder="Warm steakhouse website with digital menu and reservations for Lake Cumberland visitors."
                     />
+                    <p className="text-[10px] text-[#6b787e] mt-0.5">Short blurb under the title on the card.</p>
                   </div>
 
-                  {/* Preview Image — tighter dropzone */}
+                  {/* Preview Image */}
                   <div>
-                    <label className="label mb-1 block">Preview Image (Screenshot)</label>
+                    <label className="label mb-1 block">Image (Preview Screenshot)</label>
                     <div
                       onClick={triggerFileSelect}
                       onDragEnter={handleDrag}
@@ -1227,8 +1471,8 @@ export default function AdminPanel() {
                     />
                   </div>
 
-                  {/* Sort Order + Visibility — compact two-column */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                  {/* Sort Order + Visibility + Featured */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
                     <div>
                       <label className="label mb-1 block">Sort Order</label>
                       <input
@@ -1237,13 +1481,25 @@ export default function AdminPanel() {
                         onChange={(e) => updateForm("sortOrder", parseInt(e.target.value) || 0)}
                         className="input w-full py-2 text-center text-base tabular-nums"
                       />
-                      <p className="text-[10px] text-[#6b787e] mt-0.5">Lower = shown first</p>
+                      <p className="text-[10px] text-[#6b787e] mt-0.5">Lower = earlier (featured + gallery)</p>
                     </div>
                     <div>
                       <label className="label mb-1 block">Visibility</label>
                       <label className="flex items-center gap-2.5 bg-[#0a0c0f] border border-[#1a2225] rounded-xl px-4 h-[42px] cursor-pointer text-[13.5px]">
                         <input type="checkbox" checked={form.visible} onChange={(e) => updateForm("visible", e.target.checked)} className="accent-[#3ddbd9] w-3.5 h-3.5" />
-                        <span>Visible on public site</span>
+                        <span>Visible on site</span>
+                      </label>
+                    </div>
+                    <div>
+                      <label className="label mb-1 block">Homepage</label>
+                      <label className="flex items-center gap-2.5 bg-[#1a140f] border border-[#463424] rounded-xl px-4 h-[42px] cursor-pointer text-[13.5px]">
+                        <input
+                          type="checkbox"
+                          checked={!!form.featured}
+                          onChange={(e) => updateForm("featured", e.target.checked)}
+                          className="accent-[#f4a261] w-3.5 h-3.5"
+                        />
+                        <span className="text-[#f4a261]">Feature on homepage</span>
                       </label>
                     </div>
                   </div>

@@ -236,12 +236,16 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FEATURED WORK */}
-      <section className="mx-auto max-w-7xl px-5 pt-14 pb-6 border-b border-[#1a2225]">
+      {/* FEATURED WORK — dynamic via Admin Panel (featured flag + sort order); cards from FeaturedDemos */}
+      <section
+        id="featured-work"
+        className="mx-auto max-w-7xl px-5 pt-14 pb-6 border-b border-[#1a2225]"
+        aria-labelledby="featured-work-heading"
+      >
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-4">
           <div>
             <div className="label tracking-[1.6px] mb-1">FEATURED WORK</div>
-            <h2 className="section-title tracking-tight">
+            <h2 id="featured-work-heading" className="section-title tracking-tight">
               Here&apos;s the kind of work I build for local businesses
             </h2>
           </div>

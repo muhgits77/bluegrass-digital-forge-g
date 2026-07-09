@@ -1,15 +1,35 @@
 "use client";
 
 import DemoCard from "@/components/DemoCard";
+import { FEATURED_HOMEPAGE_LIMIT } from "@/lib/demos";
 import { useLivePublicDemos } from "@/lib/useLivePublicDemos";
 
 /**
- * Client island for live demo cards only.
- * Keeps the homepage shell as a Server Component so the hero (LCP)
- * can render without waiting on Framer Motion or demo-sync client JS.
+ * Client island for homepage Featured Work cards only.
+ * - Pulls demos flagged `featured` in Admin (Title, Badge, Image, Link, Subtitle).
+ * - Sorted by sortOrder; max FEATURED_HOMEPAGE_LIMIT (4).
+ * - Keeps the homepage shell as a Server Component so the hero (LCP)
+ *   can render without waiting on demo-sync client JS.
+ * - Dark Kentucky-warm card design lives in DemoCard + globals.css.
  */
-export default function FeaturedDemos({ limit = 4 }: { limit?: number }) {
-  const demos = useLivePublicDemos(limit);
+export default function FeaturedDemos({
+  limit = FEATURED_HOMEPAGE_LIMIT,
+}: {
+  limit?: number;
+}) {
+  const demos = useLivePublicDemos({ limit, featuredOnly: true });
+
+  if (demos.length === 0) {
+    return (
+      <div className="rounded-2xl border border-[#1a2225] bg-[#07100f] px-5 py-10 text-center text-[14.5px] text-[#9aa6ad]">
+        Featured work is being updated. Check back shortly — or{" "}
+        <a href="/work" className="text-[#f4a261] hover:underline">
+          browse all projects
+        </a>
+        .
+      </div>
+    );
+  }
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">

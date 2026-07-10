@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { CONTACT_EMAIL } from "@/lib/constants";
+import ReferralDiscountNote from "@/components/ReferralDiscountNote";
 
 const EMAIL = CONTACT_EMAIL;
 
@@ -191,6 +192,7 @@ export default function QuotePage() {
         <div className="label tracking-[2px]">CUSTOM QUOTE — MONTICELLO KY WEBSITE DESIGNER</div>
         <h1 className="section-title tracking-tight mt-1">Get a Quote from the Monticello KY Website Designer for Lake Cumberland &amp; South Carolina Lowcountry Business Websites</h1>
         <p className="mt-2 text-[#8a9599]">A few quick questions for your Wayne County, Lake Cumberland, or Charleston SC / Lowcountry project. Flat price proposal from the local Monticello builder. Real responses, no automated fluff. Takes 4–6 minutes.</p>
+        <ReferralDiscountNote className="mt-4 rounded-xl border border-[#1f282b]/80 bg-[#0a0c0f]/60 px-4 py-2.5" />
       </div>
 
       {!submitted ? (
@@ -402,6 +404,7 @@ export default function QuotePage() {
                   <option value="">Choose one…</option>
                   {budgetOptions.map((o) => <option key={o} value={o}>{o}</option>)}
                 </select>
+                <ReferralDiscountNote className="mt-2.5" />
               </div>
               <div>
                 <div className="label mb-1.5">Who manages small updates after launch?</div>

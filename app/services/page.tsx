@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Check } from "lucide-react";
 import BrandingCard from "@/components/BrandingCard";
 import ServiceAreas from "@/components/ServiceAreas";
+import ReferralDiscountNote from "@/components/ReferralDiscountNote";
 
 export const metadata: Metadata = {
   title: "Monticello KY & Charleston SC Website Designer Pricing | Lake Cumberland & Lowcountry Business Websites",
@@ -130,7 +131,12 @@ export default function Services() {
         </div>
       </div>
 
-      <p className="text-[14.5px] text-center mt-6 text-[#9aa6ad]">Not sure which one? <Link href="/quote" className="underline hover:text-white">Tell me about your business</Link> — I&apos;ll recommend the right fit for your Lake Cumberland spot. Need a <Link href="/food-truck-websites" className="underline hover:text-white">food truck website Kentucky</Link>? We also serve Charleston SC and the Lowcountry — <Link href="/south-carolina" className="underline hover:text-[#f4a261]">see Charleston web design services</Link>.</p>
+      <ReferralDiscountNote
+        align="center"
+        className="mt-6 mx-auto max-w-2xl rounded-xl border border-[#1f282b]/80 bg-[#0a0c0f]/60 px-4 py-2.5"
+      />
+
+      <p className="text-[14.5px] text-center mt-5 text-[#9aa6ad]">Not sure which one? <Link href="/quote" className="underline hover:text-white">Tell me about your business</Link> — I&apos;ll recommend the right fit for your Lake Cumberland spot. Need a <Link href="/food-truck-websites" className="underline hover:text-white">food truck website Kentucky</Link>? We also serve Charleston SC and the Lowcountry — <Link href="/south-carolina" className="underline hover:text-[#f4a261]">see Charleston web design services</Link>.</p>
 
       {/* Additive food truck emphasis block on services page */}
       <div className="mt-10 rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-7">

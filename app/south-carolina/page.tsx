@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { Check } from "lucide-react";
+import ReferralDiscountNote from "@/components/ReferralDiscountNote";
 
 export const metadata: Metadata = {
   title: "Charleston SC Web Design | Lowcountry Web Design | Summerville Small Business Websites | Bluegrass Digital Forge",
@@ -306,6 +307,10 @@ export default function SouthCarolinaPage() {
             </div>
           </div>
           <p className="mt-4 text-[13px] text-[#9aa6ad]">All projects include the same high-quality handcrafted work and full code ownership. Final quote depends on scope.</p>
+          <ReferralDiscountNote
+            align="center"
+            className="mt-4 mx-auto max-w-xl rounded-xl border border-[#1f282b]/80 bg-[#0a0c0f]/60 px-4 py-2.5"
+          />
         </div>
 
         <div className="mt-5 flex flex-wrap gap-3 justify-center">

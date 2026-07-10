@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import ServiceAreas from "@/components/ServiceAreas";
+import ReferralDiscountNote from "@/components/ReferralDiscountNote";
 
 /**
  * Homepage — Server Component for critical LCP path.
@@ -347,6 +348,11 @@ export default function Home() {
               View Lake Cumberland Demos
             </Link>
           </div>
+
+          <ReferralDiscountNote
+            align="center"
+            className="mt-5 mx-auto max-w-[48ch] rounded-xl border border-[#1f282b]/80 bg-[#0a0c0f]/60 px-4 py-2.5"
+          />
 
           <p className="mt-4 text-[12.5px] text-[#8a9599]">
             Or{" "}

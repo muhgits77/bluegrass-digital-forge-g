@@ -151,13 +151,13 @@ export default function Services() {
         <div className="text-[#f4a261] text-xs tracking-[1.5px] mb-1">WEB APP — TRUCKDASH</div>
         <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">TruckDash for Kentucky food truckers</h2>
         <p className="mt-2 text-[15px] text-[#c8cfd3] max-w-2xl">
-          Dashboard, schedule manager, flyer studio, and one-tap publish. Honest pricing, no hidden fees, lifetime updates for your purchase. Referral discount does not apply to Web Apps.
+          Dashboard, schedule manager, flyer studio, live map with location sharing, offline mode, and one-tap JSON export. Honest pricing, no hidden fees, lifetime updates for your purchase. Referral discount does not apply to Web Apps.
         </p>
         <div className="mt-5 grid sm:grid-cols-2 gap-4 max-w-xl">
           <div className="rounded-2xl border border-[#1f282b] bg-[#050708]/80 p-4">
             <div className="text-sm text-[#8a9599]">Starter</div>
             <div className="text-2xl font-semibold tabular-nums tracking-tight">$1,497</div>
-            <p className="text-[13px] text-[#9aa6ad] mt-1">Core dashboard, basic flyer studio, offline mode</p>
+            <p className="text-[13px] text-[#9aa6ad] mt-1">Core dashboard, flyer studio, live map, offline mode, lifetime updates</p>
           </div>
           <div className="rounded-2xl border border-[#c17a5a]/50 bg-[#050708]/80 p-4">
             <div className="flex items-center gap-2">

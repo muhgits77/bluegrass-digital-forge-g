@@ -10,7 +10,7 @@ const EMAIL = CONTACT_EMAIL;
 
 /** TruckDash plan query → budget label (Buy Now buttons use ?plan=starter | ?plan=pro). */
 const TRUCKDASH_PLAN_BUDGET: Record<string, string> = {
-  starter: "TruckDash Starter — $1,497",
+  starter: "TruckDash Starter — $1,497 one-time",
   pro: "TruckDash Pro — $2,497 (or $1,997 launch)",
 };
 
@@ -68,7 +68,7 @@ const mustHaveOptions = [
 const budgetOptions = [
   "Starter Site — from $1,200",
   "Business Suite — from $2,500",
-  "TruckDash Starter — $1,497",
+  "TruckDash Starter — $1,497 one-time",
   "TruckDash Pro — $2,497 (or $1,997 launch)",
   "Not sure yet",
 ];

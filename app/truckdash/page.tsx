@@ -5,7 +5,7 @@ import { Check } from "lucide-react";
 export const metadata: Metadata = {
   title: "TruckDash Pricing | Kentucky Food Truck Dashboard & Flyer Studio",
   description:
-    "Choose your TruckDash plan — Starter $1,497 or Pro $2,497. Dashboard, schedule manager, flyer studio, and one-tap publish for Kentucky food truckers. Limited launch: Pro for $1,997 for the first 10 trucks.",
+    "Choose your TruckDash plan — Starter $1,497 or Pro $2,497. Dashboard, schedule manager, flyer studio, live map with location sharing, offline mode, and lifetime updates for Kentucky food truckers. Limited launch: Pro for $1,997 for the first 10 trucks.",
   keywords: [
     "TruckDash",
     "food truck dashboard Kentucky",
@@ -20,8 +20,10 @@ const starterFeatures = [
   "Core Dashboard & Schedule Manager",
   "Basic Flyer Studio (templates + QR codes)",
   "One-tap JSON export for your website",
+  "Live Map with location sharing",
   "Offline mode",
   "Kentucky-style design & branding kit",
+  "Lifetime updates",
 ];
 
 const proFeatures = [

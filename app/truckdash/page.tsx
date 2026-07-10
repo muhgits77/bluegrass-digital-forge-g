@@ -5,7 +5,7 @@ import { Check } from "lucide-react";
 export const metadata: Metadata = {
   title: "TruckDash Pricing | Kentucky Food Truck Dashboard & Flyer Studio",
   description:
-    "Choose your TruckDash plan — Starter $1,497 or Pro $2,497. Dashboard, schedule manager, flyer studio, live map with location sharing, offline mode, and lifetime updates for Kentucky food truckers. Limited launch: Pro for $1,997 for the first 10 trucks.",
+    "Choose your TruckDash plan — Starter $1,497 or Pro $2,497 one-time. Pro includes Advanced Flyer Studio, multi-stop live map, recurring event calendar, advanced menu management, social caption generator, priority support & lifetime updates. Limited launch: Pro for $1,997 for the first 10 trucks.",
   keywords: [
     "TruckDash",
     "food truck dashboard Kentucky",
@@ -27,12 +27,14 @@ const starterFeatures = [
 ];
 
 const proFeatures = [
-  "Everything in Starter",
-  "Advanced Flyer Studio (stories, social presets, custom backgrounds)",
-  "Supabase sync + one-tap publish to your live website",
-  "Custom branding & menu import",
-  "Priority email support + 1 year maintenance",
-  "PWA-ready for mobile crew access",
+  "Everything in Starter, plus:",
+  "Advanced Flyer Studio with custom templates",
+  "Full Live Map with multi-stop routing",
+  "Recurring event calendar integration",
+  "Advanced menu management with pricing",
+  "Social media caption generator",
+  "Priority support & lifetime updates",
+  "Custom branding & domain setup guidance",
 ];
 
 const addOns = [
@@ -96,7 +98,7 @@ export default function TruckDashPage() {
             <h2 className="text-3xl font-semibold tracking-tight">Pro</h2>
             <span className="badge">MOST POPULAR</span>
           </div>
-          <p className="text-[#8a9599] font-medium">The full Bluegrass Command Center</p>
+          <p className="text-[#8a9599] font-medium">Perfect for growing food trucks</p>
 
           <div className="mt-4 flex items-baseline gap-1.5 flex-wrap">
             <span className="text-5xl font-semibold tracking-[-2.5px] tabular-nums">$2,497</span>
@@ -115,8 +117,8 @@ export default function TruckDashPage() {
           </ul>
 
           <p className="mt-6 text-[14px] text-[#9aa6ad]">
-            <span className="font-medium text-[#c9b9a8]">Best for:</span> Established trucks like Bluegrass Kitchen
-            running multiple days + events.
+            <span className="font-medium text-[#c9b9a8]">Best for:</span> Established trucks wanting more automation
+            and professional marketing tools.
           </p>
 
           <div className="mt-auto pt-8">

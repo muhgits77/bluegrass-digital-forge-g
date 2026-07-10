@@ -165,6 +165,9 @@ export default function Services() {
               <span className="badge text-[9px] py-px">MOST POPULAR</span>
             </div>
             <div className="text-2xl font-semibold tabular-nums tracking-tight">$2,497</div>
+            <p className="text-[13px] text-[#9aa6ad] mt-1">
+              Everything in Starter + Advanced Flyer Studio, multi-stop routing, recurring events, menu pricing, social captions, priority support
+            </p>
             <p className="text-[13px] text-[#d4a373] mt-1">Launch: first 10 trucks get Pro for $1,997</p>
           </div>
         </div>

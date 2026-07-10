@@ -64,7 +64,7 @@ export default function FoodTruckWebsites() {
         <div className="text-[#f4a261] text-xs tracking-[1.5px] mb-1">TRUCKDASH — FOOD TRUCK WEB APP</div>
         <h2 className="text-xl font-semibold tracking-tight">Need the Bluegrass Command Center, not just a website?</h2>
         <p className="mt-2 text-[15px] text-[#c8cfd3]">
-          TruckDash is our dashboard + flyer studio for Kentucky food truckers — schedule manager, live map with location sharing, offline mode, and lifetime updates. Starter $1,497 · Pro $2,497 (Most Popular) — launch offer: first 10 trucks get Pro for $1,997 through August 2026.
+          TruckDash is our dashboard + flyer studio for Kentucky food truckers — schedule manager, live map with location sharing, offline mode, and lifetime updates. Starter $1,497 · Pro $2,497 one-time (Most Popular): Advanced Flyer Studio, multi-stop routing, recurring event calendar, advanced menu pricing, social caption generator, priority support &amp; custom branding guidance — launch offer: first 10 trucks get Pro for $1,997 through August 2026.
         </p>
         <div className="mt-4 flex flex-wrap gap-3">
           <Link href="/truckdash" className="btn btn-primary">Choose Your TruckDash Plan →</Link>

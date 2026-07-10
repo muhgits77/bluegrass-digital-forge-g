@@ -331,7 +331,11 @@ export default function Home() {
             <Link href="/truckdash" className="underline hover:text-[#f4a261]">
               TruckDash Starter $1,497
             </Link>{" "}
-            (lifetime updates).
+            or{" "}
+            <Link href="/truckdash" className="underline hover:text-[#f4a261]">
+              Pro $2,497
+            </Link>{" "}
+            (advanced marketing tools, multi-stop routing, lifetime updates).
           </p>
 
           <div className="mt-8 flex flex-col sm:flex-row gap-3.5 justify-center">

@@ -59,6 +59,20 @@ export default function FoodTruckWebsites() {
         <Link href="/work" className="underline text-[#3ddbd9]">see the Smoky Wheels live demo</Link>
       </div>
 
+      {/* TruckDash product pricing callout */}
+      <div className="mt-10 rounded-3xl border border-[#f4a261]/30 bg-[#0a0c0f] p-7">
+        <div className="text-[#f4a261] text-xs tracking-[1.5px] mb-1">TRUCKDASH — FOOD TRUCK WEB APP</div>
+        <h2 className="text-xl font-semibold tracking-tight">Need the Bluegrass Command Center, not just a website?</h2>
+        <p className="mt-2 text-[15px] text-[#c8cfd3]">
+          TruckDash is our dashboard + flyer studio for Kentucky food truckers. Starter $1,497 · Pro $2,497 (Most Popular) — launch offer: first 10 trucks get Pro for $1,997 through August 2026.
+        </p>
+        <div className="mt-4 flex flex-wrap gap-3">
+          <Link href="/truckdash" className="btn btn-primary">Choose Your TruckDash Plan →</Link>
+          <Link href="/quote?plan=starter" className="btn btn-secondary">Buy Starter</Link>
+          <Link href="/quote?plan=pro" className="btn btn-secondary">Buy Pro</Link>
+        </div>
+      </div>
+
       {/* Additive — full benefits grid focused on practical wins for owners */}
       <div className="mt-12">
         <div className="max-w-2xl">

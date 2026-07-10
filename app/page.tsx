@@ -326,6 +326,11 @@ export default function Home() {
             updates for daily spots and festivals using a simple mobile dashboard.
             Change “Where We Are Today” in seconds from your phone, plus festival
             calendar, online ordering, beautiful food photos, and menu updates.
+            Looking for the full dashboard &amp; flyer studio?{" "}
+            <Link href="/truckdash" className="underline hover:text-[#f4a261]">
+              TruckDash plans from $1,497
+            </Link>
+            .
           </p>
 
           <div className="mt-8 flex flex-col sm:flex-row gap-3.5 justify-center">

@@ -1,11 +1,18 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { CONTACT_EMAIL } from "@/lib/constants";
 import ReferralDiscountNote from "@/components/ReferralDiscountNote";
 
 const EMAIL = CONTACT_EMAIL;
+
+/** TruckDash plan query → budget label (Buy Now buttons use ?plan=starter | ?plan=pro). */
+const TRUCKDASH_PLAN_BUDGET: Record<string, string> = {
+  starter: "TruckDash Starter — $1,497",
+  pro: "TruckDash Pro — $2,497 (or $1,997 launch)",
+};
 
 interface FormData {
   name: string;
@@ -61,6 +68,8 @@ const mustHaveOptions = [
 const budgetOptions = [
   "Starter Site — from $1,200",
   "Business Suite — from $2,500",
+  "TruckDash Starter — $1,497",
+  "TruckDash Pro — $2,497 (or $1,997 launch)",
   "Not sure yet",
 ];
 
@@ -91,13 +100,31 @@ function StepHeader({ num, title }: { num: string; title: string }) {
   );
 }
 
-export default function QuotePage() {
+function QuotePageInner() {
+  const searchParams = useSearchParams();
   const [step, setStep] = useState(0);
   const [form, setForm] = useState<FormData>(initialForm);
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submittedBusiness, setSubmittedBusiness] = useState("");
+  const [truckDashPlan, setTruckDashPlan] = useState<string | null>(null);
+
+  // Prefill budget + goals when arriving from TruckDash Buy Now (?plan=starter|pro)
+  useEffect(() => {
+    const plan = (searchParams.get("plan") || "").toLowerCase().trim();
+    if (plan !== "starter" && plan !== "pro") return;
+    const budget = TRUCKDASH_PLAN_BUDGET[plan];
+    if (!budget) return;
+    setTruckDashPlan(plan);
+    setForm((f) => {
+      if (f.budget === budget) return f;
+      const goals = f.goals.includes("Easily update daily location and hours myself (food trucks & mobile businesses)")
+        ? f.goals
+        : [...f.goals, "Easily update daily location and hours myself (food trucks & mobile businesses)"];
+      return { ...f, budget, goals };
+    });
+  }, [searchParams]);
 
   const update = <K extends keyof FormData>(key: K, value: FormData[K]) => {
     setForm((f) => ({ ...f, [key]: value }));
@@ -192,6 +219,17 @@ export default function QuotePage() {
         <div className="label tracking-[2px]">CUSTOM QUOTE — MONTICELLO KY WEBSITE DESIGNER</div>
         <h1 className="section-title tracking-tight mt-1">Get a Quote from the Monticello KY Website Designer for Lake Cumberland &amp; South Carolina Lowcountry Business Websites</h1>
         <p className="mt-2 text-[#8a9599]">A few quick questions for your Wayne County, Lake Cumberland, or Charleston SC / Lowcountry project. Flat price proposal from the local Monticello builder. Real responses, no automated fluff. Takes 4–6 minutes.</p>
+        {truckDashPlan && (
+          <div className="mt-4 rounded-xl border border-[#f4a261]/35 bg-[#0a0c0f] px-4 py-3 text-[14px] text-[#c8cfd3]">
+            <span className="font-medium text-[#f4a261]">TruckDash {truckDashPlan === "pro" ? "Pro" : "Starter"}</span>
+            {" — "}
+            interest noted. Budget is pre-filled; complete the form and Brian will follow up on purchase details.
+            {" "}
+            <Link href="/truckdash" className="underline hover:text-white text-[#d4a373]">
+              View TruckDash plans
+            </Link>
+          </div>
+        )}
         <ReferralDiscountNote className="mt-4 rounded-xl border border-[#1f282b]/80 bg-[#0a0c0f]/60 px-4 py-2.5" />
       </div>
 
@@ -526,7 +564,24 @@ export default function QuotePage() {
 
       <div className="mt-10 text-center text-[14.5px]">
         <Link href="/services" className="text-[#c17a5a] hover:underline">← Back to Services &amp; Pricing</Link>
+        {" · "}
+        <Link href="/truckdash" className="text-[#c17a5a] hover:underline">TruckDash plans</Link>
       </div>
     </div>
+  );
+}
+
+export default function QuotePage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="mx-auto max-w-3xl px-5 py-10">
+          <div className="label tracking-[2px]">CUSTOM QUOTE</div>
+          <p className="mt-4 text-[#8a9599]">Loading quote form…</p>
+        </div>
+      }
+    >
+      <QuotePageInner />
+    </Suspense>
   );
 }

@@ -18,7 +18,8 @@ export default function ReferralDiscountNote({
     >
       <span className="font-medium text-[#c9b9a8]">Note:</span> The{" "}
       <span className="text-[#d4a373]">$300 referral discount</span> applies to
-      standard website projects. It does not apply to Web Apps like TruckDash.
+      standard website projects. It does not apply to Web Apps like TruckDash
+      (Starter $1,497 / Pro $2,497).
     </p>
   );
 }

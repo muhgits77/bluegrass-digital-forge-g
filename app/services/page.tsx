@@ -146,6 +146,38 @@ export default function Services() {
         <p className="mt-3"><Link href="/food-truck-websites" className="underline hover:text-[#3ddbd9] text-sm">See dedicated food truck website details and Lowcountry examples →</Link></p>
       </div>
 
+      {/* TruckDash Web App — tiered product pricing (separate from website packages) */}
+      <div className="mt-10 rounded-3xl border border-[#f4a261]/30 bg-[#0a0c0f] p-7 md:p-9">
+        <div className="text-[#f4a261] text-xs tracking-[1.5px] mb-1">WEB APP — TRUCKDASH</div>
+        <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">TruckDash for Kentucky food truckers</h2>
+        <p className="mt-2 text-[15px] text-[#c8cfd3] max-w-2xl">
+          Dashboard, schedule manager, flyer studio, and one-tap publish. Honest pricing, no hidden fees, lifetime updates for your purchase. Referral discount does not apply to Web Apps.
+        </p>
+        <div className="mt-5 grid sm:grid-cols-2 gap-4 max-w-xl">
+          <div className="rounded-2xl border border-[#1f282b] bg-[#050708]/80 p-4">
+            <div className="text-sm text-[#8a9599]">Starter</div>
+            <div className="text-2xl font-semibold tabular-nums tracking-tight">$1,497</div>
+            <p className="text-[13px] text-[#9aa6ad] mt-1">Core dashboard, basic flyer studio, offline mode</p>
+          </div>
+          <div className="rounded-2xl border border-[#c17a5a]/50 bg-[#050708]/80 p-4">
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-[#8a9599]">Pro</span>
+              <span className="badge text-[9px] py-px">MOST POPULAR</span>
+            </div>
+            <div className="text-2xl font-semibold tabular-nums tracking-tight">$2,497</div>
+            <p className="text-[13px] text-[#d4a373] mt-1">Launch: first 10 trucks get Pro for $1,997</p>
+          </div>
+        </div>
+        <div className="mt-5 flex flex-wrap gap-3">
+          <Link href="/truckdash" className="btn btn-primary">
+            Choose Your TruckDash Plan →
+          </Link>
+          <Link href="/quote?plan=pro" className="btn btn-secondary">
+            Buy Pro →
+          </Link>
+        </div>
+      </div>
+
       {/* Regional Pricing — additive, honest, clean language. Kentucky as base + SC Lowcountry 25-35% higher. Two-column format. */}
       <div className="mt-10">
         <div className="max-w-3xl mb-6">

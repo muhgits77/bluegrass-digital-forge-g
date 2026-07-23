@@ -18,22 +18,19 @@ import {
 } from "@/lib/demos";
 import type { SupabaseConnectionStatus } from "@/lib/supabase";
 import { CONTACT_EMAIL } from "@/lib/constants";
+import { loginAdmin, logoutAdmin, isAdminAuthenticated } from "@/lib/adminAuth";
 
 // ==================================================================
 // ADMIN PANEL — BLUEGRASS DIGITAL FORGE
 // Dark modern professional style (separate from warm public Kentucky theme)
-// 
-// - Password: ScotchGlitch398!1!1!1 (client-side demo only)
-// - CRUD now uses Supabase (forge_demos) as PRIMARY + Supabase Storage for drag & drop images.
-// - Full graceful fallback to localStorage on any Supabase failure (keys missing, error, offline).
-// - Existing localStorage admin functionality is NEVER broken.
-// - "Export to demos.ts" still works for baking into source-controlled DEFAULT_DEMOS.
-// - Public pages prefer Supabase when present (already implemented) so changes go live instantly.
-// - UI, modals, validation, all buttons, and behavior kept exactly as before.
+//
+// - Auth: Supabase Auth (email + password) + fixed admin token (see lib/adminAuth.ts)
+// - Session persisted via Supabase client (persistSession / autoRefreshToken)
+// - CRUD uses Supabase (forge_demos) as PRIMARY + Supabase Storage for images
+// - Graceful fallback to localStorage/IndexedDB on Supabase failure
+// - "Export to demos.ts" still works for baking into DEFAULT_DEMOS
+// - Public pages prefer Supabase when present so changes go live instantly
 // ==================================================================
-
-const ADMIN_PASSWORD = "ScotchGlitch398!1!1!1";
-const AUTH_KEY = "bdf_admin_authed";
 
 type FormData = Omit<Demo, "id">;
 
@@ -77,8 +74,11 @@ const categories = [
 
 export default function AdminPanel() {
   const [authed, setAuthed] = useState<boolean | null>(null);
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [adminToken, setAdminToken] = useState("");
   const [authError, setAuthError] = useState("");
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   const [demos, setDemos] = useState<Demo[]>([]);
   const [showModal, setShowModal] = useState(false);
@@ -145,11 +145,24 @@ export default function AdminPanel() {
     return () => window.removeEventListener("storage", handleStorage);
   }, [loadDemos]);
 
+  // Restore Supabase Auth session (and clear legacy client-only auth flag)
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const savedAuth = localStorage.getItem(AUTH_KEY) === "true";
-    // Use setTimeout to defer to the browser and avoid the React hook state-in-effect lint error.
-    setTimeout(() => setAuthed(savedAuth), 0);
+    try {
+      localStorage.removeItem("bdf_admin_authed");
+    } catch {
+      /* ignore */
+    }
+
+    let cancelled = false;
+    void (async () => {
+      const ok = await isAdminAuthenticated();
+      if (!cancelled) setAuthed(ok);
+    })();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   function applyOperationResult(
@@ -171,25 +184,41 @@ export default function AdminPanel() {
     return sorted;
   }
 
-  // Simple client-side password gate (not production security)
-  function handleLogin(e: React.FormEvent) {
+  async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
-    if (password === ADMIN_PASSWORD) {
-      localStorage.setItem(AUTH_KEY, "true");
-      setAuthed(true);
-      setPassword("");
-      setAuthError("");
-      loadDemos();
-    } else {
-      setAuthError("Incorrect password. Please try again.");
+    if (isLoggingIn) return;
+
+    setIsLoggingIn(true);
+    setAuthError("");
+
+    try {
+      const result = await loginAdmin(email, password, adminToken);
+      if (result.ok) {
+        setAuthed(true);
+        setEmail("");
+        setPassword("");
+        setAdminToken("");
+        setAuthError("");
+        void loadDemos();
+      } else {
+        setAuthError(result.error);
+      }
+    } catch (err) {
+      setAuthError(err instanceof Error ? err.message : "Sign-in failed.");
+    } finally {
+      setIsLoggingIn(false);
     }
   }
 
-  function handleLogout() {
-    localStorage.removeItem(AUTH_KEY);
+  async function handleLogout() {
+    await logoutAdmin();
     setAuthed(false);
     setDemos([]);
     setShowModal(false);
+    setEmail("");
+    setPassword("");
+    setAdminToken("");
+    setAuthError("");
   }
 
   // ==================== IMAGE UPLOAD HANDLERS (Drag & Drop + Preview) ====================
@@ -719,7 +748,7 @@ export default function AdminPanel() {
         {showPending ? (
           <div className="rounded-[28px] border border-[#182c43] bg-[#07101a] p-10 text-center text-[#9aa6ad] shadow-lg">
             <div className="text-lg font-semibold text-white mb-2">Loading admin experience…</div>
-            <p className="text-sm text-[#8a9599]">Checking local auth state and preparing the admin panel.</p>
+            <p className="text-sm text-[#8a9599]">Checking Supabase session and preparing the admin panel.</p>
           </div>
         ) : showLogin ? (
           <div className="mx-auto max-w-2xl">
@@ -734,36 +763,81 @@ export default function AdminPanel() {
                 </div>
               </div>
 
-              <h1 className="text-2xl font-semibold tracking-tight mb-2">Enter admin password</h1>
-              <p className="text-[#9aa6ad] text-[14.5px] mb-6">Client demo area. Protected. Real local site management.</p>
+              <h1 className="text-2xl font-semibold tracking-tight mb-2">Admin sign in</h1>
+              <p className="text-[#9aa6ad] text-[14.5px] mb-6">
+                Secure access via Supabase Auth. Email, password, and admin token required.
+              </p>
 
               <form onSubmit={handleLogin} className="space-y-4">
                 <div>
-                  <label className="label mb-1.5 block">Password</label>
+                  <label className="label mb-1.5 block" htmlFor="admin-email">
+                    Email
+                  </label>
                   <input
+                    id="admin-email"
+                    type="email"
+                    autoComplete="username"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="input w-full text-base"
+                    placeholder="you@example.com"
+                    autoFocus
+                    disabled={isLoggingIn}
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="label mb-1.5 block" htmlFor="admin-password">
+                    Password
+                  </label>
+                  <input
+                    id="admin-password"
                     type="password"
+                    autoComplete="current-password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="input w-full text-base"
                     placeholder="••••••••••••"
-                    autoFocus
+                    disabled={isLoggingIn}
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="label mb-1.5 block" htmlFor="admin-token">
+                    Admin Token
+                  </label>
+                  <input
+                    id="admin-token"
+                    type="password"
+                    autoComplete="off"
+                    value={adminToken}
+                    onChange={(e) => setAdminToken(e.target.value)}
+                    className="input w-full text-base"
+                    placeholder="••••••••••••"
+                    disabled={isLoggingIn}
+                    required
                   />
                 </div>
 
                 {authError && (
-                  <div className="text-sm text-red-400">{authError}</div>
+                  <div className="text-sm text-red-400" role="alert">
+                    {authError}
+                  </div>
                 )}
 
                 <button
                   type="submit"
-                  className="w-full btn bg-[#3b82f6] hover:bg-[#2563eb] text-white font-semibold py-3 rounded-2xl transition flex items-center justify-center gap-2"
+                  disabled={isLoggingIn}
+                  className="w-full btn bg-[#3b82f6] hover:bg-[#2563eb] disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold py-3 rounded-2xl transition flex items-center justify-center gap-2"
                 >
-                  Sign In to Admin
+                  {isLoggingIn ? "Signing in…" : "Sign In to Admin"}
                 </button>
               </form>
 
               <p className="text-[11px] text-center text-[#6b787e] mt-6">
-                Client-side protection only. For demo purposes.
+                Protected with Supabase Auth. Session persists until you sign out.
               </p>
             </div>
           </div>
@@ -903,7 +977,7 @@ export default function AdminPanel() {
                 </div>
                 <h2 className="text-3xl font-semibold text-white mb-3">Admin Locked</h2>
                 <p className="text-[#9aa6ad] mb-6">
-                  The admin panel is locked. Click sign out to return to the password gate and secure the dashboard.
+                  The admin panel is locked. Click sign out to end your Supabase session and return to the login screen.
                 </p>
                 <button
                   type="button"

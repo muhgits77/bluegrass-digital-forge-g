@@ -64,8 +64,8 @@ export default function Services() {
       <div className="max-w-3xl">
         <div className="label tracking-[2px]">SERVICES &amp; PRICING — MONTICELLO KY WEBSITE DESIGNER</div>
         <h1 className="section-title tracking-tight mt-2">Monticello KY Website Designer — Flat Pricing for Lake Cumberland Business Websites</h1>
-        <p className="mt-3 text-lg text-[#9aa6ad]">Transparent one-time pricing from the local Monticello KY website designer. Starter Sites from $1,200 and Business Suites for Lake Cumberland &amp; Wayne County businesses. Food truck website Kentucky, restaurant websites, marina sites included. You own the code forever.</p>
-        <p className="text-[14.5px] text-[#9aa6ad] mt-1">Handcrafted in Monticello for Wayne County and Lake Cumberland region — serving businesses near the ramps at Conley Bottom, State Dock, Burnside, Lee’s Ford, Creelsboro and beyond. Also serving Charleston SC, Summerville, North Charleston and Lowcountry businesses with the same premium web design.</p>
+        <p className="mt-3 text-lg text-[#9aa6ad]">Transparent one-time pricing. Starter Sites from $1,200 and Business Suites from $2,500. Food trucks, restaurants, marinas, shops — you own the code forever.</p>
+        <p className="text-[14.5px] text-[#9aa6ad] mt-1">Handcrafted in Monticello for Lake Cumberland. Also serving Charleston SC &amp; the Lowcountry.</p>
       </div>
 
       {/* Two Big Website Cards — updated layout & copy per specs. Premium dark with warm amber accents. */}
@@ -138,12 +138,16 @@ export default function Services() {
 
       <p className="text-[14.5px] text-center mt-5 text-[#9aa6ad]">Not sure which one? <Link href="/quote" className="underline hover:text-white">Tell me about your business</Link> — I&apos;ll recommend the right fit for your Lake Cumberland spot. Need a <Link href="/food-truck-websites" className="underline hover:text-white">food truck website Kentucky</Link>? We also serve Charleston SC and the Lowcountry — <Link href="/south-carolina" className="underline hover:text-[#f4a261]">see Charleston web design services</Link>.</p>
 
-      {/* Additive food truck emphasis block on services page */}
-      <div className="mt-10 rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-7">
-        <div className="text-[#f4a261] text-xs tracking-[1.5px] mb-1">FOR FOOD TRUCK OWNERS</div>
-        <h3 className="font-semibold text-xl tracking-tight">Lead with your location: easy on-the-fly updates for daily spots, festivals, and events.</h3>
-        <p className="mt-2 text-[15px] text-[#c8cfd3]">The biggest perk is a simple mobile dashboard that lets you change “Where We Are Today” in seconds — right from your phone while you’re parked or between services. Starter Sites and Business Suites for food trucks put real-time location and hours front and center so customers always know where to find you. Add festival calendar, online ordering, beautiful food photography, and instant menu updates. Perfect for Lake Cumberland BBQ and taco trucks — and Charleston SC / Lowcountry trucks at the Battery, waterfront markets, Firefly, or the Lowcountry Food Truck Festival.</p>
-        <p className="mt-3"><Link href="/food-truck-websites" className="underline hover:text-[#3ddbd9] text-sm">See dedicated food truck website details and Lowcountry examples →</Link></p>
+      {/* Short food-truck teaser — full detail on /food-truck-websites */}
+      <div className="mt-10 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 md:p-7 shadow-[var(--shadow-card)]">
+        <div className="text-[var(--gold-light)] text-xs tracking-[1.5px] mb-1">FOR FOOD TRUCK OWNERS</div>
+        <h3 className="font-semibold text-xl tracking-tight">Update “Where We Are Today” from your phone in seconds.</h3>
+        <p className="mt-2 text-[15px] text-[var(--text-muted)]">
+          Real-time location, festival calendar, menus &amp; ordering — built for Lake Cumberland and Lowcountry trucks.{" "}
+          <Link href="/food-truck-websites" className="text-[var(--gold-light)] underline hover:text-white">
+            See food truck websites →
+          </Link>
+        </p>
       </div>
 
       {/* TruckDash Web App — tiered product pricing (separate from website packages) */}
@@ -227,8 +231,8 @@ export default function Services() {
         <p className="mt-4 text-[13px] text-[#9aa6ad]">All projects include the same high-quality handcrafted work and full code ownership. Final quote depends on scope.</p>
       </div>
 
-      {/* SERVICE AREAS — full list of boat ramp towns + marinas for local SEO and conversion */}
-      <ServiceAreas />
+      {/* Compact service-area teaser — full grid on /service-areas */}
+      <ServiceAreas variant="compact" />
 
       {/* Branding Add-ons */}
       <div className="branding-addons">

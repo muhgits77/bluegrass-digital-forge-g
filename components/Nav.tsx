@@ -42,24 +42,24 @@ export default function Nav() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-[#1a2225] bg-[#050708]/95 backdrop-blur-md supports-[backdrop-filter]:bg-[#050708]/90">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 py-4 md:py-5 min-h-[72px]">
+    <nav className="sticky top-0 z-50 border-b border-[var(--border)] bg-[var(--bg)]/92 backdrop-blur-xl supports-[backdrop-filter]:bg-[var(--bg)]/88 shadow-[0_1px_0_0_rgba(201,122,58,0.06)]">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 py-3.5 md:py-4 min-h-[68px] md:min-h-[72px]">
         <Logo />
 
         {/* Desktop Navigation */}
-        <div className="hidden items-center gap-8 md:flex">
+        <div className="hidden items-center gap-7 lg:gap-8 md:flex">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className={`nav-link font-medium tracking-[-0.2px] text-sm transition-colors hover:text-white ${isActive(link.href) ? "text-white" : "text-zinc-400"}`}
+              className={`nav-link font-medium tracking-[-0.2px] text-sm transition-colors hover:text-white ${isActive(link.href) ? "active text-white" : "text-[var(--text-muted)]"}`}
             >
               {link.label}
             </Link>
           ))}
         </div>
 
-        {/* Desktop CTA — prominent premium conversion (MAJOR polish) */}
+        {/* Desktop CTA */}
         <div className="hidden md:flex items-center gap-3">
           <Link
             href="/quote"
@@ -69,10 +69,10 @@ export default function Nav() {
           </Link>
         </div>
 
-        {/* Mobile Hamburger — larger tap target, accessible */}
+        {/* Mobile Hamburger */}
         <button
           onClick={() => setOpen(!open)}
-          className="md:hidden inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-[#243530] text-zinc-300 hover:text-white hover:border-[#33423c] transition-all active:scale-[0.97]"
+          className="md:hidden inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-[var(--border-strong)] text-[var(--text-muted)] hover:text-white hover:border-[var(--warm)]/40 transition-all active:scale-[0.97]"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
         >
@@ -80,21 +80,21 @@ export default function Nav() {
         </button>
       </div>
 
-      {/* Mobile Menu — smoother, better touch, stronger CTA flow */}
-      <div className={`md:hidden border-t border-[#1a2225] bg-[#050708] ${open ? "block" : "hidden"}`} id="mobile-menu">
+      {/* Mobile Menu */}
+      <div className={`md:hidden border-t border-[var(--border)] bg-[var(--bg)] ${open ? "block" : "hidden"}`} id="mobile-menu">
         <div className="flex flex-col px-5 py-5 gap-0.5 text-[15.5px]">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               onClick={() => setOpen(false)}
-              className={`py-3.5 px-3 nav-link rounded-2xl transition-colors ${isActive(link.href) ? "bg-[#1a2225] text-white font-medium" : "hover:bg-[#0f1517] text-zinc-400"}`}
+              className={`py-3.5 px-3 nav-link rounded-2xl transition-colors ${isActive(link.href) ? "bg-[var(--bg-elev)] text-white font-medium border border-[var(--border)]" : "hover:bg-[var(--bg-elev)] text-[var(--text-muted)]"}`}
             >
               {link.label}
             </Link>
           ))}
 
-          <div className="pt-4 mt-3 border-t border-[#1a2225] flex flex-col gap-3 px-1">
+          <div className="pt-4 mt-3 border-t border-[var(--border)] flex flex-col gap-3 px-1">
             <Link
               href="/quote"
               onClick={() => setOpen(false)}

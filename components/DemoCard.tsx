@@ -62,8 +62,8 @@ export default function DemoCard({
       rel="noopener noreferrer"
       className={
         // min-h (not fixed h) so 2–3 description lines never get clipped by overflow-hidden
-        "demo-card shimmer-hover group block min-h-[480px] sm:min-h-[500px] md:min-h-[520px] flex flex-col bg-[#07100f] border border-[#16201f] overflow-hidden rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c17a5a] shadow-lg transition-shadow duration-300 " +
-        "hover:shadow-[0_18px_50px_rgba(193,122,90,0.12)]"
+        "demo-card shimmer-hover group block min-h-[480px] sm:min-h-[500px] md:min-h-[520px] flex flex-col bg-[var(--bg-elev)] border border-[var(--border)] overflow-hidden rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--warm)] " +
+        "hover:border-[var(--border-strong)]"
       }
       aria-label={`Open live demo of ${title}`}
     >
@@ -71,13 +71,13 @@ export default function DemoCard({
         Minimal browser chrome: thin top bar with traffic lights and subtle site title.
         NO address bar — keeps focus on the screenshot.
       */}
-      <div className="flex items-center gap-3 px-3 py-2 bg-[#06100f] border-b border-[#14201f] shrink-0">
+      <div className="flex items-center gap-3 px-3 py-2.5 bg-[var(--bg)] border-b border-[var(--border)] shrink-0">
         <div className="flex gap-2" aria-hidden>
           <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
           <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
           <span className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
         </div>
-        <div className="ml-2 text-[11px] text-[#859497] font-medium truncate">
+        <div className="ml-2 text-[11px] text-[var(--text-dim)] font-medium truncate">
           {displaySlug}
         </div>
       </div>
@@ -109,39 +109,39 @@ export default function DemoCard({
           />
         )}
 
-        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/20 to-black/40 pointer-events-none" />
-        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[radial-gradient(at_70%_20%,rgba(193,122,90,0.10)_0%,transparent_55%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/20 to-black/45 pointer-events-none" />
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[radial-gradient(at_70%_20%,rgba(201,122,58,0.14)_0%,transparent_55%)] pointer-events-none" />
       </div>
 
       <div className="p-4 sm:p-5 flex-1 flex flex-col min-h-0">
         <div className="flex items-center gap-2 mb-2.5">
-          <span className="text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 bg-[#0e1615] border border-[#1b2726] rounded text-[#9fb0ae]">
+          <span className="text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 bg-[var(--bg)] border border-[var(--border-strong)] rounded text-[var(--text-muted)]">
             {category}
           </span>
           {!isTemplateSite && (
-            <span className="text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 bg-[#2b1f16] border border-[#463424] rounded text-[#f4a261]">
+            <span className="text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 bg-[#2b1f16] border border-[#463424] rounded text-[var(--gold-light)]">
               LIVE DEMO
             </span>
           )}
         </div>
 
-        <h3 className="font-semibold text-[17px] leading-[1.18] mb-1.5 group-hover:text-[#f4a261] transition-colors duration-200">
+        <h3 className="font-semibold text-[17px] leading-[1.18] mb-1.5 group-hover:text-[var(--gold-light)] transition-colors duration-200">
           {title}
         </h3>
         {/*
           3-line blurb: min-h reserves full 3 lines (14px × 1.625 leading × 3).
           line-clamp-3 caps longer copy cleanly — no wall of text, no mid-card clip.
         */}
-        <p className="text-[#9aa6ad] text-[14px] leading-relaxed line-clamp-3 min-h-[4.35rem]">
+        <p className="text-[var(--text-muted)] text-[14px] leading-relaxed line-clamp-3 min-h-[4.35rem]">
           {subtitle}
         </p>
 
-        <p className="mt-2.5 text-[12px] font-medium tracking-[0.03em] text-[#c17a5a]">
+        <p className="mt-2.5 text-[12px] font-medium tracking-[0.03em] text-[var(--warm)]">
           {SITE_TAGLINE}
         </p>
 
         <div className="mt-auto pt-3">
-          <div className="inline-flex items-center gap-2 text-[14px] font-semibold text-[#f4a261] group-hover:text-[#ffd6b8] transition-colors">
+          <div className="inline-flex items-center gap-2 text-[14px] font-semibold text-[var(--gold-light)] group-hover:text-[#ffd6b8] transition-colors">
             <span>Open live site</span>
             <svg
               width="16"

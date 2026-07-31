@@ -1,10 +1,8 @@
 import Link from "next/link";
 
 /**
- * ServiceAreas — Strong, natural local SEO content for Lake Cumberland boat ramp towns.
- * Placed on homepage, services, and optionally a dedicated page.
- * Uses authentic Kentucky voice: neighborly, helpful, specific but never stuffed.
- * Mobile-first grid. Matches existing Tailwind + design system (earthy borders, warm accents).
+ * ServiceAreas — Lake Cumberland boat ramp towns.
+ * Full grid for /service-areas (and compact teaser for homepage / services).
  */
 
 const areas = [
@@ -55,65 +53,126 @@ const areas = [
   },
 ];
 
-export default function ServiceAreas() {
+const compactTowns = [
+  "Monticello",
+  "Jamestown",
+  "Burnside",
+  "Somerset",
+  "Russell Springs",
+  "Nancy",
+  "Albany",
+  "Creelsboro",
+];
+
+type ServiceAreasProps = {
+  /** full = exhaustive cards (dedicated page). compact = high-impact teaser. */
+  variant?: "full" | "compact";
+};
+
+export default function ServiceAreas({ variant = "full" }: ServiceAreasProps) {
+  if (variant === "compact") {
+    return (
+      <section className="section-block border-t border-[var(--border)] bg-[var(--bg)]">
+        <div className="mx-auto max-w-6xl px-5">
+          <div className="max-w-2xl mb-8">
+            <div className="label tracking-[2px]">LAKE CUMBERLAND SERVICE AREAS</div>
+            <h2 className="section-title tracking-tight mt-2">
+              Built for the towns around the lake.
+            </h2>
+            <p className="mt-3 text-[15.5px] text-[var(--text-muted)] leading-relaxed">
+              Marinas, guides, restaurants, and shops from Monticello to every
+              major ramp town — handcrafted by a neighbor who lives here.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap gap-2.5 mb-8">
+            {compactTowns.map((town) => (
+              <span key={town} className="area-chip">
+                {town}
+              </span>
+            ))}
+            <span className="area-chip area-chip--accent">+ Lowcountry SC</span>
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 text-[14.5px]">
+            <Link href="/service-areas" className="btn btn-secondary text-sm px-6 py-2.5">
+              See all service areas →
+            </Link>
+            <Link
+              href="/south-carolina"
+              className="text-[var(--gold-light)] hover:underline text-sm font-medium"
+            >
+              Charleston SC &amp; Lowcountry →
+            </Link>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <section className="py-12 border-t border-[#1a2225] bg-[#050708]">
+    <section className="section-block border-t border-[var(--border)] bg-[var(--bg)]">
       <div className="mx-auto max-w-6xl px-5">
-        <div className="max-w-3xl mb-8">
+        <div className="max-w-3xl mb-9">
           <div className="label tracking-[2px]">LAKE CUMBERLAND SERVICE AREAS</div>
           <h2 className="section-title tracking-tight mt-2">
             Websites for every major boat ramp town on the lake.
           </h2>
-          <p className="mt-3 text-[15.5px] text-[#9aa6ad]">
-            From Conley Bottom and Beaver Creek in Monticello to State Dock in Jamestown, Burnside Marina, Lee’s Ford near Nancy, Creelsboro, and all the ramps between — I build sites for the marinas, fishing guides, restaurants, and shops that serve Lake Cumberland visitors and locals. Real places. Real customers. Built by a neighbor in Monticello.
+          <p className="mt-3 text-[15.5px] text-[var(--text-muted)] leading-relaxed">
+            From Conley Bottom and Beaver Creek in Monticello to State Dock in
+            Jamestown, Burnside Marina, Lee’s Ford near Nancy, Creelsboro, and all
+            the ramps between — sites for the marinas, fishing guides, restaurants,
+            and shops that serve Lake Cumberland. Real places. Real customers.
+            Built by a neighbor in Monticello.
           </p>
-          <p className="mt-2 text-[14.5px] text-[#c8cfd3]">Food truck owners lead with easy on-the-fly location updates — change “Where We Are Today” for daily spots, festivals, and events in seconds from a simple mobile dashboard. Plus festival calendar, online ordering, beautiful food photos, and menu updates.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {areas.map((area, index) => (
-            <div
-              key={index}
-              className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-5 flex flex-col"
-            >
+            <div key={index} className="area-card flex flex-col">
               <div>
                 <div className="font-semibold tracking-tight text-[17px] text-white">
                   {area.town}
                 </div>
-                <div className="text-[#c17a5a] text-[13px] mt-0.5 font-medium tracking-tight">
+                <div className="text-[var(--warm)] text-[13px] mt-0.5 font-medium tracking-tight">
                   {area.detail}
                 </div>
               </div>
-              <p className="mt-3 text-[14.5px] text-[#9aa6ad] leading-relaxed flex-1">
+              <p className="mt-3 text-[14.5px] text-[var(--text-muted)] leading-relaxed flex-1">
                 {area.desc}
               </p>
             </div>
           ))}
         </div>
 
-        <div className="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-3 text-[14.5px]">
-          <p className="text-[#8a9599]">
+        <div className="mt-9 flex flex-col sm:flex-row items-start sm:items-center gap-3 text-[14.5px]">
+          <p className="text-[var(--text-muted)]">
             Your customers launch here. Make sure they find you.
           </p>
-          <Link
-            href="/quote"
-            className="btn btn-secondary text-sm px-6 py-2.5"
-          >
+          <Link href="/quote" className="btn btn-secondary text-sm px-6 py-2.5">
             Get a local site for your ramp town →
           </Link>
           <Link
             href="/contact"
-            className="text-[#f4a261] hover:underline text-sm"
+            className="text-[var(--gold-light)] hover:underline text-sm"
           >
             Or just tell me about your spot
           </Link>
         </div>
 
-        {/* Additive South Carolina expansion — does not modify existing Lake Cumberland content */}
-        <div className="mt-10 pt-6 border-t border-[#1a2225]">
-          <div className="text-[12.5px] uppercase tracking-[1.5px] text-[#c17a5a] mb-1">EXPANDING OUR REACH</div>
-          <p className="text-[14.5px] text-[#9aa6ad]">
-            We now also build websites for businesses across the South Carolina Lowcountry. <Link href="/south-carolina" className="text-[#f4a261] underline hover:text-white">See Charleston SC web design, Summerville small business websites, North Charleston restaurant sites &amp; more →</Link>
+        <div className="mt-10 pt-6 border-t border-[var(--border)]">
+          <div className="text-[12.5px] uppercase tracking-[1.5px] text-[var(--warm)] mb-1">
+            EXPANDING OUR REACH
+          </div>
+          <p className="text-[14.5px] text-[var(--text-muted)]">
+            We also build websites across the South Carolina Lowcountry.{" "}
+            <Link
+              href="/south-carolina"
+              className="text-[var(--gold-light)] underline hover:text-white"
+            >
+              Charleston SC web design, Summerville small business websites &amp;
+              more →
+            </Link>
           </p>
         </div>
       </div>

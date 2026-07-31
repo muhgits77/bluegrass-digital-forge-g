@@ -23,10 +23,10 @@ export default function Logo() {
       </div>
 
       <div className="flex flex-col leading-tight gap-0.5 min-w-0">
-        <span className="font-bold tracking-[-0.02em] text-[17px] sm:text-[18px] md:text-[19px] text-white group-hover:text-[#f4a261] transition-colors whitespace-nowrap">
+        <span className="font-bold tracking-[-0.02em] text-[17px] sm:text-[18px] md:text-[19px] text-white group-hover:text-[var(--gold-light)] transition-colors whitespace-nowrap">
           Bluegrass Digital Forge
         </span>
-        <span className="text-[11px] sm:text-[11.5px] md:text-[12px] text-[#f4a261]/90 tracking-[0.04em] sm:tracking-[0.05em] font-medium leading-snug md:whitespace-nowrap">
+        <span className="text-[11px] sm:text-[11.5px] md:text-[12px] text-[var(--gold-light)]/90 tracking-[0.04em] sm:tracking-[0.05em] font-medium leading-snug md:whitespace-nowrap">
           Forged for the Lake • Monticello, KY
         </span>
       </div>

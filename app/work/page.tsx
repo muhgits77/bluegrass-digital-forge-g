@@ -21,23 +21,21 @@ export default function WorkPage() {
           Lake Cumberland Business Websites &amp; Wayne County Web Design Demos —
           Monticello KY Website Designer
         </h1>
-        <p className="mt-3 text-[15px] text-[#9aa6ad]">
-          Browse live demos of custom Lake Cumberland business websites built by
-          the Monticello KY website designer. Real examples of food truck website
-          Kentucky, restaurant sites, marina websites and shops. Authentic Wayne
-          County web design you can preview. We also deliver the same quality
-          Charleston SC web design and Lowcountry sites.
+        <p className="mt-3 text-[15px] text-[var(--text-muted)] leading-relaxed">
+          Live demos of Lake Cumberland business websites — food trucks,
+          restaurants, marinas, and shops — built in Monticello. Same craft for
+          Charleston SC &amp; the Lowcountry.
         </p>
-        <p className="mt-2 text-[14.5px] text-[#c8cfd3]">
-          Food truck demos like Smoky Wheels lead with the biggest perk — easy
-          on-the-fly “Where We Are Today” location updates from a simple mobile
-          dashboard so owners can change daily spots, festivals, and hours in
-          seconds while they’re on the road.
+        <p className="mt-2 text-[14px] text-[var(--text-dim)]">
+          Food truck demos lead with real-time location updates.{" "}
+          <Link href="/food-truck-websites" className="text-[var(--gold-light)] underline hover:text-white">
+            Learn more →
+          </Link>
         </p>
       </div>
 
       <div className="mb-6 text-sm">
-        <Link href="/services" className="text-[#f4a261] hover:underline">
+        <Link href="/services" className="text-[var(--gold-light)] hover:underline">
           See flat pricing &amp; packages →
         </Link>
       </div>
@@ -48,27 +46,20 @@ export default function WorkPage() {
         ))}
       </div>
 
-      <div className="mt-12 text-center border-t border-[#1a2225] pt-9">
+      <div className="mt-12 text-center border-t border-[var(--border)] pt-10">
         <h2 className="text-xl font-semibold tracking-tight">
-          Custom Monticello KY Website Designer for Your Lake Cumberland Business
+          Ready for a site like these?
         </h2>
-        <p className="text-[14.5px] text-[#9aa6ad] mt-1">
-          Food truck website Kentucky, restaurant site, marina or shop — every
-          project handcrafted by a neighbor in Monticello for Wayne County &amp;
-          Lake Cumberland.
+        <p className="text-[14.5px] text-[var(--text-muted)] mt-2 max-w-lg mx-auto">
+          Food truck, restaurant, marina, or shop — handcrafted by a neighbor in
+          Monticello. Flat pricing. You own everything.
         </p>
-        <p className="mt-1 text-[13.5px] text-[#8a9599]">
-          Food trucks get special attention to the lead benefit: simple mobile
-          dashboard for real-time “Where We Are Today” updates plus festival
-          calendar, online ordering, beautiful food photos, and menu updates —
-          all changeable in seconds from the truck.
-        </p>
-        <div className="mt-5 flex flex-wrap gap-3 justify-center">
+        <div className="mt-6 flex flex-wrap gap-3 justify-center">
           <Link href="/quote" className="btn btn-primary">
             Get a Quote →
           </Link>
           <Link href="/services" className="btn btn-secondary">
-            See Monticello KY Website Designer Pricing
+            See pricing
           </Link>
           <Link href="/contact" className="btn btn-secondary">
             Contact the local builder

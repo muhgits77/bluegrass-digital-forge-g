@@ -5,18 +5,27 @@
   --font-mono: var(--font-geist-mono);
   --font-display: var(--font-display);
 
-  /* Premium Lake Cumberland Palette */
-  --bg: #050708;
-  --bg-elev: #0f1715;
-  --bg-card: #0c1013;
-  --border: #1a2225;
-  --border-strong: #243530;
-  --text: #f5f0e6;
+  /* Richer forge night palette — deeper greens, bourbon amber, cream */
+  --bg: #030605;
+  --bg-elev: #0a1210;
+  --bg-card: #0c1214;
+  --bg-card-hover: #10181a;
+  --border: #1a2422;
+  --border-strong: #2a3a34;
+  --text: #f4efe6;
   --text-muted: #9aa6ad;
-  --warm: #c17a5a;
-  --warm-dark: #a96447;
+  --text-dim: #7a868c;
+  --warm: #c97a3a;
+  --warm-dark: #a9622e;
+  --warm-glow: rgba(201, 122, 58, 0.28);
   --gold: #d4a373;
   --gold-light: #e8c9a3;
+  --green-deep: #1a4a3a;
+  --green-mid: #243d34;
+  --accent-teal: #3ddbd9;
+  --shadow-card: 0 12px 40px -18px rgb(0 0 0 / 0.55), 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+  --shadow-card-hover: 0 28px 64px -20px rgb(0 0 0 / 0.65), 0 0 0 1px rgba(201, 122, 58, 0.18);
+  --shadow-popular: 0 0 0 1px var(--warm), 0 0 32px var(--warm-glow), 0 28px 64px -18px rgb(0 0 0 / 0.6);
 }
 
 /* ========== Base Typography & Reset ========== */
@@ -46,6 +55,18 @@ h1, h2, h3, .section-title {
   font-size: clamp(2.15rem, 5.4vw, 3.35rem);
 }
 
+/* Section rhythm — breathing room without heaviness */
+.section-block {
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem;
+}
+@media (min-width: 768px) {
+  .section-block {
+    padding-top: 4.5rem;
+    padding-bottom: 4.5rem;
+  }
+}
+
 /* ========== Premium Components ========== */
 .btn {
   display: inline-flex;
@@ -54,7 +75,7 @@ h1, h2, h3, .section-title {
   gap: 0.5rem;
   font-weight: 600;
   letter-spacing: -0.015em;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 9999px;
   font-size: 0.98rem;
   position: relative;
@@ -62,28 +83,57 @@ h1, h2, h3, .section-title {
 }
 
 .btn-primary {
-  background: linear-gradient(145deg, #f4a261, #e8904a);
-  color: #050708;
-  padding: 0.75rem 2rem;
-  box-shadow: 0 4px 18px -2px rgb(244 162 97 / 0.35);
+  background: linear-gradient(145deg, #d4894a, #c97a3a 45%, #a9622e);
+  color: #0a0604;
+  padding: 0.78rem 2.05rem;
+  box-shadow: 0 6px 22px -4px rgb(201 122 58 / 0.42), 0 2px 6px -1px rgb(0 0 0 / 0.35);
+  border: 1px solid rgba(232, 201, 163, 0.28);
 }
 
 .btn-primary:hover {
-  background: linear-gradient(145deg, #e8904a, #d87c38);
+  background: linear-gradient(145deg, #e09858, #c97a3a 40%, #9a5828);
   transform: translateY(-2px);
-  box-shadow: 0 10px 28px -4px rgb(244 162 97 / 0.45);
+  box-shadow: 0 14px 34px -6px rgb(201 122 58 / 0.5);
+}
+
+.btn-primary:active {
+  transform: translateY(0) scale(0.985);
 }
 
 .btn-secondary {
   background: transparent;
   color: var(--text);
   border: 1px solid var(--border-strong);
-  padding: 0.75rem 1.95rem;
+  padding: 0.78rem 1.95rem;
 }
 
 .btn-secondary:hover {
   background: var(--bg-elev);
   border-color: var(--warm);
+  color: var(--text);
+}
+
+/* Ghost button for hero / dark overlays */
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  padding: 0.78rem 2rem;
+  font-weight: 600;
+  font-size: 0.98rem;
+  letter-spacing: -0.015em;
+  backdrop-filter: blur(16px);
+  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.48);
 }
 
 /* Cards & Demo Cards */
@@ -92,27 +142,31 @@ h1, h2, h3, .section-title {
 .card {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.2s ease;
+  box-shadow: var(--shadow-card);
 }
 
 .demo-card:hover,
 .pricing-card:hover {
   border-color: var(--border-strong);
   transform: translateY(-6px);
-  box-shadow: 0 30px 70px -20px rgb(0 0 0 / 0.55);
+  box-shadow: var(--shadow-card-hover);
 }
 
 .pricing-card.popular {
   border: 1px solid var(--warm);
-  box-shadow: 0 0 0 1px var(--warm), 0 0 26px rgba(193, 122, 90, 0.22), 0 30px 70px -20px rgb(0 0 0 / 0.55);
+  box-shadow: var(--shadow-popular);
+  background: linear-gradient(165deg, #121a16 0%, var(--bg-card) 48%, #0e1412 100%);
 }
 
 .pricing-card.popular:hover {
   border-color: #d88a5e;
-  box-shadow: 0 0 0 1px #d88a5e, 0 0 32px rgba(193, 122, 90, 0.28), 0 34px 80px -18px rgb(0 0 0 / 0.6);
+  box-shadow: 0 0 0 1px #d88a5e, 0 0 40px rgba(201, 122, 58, 0.32), 0 34px 80px -18px rgb(0 0 0 / 0.65);
 }
 
-/* Branding Add-ons — restored to original clean, well-formatted grid + card styling (5-col on large, equal height, hover lift, consistent with pricing/demo cards and dark theme) */
+/* Branding Add-ons grid */
 .branding-addons {
   margin-top: 3.5rem;
   padding-top: 2.75rem;
@@ -148,7 +202,7 @@ h1, h2, h3, .section-title {
   border-radius: 1.5rem;
   border: 1px solid var(--border);
   background: var(--bg-card);
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.25), 0 4px 6px -4px rgb(0 0 0 / 0.3), 0 0 0 1px rgba(255,255,255,0.015) inset;
+  box-shadow: var(--shadow-card);
   transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
               box-shadow 0.32s cubic-bezier(0.4, 0, 0.2, 1),
               border-color 0.2s ease;
@@ -162,7 +216,7 @@ h1, h2, h3, .section-title {
 .branding-card:hover {
   transform: translateY(-6px);
   border-color: var(--border-strong);
-  box-shadow: 0 24px 42px -14px rgb(0 0 0 / 0.5), 0 12px 18px -8px rgb(0 0 0 / 0.35), 0 0 0 1px rgba(255,255,255,0.03) inset;
+  box-shadow: var(--shadow-card-hover);
 }
 .branding-card__title {
   font-weight: 600;
@@ -216,7 +270,50 @@ h1, h2, h3, .section-title {
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(to right, var(--warm), #f8c48a);
+  background: linear-gradient(to right, var(--warm), var(--gold-light));
+  border-radius: 1px;
+}
+
+.footer-link {
+  color: inherit;
+  transition: color 0.18s ease;
+}
+.footer-link:hover {
+  color: var(--gold-light);
+}
+
+/* Area chips (compact service areas) */
+.area-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 0.9rem;
+  border-radius: 9999px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-card);
+  color: var(--text);
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  box-shadow: 0 4px 16px -8px rgb(0 0 0 / 0.4);
+}
+.area-chip--accent {
+  border-color: rgba(201, 122, 58, 0.35);
+  color: var(--gold-light);
+  background: linear-gradient(145deg, rgba(201, 122, 58, 0.12), rgba(26, 74, 58, 0.15));
+}
+
+.area-card {
+  border-radius: 1.25rem;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  padding: 1.35rem 1.25rem;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.25s ease, border-color 0.2s ease, box-shadow 0.25s ease;
+}
+.area-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-card-hover);
 }
 
 /* Logo & Brand */
@@ -230,7 +327,7 @@ h1, h2, h3, .section-title {
   background-size: cover;
 }
 
-/* ========== Hero LCP-friendly CSS motion (replaces Framer Motion on home) ========== */
+/* ========== Hero LCP-friendly CSS motion ========== */
 @keyframes hero-fade-up {
   from {
     opacity: 0;
@@ -285,7 +382,7 @@ h1, h2, h3, .section-title {
   }
 }
 
-/* Content-visibility for below-fold sections (reduces main-thread paint on mobile) */
+/* Content-visibility for below-fold sections */
 .cv-auto {
   content-visibility: auto;
   contain-intrinsic-size: auto 480px;
@@ -294,7 +391,8 @@ h1, h2, h3, .section-title {
 /* Mobile Perfection */
 @media (max-width: 640px) {
   .btn-primary,
-  .btn-secondary {
+  .btn-secondary,
+  .btn-ghost {
     padding-top: 0.85rem;
     padding-bottom: 0.85rem;
     font-size: 1rem;
@@ -313,17 +411,17 @@ button:focus-visible {
   outline-offset: 3px;
 }
 
-/* ========== PREMIUM FORM & UI POLISH (Added for elevated experience) ========== */
+/* ========== PREMIUM FORM & UI POLISH ========== */
 .label {
   font-size: 0.72rem;
   letter-spacing: 0.145em;
   font-weight: 700;
-  color: #8a9599;
+  color: var(--text-dim);
   text-transform: uppercase;
 }
 
 .input {
-  background: #0a0c0f;
+  background: #080c0e;
   border: 1px solid var(--border);
   color: var(--text);
   padding: 0.75rem 1rem;
@@ -336,8 +434,8 @@ button:focus-visible {
 .input:focus {
   outline: none;
   border-color: var(--warm);
-  box-shadow: 0 0 0 3px rgba(193, 122, 90, 0.12);
-  background: #111518;
+  box-shadow: 0 0 0 3px rgba(201, 122, 58, 0.14);
+  background: #0e1518;
 }
 
 .input::placeholder {
@@ -436,20 +534,21 @@ button:focus-visible {
   .admin-card,
   .admin-button-primary,
   .admin-button-cta,
-  .btn {
+  .btn,
+  .btn-ghost {
     transition: none !important;
   }
 }
 
 .form-section {
-  background: #0a0c0f;
+  background: #080c0e;
   border: 1px solid var(--border);
   border-radius: 20px;
   padding: 1.75rem 1.5rem;
 }
 
 .choice-card {
-  background: #0a0c0f;
+  background: #080c0e;
   border: 1px solid var(--border);
   border-radius: 14px;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -488,7 +587,7 @@ button:focus-visible {
 
 .step.active {
   background: var(--warm);
-  color: #050708;
+  color: #0a0604;
 }
 
 .step.done {
@@ -503,14 +602,14 @@ button:focus-visible {
   letter-spacing: 0.6px;
   padding: 2px 10px;
   border-radius: 999px;
-  background: #c17a5a;
-  color: #050708;
+  background: var(--warm);
+  color: #0a0604;
   border: none;
 }
 
 .badge-gold {
   background: linear-gradient(145deg, #d4a373, #b98a5d);
-  color: #050708;
+  color: #0a0604;
   font-weight: 700;
   padding: 2px 10px;
   border-radius: 999px;
@@ -518,60 +617,20 @@ button:focus-visible {
   letter-spacing: 0.6px;
 }
 
-/* Enhanced Premium Buttons with warmth & micro-interaction */
-.btn-primary {
-  background: linear-gradient(145deg, #c17a5a, #a96447);
-  color: #f8f1e6;
-  padding: 0.78rem 2.05rem;
-  box-shadow: 0 6px 20px -4px rgb(193 122 90 / 0.38), 0 2px 6px -1px rgb(0 0 0 / 0.3);
-  border: 1px solid rgba(244, 162, 97, 0.25);
-}
-
-.btn-primary:hover {
-  background: linear-gradient(145deg, #a96447, #8d5137);
-  transform: translateY(-2px);
-  box-shadow: 0 14px 32px -6px rgb(193 122 90 / 0.48);
-}
-
-.btn-primary:active {
-  transform: translateY(0) scale(0.985);
-}
-
-.btn-secondary {
-  background: transparent;
-  color: var(--text);
-  border: 1px solid var(--border-strong);
-  padding: 0.78rem 1.95rem;
-}
-
-.btn-secondary:hover {
-  background: var(--bg-elev);
-  border-color: var(--warm);
-  color: var(--text);
-}
-
-/* Demo card premium local polish */
+/* Demo card premium polish */
 .demo-card {
   border-radius: 22px;
   overflow: hidden;
-  box-shadow: 0 10px 30px -15px rgb(0 0 0 / 0.4);
+  box-shadow: var(--shadow-card);
 }
 
 .demo-card:hover {
-  border-color: #463424;
-  box-shadow: 0 28px 65px -18px rgb(0 0 0 / 0.6), 0 0 0 1px rgba(193, 122, 90, 0.2);
+  border-color: rgba(70, 52, 36, 0.9);
+  box-shadow: var(--shadow-card-hover);
   transform: translateY(-8px);
 }
 
-/* Amber shimmer sweep — performant, CSS-only using transform & opacity
-   - Uses a large gradient that translates left→right on hover
-   - Disabled on touch devices (hover:none) and respects reduced-motion
-   - Keep animation single-run per hover to avoid continuous GPU work
-*/
-
-/* Shimmer utility: add `shimmer-hover` to any card to enable the amber sweep on hover.
-   This makes it easy to toggle per-card using Tailwind-like utility classes.
-*/
+/* Amber shimmer sweep */
 .shimmer-hover {
   position: relative;
 }
@@ -583,7 +642,7 @@ button:focus-visible {
   width: 300%;
   height: 100%;
   pointer-events: none;
-  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(193,122,90,0.04) 35%, rgba(244,162,97,0.08) 50%, rgba(193,122,90,0.04) 65%, rgba(255,255,255,0) 100%);
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(201,122,58,0.05) 35%, rgba(232,201,163,0.1) 50%, rgba(201,122,58,0.05) 65%, rgba(255,255,255,0) 100%);
   transform: translateX(0);
   opacity: 0;
 }
@@ -599,10 +658,9 @@ button:focus-visible {
   opacity: 1;
 }
 
-/* Reduce intensity on small screens for better mobile feel */
 @media (max-width: 768px) {
   .shimmer-hover::after {
-    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(193,122,90,0.025) 35%, rgba(244,162,97,0.05) 50%, rgba(193,122,90,0.025) 65%, rgba(255,255,255,0) 100%);
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(201,122,58,0.03) 35%, rgba(232,201,163,0.06) 50%, rgba(201,122,58,0.03) 65%, rgba(255,255,255,0) 100%);
   }
   .shimmer-hover:hover::after {
     animation: bdf-shimmer 0.85s cubic-bezier(0.22, 1, 0.36, 1) 1;
@@ -610,7 +668,6 @@ button:focus-visible {
   }
 }
 
-/* Disable shimmer on devices that don't support hover (touch) for performance */
 @media (hover: none) {
   .shimmer-hover::after { display: none; }
 }
@@ -620,18 +677,19 @@ button:focus-visible {
 }
 
 .demo-card .browser-chrome {
-  background: #0c1013;
+  background: var(--bg-card);
 }
 
 /* Subtle Kentucky warmth accents */
 .kentucky-accent {
-  background: linear-gradient(to right, #c17a5a, #d4a373);
+  background: linear-gradient(115deg, #e8c9a3 0%, #c97a3a 45%, #d4a373 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .trust-bar {
-  background: rgba(10, 12, 15, 0.92);
+  background: rgba(8, 12, 14, 0.92);
   backdrop-filter: blur(20px);
 }
 
@@ -647,16 +705,19 @@ h1, .hero-title {
 
 /* Micro interactions & accessibility */
 .card, .pricing-card {
-  transition: transform 0.28s cubic-bezier(0.23, 1, 0.32, 1), 
+  transition: transform 0.28s cubic-bezier(0.23, 1, 0.32, 1),
               box-shadow 0.28s cubic-bezier(0.23, 1, 0.32, 1),
               border-color 0.2s ease;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .demo-card, .btn, .card { transition: none; transform: none !important; }
+  .demo-card, .btn, .btn-ghost, .card, .pricing-card, .area-card, .branding-card {
+    transition: none;
+    transform: none !important;
+  }
 }
 
-/* Admin panel specific (dark sleek, blue accents) — zoom & mobile readable */
+/* Admin panel specific */
 .admin-table tr:hover {
   background-color: #111518;
 }
@@ -671,7 +732,6 @@ h1, .hero-title {
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
-/* Ensure admin table and forms never feel cramped at 100% zoom */
 #admin-main table {
   font-size: 15px;
 }

@@ -4,12 +4,12 @@ import { CONTACT_EMAIL } from '@/lib/constants';
 
 // Production-ready /api/contact handler
 // - Validates payload server-side
-// - Sends rich internal notification to BluegrassDigitalForge@protonmail.com
+// - Sends rich internal notification to CONTACT_EMAIL
 // - Sends branded customer confirmation email
 // - Uses bluegrassdigitalforge.com for sending (configure RESEND_FROM)
 // - Mirrors the robust setup from /api/quote
 
-const TO_EMAIL = CONTACT_EMAIL; // BluegrassDigitalForge@protonmail.com
+const TO_EMAIL = CONTACT_EMAIL;
 const FROM_EMAIL = process.env.RESEND_FROM || 'Bluegrass Digital Forge <noreply@bluegrassdigitalforge.com>';
 
 function getResend() {

@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import { CONTACT_EMAIL, SITE_URL } from "@/lib/constants";
 
 /**
  * Font strategy (LCP / render-blocking):
@@ -40,7 +41,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://bluegrassdigitalforge.com"),
+  metadataBase: new URL(SITE_URL),
   title:
     "Monticello KY & Charleston SC Website Designer | Lake Cumberland & Lowcountry Business Websites | Bluegrass Digital Forge",
   description:
@@ -57,12 +58,13 @@ export const metadata: Metadata = {
     "North Charleston Restaurant Website",
     "Lowcountry Web Design",
   ],
-  authors: [{ name: "Brian", url: "https://bluegrassdigitalforge.com" }],
+  authors: [{ name: "Brian", url: SITE_URL }],
   openGraph: {
     title:
       "Monticello KY & Charleston SC Website Designer | Lake Cumberland & Lowcountry Business Websites",
     description:
       "Handcrafted websites for Lake Cumberland businesses by a local designer in Monticello, KY and Charleston SC, Summerville & the South Carolina Lowcountry. Flat pricing. You own the code.",
+    url: SITE_URL,
     images: [
       {
         url: "/hero-lake-cumberland-golden.jpg",
@@ -87,7 +89,7 @@ export const metadata: Metadata = {
     icon: "/favicon.ico",
   },
   alternates: {
-    canonical: "https://bluegrassdigitalforge.com",
+    canonical: SITE_URL,
   },
   robots: {
     index: true,
@@ -99,7 +101,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: "#050708",
+  themeColor: "#030605",
 };
 
 export default function RootLayout({
@@ -120,7 +122,7 @@ export default function RootLayout({
           Hero LCP: <Image priority fetchPriority="high"> on app/page.tsx only.
         */}
       </head>
-      <body className="min-h-full flex flex-col bg-[#050708] text-zinc-200 scroll-smooth">
+      <body className="min-h-full flex flex-col bg-[var(--bg)] text-[var(--text)] scroll-smooth">
         {/* Aggressive LocalBusiness + Organization + WebSite schema for Monticello KY website designer + Lake Cumberland SEO */}
         <script
           type="application/ld+json"
@@ -128,15 +130,14 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "LocalBusiness",
-              "@id": "https://bluegrassdigitalforge.com/#business",
+              "@id": `${SITE_URL}/#business`,
               name: "Bluegrass Digital Forge",
               description:
                 "Monticello KY website designer building authentic Lake Cumberland business websites, food truck websites Kentucky, restaurant website Monticello KY, and Wayne County web design. Flat pricing, full code ownership, local builder serving the lake region.",
-              url: "https://bluegrassdigitalforge.com",
-              email: "BluegrassDigitalForge@protonmail.com",
-              logo: "https://bluegrassdigitalforge.com/logo.jpg",
-              image:
-                "https://bluegrassdigitalforge.com/hero-lake-cumberland-golden.jpg",
+              url: SITE_URL,
+              email: CONTACT_EMAIL,
+              logo: `${SITE_URL}/logo.jpg`,
+              image: `${SITE_URL}/hero-lake-cumberland-golden.jpg`,
               address: {
                 "@type": "PostalAddress",
                 streetAddress: "Monticello, KY 42633",
@@ -249,11 +250,11 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               name: "Bluegrass Digital Forge",
-              url: "https://bluegrassdigitalforge.com",
-              logo: "https://bluegrassdigitalforge.com/logo.jpg",
+              url: SITE_URL,
+              logo: `${SITE_URL}/logo.jpg`,
               description:
                 "Monticello KY website designer for Lake Cumberland business websites and Wayne County web design.",
-              email: "BluegrassDigitalForge@protonmail.com",
+              email: CONTACT_EMAIL,
               address: {
                 "@type": "PostalAddress",
                 addressLocality: "Monticello",
@@ -273,13 +274,12 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "WebSite",
               name: "Bluegrass Digital Forge — Monticello KY & Charleston SC Website Designer",
-              url: "https://bluegrassdigitalforge.com",
+              url: SITE_URL,
               description:
                 "Local website design and Lake Cumberland business websites built in Monticello, Kentucky, now also serving Charleston SC and the South Carolina Lowcountry with handcrafted sites for restaurants, food trucks and small businesses.",
               potentialAction: {
                 "@type": "SearchAction",
-                target:
-                  "https://bluegrassdigitalforge.com/work?q={search_term_string}",
+                target: `${SITE_URL}/work?q={search_term_string}`,
                 "query-input": "required name=search_term_string",
               },
             }),

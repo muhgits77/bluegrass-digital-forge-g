@@ -8,9 +8,10 @@
  * Follows Master Project Settings for clear, local, honest communication.
  */
 
-export const CONTACT_EMAIL = "BluegrassDigitalForge@protonmail.com";
+export const CONTACT_EMAIL = "contact@bluegrassdigitalforge.com";
 
 // You can expand with other shared values later (e.g. phone, location)
 export const SITE_NAME = "Bluegrass Digital Forge";
 export const SITE_TAGLINE = "Powerful. Simple. Yours.";
 export const LOCATION = "Monticello, Kentucky • Lake Cumberland Region";
+export const SITE_URL = "https://bluegrassdigitalforge.com";

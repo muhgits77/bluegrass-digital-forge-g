@@ -20,7 +20,7 @@ const FeaturedDemos = dynamic(() => import("@/components/FeaturedDemos"), {
       {[0, 1, 2, 3].map((i) => (
         <div
           key={i}
-          className="h-[460px] sm:h-[480px] rounded-2xl border border-[#16201f] bg-[#07100f] animate-pulse"
+          className="h-[460px] sm:h-[480px] rounded-2xl border border-[var(--border)] bg-[var(--bg-elev)] animate-pulse"
         />
       ))}
     </div>
@@ -89,7 +89,7 @@ export default function Home() {
   return (
     <>
       {/* HERO — LCP-critical: relative parent + Image fill + priority */}
-      <section className="relative min-h-[100dvh] flex flex-col overflow-hidden border-b border-[#243530] bg-[#0b1715]">
+      <section className="relative min-h-[100dvh] flex flex-col overflow-hidden border-b border-[var(--border-strong)] bg-[var(--bg-elev)]">
         <div className="absolute inset-0 z-0">
           <Image
             src="/hero-lake-cumberland-golden.jpg"
@@ -104,9 +104,11 @@ export default function Home() {
           />
         </div>
 
-        <div className="absolute inset-0 bg-gradient-to-b from-[#050708]/88 via-[#0b1715]/50 to-[#050708]/96 z-10" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050708]/75 via-[#050708]/20 to-transparent z-10" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_42%_32%,rgba(193,122,90,0.13)_0%,transparent_70%)] z-10" />
+        {/* Deeper forge night overlays — richer amber + deep green depth */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#030605]/92 via-[#061210]/55 to-[#030605]/97 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#030605]/80 via-[#030605]/25 to-transparent z-10" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_40%_28%,rgba(201,122,58,0.18)_0%,transparent_62%)] z-10" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_72%_78%,rgba(26,74,58,0.22)_0%,transparent_55%)] z-10" />
 
         {/* CSS-only warm amber sparks — no Framer Motion, GPU-cheap transforms */}
         <div
@@ -124,35 +126,34 @@ export default function Home() {
             return (
               <span
                 key={i}
-                className="hero-spark absolute w-[1.5px] h-[1.5px] rounded-full bg-[#f4a261]"
+                className="hero-spark absolute w-[1.5px] h-[1.5px] rounded-full bg-[#f0a86a]"
                 style={style}
               />
             );
           })}
         </div>
 
-        <div className="hero-content relative flex-1 flex items-center justify-center px-5 pt-20 pb-8 md:pb-6 z-30">
-          <div className="w-full max-w-[740px] text-center">
-            <div className="hero-fade hero-fade-1 inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/5 backdrop-blur-2xl px-6 py-1.5 text-[10.5px] tracking-[2.6px] text-white/90 mb-7">
-              <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#c17a5a] animate-pulse" />
+        <div className="hero-content relative flex-1 flex items-center justify-center px-5 pt-20 pb-10 md:pb-8 z-30">
+          <div className="w-full max-w-[760px] text-center">
+            <div className="hero-fade hero-fade-1 inline-flex items-center gap-2.5 rounded-full border border-[var(--warm)]/25 bg-black/35 backdrop-blur-2xl px-6 py-2 text-[10.5px] tracking-[2.6px] text-white/92 mb-8 shadow-[0_0_40px_-12px_rgba(201,122,58,0.45)]">
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-[var(--warm)] animate-pulse" />
               HANDCRAFTED IN MONTICELLO, KY
             </div>
 
-            <h1 className="hero-fade hero-fade-2 hero-title mx-auto max-w-[20ch] text-balance leading-[0.96] text-white tracking-[-3.6px] text-[clamp(2.65rem,9.4vw,4.9rem)] md:text-[clamp(3.1rem,6.5vw,5rem)] font-semibold">
+            <h1 className="hero-fade hero-fade-2 hero-title mx-auto max-w-[18ch] text-balance leading-[0.95] text-white tracking-[-0.04em] text-[clamp(2.75rem,9.6vw,5.1rem)] md:text-[clamp(3.2rem,6.6vw,5.15rem)] font-semibold">
               Websites for
               <br />
-              Lake Cumberland.
+              <span className="kentucky-accent">Lake Cumberland.</span>
               <br />
               Built in Monticello.
             </h1>
 
-            <p className="hero-fade hero-fade-3 mx-auto mt-5 max-w-[40ch] text-[17px] md:text-[18px] leading-relaxed text-white/90">
-              Handcrafted for Lake Cumberland businesses and South Carolina
-              Lowcountry food trucks, restaurants &amp; local gems. Flat pricing.
-              You own everything. Built by a neighbor in Monticello.
+            <p className="hero-fade hero-fade-3 mx-auto mt-6 max-w-[38ch] text-[17px] md:text-[18.5px] leading-relaxed text-white/88">
+              Flat pricing. You own everything. Handcrafted for local businesses
+              — Lake Cumberland &amp; the South Carolina Lowcountry.
             </p>
 
-            <div className="hero-fade hero-fade-4 mt-8 flex flex-col sm:flex-row items-center justify-center gap-3.5">
+            <div className="hero-fade hero-fade-4 mt-9 flex flex-col sm:flex-row items-center justify-center gap-3.5">
               <Link
                 href="/quote"
                 className="btn btn-primary text-[15.5px] font-semibold px-10 py-[17px] w-full sm:w-auto shadow-xl active:scale-[0.985]"
@@ -162,13 +163,13 @@ export default function Home() {
 
               <Link
                 href="/work"
-                className="inline-flex items-center justify-center rounded-full border border-white/25 bg-white/5 px-8 py-3.5 text-[15.5px] font-semibold text-white hover:bg-white/10 hover:border-white/45 backdrop-blur-xl transition-all w-full sm:w-auto"
+                className="btn btn-ghost w-full sm:w-auto"
               >
                 See our work
               </Link>
             </div>
 
-            <div className="hero-fade hero-fade-5 mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2 text-[13px] text-white/80">
+            <div className="hero-fade hero-fade-5 mt-9 flex flex-wrap justify-center gap-x-6 gap-y-2.5 text-[13px] text-white/78">
               {[
                 "Handcrafted in Monticello, KY",
                 "Flat pricing. No surprises.",
@@ -176,22 +177,21 @@ export default function Home() {
                 "Live in 2–4 weeks.",
               ].map((t, i) => (
                 <div key={i} className="inline-flex items-center gap-1.5">
-                  <IconCheck className="text-[#c17a5a]" /> {t}
+                  <IconCheck className="text-[var(--warm)]" /> {t}
                 </div>
               ))}
             </div>
           </div>
         </div>
 
-        <div className="hero-fade hero-fade-6 relative z-30 flex justify-center pb-7">
-          <div className="trust-bar inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-black/60 backdrop-blur-3xl px-5 py-2.5 text-sm text-white/90 max-w-[94%]">
-            <span className="font-semibold text-[#f4a261]">
+        <div className="hero-fade hero-fade-6 relative z-30 flex justify-center pb-8">
+          <div className="trust-bar inline-flex items-center gap-3 rounded-2xl border border-white/12 bg-black/65 backdrop-blur-3xl px-5 py-3 text-sm text-white/90 max-w-[94%] shadow-[0_16px_48px_-20px_rgba(0,0,0,0.7)]">
+            <span className="font-semibold text-[var(--gold-light)]">
               Starter Sites from $1,200 • Flat price
             </span>
             <span className="text-white/25 hidden sm:inline">•</span>
             <span className="text-[13px] text-white/75 hidden sm:inline">
-              Handcrafted in Monticello, KY. Bluegrass &amp; Lowcountry. You own
-              everything.
+              Monticello, KY · Bluegrass &amp; Lowcountry · Full ownership
             </span>
             <span className="text-[13px] text-white/75 sm:hidden">
               Flat price. KY + SC Lowcountry.
@@ -199,8 +199,8 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="relative border-t border-white/10 bg-[#050708]/95 backdrop-blur z-30">
-          <div className="mx-auto max-w-6xl px-5 py-4 grid grid-cols-2 md:grid-cols-4 gap-x-2 gap-y-1 text-center text-sm">
+        <div className="relative border-t border-white/10 bg-[#030605]/96 backdrop-blur z-30">
+          <div className="mx-auto max-w-6xl px-5 py-5 grid grid-cols-2 md:grid-cols-4 gap-x-2 gap-y-3 text-center text-sm">
             <div>
               <div className="text-[22px] font-semibold tracking-[-1.4px] text-white">
                 16+
@@ -237,10 +237,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FEATURED WORK — dynamic via Admin Panel (featured flag + sort order); cards from FeaturedDemos */}
+      {/* FEATURED WORK */}
       <section
         id="featured-work"
-        className="mx-auto max-w-7xl px-5 pt-14 pb-6 border-b border-[#1a2225]"
+        className="section-block mx-auto max-w-7xl px-5 border-b border-[var(--border)]"
         aria-labelledby="featured-work-heading"
       >
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-4">
@@ -252,13 +252,13 @@ export default function Home() {
           </div>
           <Link
             href="/work"
-            className="hidden md:inline-flex items-center gap-1.5 text-[14.5px] font-medium text-[#f4a261] hover:text-[#d88a5e] group"
+            className="hidden md:inline-flex items-center gap-1.5 text-[14.5px] font-medium text-[var(--gold-light)] hover:text-[var(--warm)] group"
           >
             See all projects{" "}
             <IconArrowRight className="group-hover:translate-x-0.5 transition" />
           </Link>
         </div>
-        <p className="text-[#9aa6ad] max-w-2xl mb-7 text-[15px]">
+        <p className="text-[var(--text-muted)] max-w-2xl mb-8 text-[15px] leading-relaxed">
           Real websites for restaurants, food trucks, guides, and shops around
           Lake Cumberland — built by a neighbor in Monticello. Click to preview
           live.
@@ -266,23 +266,23 @@ export default function Home() {
 
         <FeaturedDemos limit={4} />
 
-        <div className="mt-5 text-center md:hidden">
+        <div className="mt-6 text-center md:hidden">
           <Link
             href="/work"
-            className="inline-flex items-center gap-1 text-[14.5px] font-medium text-[#f4a261] hover:text-[#d88a5e]"
+            className="inline-flex items-center gap-1 text-[14.5px] font-medium text-[var(--gold-light)] hover:text-[var(--warm)]"
           >
             See all projects →
           </Link>
         </div>
       </section>
 
-      {/* SERVICE AREAS — robust local coverage for all Lake Cumberland boat ramp towns */}
-      <ServiceAreas />
+      {/* SERVICE AREAS — compact teaser; full detail on /service-areas */}
+      <ServiceAreas variant="compact" />
 
-      {/* Additive internal link to SC page — Lowcountry teaser image (lazy, optimized) */}
-      <div className="border-t border-[#1a2225] bg-[#050708]">
-        <div className="mx-auto max-w-6xl px-5 pt-6">
-          <div className="relative overflow-hidden rounded-2xl border border-[#1f282b] mb-6 h-40 md:h-52">
+      {/* SC teaser */}
+      <div className="border-t border-[var(--border)] bg-[var(--bg)]">
+        <div className="mx-auto max-w-6xl px-5 pt-8">
+          <div className="relative overflow-hidden rounded-2xl border border-[var(--border-strong)] mb-6 h-40 md:h-52 shadow-[var(--shadow-card)]">
             <Image
               src="/sc-palmetto-marsh.jpg"
               alt="South Carolina Lowcountry coastal marsh with palmetto trees glowing at golden hour — authentic photorealistic photography representing Charleston SC and Summerville web design expansion"
@@ -294,88 +294,74 @@ export default function Home() {
               className="object-cover"
               style={{ objectPosition: "center 40%" }}
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#030605]/70 via-transparent to-transparent" />
           </div>
         </div>
-        <div className="mx-auto max-w-6xl px-5 pb-6 text-center text-[14.5px] text-[#9aa6ad]">
-          Expanding our handcrafted websites to the South Carolina Lowcountry.{" "}
+        <div className="mx-auto max-w-6xl px-5 pb-8 text-center text-[14.5px] text-[var(--text-muted)]">
+          Expanding handcrafted websites to the South Carolina Lowcountry.{" "}
           <Link
             href="/south-carolina"
-            className="text-[#f4a261] underline hover:text-white font-medium"
+            className="text-[var(--gold-light)] underline hover:text-white font-medium"
           >
-            Charleston SC web design, Summerville small business sites &amp;
-            Lowcountry projects →
+            Charleston SC web design &amp; Lowcountry projects →
           </Link>
         </div>
       </div>
 
-      {/* FINAL CONVERSION CTA */}
-      <section className="py-14 text-center border-t border-[#1a2225] bg-[#050708]">
-        <div className="mx-auto max-w-[660px] px-5">
-          <h2 className="text-[29px] md:text-[33px] tracking-[-1.15px] font-semibold leading-tight">
+      {/* FINAL CONVERSION CTA — short, high-impact */}
+      <section className="section-block text-center border-t border-[var(--border)] bg-[var(--bg)]">
+        <div className="mx-auto max-w-[640px] px-5">
+          <h2 className="text-[28px] md:text-[34px] tracking-[-0.03em] font-semibold leading-tight">
             Ready for a website from a neighbor in Monticello?
           </h2>
-          <p className="mt-3.5 text-[15.5px] text-[#9aa6ad] max-w-[52ch] mx-auto">
-            Flat pricing. Full ownership. No agency. Websites handcrafted for Lake
-            Cumberland businesses — marinas, guides, and shops near every ramp from
-            Monticello to Creelsboro, Jamestown, Burnside and Nancy. Now also
-            serving Charleston SC, Summerville, Walterboro, Ladson &amp; North
-            Charleston with Lowcountry web design.
+          <p className="mt-4 text-[15.5px] text-[var(--text-muted)] max-w-[48ch] mx-auto leading-relaxed">
+            Flat pricing. Full ownership. No agency. Built for Lake Cumberland
+            businesses — and now Charleston SC &amp; the Lowcountry.
           </p>
-          <p className="mt-2 text-[13.5px] text-[#8a9599] max-w-[52ch] mx-auto">
-            Food truck owners lead with the biggest perk: easy on-the-fly location
-            updates for daily spots and festivals using a simple mobile dashboard.
-            Change “Where We Are Today” in seconds from your phone, plus festival
-            calendar, online ordering, beautiful food photos, and menu updates.
-            Looking for the full dashboard, flyer studio, live map &amp; offline
-            mode?{" "}
-            <Link href="/truckdash" className="underline hover:text-[#f4a261]">
-              TruckDash Starter $1,497
+          <p className="mt-3 text-[14px] text-[var(--text-dim)] max-w-[46ch] mx-auto leading-relaxed">
+            Food trucks?{" "}
+            <Link
+              href="/food-truck-websites"
+              className="text-[var(--gold-light)] underline hover:text-white"
+            >
+              Real-time location updates
             </Link>{" "}
-            or{" "}
-            <Link href="/truckdash" className="underline hover:text-[#f4a261]">
-              Pro $2,497
-            </Link>{" "}
-            (advanced marketing tools, multi-stop routing, lifetime updates).
+            &amp;{" "}
+            <Link
+              href="/truckdash"
+              className="text-[var(--gold-light)] underline hover:text-white"
+            >
+              TruckDash plans
+            </Link>
+            .
           </p>
 
-          <div className="mt-8 flex flex-col sm:flex-row gap-3.5 justify-center">
+          <div className="mt-9 flex flex-col sm:flex-row gap-3.5 justify-center">
             <Link
               href="/quote"
               className="btn btn-primary px-9 py-3.5 text-base font-semibold shadow-lg"
             >
               Get your free quote in 2 minutes →
             </Link>
-            <Link
-              href="/services"
-              className="inline-flex items-center justify-center rounded-full border border-[#2a3437] hover:bg-[#111518] px-7 py-3.5 text-[15px] font-semibold"
-            >
-              See Monticello KY Website Designer Pricing
+            <Link href="/services" className="btn btn-secondary px-7 py-3.5 text-[15px]">
+              See pricing
             </Link>
-            <Link
-              href="/work"
-              className="inline-flex items-center justify-center rounded-full border border-[#2a3437] hover:bg-[#111518] px-7 py-3.5 text-[15px] font-semibold"
-            >
-              View Lake Cumberland Demos
+            <Link href="/work" className="btn btn-secondary px-7 py-3.5 text-[15px]">
+              View demos
             </Link>
           </div>
 
           <ReferralDiscountNote
             align="center"
-            className="mt-5 mx-auto max-w-[48ch] rounded-xl border border-[#1f282b]/80 bg-[#0a0c0f]/60 px-4 py-2.5"
+            className="mt-6 mx-auto max-w-[48ch] rounded-xl border border-[var(--border)]/80 bg-[var(--bg-card)]/60 px-4 py-2.5"
           />
 
-          <p className="mt-4 text-[12.5px] text-[#8a9599]">
+          <p className="mt-5 text-[12.5px] text-[var(--text-dim)]">
             Or{" "}
             <Link href="/contact" className="underline hover:text-white">
               just say hi
             </Link>
-            . Real replies from Monticello, KY.{" "}
-            <Link
-              href="/south-carolina"
-              className="underline hover:text-[#f4a261]"
-            >
-              See our South Carolina Lowcountry services →
-            </Link>
+            . Real replies from Monticello, KY.
           </p>
         </div>
       </section>
@@ -383,7 +369,7 @@ export default function Home() {
       {/* FLOATING BUTTON — mobile conversion CTA */}
       <a
         href="/quote"
-        className="fixed bottom-6 right-6 z-50 bg-[#c17a5a] hover:bg-[#a96447] text-[#050708] px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-2.5 font-semibold active:scale-[0.985] transition-all md:hidden"
+        className="fixed bottom-6 right-6 z-50 bg-[var(--warm)] hover:bg-[var(--warm-dark)] text-[#0a0604] px-5 py-3.5 rounded-2xl shadow-[0_12px_40px_-8px_rgba(201,122,58,0.55)] flex items-center gap-2.5 font-semibold active:scale-[0.985] transition-all md:hidden"
         aria-label="Get a free quote from the Monticello KY website designer"
       >
         <IconPhone className="w-5 h-5" />

@@ -72,11 +72,11 @@ type ServiceAreasProps = {
 export default function ServiceAreas({ variant = "full" }: ServiceAreasProps) {
   if (variant === "compact") {
     return (
-      <section className="section-block border-t border-[var(--border)] bg-[var(--bg)]">
-        <div className="mx-auto max-w-6xl px-5">
+      <section className="section-block bg-[var(--bg)]">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <div className="max-w-2xl mb-8">
-            <div className="label tracking-[2px]">LAKE CUMBERLAND SERVICE AREAS</div>
-            <h2 className="section-title tracking-tight mt-2">
+            <div className="label mb-2">Lake Cumberland service areas</div>
+            <h2 className="section-title tracking-tight">
               Built for the towns around the lake.
             </h2>
             <p className="mt-3 text-[15.5px] text-[var(--text-muted)] leading-relaxed">
@@ -100,7 +100,7 @@ export default function ServiceAreas({ variant = "full" }: ServiceAreasProps) {
             </Link>
             <Link
               href="/south-carolina"
-              className="text-[var(--gold-light)] hover:underline text-sm font-medium"
+              className="text-[var(--copper-bright)] hover:underline text-sm font-semibold"
             >
               Charleston SC &amp; Lowcountry →
             </Link>

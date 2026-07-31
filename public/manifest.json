@@ -4,8 +4,8 @@
   "description": "Monticello KY website designer for Lake Cumberland business websites and food truck website Kentucky. Wayne County web design built locally.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#030605",
-  "theme_color": "#c97a3a",
+  "background_color": "#020403",
+  "theme_color": "#d48c4a",
   "icons": [
     {
       "src": "/favicon.ico",

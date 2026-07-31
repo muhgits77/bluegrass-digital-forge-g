@@ -101,7 +101,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: "#030605",
+  themeColor: "#020403",
 };
 
 export default function RootLayout({
@@ -122,7 +122,7 @@ export default function RootLayout({
           Hero LCP: <Image priority fetchPriority="high"> on app/page.tsx only.
         */}
       </head>
-      <body className="min-h-full flex flex-col bg-[var(--bg)] text-[var(--text)] scroll-smooth">
+      <body className="min-h-full flex flex-col bg-[var(--bg)] text-[var(--text)] scroll-smooth selection:bg-[rgba(212,140,74,0.35)] selection:text-white">
         {/* Aggressive LocalBusiness + Organization + WebSite schema for Monticello KY website designer + Lake Cumberland SEO */}
         <script
           type="application/ld+json"

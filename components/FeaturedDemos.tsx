@@ -21,9 +21,9 @@ export default function FeaturedDemos({
 
   if (demos.length === 0) {
     return (
-      <div className="rounded-2xl border border-[#1a2225] bg-[#07100f] px-5 py-10 text-center text-[14.5px] text-[#9aa6ad]">
+      <div className="rounded-[1.35rem] border border-[var(--border)] bg-[var(--bg-card)] px-5 py-10 text-center text-[14.5px] text-[var(--text-muted)]">
         Featured work is being updated. Check back shortly — or{" "}
-        <a href="/work" className="text-[#f4a261] hover:underline">
+        <a href="/work" className="text-[var(--copper-bright)] hover:underline">
           browse all projects
         </a>
         .

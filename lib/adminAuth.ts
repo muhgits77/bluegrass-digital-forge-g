@@ -8,7 +8,7 @@
 import { supabase } from './supabase';
 
 /** Only this Supabase Auth user may access /admin. */
-export const ALLOWED_ADMIN_EMAIL = 'bluegrassdigitalforge@protonmail.com';
+export const ALLOWED_ADMIN_EMAIL = 'contact@bluegrassdigitalforge.com';
 
 /** Second factor required at login (not stored in Supabase). */
 export const ADMIN_TOKEN = 'ScotchGlitch398!1!1!1!1!1';

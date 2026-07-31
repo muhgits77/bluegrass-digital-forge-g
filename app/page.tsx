@@ -139,13 +139,15 @@ export default function Home() {
                 Forged in Monticello, KY
               </div>
 
-              <h1 className="hero-fade hero-fade-2 hero-title max-w-[14ch] text-balance leading-[0.94] tracking-[-0.045em] text-[clamp(2.9rem,8.5vw,5.4rem)] font-semibold text-white">
-                Websites with a{" "}
-                <span className="kentucky-accent">Kentucky soul.</span>
+              <h1 className="hero-fade hero-fade-2 hero-title max-w-[16ch] text-balance leading-[0.94] tracking-[-0.045em] text-[clamp(2.9rem,8.5vw,5.4rem)] font-semibold text-white">
+                Websites for Lake Cumberland.{" "}
+                <span className="kentucky-accent">Built in Monticello.</span>
               </h1>
 
-              <p className="hero-fade hero-fade-3 mt-6 max-w-[36ch] text-[17px] md:text-[19px] leading-relaxed text-white/85">
-                Premium sites for Lake Cumberland &amp; the Lowcountry.
+              <p className="hero-fade hero-fade-3 mt-6 max-w-[40ch] text-[17px] md:text-[19px] leading-relaxed text-white/85">
+                Websites for Lake Cumberland businesses — built in Monticello.
+              </p>
+              <p className="hero-fade hero-fade-3 mt-3 max-w-[40ch] text-[15px] md:text-[16px] leading-relaxed text-white/75">
                 Flat pricing. Full ownership. Built by a neighbor — never an
                 agency.
               </p>

@@ -508,6 +508,13 @@ export default function QuotePage() {
             </div>
           )}
 
+          {/* Final-step helper — only on last step, directly above primary action */}
+          {step === 7 && (
+            <p className="text-center text-[12.5px] leading-relaxed text-[#9aa6ad] pt-1">
+              This is the last step. Click below to send your request to Brian.
+            </p>
+          )}
+
           {/* Nav buttons — premium Kentucky style */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-1">
             <button
@@ -543,17 +550,11 @@ export default function QuotePage() {
                     Sending…
                   </>
                 ) : (
-                  "Submit My Quote Request →"
+                  "Submit Quote Request"
                 )}
               </button>
             )}
           </div>
-
-          {step === 7 && (
-            <p className="text-center text-[13px] leading-relaxed text-[#c9b9a8] -mt-1 max-w-lg mx-auto">
-              Your answers go straight to Brian’s inbox. Expect a real reply from Monticello within 24 hours (usually much faster).
-            </p>
-          )}
 
           <p className="text-center text-[12.5px] text-[#9aa6ad] -mt-2">
             Submitting sends your request securely by email — no email app will open on your device.

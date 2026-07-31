@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Check } from "lucide-react";
 import ReferralDiscountNote from "@/components/ReferralDiscountNote";
+import { canonicalUrl } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Charleston SC Web Design | Lowcountry Web Design | Summerville Small Business Websites | Bluegrass Digital Forge",
@@ -18,9 +19,11 @@ export const metadata: Metadata = {
     "Walterboro website",
     "Ladson small business site",
   ],
+  alternates: { canonical: canonicalUrl("/south-carolina") },
   openGraph: {
     title: "Charleston SC Web Design | Lowcountry Web Design for Restaurants, Food Trucks & Small Businesses",
     description: "Handcrafted websites for Charleston, Summerville, North Charleston and the South Carolina Lowcountry. Flat pricing from $1,200. Full code ownership. Built with the same care we bring to Lake Cumberland projects.",
+    url: canonicalUrl("/south-carolina"),
   },
 };
 

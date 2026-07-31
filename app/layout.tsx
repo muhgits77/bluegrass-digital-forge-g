@@ -3,7 +3,7 @@ import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
-import { CONTACT_EMAIL, SITE_URL } from "@/lib/constants";
+import { CONTACT_EMAIL, SITE_URL, canonicalUrl } from "@/lib/constants";
 
 /**
  * Font strategy (LCP / render-blocking):
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
       "Monticello KY & Charleston SC Website Designer | Lake Cumberland & Lowcountry Business Websites",
     description:
       "Handcrafted websites for Lake Cumberland businesses by a local designer in Monticello, KY and Charleston SC, Summerville & the South Carolina Lowcountry. Flat pricing. You own the code.",
-    url: SITE_URL,
+    url: canonicalUrl("/"),
     images: [
       {
         url: "/hero-lake-cumberland-golden.jpg",
@@ -88,8 +88,9 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.ico",
   },
+  // Homepage default; every other public page sets its own self-referencing .com canonical.
   alternates: {
-    canonical: SITE_URL,
+    canonical: canonicalUrl("/"),
   },
   robots: {
     index: true,

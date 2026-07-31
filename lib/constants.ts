@@ -14,4 +14,17 @@ export const CONTACT_EMAIL = "contact@bluegrassdigitalforge.com";
 export const SITE_NAME = "Bluegrass Digital Forge";
 export const SITE_TAGLINE = "Powerful. Simple. Yours.";
 export const LOCATION = "Monticello, Kentucky • Lake Cumberland Region";
+
+/** Preferred production origin — always .com (never .live or staging hosts). */
 export const SITE_URL = "https://bluegrassdigitalforge.com";
+
+/**
+ * Absolute self-referencing canonical URL for a path.
+ * Homepage is exactly https://bluegrassdigitalforge.com/ (trailing slash).
+ * Other paths: https://bluegrassdigitalforge.com/services (no trailing slash).
+ */
+export function canonicalUrl(path: string = "/"): string {
+  if (!path || path === "/") return `${SITE_URL}/`;
+  const normalized = path.startsWith("/") ? path : `/${path}`;
+  return `${SITE_URL}${normalized.replace(/\/+$/, "")}`;
+}

@@ -1,4 +1,5 @@
 import { MetadataRoute } from 'next';
+import { SITE_URL } from '@/lib/constants';
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -7,6 +8,8 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/admin', '/api'],
     },
-    sitemap: 'https://bluegrassdigitalforge.com/sitemap.xml',
+    // Preferred .com domain only
+    sitemap: `${SITE_URL}/sitemap.xml`,
+    host: SITE_URL.replace(/^https?:\/\//, ''),
   };
 }

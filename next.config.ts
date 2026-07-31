@@ -55,6 +55,30 @@ const nextConfig: NextConfig = {
     remotePatterns: getRemoteImagePatterns(),
   },
 
+  // Prefer https://bluegrassdigitalforge.com — permanent redirects from .live hosts
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "bluegrassdigitalforge.live" }],
+        destination: "https://bluegrassdigitalforge.com/:path*",
+        permanent: true,
+      },
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.bluegrassdigitalforge.live" }],
+        destination: "https://bluegrassdigitalforge.com/:path*",
+        permanent: true,
+      },
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.bluegrassdigitalforge.com" }],
+        destination: "https://bluegrassdigitalforge.com/:path*",
+        permanent: true,
+      },
+    ];
+  },
+
   async headers() {
     return [
       {

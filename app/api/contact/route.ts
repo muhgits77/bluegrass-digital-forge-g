@@ -1,6 +1,6 @@
 import { Resend } from 'resend';
 import { NextRequest, NextResponse } from 'next/server';
-import { CONTACT_EMAIL } from '@/lib/constants';
+import { CONTACT_EMAIL, SITE_URL } from '@/lib/constants';
 
 // Production-ready /api/contact handler
 // - Validates payload server-side
@@ -159,7 +159,7 @@ function buildCustomerConfirmationHtml(data: ContactPayload): string {
               </p>
 
               <div style="text-align:center;">
-                <a href="https://bluegrassdigitalforge.com/quote" 
+                <a href="${SITE_URL}/quote" 
                    style="display:inline-block; background:#c17a5a; color:#f8f1e6; text-decoration:none; padding:13px 32px; border-radius:9999px; font-weight:600; font-size:14.5px; box-shadow:0 4px 14px -2px rgba(193,122,90,0.4);">
                   Get a Custom Quote
                 </a>
@@ -172,7 +172,7 @@ function buildCustomerConfirmationHtml(data: ContactPayload): string {
               Warm regards,<br>
               <strong style="color:#050708;">Brian</strong> — Bluegrass Digital Forge<br>
               <span style="font-size:12px;">Monticello, KY • Lake Cumberland Region</span><br><br>
-              <a href="mailto:${TO_EMAIL}" style="color:#c17a5a; text-decoration:underline;">${TO_EMAIL}</a> &nbsp;•&nbsp; <a href="https://bluegrassdigitalforge.com" style="color:#c17a5a; text-decoration:underline;">bluegrassdigitalforge.com</a>
+              <a href="mailto:${TO_EMAIL}" style="color:#c17a5a; text-decoration:underline;">${TO_EMAIL}</a> &nbsp;•&nbsp; <a href="${SITE_URL}" style="color:#c17a5a; text-decoration:underline;">bluegrassdigitalforge.com</a>
             </td>
           </tr>
 

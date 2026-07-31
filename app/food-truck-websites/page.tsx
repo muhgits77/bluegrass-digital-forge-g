@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { canonicalUrl } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Food Truck Websites in Kentucky | Lake Cumberland & Monticello",
   description: "Food truck websites for Lake Cumberland and Monticello, Kentucky. Update your real-time location, hours, and festival schedule in seconds from a simple mobile dashboard. Beautiful menus with photos, online ordering, and fast local sites built by a neighbor.",
   keywords: ["food truck website Kentucky", "Monticello KY website designer", "Lake Cumberland business websites", "Wayne County web design", "Charleston Food Truck Website", "Lowcountry Web Design", "real-time food truck location", "food truck schedule updates"],
+  alternates: { canonical: canonicalUrl("/food-truck-websites") },
+  openGraph: { url: canonicalUrl("/food-truck-websites") },
 };
 
 export default function FoodTruckWebsites() {

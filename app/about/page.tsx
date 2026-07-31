@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { canonicalUrl } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "About the Monticello KY & Charleston SC Website Designer | Bluegrass Digital Forge",
   description: "Meet Brian, the Monticello KY website designer now also serving Charleston SC, Summerville and the South Carolina Lowcountry. Authentic, handcrafted websites for Lake Cumberland and Lowcountry businesses. Flat pricing, full ownership.",
   keywords: ["Monticello KY website designer", "Lake Cumberland business websites", "Web Design Charleston SC", "Lowcountry Web Design"],
+  alternates: { canonical: canonicalUrl("/about") },
+  openGraph: { url: canonicalUrl("/about") },
 };
 
 export default function AboutPage() {

@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { canonicalUrl } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Website Templates | Monticello KY & Charleston SC Website Designer — Lake Cumberland & Lowcountry",
   description: "Ready-to-launch templates for Lake Cumberland business websites, food truck website Kentucky, and Charleston SC / Lowcountry small business sites. Customizable by the Monticello KY website designer.",
   keywords: ["Monticello KY website designer", "Lake Cumberland business websites", "food truck website Kentucky", "Wayne County web design", "Web Design Charleston SC", "Summerville Small Business Website"],
+  alternates: { canonical: canonicalUrl("/templates") },
+  openGraph: { url: canonicalUrl("/templates") },
 };
 
 export default function TemplatesPage() {

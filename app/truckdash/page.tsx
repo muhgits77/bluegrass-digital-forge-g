@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Check } from "lucide-react";
+import { canonicalUrl } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "TruckDash Pricing | Kentucky Food Truck Dashboard & Flyer Studio",
@@ -14,6 +15,8 @@ export const metadata: Metadata = {
     "Bluegrass Kitchen TruckDash",
     "Lake Cumberland food truck tools",
   ],
+  alternates: { canonical: canonicalUrl("/truckdash") },
+  openGraph: { url: canonicalUrl("/truckdash") },
 };
 
 const starterFeatures = [

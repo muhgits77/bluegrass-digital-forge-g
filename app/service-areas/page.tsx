@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import ServiceAreas from "@/components/ServiceAreas";
+import { canonicalUrl } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Lake Cumberland Boat Ramp Towns & Charleston SC | Service Areas | Monticello KY Website Designer",
@@ -15,6 +16,8 @@ export const metadata: Metadata = {
     "Web Design Charleston SC",
     "Lowcountry Web Design",
   ],
+  alternates: { canonical: canonicalUrl("/service-areas") },
+  openGraph: { url: canonicalUrl("/service-areas") },
 };
 
 export default function ServiceAreasPage() {

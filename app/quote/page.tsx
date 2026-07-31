@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useEffect, useState, Suspense } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import { CONTACT_EMAIL } from "@/lib/constants";
 import ReferralDiscountNote from "@/components/ReferralDiscountNote";
 
@@ -13,6 +12,18 @@ const TRUCKDASH_PLAN_BUDGET: Record<string, string> = {
   starter: "TruckDash Starter — $1,497 one-time",
   pro: "TruckDash Pro — $2,497 (or $1,997 launch)",
 };
+
+/** Read ?plan= without useSearchParams — avoids Suspense “Loading quote form…” flash. */
+function getPlanFromLocation(): string {
+  if (typeof window === "undefined") return "";
+  try {
+    return (new URLSearchParams(window.location.search).get("plan") || "")
+      .toLowerCase()
+      .trim();
+  } catch {
+    return "";
+  }
+}
 
 interface FormData {
   name: string;
@@ -100,31 +111,37 @@ function StepHeader({ num, title }: { num: string; title: string }) {
   );
 }
 
-function QuotePageInner() {
-  const searchParams = useSearchParams();
+export default function QuotePage() {
   const [step, setStep] = useState(0);
   const [form, setForm] = useState<FormData>(initialForm);
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submittedName, setSubmittedName] = useState("");
   const [submittedBusiness, setSubmittedBusiness] = useState("");
   const [truckDashPlan, setTruckDashPlan] = useState<string | null>(null);
 
   // Prefill budget + goals when arriving from TruckDash Buy Now (?plan=starter|pro)
+  // Uses window.location so the form paints immediately (no Suspense fallback).
   useEffect(() => {
-    const plan = (searchParams.get("plan") || "").toLowerCase().trim();
+    const plan = getPlanFromLocation();
     if (plan !== "starter" && plan !== "pro") return;
     const budget = TRUCKDASH_PLAN_BUDGET[plan];
     if (!budget) return;
     setTruckDashPlan(plan);
     setForm((f) => {
       if (f.budget === budget) return f;
-      const goals = f.goals.includes("Easily update daily location and hours myself (food trucks & mobile businesses)")
+      const goals = f.goals.includes(
+        "Easily update daily location and hours myself (food trucks & mobile businesses)"
+      )
         ? f.goals
-        : [...f.goals, "Easily update daily location and hours myself (food trucks & mobile businesses)"];
+        : [
+            ...f.goals,
+            "Easily update daily location and hours myself (food trucks & mobile businesses)",
+          ];
       return { ...f, budget, goals };
     });
-  }, [searchParams]);
+  }, []);
 
   const update = <K extends keyof FormData>(key: K, value: FormData[K]) => {
     setForm((f) => ({ ...f, [key]: value }));
@@ -192,15 +209,17 @@ function QuotePageInner() {
         return;
       }
 
-      // Success — show beautiful thank you (no email client)
+      // Success — clear friendly confirmation (no email client popup)
+      setSubmittedName(form.name.trim().split(/\s+/)[0] || form.name.trim());
       setSubmittedBusiness(form.business);
       setSubmitted(true);
       setIsSubmitting(false);
-      // Scroll to top of success state
-      window.scrollTo({ top: 120, behavior: "smooth" });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err) {
       console.error(err);
-      setSubmitError("Network error. Please check your connection and try again, or email us directly.");
+      setSubmitError(
+        "Network error. Please check your connection and try again, or email us directly."
+      );
       setIsSubmitting(false);
     }
   };
@@ -210,6 +229,7 @@ function QuotePageInner() {
     setStep(0);
     setSubmitted(false);
     setSubmitError(null);
+    setSubmittedName("");
     setSubmittedBusiness("");
   };
 
@@ -294,11 +314,13 @@ function QuotePageInner() {
                 </div>
                 <div>
                   <div className="label mb-1.5">Phone (optional)</div>
-                  <input 
-                    className="input w-full" 
-                    value={form.phone} 
-                    onChange={(e) => update("phone", e.target.value)} 
-                    placeholder="(606) 555-0123" 
+                  <input
+                    type="tel"
+                    inputMode="tel"
+                    className="input w-full"
+                    value={form.phone}
+                    onChange={(e) => update("phone", e.target.value)}
+                    placeholder="Optional — if you prefer a call back"
                     autoComplete="tel"
                   />
                 </div>
@@ -467,49 +489,58 @@ function QuotePageInner() {
               </div>
 
               <div className="mt-8 rounded-2xl bg-[#0a0c0f] border border-[#1a2225] p-5 text-sm text-[#8a9599]">
-                Your answers are sent securely to Brian at Bluegrass Digital Forge. No data is stored on this site.
+                Your answers go straight to Brian’s inbox in Monticello. No agency middleman. No data stored on this site.
               </div>
             </div>
           )}
 
           {/* Error banner */}
           {submitError && (
-            <div className="rounded-xl border border-red-900/60 bg-red-950/30 px-5 py-4 text-sm text-red-200">
+            <div className="rounded-xl border border-red-900/60 bg-red-950/30 px-5 py-4 text-sm text-red-200" role="alert">
               {submitError}
-              <div className="mt-2 text-[12.5px]">You can also email <a href={`mailto:${EMAIL}`} className="underline">{EMAIL}</a> directly.</div>
+              <div className="mt-2 text-[12.5px]">
+                You can also email{" "}
+                <a href={`mailto:${EMAIL}`} className="underline">
+                  {EMAIL}
+                </a>{" "}
+                directly.
+              </div>
             </div>
           )}
 
           {/* Nav buttons — premium Kentucky style */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-1">
-            <button 
-              type="button" 
-              onClick={() => setStep(Math.max(0, step - 1))} 
-              className="btn btn-secondary w-full sm:w-auto" 
+            <button
+              type="button"
+              onClick={() => setStep(Math.max(0, step - 1))}
+              className="btn btn-secondary w-full sm:w-auto min-h-[48px]"
               disabled={step === 0 || isSubmitting}
             >
               ← Back
             </button>
 
             {step < 7 ? (
-              <button 
-                type="button" 
-                onClick={() => setStep(Math.min(7, step + 1))} 
-                disabled={!canNext() || isSubmitting} 
-                className="btn btn-primary w-full sm:w-auto disabled:opacity-60"
+              <button
+                type="button"
+                onClick={() => setStep(Math.min(7, step + 1))}
+                disabled={!canNext() || isSubmitting}
+                className="btn btn-primary w-full sm:w-auto min-h-[48px] disabled:opacity-60"
               >
                 Continue →
               </button>
             ) : (
-              <button 
-                type="submit" 
-                disabled={!isFormValid() || isSubmitting} 
-                className="btn btn-primary w-full sm:w-auto disabled:opacity-60 flex items-center justify-center gap-2"
+              <button
+                type="submit"
+                disabled={!isFormValid() || isSubmitting}
+                className="btn btn-primary w-full sm:w-auto min-h-[48px] disabled:opacity-60 flex items-center justify-center gap-2"
               >
                 {isSubmitting ? (
                   <>
-                    <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
-                    SENDING SECURELY...
+                    <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" aria-hidden>
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                    </svg>
+                    Sending…
                   </>
                 ) : (
                   "Submit My Quote Request →"
@@ -518,43 +549,81 @@ function QuotePageInner() {
             )}
           </div>
 
+          {step === 7 && (
+            <p className="text-center text-[13px] leading-relaxed text-[#c9b9a8] -mt-1 max-w-lg mx-auto">
+              Your answers go straight to Brian’s inbox. Expect a real reply from Monticello within 24 hours (usually much faster).
+            </p>
+          )}
+
           <p className="text-center text-[12.5px] text-[#9aa6ad] -mt-2">
-            Submitting sends your request directly via secure email. You’ll receive a beautiful branded confirmation — no email app will open.
+            Submitting sends your request securely by email — no email app will open on your device.
           </p>
         </form>
       ) : (
-        /* Beautiful Branded Thank You — Warm Kentucky, no mailto */
+        /* Confirmation — honest, local, no public phone number */
         <div className="rounded-3xl border border-[#1a2225] bg-[#0a0c0f] p-9 sm:p-12 text-center">
           <div className="mx-auto mb-5 inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#c17a5a]/10">
-            <span className="text-3xl">✓</span>
+            <span className="text-3xl" aria-hidden>
+              ✓
+            </span>
           </div>
 
-          <h3 className="text-3xl font-semibold tracking-tighter">Thank you, {submittedBusiness ? submittedBusiness.split(" ")[0] : "friend"}.</h3>
-          
+          <h2 className="text-3xl font-semibold tracking-tighter">
+            Thank you{submittedName ? `, ${submittedName}` : ""}.
+          </h2>
+
           <p className="mt-3 max-w-md mx-auto text-[#c9b9a8]">
-            Your quote request has been received. A beautiful confirmation email is on its way to your inbox.
+            {submittedBusiness
+              ? `Your quote request for ${submittedBusiness} is in.`
+              : "Your quote request is in."}{" "}
+            A confirmation email is on its way to your inbox.
           </p>
 
           <div className="my-8 mx-auto max-w-md rounded-2xl bg-[#111518] border border-[#243530] p-6 text-left text-sm">
-            <div className="uppercase tracking-[1.5px] text-xs text-[#8a9599] mb-2">What happens next</div>
+            <div className="uppercase tracking-[1.5px] text-xs text-[#8a9599] mb-3">
+              What happens next
+            </div>
+            <p className="text-[#d9d1c4] leading-relaxed mb-4">
+              Your answers go straight to Brian’s inbox. Expect a real reply from Monticello within 24 hours (usually much faster).
+            </p>
             <ul className="space-y-2.5 text-[#d9d1c4]">
-              <li className="flex gap-2.5"><span className="text-[#c17a5a] mt-1">→</span> I personally review every request.</li>
-              <li className="flex gap-2.5"><span className="text-[#c17a5a] mt-1">→</span> You’ll get a flat-price proposal within 24 hours (often same day).</li>
-              <li className="flex gap-2.5"><span className="text-[#c17a5a] mt-1">→</span> We’ll talk about your goals, timeline, and Lake Cumberland specifics.</li>
+              <li className="flex gap-2.5">
+                <span className="text-[#c17a5a] mt-1">→</span>
+                I personally review every request — no agency queue.
+              </li>
+              <li className="flex gap-2.5">
+                <span className="text-[#c17a5a] mt-1">→</span>
+                You’ll get a flat-price proposal built around your goals and timeline.
+              </li>
+              <li className="flex gap-2.5">
+                <span className="text-[#c17a5a] mt-1">→</span>
+                We’ll talk through the details for your Lake Cumberland or Lowcountry business.
+              </li>
             </ul>
+            <p className="mt-5 pt-4 border-t border-[#243530] text-[#9aa6ad] leading-relaxed">
+              Once we’re talking about a real project, I’m happy to share a direct number for calls or texts if that works better for you.
+            </p>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link href="/" className="btn btn-secondary">Back to Home</Link>
-            <Link href="/services" className="btn btn-primary">See Services &amp; Pricing</Link>
+            <Link href="/" className="btn btn-secondary min-h-[48px]">
+              Back to Home
+            </Link>
+            <Link href="/services" className="btn btn-primary min-h-[48px]">
+              See Services &amp; Pricing
+            </Link>
           </div>
 
           <div className="mt-10 text-xs text-[#8a9599]">
-            Questions right now? Email <a href={`mailto:${EMAIL}`} className="underline hover:text-[#c17a5a]">{EMAIL}</a>
+            Questions right now? Email{" "}
+            <a href={`mailto:${EMAIL}`} className="underline hover:text-[#c17a5a]">
+              {EMAIL}
+            </a>
           </div>
 
-          <button 
-            onClick={resetForm} 
+          <button
+            type="button"
+            onClick={resetForm}
             className="mt-6 text-xs text-[#9aa6ad] hover:text-[#c17a5a] underline"
           >
             Submit another request
@@ -562,26 +631,17 @@ function QuotePageInner() {
         </div>
       )}
 
-      <div className="mt-10 text-center text-[14.5px]">
-        <Link href="/services" className="text-[#c17a5a] hover:underline">← Back to Services &amp; Pricing</Link>
-        {" · "}
-        <Link href="/truckdash" className="text-[#c17a5a] hover:underline">TruckDash plans</Link>
-      </div>
-    </div>
-  );
-}
-
-export default function QuotePage() {
-  return (
-    <Suspense
-      fallback={
-        <div className="mx-auto max-w-3xl px-5 py-10">
-          <div className="label tracking-[2px]">CUSTOM QUOTE</div>
-          <p className="mt-4 text-[#8a9599]">Loading quote form…</p>
+      {!submitted && (
+        <div className="mt-10 text-center text-[14.5px]">
+          <Link href="/services" className="text-[#c17a5a] hover:underline">
+            ← Back to Services &amp; Pricing
+          </Link>
+          {" · "}
+          <Link href="/truckdash" className="text-[#c17a5a] hover:underline">
+            TruckDash plans
+          </Link>
         </div>
-      }
-    >
-      <QuotePageInner />
-    </Suspense>
+      )}
+    </div>
   );
 }

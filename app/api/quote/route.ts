@@ -186,8 +186,11 @@ function buildCustomerConfirmationHtml(data: QuotePayload): string {
 
               <div style="margin:28px 0; padding:20px 24px; background:#f8f4ec; border-radius:12px; border:1px solid #e8e0d4;">
                 <p style="margin:0 0 8px; font-size:13px; text-transform:uppercase; letter-spacing:1px; color:#8a6f5c;">What happens next</p>
-                <p style="margin:0; font-size:15px; line-height:1.7; color:#050708;">
-                  I review every request personally. You'll hear back from me within <strong>24 hours</strong> (usually same day) with a flat-price proposal and next steps tailored to your Lake Cumberland or Wayne County business.
+                <p style="margin:0 0 12px; font-size:15px; line-height:1.7; color:#050708;">
+                  Your answers go straight to Brian’s inbox. Expect a real reply from Monticello within <strong>24 hours</strong> (usually much faster).
+                </p>
+                <p style="margin:0; font-size:14.5px; line-height:1.65; color:#3f494f;">
+                  Once we’re talking about a real project, I’m happy to share a direct number for calls or texts if that works better for you.
                 </p>
               </div>
 

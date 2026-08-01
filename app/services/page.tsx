@@ -85,12 +85,18 @@ export default function Services() {
       <div className="max-w-3xl">
         <div className="label tracking-[2px]">SERVICES &amp; PRICING — MONTICELLO KY WEBSITE DESIGNER</div>
         <h1 className="section-title tracking-tight mt-2">Monticello KY Website Designer — Flat Pricing for Lake Cumberland Business Websites</h1>
-        <p className="mt-3 text-lg text-[#9aa6ad]">Transparent one-time pricing. Starter Sites from $1,200 and Business Suites from $2,500. Food trucks, restaurants, marinas, shops — you own the code forever.</p>
-        <p className="text-[14.5px] text-[#9aa6ad] mt-1">Handcrafted in Monticello for Lake Cumberland. Also serving Charleston SC &amp; the Lowcountry.</p>
+        <p className="mt-3 text-lg text-[#9aa6ad]">Transparent flat rate pricing — one-time, no surprises. Starter Sites from $1,200 and Business Suites from $2,500. Food trucks, restaurants, marinas, shops — <strong className="text-[#c8cfd3] font-medium">you own the code</strong> with full ownership forever.</p>
+        <p className="text-[14.5px] text-[#9aa6ad] mt-1">Handcrafted in Monticello for Lake Cumberland. Also serving{" "}
+          <Link href="/south-carolina" className="underline hover:text-[#f4a261]">Charleston SC web design</Link>{" "}
+          and the Lowcountry.</p>
       </div>
 
       {/* Two Big Website Cards — updated layout & copy per specs. Premium dark with warm amber accents. */}
-      <div className="mt-9 grid lg:grid-cols-2 gap-5">
+      <p className="mt-8 max-w-2xl text-[15px] text-[#9aa6ad]">
+        Every package uses clear <strong className="text-[#c8cfd3] font-medium">flat pricing</strong> — a one-time flat rate based on scope. When the project is paid,{" "}
+        <strong className="text-[#c8cfd3] font-medium">you own the code</strong> and get full ownership of the site. No subscriptions required to keep your build.
+      </p>
+      <div className="mt-5 grid lg:grid-cols-2 gap-5">
         {/* Starter Sites */}
         <div className="pricing-card rounded-3xl p-8 md:p-9 flex flex-col">
           <div>
@@ -157,7 +163,7 @@ export default function Services() {
         className="mt-6 mx-auto max-w-2xl rounded-xl border border-[#1f282b]/80 bg-[#0a0c0f]/60 px-4 py-2.5"
       />
 
-      <p className="text-[14.5px] text-center mt-5 text-[#9aa6ad]">Not sure which one? <Link href="/quote" className="underline hover:text-white">Tell me about your business</Link> — I&apos;ll recommend the right fit for your Lake Cumberland spot. Need a <Link href="/food-truck-websites" className="underline hover:text-white">food truck website Kentucky</Link>? We also serve Charleston SC and the Lowcountry — <Link href="/south-carolina" className="underline hover:text-[#f4a261]">see Charleston web design services</Link>.</p>
+      <p className="text-[14.5px] text-center mt-5 text-[#9aa6ad]">Not sure which one? <Link href="/quote" className="underline hover:text-white">Tell me about your business</Link> — I&apos;ll recommend the right fit for your Lake Cumberland spot. Need a <Link href="/food-truck-websites" className="underline hover:text-white">food truck website Kentucky</Link>? We also build <Link href="/south-carolina" className="underline hover:text-[#f4a261]">Lowcountry food truck websites</Link> and <Link href="/south-carolina" className="underline hover:text-[#f4a261]">Charleston SC web design</Link> for restaurants and small businesses.</p>
 
       {/* Short food-truck teaser — full detail on /food-truck-websites */}
       <div className="mt-10 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 md:p-7 shadow-[var(--shadow-card)]">

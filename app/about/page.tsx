@@ -36,7 +36,16 @@ export default function AboutPage() {
           phone. I answer texts on weekends before a busy Saturday.
         </p>
         <p className="mt-3">
-          Serving Lake Cumberland towns from Monticello outward — and Charleston SC
+          <strong className="text-white font-semibold">You own the code</strong>
+          {" "}— full ownership of your website from day one. No lock-in, no
+          proprietary platform holding your business hostage. Honest flat pricing,
+          local craftsmanship, and a site that&apos;s yours forever.
+        </p>
+        <p className="mt-3">
+          Serving Lake Cumberland towns from Monticello outward — and{" "}
+          <Link href="/south-carolina" className="underline hover:text-[var(--gold-light)]">
+            Charleston SC web design
+          </Link>{" "}
           &amp; the Lowcountry with the same neighborly approach.{" "}
           <Link href="/service-areas" className="underline hover:text-[var(--gold-light)]">
             Full service areas →
@@ -46,8 +55,12 @@ export default function AboutPage() {
           Food truck owners: real-time location updates from your phone.{" "}
           <Link href="/food-truck-websites" className="underline hover:text-[var(--gold-light)]">
             Kentucky food truck websites →
-          </Link>{" "}
-          and{" "}
+          </Link>
+          ,{" "}
+          <Link href="/south-carolina" className="underline hover:text-[var(--gold-light)]">
+            Lowcountry food truck websites
+          </Link>
+          , and{" "}
           <Link href="/work" className="underline hover:text-[var(--gold-light)]">
             Lake Cumberland website demos
           </Link>
@@ -79,9 +92,9 @@ export default function AboutPage() {
           <Link href="/food-truck-websites" className="underline hover:text-[var(--gold-light)]">
             food truck examples
           </Link>
-          . Same approach for Charleston SC —{" "}
+          . Same approach for{" "}
           <Link href="/south-carolina" className="underline hover:text-[var(--gold-light)]">
-            learn more
+            South Carolina Lowcountry websites
           </Link>
           .
         </p>
@@ -92,7 +105,7 @@ export default function AboutPage() {
         </div>
       </div>
 
-      <p className="text-center text-[12.5px] mt-9 text-[var(--text-muted)]">Forged in Monticello, Kentucky. Independently owned. No agency middlemen. You own everything.</p>
+      <p className="text-center text-[12.5px] mt-9 text-[var(--text-muted)]">Forged in Monticello, Kentucky. Independently owned. No agency middlemen. Full ownership — you own the code.</p>
     </div>
   );
 }

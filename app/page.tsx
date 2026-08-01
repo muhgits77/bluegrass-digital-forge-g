@@ -144,13 +144,17 @@ export default function Home() {
                 <span className="kentucky-accent">Monticello, KY</span>
               </h1>
 
-              <p className="hero-fade hero-fade-3 mt-6 max-w-[42ch] text-[17px] md:text-[19px] leading-relaxed text-white/85">
+              <p className="hero-fade hero-fade-3 mt-6 max-w-[44ch] text-[17px] md:text-[19px] leading-relaxed text-white/85">
                 Handcrafted sites for restaurants, food trucks, marinas, and
-                shops around the lake — forged by a neighbor in Monticello.
+                shops around the lake — forged by a neighbor in Monticello.{" "}
+                <span className="text-white/95 font-medium">
+                  You own the code
+                </span>
+                , with full ownership of your site from day one.
               </p>
-              <p className="hero-fade hero-fade-3 mt-3 max-w-[40ch] text-[15px] md:text-[16px] leading-relaxed text-white/75">
-                Flat pricing. Full ownership. Built by a neighbor — never an
-                agency.
+              <p className="hero-fade hero-fade-3 mt-3 max-w-[42ch] text-[15px] md:text-[16px] leading-relaxed text-white/75">
+                Honest flat pricing, no monthly lock-in for the build. Built by
+                a neighbor — never an agency.
               </p>
 
               <div className="hero-fade hero-fade-4 mt-9 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
@@ -167,8 +171,8 @@ export default function Home() {
 
               <div className="hero-fade hero-fade-5 mt-8 flex flex-wrap gap-x-5 gap-y-2.5 text-[13px] text-white/75">
                 {[
-                  "Flat price, no surprises",
-                  "You own the code",
+                  "Flat pricing, no surprises",
+                  "You own the code — full ownership",
                   "Live in 2–4 weeks",
                 ].map((t) => (
                   <div key={t} className="inline-flex items-center gap-1.5">
@@ -195,8 +199,8 @@ export default function Home() {
                   </span>
                 </div>
                 <p className="mt-3 text-[14.5px] text-white/75 leading-relaxed">
-                  Business Suites from $2,500. No monthly lock-in for the build.
-                  You own everything.
+                  Business Suites from $2,500. Flat rate, no monthly lock-in for
+                  the build. Full ownership — you own the code.
                 </p>
                 <ul className="mt-5 space-y-2.5 text-[14px] text-white/80">
                   {[
@@ -317,14 +321,31 @@ export default function Home() {
                   Expanding south
                 </div>
                 <p className="text-white text-[17px] md:text-[20px] font-semibold tracking-tight max-w-md">
-                  Charleston SC &amp; Lowcountry web design
+                  Charleston SC web design for the Lowcountry
                 </p>
                 <Link
                   href="/south-carolina"
                   className="mt-2 inline-flex text-[14px] font-semibold text-[var(--cream)] underline decoration-[var(--copper)] underline-offset-4 hover:text-white"
                 >
-                  Explore Lowcountry services →
+                  Charleston SC web design →
                 </Link>
+                <p className="mt-1.5 text-[13px] text-white/70 max-w-sm">
+                  Also serving{" "}
+                  <Link
+                    href="/south-carolina"
+                    className="underline decoration-[var(--copper)]/50 underline-offset-2 hover:text-white"
+                  >
+                    Lowcountry food truck websites
+                  </Link>{" "}
+                  and{" "}
+                  <Link
+                    href="/south-carolina"
+                    className="underline decoration-[var(--copper)]/50 underline-offset-2 hover:text-white"
+                  >
+                    South Carolina Lowcountry websites
+                  </Link>
+                  .
+                </p>
               </div>
             </div>
           </div>

@@ -6,10 +6,11 @@ import ReferralDiscountNote from "@/components/ReferralDiscountNote";
 import { canonicalUrl } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Charleston SC Web Design | Lowcountry Web Design | Summerville Small Business Websites | Bluegrass Digital Forge",
-  description: "Premium handcrafted web design for Charleston SC, Summerville, North Charleston, Walterboro and Ladson. Charleston Food Truck Websites, North Charleston Restaurant Websites, and Summerville Small Business Websites. Flat pricing. You own the code. Authentic Lowcountry focus from a Kentucky craftsman.",
+  title: "Charleston SC Web Design | Lowcountry Food Truck & Restaurant Websites | Bluegrass Digital Forge",
+  description: "Charleston SC web design for food trucks, restaurants, and small businesses in Charleston, Summerville, North Charleston & the Lowcountry. Flat pricing. You own the code. Handcrafted sites from a Kentucky craftsman.",
   keywords: [
     "Web Design Charleston SC",
+    "Charleston SC web design",
     "Charleston Food Truck Website",
     "Summerville Small Business Website",
     "North Charleston Restaurant Website",
@@ -21,8 +22,8 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: canonicalUrl("/south-carolina") },
   openGraph: {
-    title: "Charleston SC Web Design | Lowcountry Web Design for Restaurants, Food Trucks & Small Businesses",
-    description: "Handcrafted websites for Charleston, Summerville, North Charleston and the South Carolina Lowcountry. Flat pricing from $1,200. Full code ownership. Built with the same care we bring to Lake Cumberland projects.",
+    title: "Charleston SC Web Design | Lowcountry Websites for Food Trucks, Restaurants & Small Businesses",
+    description: "Handcrafted Charleston SC web design for food trucks, restaurants, and small businesses in Summerville, North Charleston, and the South Carolina Lowcountry. Flat pricing. Full ownership.",
     url: canonicalUrl("/south-carolina"),
   },
 };
@@ -80,15 +81,15 @@ export default function SouthCarolinaPage() {
 
       {/* Header */}
       <div className="max-w-3xl">
-        <div className="label tracking-[2px]">SOUTH CAROLINA LOWCOUNTRY</div>
+        <div className="label tracking-[2px]">CHARLESTON SC &amp; SOUTH CAROLINA LOWCOUNTRY</div>
         <h1 className="section-title tracking-tight mt-2">
-          Charleston SC Web Design &amp; Lowcountry Business Websites
+          Charleston SC Web Design for Food Trucks, Restaurants &amp; Lowcountry Small Businesses
         </h1>
         <p className="mt-3 text-lg text-[#9aa6ad]">
-          Handcrafted websites for Charleston, Summerville, Walterboro, Ladson, North Charleston and the South Carolina Lowcountry. The same premium, neighborly approach we use for Lake Cumberland businesses — now serving Lowcountry restaurants, food trucks, small shops, and professionals. Flat pricing. You own everything.
+          Handcrafted web design for food trucks, restaurants, and small businesses in Charleston, Summerville, North Charleston, Walterboro, Ladson, and across the South Carolina Lowcountry. The same premium, neighborly approach we use for Lake Cumberland — now built for your coastal customers. Flat pricing. <strong className="text-[#c8cfd3] font-medium">You own the code</strong> with full ownership.
         </p>
         <p className="mt-2 text-[14.5px] text-[#c17a5a]">
-          Serving <strong>Web Design Charleston SC</strong>, <strong>Charleston Food Truck Websites</strong>, <strong>Summerville Small Business Websites</strong>, and <strong>North Charleston Restaurant Websites</strong>.
+          Built for <strong>Charleston SC food trucks</strong>, <strong>restaurants from King Street to North Charleston</strong>, and <strong>small businesses in Summerville and the Lowcountry</strong> who want a site that ranks locally and feels like home.
         </p>
       </div>
 
@@ -104,9 +105,9 @@ export default function SouthCarolinaPage() {
       <div className="mt-12">
         <div className="max-w-3xl mb-6">
           <div className="label tracking-[2px]">LOWCOUNTRY SERVICE AREAS</div>
-          <h2 className="text-2xl font-semibold tracking-tight mt-1">Websites built for real Charleston-area businesses.</h2>
+          <h2 className="text-2xl font-semibold tracking-tight mt-1">Websites for Charleston food trucks, restaurants &amp; Lowcountry small businesses.</h2>
           <p className="mt-2 text-[15px] text-[#9aa6ad]">
-            From downtown Charleston food halls and King Street restaurants to Summerville boutiques, North Charleston eateries, Walterboro shops and Ladson service businesses — we create sites that feel like the Lowcountry: warm, honest, and effective.
+            If you run a food truck near the harbor, a restaurant in Charleston or North Charleston, or a small business in Summerville, Walterboro, or Ladson — we build sites that speak to your customers. Warm, honest, and effective Lowcountry web design made for how people actually search and book here.
           </p>
         </div>
 

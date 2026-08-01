@@ -140,8 +140,8 @@ export default function Home() {
               </div>
 
               <h1 className="hero-fade hero-fade-2 hero-title max-w-[18ch] text-balance leading-[0.94] tracking-[-0.045em] text-[clamp(2.6rem,7.5vw,4.8rem)] font-semibold text-white">
-                Lake Cumberland Business Websites{" "}
-                <span className="kentucky-accent">Built in Monticello, KY</span>
+                Lake Cumberland Business Websites Built in{" "}
+                <span className="kentucky-accent">Monticello, KY</span>
               </h1>
 
               <p className="hero-fade hero-fade-3 mt-6 max-w-[42ch] text-[17px] md:text-[19px] leading-relaxed text-white/85">

@@ -3,11 +3,22 @@ import Link from "next/link";
 import { canonicalUrl } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "About the Monticello KY & Charleston SC Website Designer | Bluegrass Digital Forge",
-  description: "Meet Brian, the Monticello KY website designer now also serving Charleston SC, Summerville and the South Carolina Lowcountry. Authentic, handcrafted websites for Lake Cumberland and Lowcountry businesses. Flat pricing, full ownership.",
-  keywords: ["Monticello KY website designer", "Lake Cumberland business websites", "Web Design Charleston SC", "Lowcountry Web Design"],
+  title: "About the Monticello KY Website Designer | Bluegrass Digital Forge",
+  description:
+    "Meet Brian, the Monticello KY website designer building authentic Lake Cumberland business websites. Local, honest, flat pricing, and you own everything.",
+  keywords: [
+    "Monticello KY website designer",
+    "Lake Cumberland business websites",
+    "Web Design Charleston SC",
+    "Lowcountry Web Design",
+  ],
   alternates: { canonical: canonicalUrl("/about") },
-  openGraph: { url: canonicalUrl("/about") },
+  openGraph: {
+    title: "About the Monticello KY Website Designer | Bluegrass Digital Forge",
+    description:
+      "Meet Brian, the Monticello KY website designer building authentic Lake Cumberland business websites. Local, honest, flat pricing, and you own everything.",
+    url: canonicalUrl("/about"),
+  },
 };
 
 export default function AboutPage() {
@@ -34,8 +45,13 @@ export default function AboutPage() {
         <p className="mt-3 text-[14.5px] text-[var(--text-muted)]">
           Food truck owners: real-time location updates from your phone.{" "}
           <Link href="/food-truck-websites" className="underline hover:text-[var(--gold-light)]">
-            See food truck websites →
+            Kentucky food truck websites →
+          </Link>{" "}
+          and{" "}
+          <Link href="/work" className="underline hover:text-[var(--gold-light)]">
+            Lake Cumberland website demos
           </Link>
+          .
         </p>
       </div>
 

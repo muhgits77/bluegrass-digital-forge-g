@@ -123,6 +123,12 @@ function mapRowToDemo(row: Record<string, unknown>): Demo {
     featured = sortOrder > 0 && sortOrder <= 4;
   }
 
+  const imageAltRaw = get(['imageAlt', 'image_alt', 'alt'], undefined);
+  const imageAlt =
+    typeof imageAltRaw === 'string' && imageAltRaw.trim()
+      ? imageAltRaw.trim()
+      : undefined;
+
   return {
     id: String(get(['id', 'ID', 'uuid'], `sb-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`)),
     title: String(get(['title', 'Title', 'name'], '')),
@@ -131,6 +137,7 @@ function mapRowToDemo(row: Record<string, unknown>): Demo {
     href: String(get(['href', 'url', 'link', 'Href'], '')),
     description: String(get(['description', 'Description', 'desc', 'short_desc'], '')),
     image: (get(['image', 'Image', 'thumbnail', 'thumb', 'img']) as string | undefined) || undefined,
+    imageAlt,
     sortOrder,
     visible: visibleRaw === true || visibleRaw === 'true' || visibleRaw === 1 || visibleRaw === 't',
     featured,

@@ -58,6 +58,11 @@ export interface Demo {
   /** Subtitle / short description shown under the title. */
   description: string;
   image?: string; // Can be /assets/... path, Supabase Storage public URL, or base64 (fallback only)
+  /**
+   * SEO image alt: "[Business type] website demo for [location] — [key feature]".
+   * Falls back to a generated local alt in DemoCard when omitted.
+   */
+  imageAlt?: string;
   sortOrder: number;
   visible: boolean;
   /**
@@ -104,18 +109,51 @@ export type DemosPublishedDetail = {
 };
 
 // The editable source of truth for all public demos.
-// This lightweight array replaces localStorage for display.
+// Featured Work order: strongest local Kentucky examples first (sortOrder + featured).
 // Add new entries following the exact shape (see commented template at bottom of array).
 const DEFAULT_DEMOS: Demo[] = [
+  {
+    id: "demo-3",
+    title: "Fiesta Taqueria",
+    slug: "fiesta-taqueria",
+    category: "Mexican Restaurant",
+    href: "https://fiesta-taqueria.lovable.app",
+    description:
+      "Authentic Mexican restaurant website for Wayne County with menu, catering and local SEO — Monticello KY website designer example.",
+    image: "/assets/demo-fiesta-taqueria.jpg",
+    imageAlt:
+      "Mexican restaurant website demo for Wayne County and Lake Cumberland with digital menu and catering",
+    sortOrder: 1,
+    visible: true,
+    featured: true,
+  },
   {
     id: "demo-1",
     title: "Hickory Forge Steakhouse",
     slug: "hickory-forge-steakhouse",
-    category: "Restaurant",
+    category: "Steakhouse",
     href: "https://hickory-forge-steakhouse.lovable.app",
-    description: "Warm steakhouse website for Lake Cumberland restaurants. Digital menu, reservations built by Monticello KY website designer.",
+    description:
+      "Warm steakhouse website for Lake Cumberland restaurants. Digital menu, reservations built by Monticello KY website designer.",
     image: "/assets/demo-hickory-forge.jpg",
-    sortOrder: 1,
+    imageAlt:
+      "Steakhouse website demo for Lake Cumberland restaurants with digital menu and reservations",
+    sortOrder: 2,
+    visible: true,
+    featured: true,
+  },
+  {
+    id: "demo-14",
+    title: "Ridge Pasture Care",
+    slug: "ridge-pasture-care",
+    category: "Land & Pasture Services",
+    href: "https://ridge-pasture-care.lovable.app",
+    description:
+      "Family-owned Wayne County site for brush hogging, fence building, pasture renovation, and land clearing with free-quote requests.",
+    image: "/assets/demo-ridge-pasture.jpg",
+    imageAlt:
+      "Land and pasture services website demo for Wayne County with fence building and free quotes",
+    sortOrder: 3,
     visible: true,
     featured: true,
   },
@@ -125,81 +163,27 @@ const DEFAULT_DEMOS: Demo[] = [
     slug: "smoky-wheels",
     category: "Food Truck",
     href: "https://smoky-wheels.lovable.app",
-    description: "Kentucky food truck site with live “Where We Are Today” location updates, festival calendar, online ordering, and easy menu photos from a mobile dashboard.",
+    description:
+      "Kentucky food truck site with live “Where We Are Today” location updates, festival calendar, online ordering, and easy menu photos from a mobile dashboard.",
     image: "/assets/demo-smoky-wheels.jpg",
-    sortOrder: 2,
-    visible: true,
-    featured: true,
-  },
-  {
-    id: "demo-3",
-    title: "Fiesta Taqueria",
-    slug: "fiesta-taqueria",
-    category: "Mexican Restaurant",
-    href: "https://fiesta-taqueria.lovable.app",
-    description: "Authentic Mexican restaurant website for Wayne County with menu, catering and local SEO — Monticello KY website designer example.",
-    image: "/assets/demo-fiesta-taqueria.jpg",
-    sortOrder: 3,
-    visible: true,
-    featured: true,
-  },
-  {
-    id: "demo-4",
-    title: "Ignite Fitness Company",
-    slug: "ignite-fitness-company",
-    category: "Fitness",
-    href: "https://ignite-fitness-company.lovable.app",
-    description: "Energetic gym website with class schedules and membership sign-ups.",
-    image: "/assets/demo-ignite-fitness.jpg",
+    imageAlt:
+      "Kentucky food truck website demo for Lake Cumberland with live location updates and online ordering",
     sortOrder: 4,
     visible: true,
     featured: true,
   },
   {
-    id: "demo-5",
-    title: "Summit Tire & Auto",
-    slug: "summit-tire-and-auto",
-    category: "Auto Service",
-    href: "https://summit-tire-and-auto.lovable.app",
-    description: "Trustworthy tire shop website with service booking and instant quotes.",
-    image: "/assets/demo-summit-tire.jpg",
+    id: "demo-13",
+    title: "Landing Point Bait & Tackle",
+    slug: "landing-point-bait-tackle",
+    category: "Bait & Tackle Shop",
+    href: "https://cumberland-landing-demo.lovable.app",
+    description:
+      "Wayne County bait shop site with live bait availability, tackle catalog, fishing reports, and call-ahead holds for Lake Cumberland anglers.",
+    image: "/assets/demo-landing-point.jpg",
+    imageAlt:
+      "Bait and tackle shop website demo for Wayne County and Lake Cumberland with live bait availability",
     sortOrder: 5,
-    visible: true,
-    featured: false,
-  },
-  {
-    id: "demo-6",
-    title: "Summit Auto Showcase",
-    slug: "summit-auto-showcase",
-    category: "Car Dealership",
-    href: "https://summit-auto-showcase.lovable.app",
-    description: "Sleek auto dealership website with inventory, financing, and trade-ins.",
-    image: "/assets/demo-summit-auto.jpg",
-    sortOrder: 6,
-    visible: true,
-    featured: false,
-  },
-  {
-    id: "demo-7",
-    title: "Heritage Home Furniture & Appliances",
-    slug: "heritage-home-furniture",
-    category: "Furniture Store",
-    href: "https://heritage-home-furniture-and-appliances.lovable.app",
-    description: "Elegant furniture store website with showroom catalog and financing.",
-    image: "/assets/demo-heritage-home.png",
-    sortOrder: 7,
-    visible: true,
-    featured: false,
-  },
-  {
-    id: "demo-8",
-    title: "Hickory & Bloom",
-    slug: "hickory-bloom",
-    category: "Florist",
-    href: "https://bluegrass-bloom-showcase.lovable.app",
-    description: "Elegant local florist site with same-day delivery, weddings, sympathy, and custom bouquet ordering.",
-    image: "/assets/demo-hickory-bloom.png",
-    sortOrder: 8,
     visible: true,
     featured: false,
   },
@@ -209,21 +193,12 @@ const DEFAULT_DEMOS: Demo[] = [
     slug: "anchorline-guide-service",
     category: "Fishing Guide",
     href: "https://lake-cumberland-lines.lovable.app",
-    description: "Lake Cumberland fishing guide site with species-based trip booking, captain bios, and trophy striper hunts.",
+    description:
+      "Lake Cumberland fishing guide site with species-based trip booking, captain bios, and trophy striper hunts.",
     image: "/assets/demo-anchorline.png",
-    sortOrder: 9,
-    visible: true,
-    featured: false,
-  },
-  {
-    id: "demo-10",
-    title: "Sunny Hollow Donut Dash",
-    slug: "sunny-hollow-donut-dash",
-    category: "Donut Shop",
-    href: "https://sunny-hollow-donut-dash.lovable.app",
-    description: "Cheerful small-town donut shop site with online ordering, daily menu, and Stripe checkout for pre-orders.",
-    image: "/assets/demo-sunny-hollow.png",
-    sortOrder: 10,
+    imageAlt:
+      "Fishing guide website demo for Lake Cumberland with trip booking and captain bios",
+    sortOrder: 6,
     visible: true,
     featured: false,
   },
@@ -233,9 +208,102 @@ const DEFAULT_DEMOS: Demo[] = [
     slug: "cumberland-forge-steakhouse",
     category: "Steakhouse",
     href: "https://cumberland-forge-steakhouse.lovable.app",
-    description: "Cinematic fine-dining steakhouse site with dry-aged cuts, wild game, bourbon flights, and nightly reservations.",
+    description:
+      "Cinematic fine-dining steakhouse site with dry-aged cuts, wild game, bourbon flights, and nightly reservations.",
     image: "/assets/demo-cumberland-forge.png",
+    imageAlt:
+      "Fine-dining steakhouse website demo for Lake Cumberland with reservations and bourbon flights",
+    sortOrder: 7,
+    visible: true,
+    featured: false,
+  },
+  {
+    id: "demo-10",
+    title: "Sunny Hollow Donut Dash",
+    slug: "sunny-hollow-donut-dash",
+    category: "Donut Shop",
+    href: "https://sunny-hollow-donut-dash.lovable.app",
+    description:
+      "Cheerful small-town donut shop site with online ordering, daily menu, and Stripe checkout for pre-orders.",
+    image: "/assets/demo-sunny-hollow.png",
+    imageAlt:
+      "Donut shop website demo for small-town Kentucky with online ordering and daily menu",
+    sortOrder: 8,
+    visible: true,
+    featured: false,
+  },
+  {
+    id: "demo-8",
+    title: "Hickory & Bloom",
+    slug: "hickory-bloom",
+    category: "Florist",
+    href: "https://bluegrass-bloom-showcase.lovable.app",
+    description:
+      "Elegant local florist site with same-day delivery, weddings, sympathy, and custom bouquet ordering.",
+    image: "/assets/demo-hickory-bloom.png",
+    imageAlt:
+      "Florist website demo for Kentucky with same-day delivery and wedding bouquets",
+    sortOrder: 9,
+    visible: true,
+    featured: false,
+  },
+  {
+    id: "demo-4",
+    title: "Ignite Fitness Company",
+    slug: "ignite-fitness-company",
+    category: "Fitness",
+    href: "https://ignite-fitness-company.lovable.app",
+    description:
+      "Energetic gym website with class schedules and membership sign-ups.",
+    image: "/assets/demo-ignite-fitness.jpg",
+    imageAlt:
+      "Gym and fitness website demo with class schedules and membership sign-ups",
+    sortOrder: 10,
+    visible: true,
+    featured: false,
+  },
+  {
+    id: "demo-5",
+    title: "Summit Tire & Auto",
+    slug: "summit-tire-and-auto",
+    category: "Auto Service",
+    href: "https://summit-tire-and-auto.lovable.app",
+    description:
+      "Trustworthy tire shop website with service booking and instant quotes.",
+    image: "/assets/demo-summit-tire.jpg",
+    imageAlt:
+      "Auto service website demo for tire shops with service booking and instant quotes",
     sortOrder: 11,
+    visible: true,
+    featured: false,
+  },
+  {
+    id: "demo-6",
+    title: "Summit Auto Showcase",
+    slug: "summit-auto-showcase",
+    category: "Car Dealership",
+    href: "https://summit-auto-showcase.lovable.app",
+    description:
+      "Sleek auto dealership website with inventory, financing, and trade-ins.",
+    image: "/assets/demo-summit-auto.jpg",
+    imageAlt:
+      "Car dealership website demo with vehicle inventory, financing, and trade-ins",
+    sortOrder: 12,
+    visible: true,
+    featured: false,
+  },
+  {
+    id: "demo-7",
+    title: "Heritage Home Furniture & Appliances",
+    slug: "heritage-home-furniture",
+    category: "Furniture Store",
+    href: "https://heritage-home-furniture-and-appliances.lovable.app",
+    description:
+      "Elegant furniture store website with showroom catalog and financing.",
+    image: "/assets/demo-heritage-home.png",
+    imageAlt:
+      "Furniture store website demo with showroom catalog and financing options",
+    sortOrder: 13,
     visible: true,
     featured: false,
   },
@@ -245,32 +313,11 @@ const DEFAULT_DEMOS: Demo[] = [
     slug: "han-river-bbq",
     category: "Korean BBQ",
     href: "https://han-river-sizzle.lovable.app",
-    description: "Authentic Korean BBQ site with sizzling table grills, hand-cut bulgogi and kalbi, fresh banchan, and group reservations.",
+    description:
+      "Authentic Korean BBQ site with sizzling table grills, hand-cut bulgogi and kalbi, fresh banchan, and group reservations.",
     image: "/assets/demo-han-river.png",
-    sortOrder: 12,
-    visible: true,
-    featured: false,
-  },
-  {
-    id: "demo-13",
-    title: "Landing Point Bait & Tackle",
-    slug: "landing-point-bait-tackle",
-    category: "Bait & Tackle Shop",
-    href: "https://cumberland-landing-demo.lovable.app",
-    description: "Wayne County bait shop site with live bait availability, tackle catalog, fishing reports, and call-ahead holds for Lake Cumberland anglers.",
-    image: "/assets/demo-landing-point.jpg",
-    sortOrder: 13,
-    visible: true,
-    featured: false,
-  },
-  {
-    id: "demo-14",
-    title: "Ridge Pasture Care",
-    slug: "ridge-pasture-care",
-    category: "Land & Pasture Services",
-    href: "https://ridge-pasture-care.lovable.app",
-    description: "Family-owned Wayne County site for brush hogging, fence building, pasture renovation, and land clearing with free-quote requests.",
-    image: "/assets/demo-ridge-pasture.jpg",
+    imageAlt:
+      "Korean BBQ restaurant website demo with table grills, menu, and group reservations",
     sortOrder: 14,
     visible: true,
     featured: false,
@@ -281,13 +328,16 @@ const DEFAULT_DEMOS: Demo[] = [
     slug: "blade-haven",
     category: "Specialty Retail",
     href: "https://blade-haven-demo.lovable.app",
-    description: "Showcase site for a collector knife shop with featured blades, instruments, and store story.",
+    description:
+      "Showcase site for a collector knife shop with featured blades, instruments, and store story.",
     image: "/assets/demo-blade-haven.jpg",
+    imageAlt:
+      "Specialty knife shop website demo with featured blades and store story",
     sortOrder: 15,
     visible: true,
     featured: false,
   },
-    
+
   // ============================================================
   // ADD NEW DEMOS HERE — Easy future-proof structure (no quota)
   // ============================================================
@@ -304,43 +354,8 @@ const DEFAULT_DEMOS: Demo[] = [
   //   href: "https://marsh-to-market.lovable.app",
   //   description: "Fresh local seafood and produce truck with SC marsh-to-table menus, festival calendar, and on-the-go location tracking.",
   //   image: "/assets/demo-marsh-to-market.jpg",
+  //   imageAlt: "Seafood food truck website demo for Lowcountry SC with festival calendar and location tracking",
   //   sortOrder: 18,
-  //   visible: true,
-  //   featured: false,
-  // },
-  // {
-  //   id: "demo-palmetto-wheels",
-  //   title: "Palmetto Wheels",
-  //   slug: "palmetto-wheels",
-  //   category: "Food Truck",
-  //   href: "https://palmetto-wheels.lovable.app",
-  //   description: "Authentic Charleston-area Lowcountry food truck with soulful Southern cooking, daily location updates via simple dashboard, and rich local photography.",
-  //   image: "/assets/demo-palmetto-wheels.jpg",
-  //   sortOrder: 19,
-  //   visible: true,
-  //   featured: false,
-  // },
-  // {
-  //   id: "demo-palmetto-boil",
-  //   title: "Palmetto Boil",
-  //   slug: "palmetto-boil",
-  //   category: "Food Truck",
-  //   href: "https://palmetto-boil.lovable.app",
-  //   description: "Coastal SC seafood boil truck — shrimp, crab, crawfish boils, classic sides, and real-time “Where We Are Today” updates for events and pop-ups.",
-  //   image: "/assets/demo-palmetto-boil.jpg",
-  //   sortOrder: 20,
-  //   visible: true,
-  //   featured: false,
-  // },
-  // {
-  //   id: "demo-sea-island-soul",
-  //   title: "Sea Island Soul",
-  //   slug: "sea-island-soul",
-  //   category: "Food Truck",
-  //   href: "https://sea-island-soul.lovable.app",
-  //   description: "Gullah Geechee heritage food truck serving Lowcountry soul food with live location tracking, beautiful food imagery, and easy menu + hours management.",
-  //   image: "/assets/demo-sea-island-soul.jpg",
-  //   sortOrder: 21,
   //   visible: true,
   //   featured: false,
   // },
@@ -369,6 +384,11 @@ export function normalizeDemo(raw: Partial<Demo> & { title?: string; href?: stri
       ? false
       : true;
 
+  const imageAlt =
+    typeof raw.imageAlt === "string" && raw.imageAlt.trim()
+      ? raw.imageAlt.trim()
+      : undefined;
+
   return {
     id: String(raw.id || `demo-${Date.now()}`),
     title: String(raw.title || ""),
@@ -377,6 +397,7 @@ export function normalizeDemo(raw: Partial<Demo> & { title?: string; href?: stri
     href: String(raw.href || ""),
     description: String(raw.description || ""),
     image: raw.image || undefined,
+    imageAlt,
     sortOrder,
     visible,
     featured,
@@ -760,6 +781,8 @@ export function toCardProps(d: Demo) {
     category: d.category,
     href: d.href,
     image: d.image,
+    imageAlt: d.imageAlt,
+    slug: d.slug,
   };
 }
 
@@ -790,6 +813,9 @@ export function generateDemosTsCode(demos: Demo[]): string {
     ];
     if (d.image != null) {
       fields.push(`    image: ${JSON.stringify(d.image)},`);
+    }
+    if (d.imageAlt != null) {
+      fields.push(`    imageAlt: ${JSON.stringify(d.imageAlt)},`);
     }
     fields.push(`    sortOrder: ${d.sortOrder},`);
     fields.push(`    visible: ${d.visible},`);

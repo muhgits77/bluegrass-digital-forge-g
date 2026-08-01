@@ -139,13 +139,14 @@ export default function Home() {
                 Forged in Monticello, KY
               </div>
 
-              <h1 className="hero-fade hero-fade-2 hero-title max-w-[16ch] text-balance leading-[0.94] tracking-[-0.045em] text-[clamp(2.9rem,8.5vw,5.4rem)] font-semibold text-white">
-                Websites for Lake Cumberland.{" "}
-                <span className="kentucky-accent">Built in Monticello.</span>
+              <h1 className="hero-fade hero-fade-2 hero-title max-w-[18ch] text-balance leading-[0.94] tracking-[-0.045em] text-[clamp(2.6rem,7.5vw,4.8rem)] font-semibold text-white">
+                Lake Cumberland Business Websites{" "}
+                <span className="kentucky-accent">Built in Monticello, KY</span>
               </h1>
 
-              <p className="hero-fade hero-fade-3 mt-6 max-w-[40ch] text-[17px] md:text-[19px] leading-relaxed text-white/85">
-                Websites for Lake Cumberland businesses — built in Monticello.
+              <p className="hero-fade hero-fade-3 mt-6 max-w-[42ch] text-[17px] md:text-[19px] leading-relaxed text-white/85">
+                Handcrafted sites for restaurants, food trucks, marinas, and
+                shops around the lake — forged by a neighbor in Monticello.
               </p>
               <p className="hero-fade hero-fade-3 mt-3 max-w-[40ch] text-[15px] md:text-[16px] leading-relaxed text-white/75">
                 Flat pricing. Full ownership. Built by a neighbor — never an
@@ -260,13 +261,20 @@ export default function Home() {
               href="/work"
               className="hidden md:inline-flex items-center gap-1.5 text-[14.5px] font-semibold text-[var(--copper-bright)] hover:text-[var(--cream)] group"
             >
-              See all projects
+              See all Lake Cumberland website demos
               <IconArrowRight className="group-hover:translate-x-0.5 transition" />
             </Link>
           </div>
           <p className="text-[var(--text-muted)] max-w-2xl mb-9 text-[15.5px] leading-relaxed">
             Restaurants, food trucks, guides, and shops around Lake Cumberland —
-            click any card to open the live site.
+            click any card to open the live site.{" "}
+            <Link
+              href="/food-truck-websites"
+              className="text-[var(--copper-bright)] underline decoration-[var(--copper)]/40 underline-offset-2 hover:text-[var(--cream)]"
+            >
+              Food truck website demos
+            </Link>{" "}
+            lead with live location updates.
           </p>
 
           <FeaturedDemos limit={4} />
@@ -276,7 +284,7 @@ export default function Home() {
               href="/work"
               className="inline-flex items-center gap-1 text-[14.5px] font-semibold text-[var(--copper-bright)]"
             >
-              See all projects →
+              See all Lake Cumberland website demos →
             </Link>
           </div>
         </div>
@@ -341,14 +349,14 @@ export default function Home() {
               href="/food-truck-websites"
               className="text-[var(--copper-bright)] underline hover:text-white"
             >
-              Location-first sites
+              Kentucky food truck websites
             </Link>{" "}
-            &amp;{" "}
+            with live location &amp;{" "}
             <Link
               href="/truckdash"
               className="text-[var(--copper-bright)] underline hover:text-white"
             >
-              TruckDash
+              TruckDash flyer studio
             </Link>
             .
           </p>

@@ -10,7 +10,12 @@
 
 export const CONTACT_EMAIL = "contact@bluegrassdigitalforge.com";
 
-// You can expand with other shared values later (e.g. phone, location)
+/**
+ * Public phone for schema (LocalBusiness telephone) and footer.
+ * Leave unset until a real local number is published — do not invent one.
+ */
+export const CONTACT_PHONE: string | undefined = undefined;
+
 export const SITE_NAME = "Bluegrass Digital Forge";
 export const SITE_TAGLINE = "Powerful. Simple. Yours.";
 export const LOCATION = "Monticello, Kentucky • Lake Cumberland Region";

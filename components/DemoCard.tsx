@@ -8,6 +8,8 @@ interface DemoCardProps {
   href: string;
   color?: string;
   image?: string;
+  /** Preferred SEO alt: "[Business type] website demo for [location] — [key feature]" */
+  imageAlt?: string;
   slug?: string;
 }
 
@@ -36,12 +38,47 @@ const demoImageMap: Record<string, string> = {
   "Bluegrass Digital Forge Templates": "/assets/demo-bluegrass-templates.jpg",
 };
 
+/** Fallback alts when demos lack imageAlt — follows SEO pattern for main cards. */
+const demoAltMap: Record<string, string> = {
+  "Fiesta Taqueria":
+    "Mexican restaurant website demo for Wayne County and Lake Cumberland with digital menu and catering",
+  "Hickory Forge Steakhouse":
+    "Steakhouse website demo for Lake Cumberland restaurants with digital menu and reservations",
+  "Smoky Wheels":
+    "Kentucky food truck website demo for Lake Cumberland with live location updates and online ordering",
+  "Ridge Pasture Care":
+    "Land and pasture services website demo for Wayne County with fence building and free quotes",
+  "Landing Point Bait & Tackle":
+    "Bait and tackle shop website demo for Wayne County and Lake Cumberland with live bait availability",
+  "Anchorline Guide Service":
+    "Fishing guide website demo for Lake Cumberland with trip booking and captain bios",
+  "Cumberland Forge Steakhouse":
+    "Fine-dining steakhouse website demo for Lake Cumberland with reservations and bourbon flights",
+  "Sunny Hollow Donut Dash":
+    "Donut shop website demo for small-town Kentucky with online ordering and daily menu",
+  "Hickory & Bloom":
+    "Florist website demo for Kentucky with same-day delivery and wedding bouquets",
+  "Ignite Fitness Company":
+    "Gym and fitness website demo with class schedules and membership sign-ups",
+  "Summit Tire & Auto":
+    "Auto service website demo for tire shops with service booking and instant quotes",
+  "Summit Auto Showcase":
+    "Car dealership website demo with vehicle inventory, financing, and trade-ins",
+  "Heritage Home Furniture & Appliances":
+    "Furniture store website demo with showroom catalog and financing options",
+  "Han River BBQ":
+    "Korean BBQ restaurant website demo with table grills, menu, and group reservations",
+  "Blade Haven":
+    "Specialty knife shop website demo with featured blades and store story",
+};
+
 export default function DemoCard({
   title,
   subtitle,
   category,
   href,
   image,
+  imageAlt,
   slug,
 }: DemoCardProps) {
   const previewImage =
@@ -52,8 +89,11 @@ export default function DemoCard({
   const isTemplateSite = title === "Bluegrass Digital Forge Templates";
   const isDataUrl = !!previewImage && previewImage.startsWith("data:");
 
-  // Strong local alt text — authentic Lake Cumberland / Kentucky context
-  const localAlt = `${title} — live demo website for a ${category.toLowerCase()} business near Lake Cumberland, handcrafted in Monticello, KY`;
+  // Prefer curated SEO alt; fallback map; then generated local pattern
+  const localAlt =
+    imageAlt ||
+    demoAltMap[title] ||
+    `${category} website demo for Lake Cumberland — ${title}, handcrafted in Monticello KY`;
 
   return (
     <a

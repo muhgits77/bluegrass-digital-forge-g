@@ -28,15 +28,29 @@ export default function WorkPage() {
         </p>
         <p className="mt-2 text-[14px] text-[var(--text-dim)]">
           Food truck demos lead with real-time location updates.{" "}
-          <Link href="/food-truck-websites" className="text-[var(--gold-light)] underline hover:text-white">
-            Learn more →
+          <Link
+            href="/food-truck-websites"
+            className="text-[var(--gold-light)] underline hover:text-white"
+          >
+            Kentucky food truck websites →
+          </Link>{" "}
+          and{" "}
+          <Link
+            href="/truckdash"
+            className="text-[var(--gold-light)] underline hover:text-white"
+          >
+            TruckDash plans
           </Link>
+          .
         </p>
       </div>
 
       <div className="mb-6 text-sm">
-        <Link href="/services" className="text-[var(--gold-light)] hover:underline">
-          See flat pricing &amp; packages →
+        <Link
+          href="/services"
+          className="text-[var(--gold-light)] hover:underline"
+        >
+          Monticello KY website designer pricing &amp; packages →
         </Link>
       </div>
 

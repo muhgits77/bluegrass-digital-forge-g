@@ -3,7 +3,12 @@ import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
-import { CONTACT_EMAIL, SITE_URL, canonicalUrl } from "@/lib/constants";
+import {
+  CONTACT_EMAIL,
+  CONTACT_PHONE,
+  SITE_URL,
+  canonicalUrl,
+} from "@/lib/constants";
 
 /**
  * Font strategy (LCP / render-blocking):
@@ -43,9 +48,9 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title:
-    "Monticello KY & Charleston SC Website Designer | Lake Cumberland & Lowcountry Business Websites | Bluegrass Digital Forge",
+    "Monticello KY Website Designer | Lake Cumberland Business Websites | Bluegrass Digital Forge",
   description:
-    "Handcrafted websites for Lake Cumberland businesses in Monticello, KY and Charleston SC, Summerville, North Charleston & the South Carolina Lowcountry. Flat pricing. You own the code. Food trucks, restaurants, marinas, small businesses, and shops.",
+    "Handcrafted websites for Lake Cumberland businesses by a Monticello KY designer. Flat pricing from $1,200. You own the code. Food trucks, restaurants, marinas & shops. Serving Wayne County + Charleston SC Lowcountry.",
   keywords: [
     "Monticello KY website designer",
     "Lake Cumberland business websites",
@@ -61,9 +66,9 @@ export const metadata: Metadata = {
   authors: [{ name: "Brian", url: SITE_URL }],
   openGraph: {
     title:
-      "Monticello KY & Charleston SC Website Designer | Lake Cumberland & Lowcountry Business Websites",
+      "Monticello KY Website Designer | Lake Cumberland Business Websites | Bluegrass Digital Forge",
     description:
-      "Handcrafted websites for Lake Cumberland businesses by a local designer in Monticello, KY and Charleston SC, Summerville & the South Carolina Lowcountry. Flat pricing. You own the code.",
+      "Handcrafted websites for Lake Cumberland businesses by a Monticello KY designer. Flat pricing from $1,200. You own the code. Food trucks, restaurants, marinas & shops. Serving Wayne County + Charleston SC Lowcountry.",
     url: canonicalUrl("/"),
     images: [
       {
@@ -80,9 +85,9 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title:
-      "Monticello KY & Charleston SC Website Designer | Lake Cumberland & Lowcountry Business Websites",
+      "Monticello KY Website Designer | Lake Cumberland Business Websites | Bluegrass Digital Forge",
     description:
-      "Handcrafted websites for Lake Cumberland and Lowcountry businesses. Local in Monticello, KY. Flat pricing and full ownership.",
+      "Handcrafted websites for Lake Cumberland businesses by a Monticello KY designer. Flat pricing from $1,200. You own the code.",
     images: ["/hero-lake-cumberland-golden.jpg"],
   },
   icons: {
@@ -137,6 +142,7 @@ export default function RootLayout({
                 "Monticello KY website designer building authentic Lake Cumberland business websites, food truck websites Kentucky, restaurant website Monticello KY, and Wayne County web design. Flat pricing, full code ownership, local builder serving the lake region.",
               url: SITE_URL,
               email: CONTACT_EMAIL,
+              ...(CONTACT_PHONE ? { telephone: CONTACT_PHONE } : {}),
               logo: `${SITE_URL}/logo.jpg`,
               image: `${SITE_URL}/hero-lake-cumberland-golden.jpg`,
               address: {
@@ -256,6 +262,7 @@ export default function RootLayout({
               description:
                 "Monticello KY website designer for Lake Cumberland business websites and Wayne County web design.",
               email: CONTACT_EMAIL,
+              ...(CONTACT_PHONE ? { telephone: CONTACT_PHONE } : {}),
               address: {
                 "@type": "PostalAddress",
                 addressLocality: "Monticello",

@@ -3,11 +3,17 @@ import { canonicalUrl } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title:
-    "Lake Cumberland Business Websites Demos | Monticello KY Website Designer | Bluegrass Digital Forge",
+    "Lake Cumberland Business Website Demos | Monticello KY Website Designer",
   description:
-    "See real demos of Lake Cumberland business websites, food truck website Kentucky, and restaurant website Monticello KY built by the Monticello KY website designer. Wayne County web design examples.",
+    "Live demos of Lake Cumberland business websites built by the Monticello KY website designer. Food trucks, restaurants, marinas, shops & more. Flat pricing. You own everything.",
   alternates: { canonical: canonicalUrl("/work") },
-  openGraph: { url: canonicalUrl("/work") },
+  openGraph: {
+    title:
+      "Lake Cumberland Business Website Demos | Monticello KY Website Designer",
+    description:
+      "Live demos of Lake Cumberland business websites built by the Monticello KY website designer. Food trucks, restaurants, marinas, shops & more. Flat pricing. You own everything.",
+    url: canonicalUrl("/work"),
+  },
 };
 
 export default function WorkLayout({

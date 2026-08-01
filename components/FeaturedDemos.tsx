@@ -24,7 +24,7 @@ export default function FeaturedDemos({
       <div className="rounded-[1.35rem] border border-[var(--border)] bg-[var(--bg-card)] px-5 py-10 text-center text-[14.5px] text-[var(--text-muted)]">
         Featured work is being updated. Check back shortly — or{" "}
         <a href="/work" className="text-[var(--copper-bright)] hover:underline">
-          browse all projects
+          browse all Lake Cumberland website demos
         </a>
         .
       </div>

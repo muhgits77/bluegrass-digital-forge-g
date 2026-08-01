@@ -146,15 +146,18 @@ export default function Home() {
 
               <p className="hero-fade hero-fade-3 mt-6 max-w-[44ch] text-[17px] md:text-[19px] leading-relaxed text-white/85">
                 Handcrafted sites for restaurants, food trucks, marinas, and
-                shops around the lake — forged by a neighbor in Monticello.{" "}
+                shops around the lake — forged by a neighbor in Monticello.
+                Honest{" "}
+                <span className="text-white/95 font-medium">flat pricing</span>,
+                no monthly lock-in for the build.{" "}
                 <span className="text-white/95 font-medium">
                   You own the code
-                </span>
-                , with full ownership of your site from day one.
+                </span>{" "}
+                with full ownership from day one.
               </p>
               <p className="hero-fade hero-fade-3 mt-3 max-w-[42ch] text-[15px] md:text-[16px] leading-relaxed text-white/75">
-                Honest flat pricing, no monthly lock-in for the build. Built by
-                a neighbor — never an agency.
+                Built by a neighbor — never an agency. From Monticello to
+                Jamestown, Burnside, and every ramp town in between.
               </p>
 
               <div className="hero-fade hero-fade-4 mt-9 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
@@ -271,7 +274,8 @@ export default function Home() {
           </div>
           <p className="text-[var(--text-muted)] max-w-2xl mb-9 text-[15.5px] leading-relaxed">
             Restaurants, food trucks, guides, and shops around Lake Cumberland —
-            click any card to open the live site.{" "}
+            Monticello, Albany, Jamestown, Burnside, Russell Springs, Nancy, and
+            more. Click any card to open the live site.{" "}
             <Link
               href="/food-truck-websites"
               className="text-[var(--copper-bright)] underline decoration-[var(--copper)]/40 underline-offset-2 hover:text-[var(--cream)]"
@@ -360,9 +364,16 @@ export default function Home() {
           <h2 className="text-[clamp(1.75rem,4.5vw,2.35rem)] tracking-[-0.03em] font-semibold leading-tight">
             Ready for a website forged in Monticello?
           </h2>
-          <p className="mt-4 text-[15.5px] text-[var(--text-muted)] max-w-[46ch] mx-auto leading-relaxed">
-            Flat pricing. Full ownership. No agency. Lake Cumberland &amp;
-            Charleston Lowcountry.
+          <p className="mt-4 text-[15.5px] text-[var(--text-muted)] max-w-[48ch] mx-auto leading-relaxed">
+            Flat pricing. Full ownership — you own the code. No agency. Lake
+            Cumberland towns from Albany to Nancy, plus{" "}
+            <Link
+              href="/south-carolina"
+              className="text-[var(--copper-bright)] underline decoration-[var(--copper)]/40 underline-offset-2 hover:text-white"
+            >
+              Charleston SC web design
+            </Link>{" "}
+            for the Lowcountry.
           </p>
           <p className="mt-3 text-[14px] text-[var(--text-dim)]">
             Food trucks?{" "}

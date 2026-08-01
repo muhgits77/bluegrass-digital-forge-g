@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title:
     "Monticello KY Website Designer Pricing | Lake Cumberland Business Websites",
   description:
-    "Transparent flat pricing from the Monticello KY website designer. Starter Sites from $1,200 and Business Suites from $2,500 for Lake Cumberland & Wayne County businesses. You own the code.",
+    "Transparent flat pricing from the Monticello KY website designer. Starter Sites from $1,200 and Business Suites from $2,500 for Lake Cumberland & Wayne County businesses. You own the code — full ownership forever.",
   keywords: [
     "Monticello KY website designer",
     "Lake Cumberland business websites",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     title:
       "Monticello KY Website Designer Pricing | Lake Cumberland Business Websites",
     description:
-      "Transparent flat pricing from the Monticello KY website designer. Starter Sites from $1,200 and Business Suites from $2,500 for Lake Cumberland & Wayne County businesses. You own the code.",
+      "Transparent flat pricing from the Monticello KY website designer. Starter Sites from $1,200 and Business Suites from $2,500. You own the code — full ownership forever.",
     url: canonicalUrl("/services"),
   },
 };
@@ -74,7 +74,7 @@ const faqs = [
   { q: "Do I have to use your hosting?", a: "Nope. The $79/mo care plan is optional. You can host wherever you want — direct hosting usually runs $10–20/month from the provider." },
   { q: "Can I update the site myself?", a: "Absolutely. I'll show you how to update content, photos, and menus on a quick screen-share. Or let me handle it on the care plan." },
   { q: "What if I just need a one-page site?", a: "If a single page is genuinely all you need, a Starter Site starting at $1,200 covers it with room to spare." },
-  { q: "Do you work outside Monticello?", a: "Most clients are around Wayne County and Lake Cumberland, but I'm happy to work with any small business in Kentucky." },
+  { q: "Do you work outside Monticello?", a: "Most clients are around Wayne County and Lake Cumberland — Jamestown, Burnside, Nancy, Russell Springs, Albany, Somerset, and the ramp towns in between. Happy to work with any small business in Kentucky, plus Charleston SC and the Lowcountry." },
   { q: "What if I just need a logo or business cards?", a: "Branding add-ons can be bought on their own — no website required. Visit the business cards page." },
 ];
 
@@ -84,11 +84,12 @@ export default function Services() {
       {/* Header */}
       <div className="max-w-3xl">
         <div className="label tracking-[2px]">SERVICES &amp; PRICING — MONTICELLO KY WEBSITE DESIGNER</div>
-        <h1 className="section-title tracking-tight mt-2">Monticello KY Website Designer — Flat Pricing for Lake Cumberland Business Websites</h1>
-        <p className="mt-3 text-lg text-[#9aa6ad]">Transparent flat rate pricing — one-time, no surprises. Starter Sites from $1,200 and Business Suites from $2,500. Food trucks, restaurants, marinas, shops — <strong className="text-[#c8cfd3] font-medium">you own the code</strong> with full ownership forever.</p>
+        <h1 className="section-title tracking-tight mt-2">Monticello KY Website Designer — Flat Pricing &amp; Full Ownership for Lake Cumberland Business Websites</h1>
+        <p className="mt-3 text-lg text-[#9aa6ad]">Transparent <strong className="text-[#c8cfd3] font-medium">flat rate</strong> pricing — one-time, no surprises. Starter Sites from $1,200 and Business Suites from $2,500 for food trucks, restaurants, marinas, and shops from Monticello to Jamestown, Burnside, Russell Springs, Nancy, and Albany. When we&apos;re done, <strong className="text-[#c8cfd3] font-medium">you own the code</strong> with full ownership forever.</p>
         <p className="text-[14.5px] text-[#9aa6ad] mt-1">Handcrafted in Monticello for Lake Cumberland. Also serving{" "}
-          <Link href="/south-carolina" className="underline hover:text-[#f4a261]">Charleston SC web design</Link>{" "}
-          and the Lowcountry.</p>
+          <Link href="/south-carolina" className="underline hover:text-[#f4a261]">Charleston SC web design</Link>,{" "}
+          <Link href="/south-carolina" className="underline hover:text-[#f4a261]">Lowcountry food truck websites</Link>, and{" "}
+          <Link href="/south-carolina" className="underline hover:text-[#f4a261]">South Carolina Lowcountry websites</Link>.</p>
       </div>
 
       {/* Two Big Website Cards — updated layout & copy per specs. Premium dark with warm amber accents. */}
@@ -216,8 +217,10 @@ export default function Services() {
       <div className="mt-10">
         <div className="max-w-3xl mb-6">
           <div className="label tracking-[1.5px]">REGIONAL PRICING</div>
-          <h2 className="text-2xl font-semibold tracking-tight mt-1">Honest rates by service area.</h2>
-          <p className="mt-2 text-[15px] text-[#9aa6ad]">Kentucky prices are our base. South Carolina Lowcountry rates reflect local market conditions for premium coastal work.</p>
+          <h2 className="text-2xl font-semibold tracking-tight mt-1">Honest flat pricing by service area — full ownership either way.</h2>
+          <p className="mt-2 text-[15px] text-[#9aa6ad]">Kentucky prices are our base for Lake Cumberland towns like Monticello, Albany, and Russell Springs.{" "}
+            <Link href="/south-carolina" className="underline hover:text-[#f4a261]">South Carolina Lowcountry websites</Link>{" "}
+            reflect local market conditions for premium coastal work — same craft, same full ownership.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -324,7 +327,7 @@ export default function Services() {
       {/* Bottom CTA */}
       <div className="mt-14 rounded-2xl border border-[#1a2225] bg-[#0a0c0f] p-8 text-center">
         <h3 className="text-xl font-semibold tracking-tight">Not sure which one fits?</h3>
-        <p className="text-[#8a9599] mt-1">Tell me about your Monticello or Lake Cumberland business — honest recommendation, even if Starter is all you need.</p>
+        <p className="text-[#8a9599] mt-1">Tell me about your Monticello, Jamestown, Burnside, or Lake Cumberland business — honest recommendation, even if Starter is all you need. Flat rate, full ownership.</p>
         <div className="mt-5 flex gap-3 justify-center flex-wrap">
           <Link href="/quote" className="btn btn-primary">Get a Free Recommendation →</Link>
           <Link href="/work" className="btn btn-secondary">See real demos first</Link>

@@ -80,7 +80,8 @@ export default function ServiceAreas({ variant = "full" }: ServiceAreasProps) {
               Built for the towns around the lake.
             </h2>
             <p className="mt-3 text-[15.5px] text-[var(--text-muted)] leading-relaxed">
-              Marinas, guides, restaurants, and shops from Monticello to every
+              Marinas, guides, restaurants, and shops from Monticello to
+              Jamestown, Burnside, Russell Springs, Nancy, Albany, and every
               major ramp town — handcrafted by a neighbor who lives here.
             </p>
           </div>

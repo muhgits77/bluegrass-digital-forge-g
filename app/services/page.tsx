@@ -75,6 +75,7 @@ const faqs = [
   { q: "Can I update the site myself?", a: "Absolutely. I'll show you how to update content, photos, and menus on a quick screen-share. Or let me handle it on the care plan." },
   { q: "What if I just need a one-page site?", a: "If a single page is genuinely all you need, a Starter Site starting at $1,200 covers it with room to spare." },
   { q: "Do you work outside Monticello?", a: "Most clients are around Wayne County and Lake Cumberland — Jamestown, Burnside, Nancy, Russell Springs, Albany, Somerset, and the ramp towns in between. Happy to work with any small business in Kentucky, plus Charleston SC and the Lowcountry." },
+  { q: "Do I own the website when it’s done?", a: "Yes. Full ownership of the site and code after payment. Flat one-time pricing for the build — no monthly retainer required to keep what you paid for. Optional care plan if you want ongoing help; host it yourself if you don’t." },
   { q: "What if I just need a logo or business cards?", a: "Branding add-ons can be bought on their own — no website required. Visit the business cards page." },
 ];
 
@@ -166,16 +167,38 @@ export default function Services() {
 
       <p className="text-[14.5px] text-center mt-5 text-[#9aa6ad]">Not sure which one? <Link href="/quote" className="underline hover:text-white">Tell me about your business</Link> — I&apos;ll recommend the right fit for your Lake Cumberland spot. Need a <Link href="/food-truck-websites" className="underline hover:text-white">food truck website Kentucky</Link>? We also build <Link href="/south-carolina" className="underline hover:text-[#f4a261]">Lowcountry food truck websites</Link> and <Link href="/south-carolina" className="underline hover:text-[#f4a261]">Charleston SC web design</Link> for restaurants and small businesses.</p>
 
-      {/* Short food-truck teaser — full detail on /food-truck-websites */}
-      <div className="mt-10 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 md:p-7 shadow-[var(--shadow-card)]">
-        <div className="text-[var(--gold-light)] text-xs tracking-[1.5px] mb-1">FOR FOOD TRUCK OWNERS</div>
-        <h3 className="font-semibold text-xl tracking-tight">Update “Where We Are Today” from your phone in seconds.</h3>
-        <p className="mt-2 text-[15px] text-[var(--text-muted)]">
-          Real-time location, festival calendar, menus &amp; ordering — built for Lake Cumberland and Lowcountry trucks.{" "}
-          <Link href="/food-truck-websites" className="text-[var(--gold-light)] underline hover:text-white">
-            See food truck websites →
-          </Link>
-        </p>
+      {/* Vertical specialty teasers */}
+      <div className="mt-10 grid md:grid-cols-3 gap-4">
+        <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-[var(--shadow-card)]">
+          <div className="text-[var(--gold-light)] text-xs tracking-[1.5px] mb-1">MARINAS</div>
+          <h3 className="font-semibold text-lg tracking-tight">Docks that book slips &amp; rentals online.</h3>
+          <p className="mt-2 text-[14.5px] text-[var(--text-muted)]">
+            Burnside, Lee&apos;s Ford, State Dock, Conley Bottom &amp; more. Flat pricing. You own the code.{" "}
+            <Link href="/marina-websites" className="text-[var(--gold-light)] underline hover:text-white">
+              Marina websites →
+            </Link>
+          </p>
+        </div>
+        <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-[var(--shadow-card)]">
+          <div className="text-[var(--gold-light)] text-xs tracking-[1.5px] mb-1">FISHING GUIDES</div>
+          <h3 className="font-semibold text-lg tracking-tight">Striper &amp; bass sites that get bookings.</h3>
+          <p className="mt-2 text-[14.5px] text-[var(--text-muted)]">
+            Trip pages, captain bios, trophy galleries — built for Lake Cumberland captains.{" "}
+            <Link href="/fishing-guide-websites" className="text-[var(--gold-light)] underline hover:text-white">
+              Guide websites →
+            </Link>
+          </p>
+        </div>
+        <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-[var(--shadow-card)]">
+          <div className="text-[var(--gold-light)] text-xs tracking-[1.5px] mb-1">FOOD TRUCKS</div>
+          <h3 className="font-semibold text-lg tracking-tight">“Where We Are Today” from your phone.</h3>
+          <p className="mt-2 text-[14.5px] text-[var(--text-muted)]">
+            Real-time location, menus &amp; festivals — Kentucky &amp; Lowcountry trucks.{" "}
+            <Link href="/food-truck-websites" className="text-[var(--gold-light)] underline hover:text-white">
+              Food truck websites →
+            </Link>
+          </p>
+        </div>
       </div>
 
       {/* TruckDash Web App — tiered product pricing (separate from website packages) */}

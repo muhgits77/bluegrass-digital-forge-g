@@ -275,14 +275,28 @@ export default function Home() {
           <p className="text-[var(--text-muted)] max-w-2xl mb-9 text-[15.5px] leading-relaxed">
             Restaurants, food trucks, guides, and shops around Lake Cumberland —
             Monticello, Albany, Jamestown, Burnside, Russell Springs, Nancy, and
-            more. Click any card to open the live site.{" "}
+            more. Click any card to open the live site. Specialty pages:{" "}
+            <Link
+              href="/marina-websites"
+              className="text-[var(--copper-bright)] underline decoration-[var(--copper)]/40 underline-offset-2 hover:text-[var(--cream)]"
+            >
+              marina websites
+            </Link>
+            ,{" "}
+            <Link
+              href="/fishing-guide-websites"
+              className="text-[var(--copper-bright)] underline decoration-[var(--copper)]/40 underline-offset-2 hover:text-[var(--cream)]"
+            >
+              fishing guide websites
+            </Link>
+            , and{" "}
             <Link
               href="/food-truck-websites"
               className="text-[var(--copper-bright)] underline decoration-[var(--copper)]/40 underline-offset-2 hover:text-[var(--cream)]"
             >
-              Food truck website demos
+              food truck websites
             </Link>{" "}
-            lead with live location updates.
+            with live location updates.
           </p>
 
           <FeaturedDemos limit={4} />
@@ -376,19 +390,61 @@ export default function Home() {
             for the Lowcountry.
           </p>
           <p className="mt-3 text-[14px] text-[var(--text-dim)]">
-            Food trucks?{" "}
+            Specialty sites:{" "}
+            <Link
+              href="/marina-websites"
+              className="text-[var(--copper-bright)] underline hover:text-white"
+            >
+              marinas
+            </Link>
+            ,{" "}
+            <Link
+              href="/fishing-guide-websites"
+              className="text-[var(--copper-bright)] underline hover:text-white"
+            >
+              fishing guides
+            </Link>
+            ,{" "}
             <Link
               href="/food-truck-websites"
               className="text-[var(--copper-bright)] underline hover:text-white"
             >
-              Kentucky food truck websites
-            </Link>{" "}
-            with live location &amp;{" "}
+              food trucks
+            </Link>
+            {" "}&amp;{" "}
             <Link
               href="/truckdash"
               className="text-[var(--copper-bright)] underline hover:text-white"
             >
-              TruckDash flyer studio
+              TruckDash
+            </Link>
+            . Towns:{" "}
+            <Link
+              href="/service-areas#jamestown"
+              className="text-[var(--copper-bright)] underline hover:text-white"
+            >
+              Jamestown
+            </Link>
+            ,{" "}
+            <Link
+              href="/service-areas#burnside"
+              className="text-[var(--copper-bright)] underline hover:text-white"
+            >
+              Burnside
+            </Link>
+            ,{" "}
+            <Link
+              href="/service-areas#nancy"
+              className="text-[var(--copper-bright)] underline hover:text-white"
+            >
+              Nancy
+            </Link>
+            ,{" "}
+            <Link
+              href="/service-areas#albany"
+              className="text-[var(--copper-bright)] underline hover:text-white"
+            >
+              Albany
             </Link>
             .
           </p>

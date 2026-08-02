@@ -2,15 +2,15 @@ import Link from "next/link";
 import Image from "next/image";
 import { CONTACT_EMAIL } from "@/lib/constants";
 
-const serviceTowns = [
-  "Monticello",
-  "Jamestown",
-  "Burnside",
-  "Somerset",
-  "Russell Springs",
-  "Albany",
-  "Nancy",
-  "Creelsboro",
+const serviceTowns: { label: string; href: string }[] = [
+  { label: "Monticello", href: "/service-areas" },
+  { label: "Jamestown", href: "/service-areas#jamestown" },
+  { label: "Burnside", href: "/service-areas#burnside" },
+  { label: "Somerset", href: "/service-areas" },
+  { label: "Russell Springs", href: "/service-areas#russell-springs" },
+  { label: "Albany", href: "/service-areas#albany" },
+  { label: "Nancy", href: "/service-areas#nancy" },
+  { label: "Creelsboro", href: "/service-areas" },
 ];
 
 export default function Footer() {
@@ -54,6 +54,9 @@ export default function Footer() {
                 ["/", "Home"],
                 ["/work", "My Work"],
                 ["/services", "Services & Pricing"],
+                ["/marina-websites", "Marina Websites"],
+                ["/fishing-guide-websites", "Fishing Guide Sites"],
+                ["/food-truck-websites", "Food Truck Sites"],
                 ["/truckdash", "TruckDash Plans"],
                 ["/quote", "Get a Quote"],
                 ["/business-cards", "Business Cards"],
@@ -74,7 +77,11 @@ export default function Footer() {
             <div className="label mb-4">Service Area</div>
             <ul className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-[var(--text-muted)] text-[13.5px]">
               {serviceTowns.map((town) => (
-                <li key={town}>{town}, KY</li>
+                <li key={town.label}>
+                  <Link href={town.href} className="footer-link">
+                    {town.label}, KY
+                  </Link>
+                </li>
               ))}
             </ul>
             <p className="mt-3 text-[12.5px] text-[var(--text-dim)]">

@@ -63,11 +63,19 @@ export default function AboutPage() {
           </Link>
         </p>
         <p className="mt-3 text-[14.5px] text-[var(--text-muted)]">
-          Food truck owners: real-time location updates from your phone.{" "}
+          Specialty work for{" "}
+          <Link href="/marina-websites" className="underline hover:text-[var(--gold-light)]">
+            marinas
+          </Link>
+          ,{" "}
+          <Link href="/fishing-guide-websites" className="underline hover:text-[var(--gold-light)]">
+            fishing guides
+          </Link>
+          , and{" "}
           <Link href="/food-truck-websites" className="underline hover:text-[var(--gold-light)]">
-            Kentucky food truck websites →
+            food trucks
           </Link>{" "}
-          and{" "}
+          — plus{" "}
           <Link href="/work" className="underline hover:text-[var(--gold-light)]">
             Lake Cumberland website demos
           </Link>
@@ -95,11 +103,19 @@ export default function AboutPage() {
           <Link href="/work" className="underline hover:text-[var(--gold-light)]">
             live demos
           </Link>{" "}
-          or{" "}
-          <Link href="/food-truck-websites" className="underline hover:text-[var(--gold-light)]">
-            food truck examples
+          ,{" "}
+          <Link href="/marina-websites" className="underline hover:text-[var(--gold-light)]">
+            marina
           </Link>
-          . Same approach for{" "}
+          ,{" "}
+          <Link href="/fishing-guide-websites" className="underline hover:text-[var(--gold-light)]">
+            guide
+          </Link>
+          , or{" "}
+          <Link href="/food-truck-websites" className="underline hover:text-[var(--gold-light)]">
+            food truck
+          </Link>{" "}
+          pages. Same approach for{" "}
           <Link href="/south-carolina" className="underline hover:text-[var(--gold-light)]">
             South Carolina Lowcountry websites
           </Link>

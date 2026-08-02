@@ -15,13 +15,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/services', priority: 0.9, changeFrequency: 'monthly' as const },
     { path: '/truckdash', priority: 0.9, changeFrequency: 'monthly' as const },
     { path: '/work', priority: 0.95, changeFrequency: 'weekly' as const },
-    { path: '/food-truck-websites', priority: 0.85, changeFrequency: 'monthly' as const },
+    { path: '/food-truck-websites', priority: 0.9, changeFrequency: 'monthly' as const },
+    { path: '/marina-websites', priority: 0.9, changeFrequency: 'monthly' as const },
+    { path: '/fishing-guide-websites', priority: 0.9, changeFrequency: 'monthly' as const },
     { path: '/business-cards', priority: 0.7, changeFrequency: 'monthly' as const },
     { path: '/templates', priority: 0.65, changeFrequency: 'monthly' as const },
     { path: '/about', priority: 0.75, changeFrequency: 'monthly' as const },
     { path: '/contact', priority: 0.7, changeFrequency: 'monthly' as const },
     { path: '/quote', priority: 0.85, changeFrequency: 'weekly' as const },
-    { path: '/service-areas', priority: 0.8, changeFrequency: 'monthly' as const },
+    { path: '/service-areas', priority: 0.85, changeFrequency: 'monthly' as const },
     { path: '/south-carolina', priority: 0.85, changeFrequency: 'monthly' as const },
   ];
 

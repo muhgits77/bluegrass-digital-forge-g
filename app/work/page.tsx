@@ -27,19 +27,33 @@ export default function WorkPage() {
           Charleston SC &amp; the Lowcountry.
         </p>
         <p className="mt-2 text-[14px] text-[var(--text-dim)]">
-          Food truck demos lead with real-time location updates.{" "}
+          Specialty pages:{" "}
+          <Link
+            href="/marina-websites"
+            className="text-[var(--gold-light)] underline hover:text-white"
+          >
+            marinas
+          </Link>
+          ,{" "}
+          <Link
+            href="/fishing-guide-websites"
+            className="text-[var(--gold-light)] underline hover:text-white"
+          >
+            fishing guides
+          </Link>
+          ,{" "}
           <Link
             href="/food-truck-websites"
             className="text-[var(--gold-light)] underline hover:text-white"
           >
-            Kentucky food truck websites →
-          </Link>{" "}
-          and{" "}
+            food trucks
+          </Link>
+          {" · "}
           <Link
             href="/truckdash"
             className="text-[var(--gold-light)] underline hover:text-white"
           >
-            TruckDash plans
+            TruckDash
           </Link>
           .
         </p>
@@ -65,7 +79,12 @@ export default function WorkPage() {
           Ready for a site like these?
         </h2>
         <p className="text-[14.5px] text-[var(--text-muted)] mt-2 max-w-lg mx-auto">
-          Food truck, restaurant, marina, or shop — handcrafted by a neighbor in
+          <Link href="/marina-websites" className="underline hover:text-white">Marina</Link>
+          ,{" "}
+          <Link href="/fishing-guide-websites" className="underline hover:text-white">fishing guide</Link>
+          ,{" "}
+          <Link href="/food-truck-websites" className="underline hover:text-white">food truck</Link>
+          , restaurant, or shop — handcrafted by a neighbor in
           Monticello. Flat pricing. You own everything.
         </p>
         <div className="mt-6 flex flex-wrap gap-3 justify-center">

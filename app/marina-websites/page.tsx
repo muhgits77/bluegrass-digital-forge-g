@@ -38,7 +38,7 @@ const benefits = [
     body: "Dock rules, fuel hours, pump-out, restrooms, restaurants, and lodging matter at the ramp. I put the practical stuff where boaters actually look, especially on a phone with spotty lake signal.",
   },
   {
-    title: "Photo galleries that sell the experience",
+    title: "Photo galleries that show the real place",
     body: "Your docks, slips, houseboat rows, and real guests — not generic stock. The goal is a site that looks like Lake Cumberland, not a template from somewhere else.",
   },
   {
@@ -47,10 +47,10 @@ const benefits = [
   },
   {
     title: "Peak-season realities in mind",
-    body: "Memorial Day through Labor Day is the money season. Holiday hours, busy-weekend notes, and “call ahead for slips” messaging help boaters get answers before they call the office ten times.",
+    body: "Memorial Day through Labor Day is the busiest stretch. Holiday hours, busy-weekend notes, and “call ahead for slips” messaging help boaters get answers before they call the office ten times.",
   },
   {
-    title: "Local SEO for real marina searches",
+    title: "Built around how people actually search",
     body: "I tune pages for how people actually search: “Burnside Marina slip,” “houseboat rental Jamestown KY,” “Lee’s Ford restaurant,” “Conley Bottom launch.” Real towns, real ramps — not generic lake copy.",
   },
 ];
@@ -424,7 +424,7 @@ export default function MarinaWebsitesPage() {
       {/* CTA */}
       <div className="mt-12 rounded-2xl border border-[#1a2225] bg-[#0a0c0f] p-8 text-center">
         <h2 className="text-2xl tracking-tight font-semibold">
-          Ready for a marina site that works as hard as your dock?
+          Thinking about a website for your dock or marina?
         </h2>
         <p className="mt-2 text-[#9aa6ad] max-w-md mx-auto">
           Tell me about your dock or marina — anywhere on Lake Cumberland. Flat

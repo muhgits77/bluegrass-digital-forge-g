@@ -30,28 +30,28 @@ export const metadata: Metadata = {
 
 const benefits = [
   {
-    title: "Slip, rental & booking flows that convert",
-    body: "Weekend boaters and houseboat renters decide fast. Clear trip types, seasonal rates, availability inquiries, and a phone number one tap away — so they book you instead of scrolling past.",
+    title: "Slip, rental & booking inquiries",
+    body: "Weekend boaters and houseboat renters decide fast. A useful marina site usually makes trip types, seasonal rates, availability inquiries, and a phone number one tap away — so visitors can reach you without hunting.",
   },
   {
     title: "Amenities, fuel & pump-out — front and center",
-    body: "Dock rules, fuel hours, pump-out, restrooms, restaurants, and lodging matter at the ramp. Put the practical stuff where boaters actually look, especially on a phone with spotty lake signal.",
+    body: "Dock rules, fuel hours, pump-out, restrooms, restaurants, and lodging matter at the ramp. I put the practical stuff where boaters actually look, especially on a phone with spotty lake signal.",
   },
   {
     title: "Photo galleries that sell the experience",
-    body: "Golden-hour docks, full slips, houseboat rows, and real guests — not generic stock. Your marina looks like Lake Cumberland, not a template from somewhere else.",
+    body: "Your docks, slips, houseboat rows, and real guests — not generic stock. The goal is a site that looks like Lake Cumberland, not a template from somewhere else.",
   },
   {
     title: "Mobile-first for dockside use",
     body: "Most visitors search from the parking lot, the cabin, or the boat. Big tap targets, fast load, tap-to-call, and directions that work when Wi-Fi is thin.",
   },
   {
-    title: "Peak-season realities baked in",
-    body: "Memorial Day through Labor Day is the money season. Highlight holiday hours, busy-weekend booking tips, and “call ahead for slips” messaging so you don’t leave money on the dock.",
+    title: "Peak-season realities in mind",
+    body: "Memorial Day through Labor Day is the money season. Holiday hours, busy-weekend notes, and “call ahead for slips” messaging help boaters get answers before they call the office ten times.",
   },
   {
     title: "Local SEO for real marina searches",
-    body: "Tuned for how people search: “Burnside Marina slip,” “houseboat rental Jamestown KY,” “Lee’s Ford restaurant,” “Conley Bottom launch.” Real towns, real ramps — not generic lake copy.",
+    body: "I tune pages for how people actually search: “Burnside Marina slip,” “houseboat rental Jamestown KY,” “Lee’s Ford restaurant,” “Conley Bottom launch.” Real towns, real ramps — not generic lake copy.",
   },
 ];
 
@@ -59,12 +59,12 @@ const marinas = [
   {
     name: "Burnside Marina",
     area: "Burnside · Pulaski County",
-    note: "Gateway marina for weekend families and lodging traffic. Sites that pair dock info with nearby dining and overnight stays.",
+    note: "Gateway traffic for weekend families and lodging. A strong site pairs dock info with nearby dining and overnight stays.",
   },
   {
     name: "Lee’s Ford Marina Resort",
     area: "Nancy · Pulaski County",
-    note: "Full-service resort marina. Strong fit for booking pages, restaurant menus, event calendars, and resort amenities.",
+    note: "Full-service resort marina. Typical needs include booking pages, restaurant menus, event calendars, and amenity detail.",
   },
   {
     name: "State Dock & Lake Cumberland Marina",
@@ -74,17 +74,17 @@ const marinas = [
   {
     name: "Conley Bottom & Beaver Creek",
     area: "Monticello · Wayne County",
-    note: "Home-base launches. Perfect for local marina, bait, and outfitter sites that rank for Wayne County searches.",
+    note: "Home-base launches. Local marina, bait, and outfitter sites do well when they rank for real Wayne County searches.",
   },
   {
     name: "Grider Hill Dock",
     area: "Near Albany · Clinton County",
-    note: "Southern shore access. Clean sites for dock services, rentals, and businesses serving Clinton County weekenders.",
+    note: "Southern shore access. Dock services and rentals serving Clinton County weekenders benefit from simple, phone-friendly pages.",
   },
   {
     name: "Marina Rowena & other docks",
     area: "Around the lake",
-    note: "Smaller docks still need a fast phone-friendly site — fuel hours, contact, and directions that work on the road.",
+    note: "Smaller docks still need a fast site — fuel hours, contact, and directions that work on the road.",
   },
 ];
 
@@ -99,7 +99,7 @@ const faqs = [
   },
   {
     q: "Can the site handle houseboat rentals and slip inquiries?",
-    a: "Yes. We set up clear rental/slip inquiry forms, seasonal rate pages, amenity lists, and tap-to-call so busy visitors can reach the office without hunting. Complex live inventory systems can be scoped if you already use one.",
+    a: "Yes. I set up clear rental/slip inquiry forms, seasonal rate pages, amenity lists, and tap-to-call so busy visitors can reach the office without hunting. Complex live inventory systems can be scoped if you already use one.",
   },
   {
     q: "Will it work when lake cell signal is weak?",
@@ -107,7 +107,7 @@ const faqs = [
   },
   {
     q: "Do you only work near Monticello?",
-    a: "I’m based in Monticello and serve every major Lake Cumberland marina town — Burnside, Nancy (Lee’s Ford), Jamestown/State Dock, Russell Springs, Albany/Grider Hill, Conley Bottom, Marina Rowena, and the ramps between. Same neighborly process lake-wide.",
+    a: "I’m based in Monticello and work with small businesses across the Lake Cumberland region — including marina towns like Burnside, Nancy (Lee’s Ford), Jamestown/State Dock, Russell Springs, Albany/Grider Hill, Conley Bottom, Marina Rowena, and the ramps between. Same neighborly process lake-wide.",
   },
   {
     q: "Who owns the website when it’s done?",
@@ -187,8 +187,8 @@ export default function MarinaWebsitesPage() {
         Ford &amp; Beyond
       </h1>
       <p className="mt-3 text-lg text-[#8a9599]">
-        Handcrafted marina websites for docks and resorts around Lake
-        Cumberland — built by a neighbor in Monticello, KY.{" "}
+        If you run a dock or marina on Lake Cumberland, this is the kind of
+        website I build — handcrafted in Monticello, KY.{" "}
         <strong className="text-[#c8cfd3] font-medium">Flat one-time pricing</strong>
         .{" "}
         <strong className="text-[#c8cfd3] font-medium">
@@ -199,23 +199,25 @@ export default function MarinaWebsitesPage() {
       <p className="mt-3 text-[15px] text-[#c8cfd3]">
         Houseboat renters, slip holders, and weekend boaters search from the
         parking lot or the cabin. They need fuel hours, amenities, rates, and a
-        phone number that works — not a slow brochure site. If you run a marina
-        at Burnside, Lee&apos;s Ford, State Dock, Conley Bottom, Grider Hill,
-        Marina Rowena, or anywhere on the lake, this page is for you.
+        phone number that works — not a slow brochure site. Whether you&apos;re
+        near Burnside, Lee&apos;s Ford, State Dock, Conley Bottom, Grider Hill,
+        Marina Rowena, or another dock on the lake, the job is the same: a
+        clear, mobile-first site that answers boaters before they give up and
+        call the next place.
       </p>
 
       {/* Differentiators callout */}
       <div className="mt-6 p-6 rounded-3xl bg-[#0a0c0f] border border-[#f4a261]/30">
         <div className="uppercase text-[10px] tracking-[2px] text-[#f4a261] mb-1">
-          WHY MARINA OWNERS HIRE A NEIGHBOR
+          WHY THIS APPROACH FITS MARINA OWNERS
         </div>
         <h2 className="text-[21px] leading-tight font-semibold tracking-tight">
           Flat pricing. Full ownership. No agency retainer.
         </h2>
         <p className="mt-2 text-[15px] text-[#c8cfd3]">
           Pay once for the build. Host it where you want. Keep every file.
-          Optional care plan if you want help — never required. Forged in
-          Monticello for the docks that actually sit on this lake.
+          Optional care plan if you want help — never required. Built by a
+          neighbor in Monticello who understands how this lake actually runs.
         </p>
         <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-[14.5px] text-[#c8cfd3]">
           <li>• One-time flat rate from $1,200</li>
@@ -239,14 +241,14 @@ export default function MarinaWebsitesPage() {
 
       {/* Benefits */}
       <div className="mt-12">
-        <div className="label tracking-[1.5px]">BUILT FOR HOW BOATERS ACTUALLY BOOK</div>
+        <div className="label tracking-[1.5px]">WHAT A STRONG MARINA SITE USUALLY INCLUDES</div>
         <h2 className="text-2xl font-semibold tracking-tight mt-1">
           Features that matter at the dock — not generic agency fluff.
         </h2>
         <p className="mt-2 text-[15px] text-[#9aa6ad]">
-          Every piece is chosen for peak-season traffic, last-minute slip
-          questions, and visitors who are already wet, tired, or planning Friday
-          night on the water.
+          Here&apos;s how I approach slip inquiries, fuel hours, photo galleries,
+          and the other practical pieces boaters look for during peak season and
+          last-minute Friday plans.
         </p>
 
         <div className="mt-6 grid md:grid-cols-2 gap-4">
@@ -264,15 +266,18 @@ export default function MarinaWebsitesPage() {
         </div>
       </div>
 
-      {/* Local marinas */}
+      {/* Local marinas — capability + local SEO, not client list */}
       <div className="mt-12">
-        <div className="label tracking-[1.5px]">LAKE CUMBERLAND MARINAS WE BUILD FOR</div>
+        <div className="label tracking-[1.5px]">LAKE CUMBERLAND DOCKS &amp; MARINAS</div>
         <h2 className="text-2xl font-semibold tracking-tight mt-1">
-          From Burnside to Conley Bottom — real docks, real towns.
+          What a Lake Cumberland marina website needs
         </h2>
         <p className="mt-2 text-[15px] text-[#9aa6ad]">
-          I live in Monticello. I know the ramps and the summer rush. Your site
-          should sound like that — not like a national franchise template.
+          Boaters around this lake search by real place names — Burnside, Lee&apos;s
+          Ford, State Dock, Conley Bottom, and the rest. I live in Monticello, so
+          I write and structure sites with those places and the summer rush in
+          mind. Not a national franchise template. If you&apos;re running a dock
+          or marina here, this is the kind of site I build.
         </p>
         <div className="mt-6 grid sm:grid-cols-2 gap-4">
           {marinas.map((m) => (
@@ -293,7 +298,7 @@ export default function MarinaWebsitesPage() {
           ))}
         </div>
         <p className="mt-4 text-[14px] text-[#8a9599]">
-          Also serving businesses in{" "}
+          Local context for businesses in{" "}
           <Link href="/service-areas#jamestown" className="underline hover:text-white">
             Jamestown
           </Link>
@@ -333,8 +338,8 @@ export default function MarinaWebsitesPage() {
           Holiday weekends, houseboat turnover days, and storm delays all
           generate phone calls. A clear site answers the easy questions — hours,
           fuel, rules, “do you have a slip this weekend?” — so your team can
-          focus on the water. Winter is when we often build and refresh so
-          you&apos;re ready when the water warms.
+          focus on the water. Winter is often the best time to build or refresh
+          so you&apos;re ready when the water warms.
         </p>
         <ul className="mt-4 space-y-2 text-[14.5px] text-[#c8cfd3]">
           <li>• Seasonal hours and holiday schedules that update without a developer</li>
@@ -373,7 +378,7 @@ export default function MarinaWebsitesPage() {
 
       {/* Related verticals */}
       <div className="mt-10 rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-6">
-        <div className="font-semibold tracking-tight mb-2">Related Lake Cumberland sites</div>
+        <div className="font-semibold tracking-tight mb-2">Related Lake Cumberland specialties</div>
         <ul className="space-y-2 text-[14.5px] text-[#c8cfd3]">
           <li>
             <Link href="/fishing-guide-websites" className="text-[#f4a261] underline hover:text-white">
@@ -422,9 +427,8 @@ export default function MarinaWebsitesPage() {
           Ready for a marina site that works as hard as your dock?
         </h2>
         <p className="mt-2 text-[#9aa6ad] max-w-md mx-auto">
-          Tell me about your marina — Burnside, Lee&apos;s Ford, State Dock,
-          Conley Bottom, or anywhere on Lake Cumberland. Flat quote. Full
-          ownership. Honest recommendation from Monticello.
+          Tell me about your dock or marina — anywhere on Lake Cumberland. Flat
+          quote. Full ownership. Honest recommendation from Monticello.
         </p>
         <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
           <Link href="/quote" className="btn btn-primary px-8">

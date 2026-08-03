@@ -13,6 +13,18 @@ type PageProps = {
   params: Promise<{ slug: string }>;
 };
 
+/** Normalize dynamic segment: decode, trim, strip trailing slash-ish noise. */
+function normalizeSlug(raw: string | undefined): string {
+  if (!raw) return "";
+  let s = raw;
+  try {
+    s = decodeURIComponent(s);
+  } catch {
+    // keep raw if decode fails
+  }
+  return s.trim().replace(/^\/+|\/+$/g, "").toLowerCase();
+}
+
 export function generateStaticParams() {
   return getAllDemoLandingSlugs().map((slug) => ({ slug }));
 }
@@ -20,7 +32,8 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug: raw } = await params;
+  const slug = normalizeSlug(raw);
   const content = getDemoLanding(slug);
   const demo = getPublicDemoBySlug(slug);
 
@@ -62,10 +75,12 @@ export async function generateMetadata({
 }
 
 export default async function WorkDemoPage({ params }: PageProps) {
-  const { slug } = await params;
+  const { slug: raw } = await params;
+  const slug = normalizeSlug(raw);
   const content = getDemoLanding(slug);
   const demo = getPublicDemoBySlug(slug);
 
+  // Both pieces required: first-party landing copy + demo record in lib/demos.ts
   if (!content || !demo) {
     notFound();
   }

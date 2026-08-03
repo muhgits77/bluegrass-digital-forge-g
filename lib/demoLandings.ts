@@ -384,12 +384,23 @@ export const HUB_DEMO_BLURBS: Record<string, string> = {
     "Small-town donut shop with daily menu and a simple pre-order path for morning and lake-road traffic.",
 };
 
+function normalizeLandingSlug(slug: string): string {
+  if (!slug) return "";
+  let s = slug;
+  try {
+    s = decodeURIComponent(s);
+  } catch {
+    // keep raw
+  }
+  return s.trim().replace(/^\/+|\/+$/g, "").toLowerCase();
+}
+
 export function getDemoLanding(slug: string): DemoLandingContent | undefined {
-  return LANDINGS[slug];
+  return LANDINGS[normalizeLandingSlug(slug)];
 }
 
 export function hasDemoLanding(slug: string): boolean {
-  return Boolean(LANDINGS[slug]);
+  return Boolean(LANDINGS[normalizeLandingSlug(slug)]);
 }
 
 export function getAllDemoLandingSlugs(): string[] {

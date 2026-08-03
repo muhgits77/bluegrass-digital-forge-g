@@ -528,7 +528,16 @@ export function getPublicDemos(): Demo[] {
 /** Look up a visible public demo by slug (for /work/[slug] landings). */
 export function getPublicDemoBySlug(slug: string): Demo | undefined {
   if (!slug) return undefined;
-  return getPublicDemos().find((d) => d.slug === slug);
+  let normalized = slug;
+  try {
+    normalized = decodeURIComponent(slug);
+  } catch {
+    // keep raw
+  }
+  normalized = normalized.trim().replace(/^\/+|\/+$/g, "").toLowerCase();
+  return getPublicDemos().find(
+    (d) => d.slug && d.slug.toLowerCase() === normalized
+  );
 }
 
 /** Homepage Featured Work — featured + visible, or first N if none flagged. */

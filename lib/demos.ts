@@ -39,6 +39,7 @@ import {
   type StorageStatus,
   type SaveBackupResult,
 } from './demoStorage';
+import { hasDemoLanding } from './demoLandings';
 
 /**
  * Dynamic import keeps @supabase/supabase-js out of the public homepage bundle.
@@ -116,13 +117,13 @@ const DEFAULT_DEMOS: Demo[] = [
     id: "demo-3",
     title: "Fiesta Taqueria",
     slug: "fiesta-taqueria",
-    category: "Mexican Restaurant",
+    category: "Food Truck",
     href: "https://fiesta-taqueria.lovable.app",
     description:
-      "Authentic Mexican restaurant website for Wayne County with menu, catering and local SEO — Monticello KY website designer example.",
+      "Mexican food truck website for Wayne County and Lake Cumberland — menu, today’s location, catering notes. Portfolio example built in Monticello.",
     image: "/assets/demo-fiesta-taqueria.jpg",
     imageAlt:
-      "Mexican restaurant website demo for Wayne County and Lake Cumberland with digital menu and catering",
+      "Mexican food truck website demo for Wayne County and Lake Cumberland with digital menu and location updates",
     sortOrder: 1,
     visible: true,
     featured: true,
@@ -524,6 +525,12 @@ export function getPublicDemos(): Demo[] {
     .sort((a, b) => a.sortOrder - b.sortOrder);
 }
 
+/** Look up a visible public demo by slug (for /work/[slug] landings). */
+export function getPublicDemoBySlug(slug: string): Demo | undefined {
+  if (!slug) return undefined;
+  return getPublicDemos().find((d) => d.slug === slug);
+}
+
 /** Homepage Featured Work — featured + visible, or first N if none flagged. */
 export function getFeaturedPublicDemos(limit = FEATURED_HOMEPAGE_LIMIT): Demo[] {
   return selectFeaturedDemos(getPublicDemos(), limit);
@@ -775,14 +782,22 @@ export function generateUniqueSlug(title: string, excludeId?: string): string {
 
 /** Map internal Demo to the shape expected by DemoCard + pages (backwards compatible) */
 export function toCardProps(d: Demo) {
+  // Primary card link: first-party landing when it exists; otherwise external live demo.
+  // Landing pages are defined in lib/demoLandings.ts (Phase A: 4 priority demos).
+  const hasLanding = Boolean(d.slug && hasDemoLanding(d.slug));
+
   return {
     title: d.title,
     subtitle: d.description,
     category: d.category,
-    href: d.href,
+    /** Primary navigation target (same-site landing preferred). */
+    href: hasLanding && d.slug ? `/work/${d.slug}` : d.href,
+    /** External live demo URL when primary href is a landing page. */
+    liveHref: hasLanding ? d.href : undefined,
     image: d.image,
     imageAlt: d.imageAlt,
     slug: d.slug,
+    isPortfolioLanding: hasLanding,
   };
 }
 

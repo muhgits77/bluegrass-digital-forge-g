@@ -225,12 +225,47 @@ export default function FishingGuideWebsitesPage() {
         </ul>
       </div>
 
+      {/* Live portfolio examples — first-party landings */}
+      <div className="mt-10">
+        <div className="label tracking-[1.5px]">LIVE EXAMPLES</div>
+        <h2 className="text-2xl font-semibold tracking-tight mt-1">
+          Fishing guide website examples
+        </h2>
+        <p className="mt-2 text-[15px] text-[#9aa6ad]">
+          Portfolio pieces on this site — trip language and layout ideas for
+          captains who launch on Lake Cumberland.
+        </p>
+        <ul className="mt-5 space-y-4">
+          <li className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-5">
+            <div className="text-[11px] uppercase tracking-wider text-[#8a9599]">
+              Portfolio example · Fishing guide
+            </div>
+            <Link
+              href="/work/anchorline-guide-service"
+              className="mt-1 block font-semibold tracking-tight text-white hover:text-[#f4a261]"
+            >
+              Anchorline Guide Service
+            </Link>
+            <p className="mt-1.5 text-[14.5px] text-[#c8cfd3] leading-relaxed">
+              Trip types, captain intro, and a plain booking path for striper
+              and multi-species days on Lake Cumberland.
+            </p>
+            <Link
+              href="/work/anchorline-guide-service"
+              className="mt-2 inline-block text-[13px] text-[#f4a261] underline underline-offset-2 hover:text-white"
+            >
+              Read the example →
+            </Link>
+          </li>
+        </ul>
+      </div>
+
       <div className="mt-8 flex flex-wrap gap-3">
         <Link href="/quote" className="btn btn-primary">
           Get a guide site quote →
         </Link>
-        <Link href="/work" className="btn btn-secondary">
-          See Anchorline demo
+        <Link href="/work/anchorline-guide-service" className="btn btn-secondary">
+          See Anchorline example
         </Link>
         <Link href="/services" className="underline text-[#3ddbd9] self-center text-sm">
           Pricing packages
@@ -276,15 +311,13 @@ export default function FishingGuideWebsitesPage() {
           <li>Google Business basics and local SEO for Lake Cumberland guide searches</li>
         </ul>
         <p className="mt-4 text-[13px] text-[#8a9599]">
-          Live reference:{" "}
-          <a
-            href="https://lake-cumberland-lines.lovable.app"
-            target="_blank"
-            rel="noopener noreferrer"
+          Portfolio write-up:{" "}
+          <Link
+            href="/work/anchorline-guide-service"
             className="underline hover:text-white"
           >
-            Anchorline Guide Service demo
-          </a>{" "}
+            Anchorline Guide Service example
+          </Link>{" "}
           — species-based trips, captain bio, striper focus.
         </p>
       </div>

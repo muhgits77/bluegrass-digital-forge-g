@@ -1,12 +1,11 @@
 import { MetadataRoute } from 'next';
 import { SITE_URL, canonicalUrl } from '@/lib/constants';
+import { getAllDemoLandingSlugs } from '@/lib/demoLandings';
 
 /**
  * Dynamic sitemap.xml generator for local SEO.
  * Only https://bluegrassdigitalforge.com URLs — never .live or staging hosts.
- * Includes all key pages targeting "Monticello KY website designer",
- * "Lake Cumberland business websites", "Wayne County web design",
- * "food truck website Kentucky", "restaurant website Monticello KY".
+ * Includes specialty hubs and first-party /work/[slug] portfolio landings.
  */
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -27,7 +26,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/south-carolina', priority: 0.85, changeFrequency: 'monthly' as const },
   ];
 
-  return routes.map((route) => ({
+  const demoLandings = getAllDemoLandingSlugs().map((slug) => ({
+    path: `/work/${slug}`,
+    priority: 0.8,
+    changeFrequency: 'monthly' as const,
+  }));
+
+  return [...routes, ...demoLandings].map((route) => ({
     url: route.path === '/' ? `${SITE_URL}/` : canonicalUrl(route.path),
     lastModified: new Date(),
     changeFrequency: route.changeFrequency,

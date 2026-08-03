@@ -1,23 +1,29 @@
 import Image from "next/image";
+import Link from "next/link";
 import { SITE_TAGLINE } from "@/lib/constants";
 
 interface DemoCardProps {
   title: string;
   subtitle: string;
   category: string;
+  /** Primary link — first-party /work/[slug] when a landing exists, else external demo */
   href: string;
+  /** External live demo URL (shown as quiet secondary when primary is a landing) */
+  liveHref?: string;
   color?: string;
   image?: string;
   /** Preferred SEO alt: "[Business type] website demo for [location] — [key feature]" */
   imageAlt?: string;
   slug?: string;
+  isPortfolioLanding?: boolean;
 }
 
 /**
  * Demo Gallery — local authenticity & premium feel without Framer Motion.
  * Hover lift / shadow live in globals.css (.demo-card) so this stays zero-JS motion.
- * Uses per-business screenshots in /public/assets/ (Lake Cumberland / Wayne County styles).
- * Supports base64 images from /admin drag-and-drop.
+ *
+ * Primary click → same-site portfolio landing when available; secondary "View live demo"
+ * is a sibling link (not nested) with rel="noopener noreferrer".
  */
 const demoImageMap: Record<string, string> = {
   "Hickory Forge Steakhouse": "/assets/demo-hickory-forge.jpg",
@@ -41,7 +47,7 @@ const demoImageMap: Record<string, string> = {
 /** Fallback alts when demos lack imageAlt — follows SEO pattern for main cards. */
 const demoAltMap: Record<string, string> = {
   "Fiesta Taqueria":
-    "Mexican restaurant website demo for Wayne County and Lake Cumberland with digital menu and catering",
+    "Mexican food truck website demo for Wayne County and Lake Cumberland with digital menu and location updates",
   "Hickory Forge Steakhouse":
     "Steakhouse website demo for Lake Cumberland restaurants with digital menu and reservations",
   "Smoky Wheels":
@@ -77,38 +83,33 @@ export default function DemoCard({
   subtitle,
   category,
   href,
+  liveHref,
   image,
   imageAlt,
   slug,
+  isPortfolioLanding,
 }: DemoCardProps) {
   const previewImage =
     image || demoImageMap[title] || "/hero-cumberland-golden.jpg";
   const displaySlug =
-    slug || href.replace("https://", "").replace("http://", "");
+    slug ||
+    href.replace("https://", "").replace("http://", "").replace(/^\//, "");
 
   const isTemplateSite = title === "Bluegrass Digital Forge Templates";
   const isDataUrl = !!previewImage && previewImage.startsWith("data:");
+  const isInternal = href.startsWith("/");
+  const showLiveSecondary = Boolean(liveHref && isPortfolioLanding);
 
-  // Prefer curated SEO alt; fallback map; then generated local pattern
   const localAlt =
     imageAlt ||
     demoAltMap[title] ||
     `${category} website demo for Lake Cumberland — ${title}, handcrafted in Monticello KY`;
 
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={
-        "demo-card shimmer-hover group block min-h-[480px] sm:min-h-[500px] md:min-h-[520px] flex flex-col bg-[var(--bg-card)] border border-[var(--border)] overflow-hidden rounded-[1.35rem] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--copper)]"
-      }
-      aria-label={`Open live demo of ${title}`}
-    >
-      {/*
-        Minimal browser chrome: thin top bar with traffic lights and subtle site title.
-        NO address bar — keeps focus on the screenshot.
-      */}
+  const shellClass =
+    "demo-card shimmer-hover group min-h-[480px] sm:min-h-[500px] md:min-h-[520px] flex flex-col bg-[var(--bg-card)] border border-[var(--border)] overflow-hidden rounded-[1.35rem]";
+
+  const primaryInner = (
+    <>
       <div className="flex items-center gap-3 px-3 py-2.5 bg-[#050a08] border-b border-[var(--border)] shrink-0">
         <div className="flex gap-2" aria-hidden>
           <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
@@ -120,10 +121,6 @@ export default function DemoCard({
         </div>
       </div>
 
-      {/*
-        Image area: 16:9 preview, object-contain object-top so screenshots are not cropped.
-        Lazy by default (below fold on home); next/image serves AVIF/WebP at correct size.
-      */}
       <div className="relative aspect-[16/9] overflow-hidden bg-[#050708] shrink-0">
         {isDataUrl ? (
           // eslint-disable-next-line @next/next/no-img-element -- data: URLs from admin uploads
@@ -151,14 +148,18 @@ export default function DemoCard({
         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[radial-gradient(at_70%_20%,rgba(212,140,74,0.16)_0%,transparent_55%)] pointer-events-none" />
       </div>
 
-      <div className="p-4 sm:p-5 flex-1 flex flex-col min-h-0">
-        <div className="flex items-center gap-2 mb-2.5">
+      <div
+        className={`p-4 sm:p-5 flex-1 flex flex-col min-h-0 ${
+          showLiveSecondary ? "pb-2" : ""
+        }`}
+      >
+        <div className="flex items-center gap-2 mb-2.5 flex-wrap">
           <span className="text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 bg-[#050a08] border border-[var(--border-strong)] rounded text-[var(--text-muted)]">
             {category}
           </span>
           {!isTemplateSite && (
             <span className="text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 bg-[#2a1c12] border border-[rgba(212,140,74,0.4)] rounded text-[var(--copper-bright)]">
-              LIVE DEMO
+              {isPortfolioLanding ? "PORTFOLIO EXAMPLE" : "LIVE DEMO"}
             </span>
           )}
         </div>
@@ -176,7 +177,9 @@ export default function DemoCard({
 
         <div className="mt-auto pt-3">
           <div className="inline-flex items-center gap-2 text-[14px] font-semibold text-[var(--copper-bright)] group-hover:text-[var(--cream)] transition-colors">
-            <span>Open live site</span>
+            <span>
+              {isPortfolioLanding ? "View example" : "Open live site"}
+            </span>
             <svg
               width="16"
               height="16"
@@ -195,6 +198,46 @@ export default function DemoCard({
           </div>
         </div>
       </div>
-    </a>
+    </>
+  );
+
+  const primaryClass =
+    "flex flex-col flex-1 min-h-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--copper)] focus-visible:ring-inset";
+
+  return (
+    <div className={shellClass}>
+      {isInternal ? (
+        <Link
+          href={href}
+          className={primaryClass}
+          aria-label={`View portfolio example: ${title}`}
+        >
+          {primaryInner}
+        </Link>
+      ) : (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={primaryClass}
+          aria-label={`Open live demo of ${title}`}
+        >
+          {primaryInner}
+        </a>
+      )}
+
+      {showLiveSecondary && liveHref ? (
+        <div className="px-4 sm:px-5 pb-4 pt-0 shrink-0 border-t border-transparent">
+          <a
+            href={liveHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[12px] text-[var(--text-dim)] hover:text-[var(--text-muted)] underline underline-offset-2"
+          >
+            View live demo ↗
+          </a>
+        </div>
+      ) : null}
+    </div>
   );
 }

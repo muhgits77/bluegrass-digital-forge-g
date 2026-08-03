@@ -316,13 +316,71 @@ export default function FoodTruckWebsites() {
         </p>
       </div>
 
+      {/* Live portfolio examples — first-party landings */}
+      <div className="mt-12">
+        <div className="label tracking-[1.5px]">LIVE EXAMPLES</div>
+        <h2 className="text-2xl font-semibold tracking-tight mt-1">
+          Food truck website examples
+        </h2>
+        <p className="mt-2 text-[15px] text-[#9aa6ad]">
+          Portfolio pieces you can read through on this site — real layouts for
+          how a truck might present location, menu, and weekend stops around
+          the lake.
+        </p>
+        <ul className="mt-5 space-y-4">
+          <li className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-5">
+            <div className="text-[11px] uppercase tracking-wider text-[#8a9599]">
+              Portfolio example · Food truck
+            </div>
+            <Link
+              href="/work/smoky-wheels"
+              className="mt-1 block font-semibold tracking-tight text-white hover:text-[#f4a261]"
+            >
+              Smoky Wheels
+            </Link>
+            <p className="mt-1.5 text-[14.5px] text-[#c8cfd3] leading-relaxed">
+              Location updates, menu, and festival stops for a truck that moves
+              around the lake — a simple reference for Kentucky food truck
+              sites.
+            </p>
+            <Link
+              href="/work/smoky-wheels"
+              className="mt-2 inline-block text-[13px] text-[#f4a261] underline underline-offset-2 hover:text-white"
+            >
+              Read the example →
+            </Link>
+          </li>
+          <li className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-5">
+            <div className="text-[11px] uppercase tracking-wider text-[#8a9599]">
+              Portfolio example · Food truck
+            </div>
+            <Link
+              href="/work/fiesta-taqueria"
+              className="mt-1 block font-semibold tracking-tight text-white hover:text-[#f4a261]"
+            >
+              Fiesta Taqueria
+            </Link>
+            <p className="mt-1.5 text-[14.5px] text-[#c8cfd3] leading-relaxed">
+              Mexican food truck example with a readable menu, today&apos;s
+              location, and catering notes for Wayne County and lake traffic.
+            </p>
+            <Link
+              href="/work/fiesta-taqueria"
+              className="mt-2 inline-block text-[13px] text-[#f4a261] underline underline-offset-2 hover:text-white"
+            >
+              Read the example →
+            </Link>
+          </li>
+        </ul>
+      </div>
+
       <div className="mt-8">
         <Link href="/quote" className="btn btn-primary">
           Get a food truck site quote →
         </Link>
         <span className="mx-3 text-[#8a9599]">or</span>
-        <Link href="/work" className="underline text-[#3ddbd9]">
-          see the Smoky Wheels live demo
+        <Link href="/work/smoky-wheels" className="underline text-[#3ddbd9]">
+          see the Smoky Wheels example
         </Link>
       </div>
 

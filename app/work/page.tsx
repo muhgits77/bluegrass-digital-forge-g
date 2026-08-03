@@ -22,9 +22,9 @@ export default function WorkPage() {
           Monticello KY Website Designer
         </h1>
         <p className="mt-3 text-[15px] text-[var(--text-muted)] leading-relaxed">
-          Live demos of Lake Cumberland business websites — food trucks,
-          restaurants, marinas, and shops — built in Monticello. Same craft for
-          Charleston SC &amp; the Lowcountry.
+          Portfolio examples of Lake Cumberland business websites — food trucks,
+          restaurants, guides, and shops — built in Monticello. Several include
+          a full write-up on this site; others open the live preview directly.
         </p>
         <p className="mt-2 text-[14px] text-[var(--text-dim)]">
           Specialty pages:{" "}
@@ -70,7 +70,7 @@ export default function WorkPage() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {allDemos.map((d) => (
-          <DemoCard key={d.href} {...d} />
+          <DemoCard key={d.slug || d.href} {...d} />
         ))}
       </div>
 

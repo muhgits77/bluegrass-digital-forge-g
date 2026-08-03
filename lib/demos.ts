@@ -225,10 +225,10 @@ const DEFAULT_DEMOS: Demo[] = [
     category: "Donut Shop",
     href: "https://sunny-hollow-donut-dash.lovable.app",
     description:
-      "Cheerful small-town donut shop site with online ordering, daily menu, and Stripe checkout for pre-orders.",
+      "Small-town donut shop example for Monticello and Wayne County morning traffic — daily menu, simple pre-orders, lake-road visitor friendly.",
     image: "/assets/demo-sunny-hollow.png",
     imageAlt:
-      "Donut shop website demo for small-town Kentucky with online ordering and daily menu",
+      "Donut shop website demo for Monticello KY and Lake Cumberland with online ordering and daily menu",
     sortOrder: 8,
     visible: true,
     featured: false,

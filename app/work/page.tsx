@@ -48,6 +48,13 @@ export default function WorkPage() {
           >
             food trucks
           </Link>
+          ,{" "}
+          <Link
+            href="/restaurant-websites"
+            className="text-[var(--gold-light)] underline hover:text-white"
+          >
+            restaurants
+          </Link>
           {" · "}
           <Link
             href="/truckdash"
@@ -84,7 +91,9 @@ export default function WorkPage() {
           <Link href="/fishing-guide-websites" className="underline hover:text-white">fishing guide</Link>
           ,{" "}
           <Link href="/food-truck-websites" className="underline hover:text-white">food truck</Link>
-          , restaurant, or shop — handcrafted by a neighbor in
+          ,{" "}
+          <Link href="/restaurant-websites" className="underline hover:text-white">restaurant</Link>
+          , or shop — handcrafted by a neighbor in
           Monticello. Flat pricing. You own everything.
         </p>
         <div className="mt-6 flex flex-wrap gap-3 justify-center">

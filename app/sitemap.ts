@@ -15,6 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/truckdash', priority: 0.9, changeFrequency: 'monthly' as const },
     { path: '/work', priority: 0.95, changeFrequency: 'weekly' as const },
     { path: '/food-truck-websites', priority: 0.9, changeFrequency: 'monthly' as const },
+    { path: '/restaurant-websites', priority: 0.9, changeFrequency: 'monthly' as const },
     { path: '/marina-websites', priority: 0.9, changeFrequency: 'monthly' as const },
     { path: '/fishing-guide-websites', priority: 0.9, changeFrequency: 'monthly' as const },
     { path: '/business-cards', priority: 0.7, changeFrequency: 'monthly' as const },

@@ -393,6 +393,18 @@ export default function MarinaWebsitesPage() {
             — dockside and festival operators
           </li>
           <li>
+            <Link href="/restaurant-websites" className="text-[#f4a261] underline hover:text-white">
+              Restaurant websites
+            </Link>{" "}
+            — menus for supper after a day at the dock
+          </li>
+          <li>
+            <Link href="/work/landing-point-bait-tackle" className="text-[#f4a261] underline hover:text-white">
+              Landing Point bait shop example
+            </Link>{" "}
+            — lake retail for marina and ramp traffic
+          </li>
+          <li>
             <Link href="/service-areas" className="text-[#f4a261] underline hover:text-white">
               Service areas
             </Link>{" "}

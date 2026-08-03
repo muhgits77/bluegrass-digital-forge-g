@@ -131,6 +131,12 @@ export default function ServiceAreas({ variant = "full" }: ServiceAreasProps) {
               Food truck sites →
             </Link>
             <Link
+              href="/restaurant-websites"
+              className="text-[var(--copper-bright)] hover:underline text-sm font-semibold"
+            >
+              Restaurant sites →
+            </Link>
+            <Link
               href="/south-carolina"
               className="text-[var(--copper-bright)] hover:underline text-sm font-semibold"
             >

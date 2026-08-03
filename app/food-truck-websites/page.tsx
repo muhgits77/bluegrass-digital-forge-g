@@ -563,6 +563,24 @@ export default function FoodTruckWebsites() {
           </li>
           <li>
             <Link
+              href="/restaurant-websites"
+              className="text-[#f4a261] underline hover:text-white"
+            >
+              Restaurant websites
+            </Link>{" "}
+            — sit-down menus and catering for lake + town traffic
+          </li>
+          <li>
+            <Link
+              href="/work/sunny-hollow-donut-dash"
+              className="text-[#f4a261] underline hover:text-white"
+            >
+              Sunny Hollow donut shop example
+            </Link>{" "}
+            — small-town food retail with daily menu notes
+          </li>
+          <li>
+            <Link
               href="/services"
               className="text-[#f4a261] underline hover:text-white"
             >

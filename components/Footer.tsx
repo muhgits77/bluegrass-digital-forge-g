@@ -57,6 +57,7 @@ export default function Footer() {
                 ["/marina-websites", "Marina Websites"],
                 ["/fishing-guide-websites", "Fishing Guide Sites"],
                 ["/food-truck-websites", "Food Truck Sites"],
+                ["/restaurant-websites", "Restaurant Sites"],
                 ["/truckdash", "TruckDash Plans"],
                 ["/quote", "Get a Quote"],
                 ["/business-cards", "Business Cards"],

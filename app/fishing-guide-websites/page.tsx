@@ -257,6 +257,27 @@ export default function FishingGuideWebsitesPage() {
               Read the example →
             </Link>
           </li>
+          <li className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-5">
+            <div className="text-[11px] uppercase tracking-wider text-[#8a9599]">
+              Related · Bait &amp; lake retail
+            </div>
+            <Link
+              href="/work/landing-point-bait-tackle"
+              className="mt-1 block font-semibold tracking-tight text-white hover:text-[#f4a261]"
+            >
+              Landing Point Bait &amp; Tackle
+            </Link>
+            <p className="mt-1.5 text-[14.5px] text-[#c8cfd3] leading-relaxed">
+              Bait availability, tackle notes, and call-ahead holds for Lake
+              Cumberland anglers and marina traffic.
+            </p>
+            <Link
+              href="/work/landing-point-bait-tackle"
+              className="mt-2 inline-block text-[13px] text-[#f4a261] underline underline-offset-2 hover:text-white"
+            >
+              Read the example →
+            </Link>
+          </li>
         </ul>
       </div>
 
@@ -413,10 +434,22 @@ export default function FishingGuideWebsitesPage() {
             — real-time location for lake &amp; festival stops
           </li>
           <li>
-            <Link href="/work" className="text-[#f4a261] underline hover:text-white">
-              Live demos
+            <Link href="/restaurant-websites" className="text-[#f4a261] underline hover:text-white">
+              Restaurant websites
             </Link>{" "}
-            — including Anchorline guide service &amp; bait shop examples
+            — menus and catering for supper after the water
+          </li>
+          <li>
+            <Link href="/work/landing-point-bait-tackle" className="text-[#f4a261] underline hover:text-white">
+              Landing Point bait shop example
+            </Link>{" "}
+            — lake retail that sits next to guide traffic
+          </li>
+          <li>
+            <Link href="/work" className="text-[#f4a261] underline hover:text-white">
+              All portfolio examples
+            </Link>{" "}
+            — guides, bait shops, trucks, restaurants
           </li>
         </ul>
       </div>

@@ -137,8 +137,8 @@ const LANDINGS: Record<string, DemoLandingContent> = {
     specialtyHub: "/fishing-guide-websites",
     specialtyHubLabel: "Fishing guide websites",
     relatedSlugs: [
+      "landing-point-bait-tackle",
       "smoky-wheels",
-      "fiesta-taqueria",
       "hickory-forge-steakhouse",
     ],
   },
@@ -246,12 +246,124 @@ const LANDINGS: Record<string, DemoLandingContent> = {
       "Copy on a site like this can sit comfortably between Monticello, the Wayne County shore, and weekend guests coming through Burnside, Nancy, or Jamestown for a sit-down meal after the lake.",
     whyItHelps:
       "A steakhouse site doesn’t need to shout. Clear menu, honest photos, and an easy way to reserve or call are usually enough — especially when guests are deciding between a few local options on their phone.",
-    specialtyHub: "/work",
-    specialtyHubLabel: "All website examples",
+    specialtyHub: "/restaurant-websites",
+    specialtyHubLabel: "Restaurant websites",
     relatedSlugs: [
+      "sunny-hollow-donut-dash",
       "fiesta-taqueria",
       "smoky-wheels",
+    ],
+  },
+
+  "landing-point-bait-tackle": {
+    slug: "landing-point-bait-tackle",
+    title: "Bait Shop Website Example | Lake Cumberland & Wayne County",
+    metaDescription:
+      "Portfolio bait and tackle website example for Lake Cumberland — live bait notes, tackle, fishing reports, call-ahead holds. Built in Monticello, KY.",
+    h1: "Landing Point Bait & Tackle – Shop Website Example",
+    categoryLabel: "Bait & tackle shop",
+    intro:
+      "A working example of a bait and tackle shop site for Lake Cumberland anglers — live bait notes, tackle they can scan on a phone, and a simple call-ahead path before they leave the ramp. Built in Monticello as a portfolio piece for shops that serve marina traffic and weekend boaters.",
+    featuresHeading: "What’s on this example",
+    features: [
+      "Live bait availability notes that can change with the day",
+      "Tackle catalog space without feeling like a big-box warehouse",
+      "Fishing report or lake conditions notes",
+      "Call-ahead holds for bait before a launch",
+      "Hours and directions for ramps and marina approaches",
+      "Mobile layout that works with weak signal near the water",
+    ],
+    sampleHeading: "Sample shop language (example only)",
+    sampleIntro:
+      "Anglers decide fast on a busy Saturday. Text like this helps more than a single “contact us” button:",
+    sampleItems: [
+      {
+        name: "Live bait board",
+        detail:
+          "Example note: “Shad and minnows in · nightcrawlers low — call ahead if you need a dozen.”",
+      },
+      {
+        name: "Tackle for the lake",
+        detail:
+          "Short lists for striper and bass gear — the stuff people actually ask for at Conley Bottom or Burnside approaches.",
+      },
+      {
+        name: "Weekend fishing notes",
+        detail:
+          "A quiet report line: water color, what locals are throwing, nothing that pretends to be a TV weather segment.",
+      },
+      {
+        name: "Call-ahead holds",
+        detail:
+          "Hold a couple dozen bait before you leave the cabin — one tap to call the shop from the parking lot.",
+      },
+    ],
+    serviceAreaNote:
+      "A shop site like this usually speaks to Wayne County launches, marina lots, and weekend boaters moving between Monticello, Jamestown, Burnside, and the ramps in between — people who need bait before the boat goes in the water.",
+    whyItHelps:
+      "Anglers already have a full morning. They want to know if you have bait, what tackle is stocked, and how to get there — without a long scroll through social posts. A clear page answers that before they drive to the wrong lot.",
+    specialtyHub: "/fishing-guide-websites",
+    specialtyHubLabel: "Fishing guide websites",
+    relatedSlugs: [
       "anchorline-guide-service",
+      "smoky-wheels",
+      "hickory-forge-steakhouse",
+    ],
+  },
+
+  "sunny-hollow-donut-dash": {
+    slug: "sunny-hollow-donut-dash",
+    title: "Donut Shop Website Example | Small-Town Kentucky",
+    metaDescription:
+      "Portfolio donut shop website example for small-town Kentucky — daily menu, simple pre-orders, morning traffic feel. Built in Monticello for Lake Cumberland visitors and locals.",
+    h1: "Sunny Hollow Donut Dash – Shop Website Example",
+    categoryLabel: "Donut shop",
+    intro:
+      "A cheerful, small-town example of a donut shop site — daily menu, simple pre-order path, and a tone that fits Monticello mornings and weekend lake visitors stopping for coffee and something sweet. Built here as a portfolio piece, not a live bakery listing.",
+    featuresHeading: "What’s on this example",
+    features: [
+      "Daily menu that can change without a full redesign",
+      "Simple online ordering or pre-order path",
+      "Hours and pickup notes for morning traffic",
+      "Photo space for real donuts and drinks",
+      "Tap-to-call for last-minute dozen orders",
+      "Mobile layout for people already in the car",
+    ],
+    sampleHeading: "Sample menu language (example only)",
+    sampleIntro:
+      "Morning customers decide quickly. Readable text helps both regulars and lake visitors:",
+    sampleItems: [
+      {
+        name: "Classic glazed dozen",
+        detail:
+          "The everyday box — short description so out-of-towners know what they’re picking up.",
+      },
+      {
+        name: "Weekend specials",
+        detail:
+          "Maple bacon, seasonal fruit glaze, or whatever the fryer has that morning — listed in plain language.",
+      },
+      {
+        name: "Coffee and cold drinks",
+        detail:
+          "Enough to pair with the box for a cabin drive or a Main Street breakfast.",
+      },
+      {
+        name: "Pre-order for Saturday",
+        detail:
+          "Example note: “Reserve a dozen before 8 a.m. pickup — useful when the lake road is already busy.”",
+      },
+    ],
+    serviceAreaNote:
+      "This kind of shop page often sits between Monticello and Wayne County morning traffic and weekend guests heading toward Jamestown, Burnside, or the southern shore — people who want a quick stop without a long hunt online.",
+    whyItHelps:
+      "When someone wants donuts on the way to the lake, they need hours, today’s flavors, and a way to order or call — not a dead Facebook page. A simple site makes that easy on a phone.",
+    specialtyHub: "/restaurant-websites",
+    specialtyHubLabel: "Restaurant websites",
+    relatedSlugs: [
+      "hickory-forge-steakhouse",
+      "fiesta-taqueria",
+      "smoky-wheels",
     ],
   },
 };
@@ -266,6 +378,10 @@ export const HUB_DEMO_BLURBS: Record<string, string> = {
     "Mexican food truck example with a readable menu, today’s location, and catering notes for Wayne County and lake traffic.",
   "hickory-forge-steakhouse":
     "A warmer neighborhood steakhouse layout with menu and reservation feel for Lake Cumberland supper traffic.",
+  "landing-point-bait-tackle":
+    "Bait availability, tackle notes, and call-ahead holds for Lake Cumberland anglers and marina traffic.",
+  "sunny-hollow-donut-dash":
+    "Small-town donut shop with daily menu and a simple pre-order path for morning and lake-road traffic.",
 };
 
 export function getDemoLanding(slug: string): DemoLandingContent | undefined {

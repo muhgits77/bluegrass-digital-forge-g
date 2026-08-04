@@ -26,6 +26,19 @@
 export const FEATURED_HOMEPAGE_LIMIT = 6;
 
 /**
+ * Exact homepage Featured Work order (slug list wins over featured flags / remote data).
+ * Bluegrass Market & Mercantile and other Tier 2 demos must never appear here.
+ */
+export const HOMEPAGE_FEATURED_SLUGS = [
+  "fiesta-taqueria",
+  "truckdash",
+  "blue-door-smokehouse",
+  "anchorline-guide-service",
+  "bluegrass-fence-co",
+  "ignite-fitness-company",
+] as const;
+
+/**
  * Curated placement tiers for /work grid grouping.
  * Tier 1 = primary examples · Tier 2 = supporting · else = more examples.
  * Keys are demo slugs (TruckDash uses slug "truckdash").
@@ -595,16 +608,30 @@ export function normalizeDemos(list: Partial<Demo>[]): Demo[] {
 
 /** Select demos for homepage Featured Work (or fall back to first N visible). */
 export function selectFeaturedDemos(demos: Demo[], limit = FEATURED_HOMEPAGE_LIMIT): Demo[] {
-  const visible = demos
-    .filter((d) => d.visible && d.title.trim() && d.href.trim())
-    .sort((a, b) => a.sortOrder - b.sortOrder);
+  const visible = demos.filter(
+    (d) => d.visible && d.title.trim() && d.href.trim() && d.slug.trim()
+  );
+  const bySlug = new Map(visible.map((d) => [d.slug.toLowerCase(), d]));
 
-  const featured = visible.filter((d) => d.featured);
+  // Placement Map: exact forced order (never Bluegrass Market or other Tier 2)
+  const forced: Demo[] = [];
+  for (const slug of HOMEPAGE_FEATURED_SLUGS) {
+    const d = bySlug.get(slug);
+    if (d) forced.push(d);
+    if (forced.length >= limit) break;
+  }
+  if (forced.length > 0) {
+    return forced.slice(0, limit);
+  }
+
+  // Fallback: featured flags by sortOrder, then first N visible
+  const featured = visible
+    .filter((d) => d.featured)
+    .sort((a, b) => a.sortOrder - b.sortOrder);
   if (featured.length > 0) {
     return featured.slice(0, limit);
   }
-  // Back-compat: no featured flags set → show first N like before
-  return visible.slice(0, limit);
+  return [...visible].sort((a, b) => a.sortOrder - b.sortOrder).slice(0, limit);
 }
 
 /** Slugify helper for unique slugs */

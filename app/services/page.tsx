@@ -154,7 +154,14 @@ export default function Services() {
           <div className="mt-auto pt-8">
             <Link href="/quote" className="btn btn-primary w-full">Start a Business Suite →</Link>
             <p className="text-center text-[12.5px] text-[var(--text-muted)] mt-3">
-              See it live: <a href="https://hickory-forge-steakhouse.lovable.app" target="_blank" rel="noopener noreferrer" className="underline hover:text-[var(--copper-bright)]">Hickory Forge demo</a>
+              See the example:{" "}
+              <Link href="/work/hickory-forge-steakhouse" className="underline hover:text-[var(--copper-bright)]">
+                Hickory Forge write-up
+              </Link>
+              {" · "}
+              <a href="https://hickory-forge-steakhouse.lovable.app" target="_blank" rel="noopener noreferrer" className="underline hover:text-[var(--copper-bright)]">
+                live demo
+              </a>
             </p>
           </div>
         </div>

@@ -493,6 +493,28 @@ export default function RestaurantWebsitesPage() {
           </li>
           <li>
             <Link
+              href="/work/bluegrass-fence-co"
+              className="text-[#f4a261] underline hover:text-white"
+            >
+              Bluegrass Fence Co. example
+            </Link>
+            {" · "}
+            <Link
+              href="/work/ridge-pasture-care"
+              className="text-[#f4a261] underline hover:text-white"
+            >
+              Ridge Pasture Care
+            </Link>
+            {" · "}
+            <Link
+              href="/work/ignite-fitness-company"
+              className="text-[#f4a261] underline hover:text-white"
+            >
+              Gym example
+            </Link>
+          </li>
+          <li>
+            <Link
               href="/work"
               className="text-[#f4a261] underline hover:text-white"
             >

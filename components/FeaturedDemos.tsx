@@ -6,8 +6,8 @@ import { useLivePublicDemos } from "@/lib/useLivePublicDemos";
 
 /**
  * Client island for homepage Featured Work cards only.
- * - Pulls demos flagged `featured` in Admin (Title, Badge, Image, Link, Subtitle).
- * - Sorted by sortOrder; max FEATURED_HOMEPAGE_LIMIT (6).
+ * - Exact order from HOMEPAGE_FEATURED_SLUGS in lib/demos.ts (max 6).
+ * - Uses curated DEFAULT_DEMOS only — not stale Supabase admin data.
  * - Keeps the homepage shell as a Server Component so the hero (LCP)
  *   can render without waiting on demo-sync client JS.
  * - Dark Kentucky-warm card design lives in DemoCard + globals.css.

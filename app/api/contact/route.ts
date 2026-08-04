@@ -1,6 +1,13 @@
 import { Resend } from 'resend';
 import { NextRequest, NextResponse } from 'next/server';
 import { CONTACT_EMAIL, SITE_URL } from '@/lib/constants';
+import {
+  HONEYPOT_FIELD,
+  HUMAN_CHECK_ERROR,
+  HUMAN_CHECK_FIELD,
+  isHoneypotTripped,
+  isHumanCheckValid,
+} from '@/lib/formSpamProtection';
 
 // Production-ready /api/contact handler
 // - Validates payload server-side
@@ -188,7 +195,24 @@ function buildCustomerConfirmationHtml(data: ContactPayload): string {
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json() as ContactPayload;
+    const body = await request.json() as ContactPayload & {
+      [HONEYPOT_FIELD]?: string;
+      [HUMAN_CHECK_FIELD]?: string;
+    };
+
+    // Spam: honeypot filled → silently accept (no email, no hint to bots)
+    if (isHoneypotTripped(body[HONEYPOT_FIELD])) {
+      console.log('Contact form honeypot tripped — suppressed');
+      return NextResponse.json({
+        success: true,
+        message: 'Message received. Confirmation email sent.',
+      });
+    }
+
+    // Spam: simple human check (required server-side)
+    if (!isHumanCheckValid(body[HUMAN_CHECK_FIELD])) {
+      return NextResponse.json({ error: HUMAN_CHECK_ERROR }, { status: 400 });
+    }
 
     // Server-side validation
     const errors: string[] = [];

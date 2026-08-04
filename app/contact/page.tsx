@@ -75,9 +75,41 @@ export default function ContactPage() {
             <textarea name="message" className="input w-full min-h-[140px]" placeholder="Tell me a bit about what you're looking for..." required />
           </div>
 
+          {/* Honeypot — hidden from people; bots often fill it */}
+          <div className="hp-field" aria-hidden="true">
+            <label htmlFor="contact-company-url">Company website</label>
+            <input
+              type="text"
+              id="contact-company-url"
+              name="company_url"
+              tabIndex={-1}
+              autoComplete="off"
+              defaultValue=""
+            />
+          </div>
+
+          {/* Lightweight human check — neighborly, not CAPTCHA-like */}
+          <div>
+            <label htmlFor="contact-human-check" className="label mb-1.5">
+              Quick check — what is 4 + 5?
+            </label>
+            <input
+              type="number"
+              inputMode="numeric"
+              id="contact-human-check"
+              name="humanCheck"
+              className="input w-full max-w-[8rem]"
+              required
+              min={0}
+              max={99}
+              autoComplete="off"
+              placeholder="?"
+            />
+          </div>
+
           {/* Error banner — matches quote form style */}
           {submitError && (
-            <div className="rounded-xl border border-red-900/60 bg-red-950/30 px-5 py-4 text-sm text-red-200">
+            <div className="rounded-xl border border-red-900/60 bg-red-950/30 px-5 py-4 text-sm text-red-200" role="alert">
               {submitError}
               <div className="mt-2 text-[12.5px]">You can also email <a href={`mailto:${EMAIL}`} className="underline">{EMAIL}</a> directly.</div>
             </div>

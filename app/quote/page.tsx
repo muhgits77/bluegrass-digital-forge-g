@@ -44,6 +44,10 @@ interface FormData {
   budget: string;
   updatesAfter: string;
   gbpStatus: string;
+  /** Honeypot — must stay empty for real users */
+  company_url: string;
+  /** Simple human check: 4 + 5 */
+  humanCheck: string;
 }
 
 const initialForm: FormData = {
@@ -56,6 +60,8 @@ const initialForm: FormData = {
   mustHaves: [],
   hasDomain: "", desiredLive: "", budget: "", updatesAfter: "",
   gbpStatus: "",
+  company_url: "",
+  humanCheck: "",
 };
 
 const goalOptions = [
@@ -171,7 +177,8 @@ export default function QuotePage() {
     return (
       form.name.trim().length > 1 &&
       form.business.trim().length > 1 &&
-      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email) &&
+      form.humanCheck.trim().length > 0
     );
   };
 
@@ -486,6 +493,41 @@ export default function QuotePage() {
                   <option value="">Choose one…</option>
                   {gbpOptions.map((o) => <option key={o} value={o}>{o}</option>)}
                 </select>
+              </div>
+
+              {/* Honeypot — hidden from people; bots often fill it */}
+              <div className="hp-field" aria-hidden="true">
+                <label htmlFor="quote-company-url">Company website</label>
+                <input
+                  type="text"
+                  id="quote-company-url"
+                  name="company_url"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={form.company_url}
+                  onChange={(e) => update("company_url", e.target.value)}
+                />
+              </div>
+
+              {/* Lightweight human check — neighborly, not CAPTCHA-like */}
+              <div className="mt-6">
+                <label htmlFor="quote-human-check" className="label mb-1.5">
+                  Quick check — what is 4 + 5?
+                </label>
+                <input
+                  type="number"
+                  inputMode="numeric"
+                  id="quote-human-check"
+                  name="humanCheck"
+                  className="input w-full max-w-[8rem]"
+                  required
+                  min={0}
+                  max={99}
+                  autoComplete="off"
+                  placeholder="?"
+                  value={form.humanCheck}
+                  onChange={(e) => update("humanCheck", e.target.value)}
+                />
               </div>
 
               <div className="mt-8 rounded-2xl bg-[#0a0c0f] border border-[#1a2225] p-5 text-sm text-[#8a9599]">

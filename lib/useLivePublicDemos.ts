@@ -25,7 +25,7 @@ const SUPABASE_IDLE_DELAY_MS = 1800;
 type CardProps = ReturnType<typeof toCardProps>;
 
 export type UseLivePublicDemosOptions = {
-  /** Max cards to return (homepage featured uses 4). Omit for full /work gallery. */
+  /** Max cards to return (homepage featured uses FEATURED_HOMEPAGE_LIMIT). Omit for full /work gallery. */
   limit?: number;
   /**
    * When true, only demos flagged `featured` are returned (homepage Featured Work).
@@ -48,7 +48,7 @@ function toCards(demos: Demo[], limit?: number, featuredOnly?: boolean): CardPro
  * - Instant paint from hardcoded DEFAULT_DEMOS (no network, no Supabase JS)
  * - Supabase client is dynamically imported after idle / publish events only
  * - Cross-tab sync via BroadcastChannel + storage events
- * - Homepage: useLivePublicDemos({ limit: 4, featuredOnly: true })
+ * - Homepage: useLivePublicDemos({ limit: FEATURED_HOMEPAGE_LIMIT, featuredOnly: true })
  * - Work page: useLivePublicDemos() — all visible demos
  */
 export function useLivePublicDemos(

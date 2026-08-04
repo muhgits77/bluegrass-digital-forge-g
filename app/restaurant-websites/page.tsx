@@ -227,9 +227,30 @@ export default function RestaurantWebsitesPage() {
           that&apos;s closer to what you run.
         </p>
         <ul className="mt-5 space-y-4">
+          <li className="rounded-2xl border border-[#f4a261]/30 bg-[#0a0c0f] p-5">
+            <div className="text-[11px] uppercase tracking-wider text-[#8a9599]">
+              Featured · BBQ restaurant
+            </div>
+            <Link
+              href="/work/blue-door-smokehouse"
+              className="mt-1 block font-semibold tracking-tight text-white hover:text-[#f4a261]"
+            >
+              Blue Door Smokehouse
+            </Link>
+            <p className="mt-1.5 text-[14.5px] text-[#c8cfd3] leading-relaxed">
+              Kentucky pit BBQ layout with menu, catering, and a local
+              supper-house feel for lake and town traffic.
+            </p>
+            <Link
+              href="/work/blue-door-smokehouse"
+              className="mt-2 inline-block text-[13px] text-[#f4a261] underline underline-offset-2 hover:text-white"
+            >
+              Read the example →
+            </Link>
+          </li>
           <li className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-5">
             <div className="text-[11px] uppercase tracking-wider text-[#8a9599]">
-              Portfolio example · Steakhouse
+              Featured · Steakhouse
             </div>
             <Link
               href="/work/hickory-forge-steakhouse"
@@ -250,7 +271,7 @@ export default function RestaurantWebsitesPage() {
           </li>
           <li className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-5">
             <div className="text-[11px] uppercase tracking-wider text-[#8a9599]">
-              Related · Small-town food
+              Supporting · Small-town food
             </div>
             <Link
               href="/work/sunny-hollow-donut-dash"

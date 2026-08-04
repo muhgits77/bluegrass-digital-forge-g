@@ -17,7 +17,7 @@ const FeaturedDemos = dynamic(() => import("@/components/FeaturedDemos"), {
       aria-busy="true"
       aria-label="Loading featured demos"
     >
-      {[0, 1, 2, 3].map((i) => (
+      {[0, 1, 2, 3, 4, 5].map((i) => (
         <div
           key={i}
           className="h-[460px] sm:h-[480px] rounded-[1.35rem] border border-[var(--border)] bg-[var(--bg-elev)] animate-pulse"
@@ -273,33 +273,34 @@ export default function Home() {
             </Link>
           </div>
           <p className="text-[var(--text-muted)] max-w-2xl mb-9 text-[15.5px] leading-relaxed">
-            Restaurants, food trucks, guides, and shops around Lake Cumberland —
-            Monticello, Albany, Jamestown, Burnside, Russell Springs, Nancy, and
-            more. Click any card to open the live site. Specialty pages:{" "}
-            <Link
-              href="/marina-websites"
-              className="text-[var(--copper-bright)] underline decoration-[var(--copper)]/40 underline-offset-2 hover:text-[var(--cream)]"
-            >
-              marina websites
-            </Link>
-            ,{" "}
+            Flat one-time pricing and full ownership of the code — portfolio
+            examples for restaurants, food trucks, guides, and outdoor trades
+            around Monticello, Wayne County, and Lake Cumberland. Click any card
+            to open the live site. Specialty pages:{" "}
             <Link
               href="/fishing-guide-websites"
               className="text-[var(--copper-bright)] underline decoration-[var(--copper)]/40 underline-offset-2 hover:text-[var(--cream)]"
             >
               fishing guide websites
             </Link>
-            , and{" "}
+            ,{" "}
             <Link
               href="/food-truck-websites"
               className="text-[var(--copper-bright)] underline decoration-[var(--copper)]/40 underline-offset-2 hover:text-[var(--cream)]"
             >
               food truck websites
-            </Link>{" "}
-            with live location updates.
+            </Link>
+            , and{" "}
+            <Link
+              href="/restaurant-websites"
+              className="text-[var(--copper-bright)] underline decoration-[var(--copper)]/40 underline-offset-2 hover:text-[var(--cream)]"
+            >
+              restaurant websites
+            </Link>
+            .
           </p>
 
-          <FeaturedDemos limit={4} />
+          <FeaturedDemos limit={6} />
 
           <div className="mt-7 text-center md:hidden">
             <Link

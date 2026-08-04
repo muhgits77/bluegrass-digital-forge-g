@@ -316,21 +316,42 @@ export default function FoodTruckWebsites() {
         </p>
       </div>
 
-      {/* Live portfolio examples — first-party landings */}
+      {/* Live portfolio examples — first-party landings + TruckDash */}
       <div className="mt-12">
         <div className="label tracking-[1.5px]">LIVE EXAMPLES</div>
         <h2 className="text-2xl font-semibold tracking-tight mt-1">
           Food truck website examples
         </h2>
         <p className="mt-2 text-[15px] text-[#9aa6ad]">
-          Portfolio pieces you can read through on this site — real layouts for
-          how a truck might present location, menu, and weekend stops around
-          the lake.
+          Featured portfolio pieces — location, menu, and weekend stops for
+          Kentucky and Lowcountry trucks. Flat one-time pricing on real builds;
+          you own the code.
         </p>
         <ul className="mt-5 space-y-4">
+          <li className="rounded-2xl border border-[#f4a261]/30 bg-[#0a0c0f] p-5">
+            <div className="text-[11px] uppercase tracking-wider text-[#8a9599]">
+              Featured · Food truck
+            </div>
+            <Link
+              href="/work/fiesta-taqueria"
+              className="mt-1 block font-semibold tracking-tight text-white hover:text-[#f4a261]"
+            >
+              Fiesta Taqueria
+            </Link>
+            <p className="mt-1.5 text-[14.5px] text-[#c8cfd3] leading-relaxed">
+              Mexican food truck example with a readable menu, today&apos;s
+              location, and catering notes for Wayne County and lake traffic.
+            </p>
+            <Link
+              href="/work/fiesta-taqueria"
+              className="mt-2 inline-block text-[13px] text-[#f4a261] underline underline-offset-2 hover:text-white"
+            >
+              Read the example →
+            </Link>
+          </li>
           <li className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-5">
             <div className="text-[11px] uppercase tracking-wider text-[#8a9599]">
-              Portfolio example · Food truck
+              Featured · Food truck
             </div>
             <Link
               href="/work/smoky-wheels"
@@ -352,23 +373,74 @@ export default function FoodTruckWebsites() {
           </li>
           <li className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-5">
             <div className="text-[11px] uppercase tracking-wider text-[#8a9599]">
-              Portfolio example · Food truck
+              Featured · Food truck
             </div>
-            <Link
-              href="/work/fiesta-taqueria"
+            <a
+              href="https://cumberland-smash.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
               className="mt-1 block font-semibold tracking-tight text-white hover:text-[#f4a261]"
             >
-              Fiesta Taqueria
-            </Link>
+              Cumberland Smash ↗
+            </a>
             <p className="mt-1.5 text-[14.5px] text-[#c8cfd3] leading-relaxed">
-              Mexican food truck example with a readable menu, today&apos;s
-              location, and catering notes for Wayne County and lake traffic.
+              Smashburger truck for Lake Cumberland — menu, today&apos;s
+              location, and weekend lake-road stops.
             </p>
-            <Link
-              href="/work/fiesta-taqueria"
+            <a
+              href="https://cumberland-smash.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
               className="mt-2 inline-block text-[13px] text-[#f4a261] underline underline-offset-2 hover:text-white"
             >
-              Read the example →
+              Open live demo →
+            </a>
+          </li>
+          <li className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-5">
+            <div className="text-[11px] uppercase tracking-wider text-[#8a9599]">
+              Featured · Food truck
+            </div>
+            <a
+              href="https://cluckin-chaos.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-1 block font-semibold tracking-tight text-white hover:text-[#f4a261]"
+            >
+              Cluckin Chaos ↗
+            </a>
+            <p className="mt-1.5 text-[14.5px] text-[#c8cfd3] leading-relaxed">
+              Crispy chicken truck with live location, bold menu, and
+              festival-ready layout for Lake Cumberland operators.
+            </p>
+            <a
+              href="https://cluckin-chaos.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 inline-block text-[13px] text-[#f4a261] underline underline-offset-2 hover:text-white"
+            >
+              Open live demo →
+            </a>
+          </li>
+          <li className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-5">
+            <div className="text-[11px] uppercase tracking-wider text-[#8a9599]">
+              Featured · Food truck app
+            </div>
+            <Link
+              href="/truckdash"
+              className="mt-1 block font-semibold tracking-tight text-white hover:text-[#f4a261]"
+            >
+              TruckDash
+            </Link>
+            <p className="mt-1.5 text-[14.5px] text-[#c8cfd3] leading-relaxed">
+              Bluegrass Command Center — schedule, live map, flyer studio, and
+              offline tools. Flat one-time pricing separate from the website
+              build.
+            </p>
+            <Link
+              href="/truckdash"
+              className="mt-2 inline-block text-[13px] text-[#f4a261] underline underline-offset-2 hover:text-white"
+            >
+              Choose your TruckDash plan →
             </Link>
           </li>
         </ul>
@@ -379,8 +451,8 @@ export default function FoodTruckWebsites() {
           Get a food truck site quote →
         </Link>
         <span className="mx-3 text-[#8a9599]">or</span>
-        <Link href="/work/smoky-wheels" className="underline text-[#3ddbd9]">
-          see the Smoky Wheels example
+        <Link href="/work/fiesta-taqueria" className="underline text-[#3ddbd9]">
+          see the Fiesta Taqueria example
         </Link>
       </div>
 

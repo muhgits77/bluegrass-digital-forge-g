@@ -41,6 +41,16 @@ const demoImageMap: Record<string, string> = {
   "Landing Point Bait & Tackle": "/assets/demo-landing-point.jpg",
   "Ridge Pasture Care": "/assets/demo-ridge-pasture.jpg",
   "Blade Haven": "/assets/demo-blade-haven.jpg",
+  "Blue Door Smokehouse": "/assets/demo-blue-door-smokehouse.jpg",
+  "Bluegrass Fence Co.": "/assets/demo-bluegrass-fence.jpg",
+  "Sea Island Soul": "/assets/demo-sea-island-soul.jpg",
+  "La Hacienda Cumberland": "/assets/demo-la-hacienda.jpg",
+  "Bourbon Ridge Artisan Studio": "/assets/demo-bourbon-ridge.png",
+  TruckDash: "/assets/demo-smoky-wheels.jpg",
+  "Cumberland Smash": "/assets/demo-cumberland-smash.jpg",
+  "Cluckin Chaos": "/assets/demo-cluckin-chaos.jpg",
+  "Bluegrass Market & Mercantile": "/assets/demo-bluegrass-market.webp",
+  "Lakeside Harmony Massage": "/assets/demo-lakeside-harmony.jpg",
   "Bluegrass Digital Forge Templates": "/assets/demo-bluegrass-templates.jpg",
 };
 
@@ -76,6 +86,26 @@ const demoAltMap: Record<string, string> = {
     "Korean BBQ restaurant website demo with table grills, menu, and group reservations",
   "Blade Haven":
     "Specialty knife shop website demo with featured blades and store story",
+  "Blue Door Smokehouse":
+    "BBQ restaurant website demo for Lake Cumberland with pit-smoked menu and catering",
+  "Bluegrass Fence Co.":
+    "Fence company website demo for Somerset KY and Lake Cumberland with services and free quotes",
+  "Sea Island Soul":
+    "Lowcountry food truck website demo for Beaufort SC with menu and location updates",
+  "La Hacienda Cumberland":
+    "Mexican restaurant website demo for Lake Cumberland with digital menu and lakeside dining feel",
+  "Bourbon Ridge Artisan Studio":
+    "Artisan studio website demo for Kentucky makers with classes and handmade goods",
+  TruckDash:
+    "TruckDash food truck dashboard product for Kentucky operators — schedule and live location tools",
+  "Cumberland Smash":
+    "Smashburger food truck website demo for Lake Cumberland with menu and location updates",
+  "Cluckin Chaos":
+    "Chicken food truck website demo for Lake Cumberland with digital menu and location updates",
+  "Bluegrass Market & Mercantile":
+    "Market and mercantile website demo for Central Kentucky with antiques and handmade goods",
+  "Lakeside Harmony Massage":
+    "Massage therapy website demo for Jamestown KY and Lake Cumberland with services and booking",
 };
 
 export default function DemoCard({

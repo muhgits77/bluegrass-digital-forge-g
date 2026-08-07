@@ -94,6 +94,39 @@ where slug = 'anchorline-guide-service'
     or trim(href) = ''
   );
 
+-- Rebrand Blue Door Smokehouse → Ridge Run Smokehouse (safe to re-run)
+update public.forge_demos
+set
+  title = 'Ridge Run Smokehouse',
+  slug = 'ridge-run-smokehouse',
+  href = 'https://ridge-run-smokehouse.lovable.app/',
+  image = '/assets/demo-ridge-run-smokehouse.jpg',
+  image_alt = 'Ridge Run Smokehouse website demo for Lake Cumberland BBQ with pit-smoked menu and catering',
+  description = coalesce(
+    nullif(trim(description), ''),
+    'Kentucky pit BBQ website for Lake Cumberland — menu, catering, and a warm local supper-house feel. Portfolio example built in Monticello.'
+  ),
+  updated_at = now()
+where slug = 'blue-door-smokehouse'
+   or href ilike '%blue-door-smokehouse.lovable.app%'
+   or title ilike 'Blue Door%';
+
+-- Update featured slug list if it still references the old slug
+update public.forge_settings
+set
+  value = (
+    select coalesce(jsonb_agg(
+      case
+        when lower(elem::text) = '"blue-door-smokehouse"' then '"ridge-run-smokehouse"'::jsonb
+        else elem
+      end
+    ), value)
+    from jsonb_array_elements(value) as elem
+  ),
+  updated_at = now()
+where key = 'homepage_featured_slugs'
+  and value::text ilike '%blue-door-smokehouse%';
+
 -- Upsert Anchorline if the row is missing entirely (admin + public need it)
 insert into public.forge_demos (
   id, title, slug, category, href, description, image, image_alt,

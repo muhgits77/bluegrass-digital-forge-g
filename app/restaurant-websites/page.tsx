@@ -232,17 +232,17 @@ export default function RestaurantWebsitesPage() {
               Featured · BBQ restaurant
             </div>
             <Link
-              href="/work/blue-door-smokehouse"
+              href="/work/ridge-run-smokehouse"
               className="mt-1 block font-semibold tracking-tight text-white hover:text-[#f4a261]"
             >
-              Blue Door Smokehouse
+              Ridge Run Smokehouse
             </Link>
             <p className="mt-1.5 text-[14.5px] text-[#c8cfd3] leading-relaxed">
               Kentucky pit BBQ layout with menu, catering, and a local
               supper-house feel for lake and town traffic.
             </p>
             <Link
-              href="/work/blue-door-smokehouse"
+              href="/work/ridge-run-smokehouse"
               className="mt-2 inline-block text-[13px] text-[#f4a261] underline underline-offset-2 hover:text-white"
             >
               Read the example →

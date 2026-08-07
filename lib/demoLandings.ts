@@ -535,12 +535,12 @@ const LANDINGS: Record<string, DemoLandingContent> = {
     ],
   },
 
-  "blue-door-smokehouse": {
-    slug: "blue-door-smokehouse",
-    title: "BBQ Restaurant Website Example | Blue Door Smokehouse – Lake Cumberland",
+  "ridge-run-smokehouse": {
+    slug: "ridge-run-smokehouse",
+    title: "BBQ Restaurant Website Example | Ridge Run Smokehouse – Lake Cumberland",
     metaDescription:
       "Portfolio Kentucky pit BBQ website for Lake Cumberland — menu, catering, local supper-house feel. Flat pricing. Built in Monticello, KY.",
-    h1: "Blue Door Smokehouse – BBQ Website Example",
+    h1: "Ridge Run Smokehouse – BBQ Website Example",
     categoryLabel: "BBQ restaurant",
     intro:
       "A warm pit-BBQ restaurant example for Lake Cumberland — readable menu, catering notes, and a tone that feels like a real Kentucky smokehouse rather than a chain template. Portfolio piece built in Monticello; not a live restaurant listing.",
@@ -587,7 +587,7 @@ const LANDINGS: Record<string, DemoLandingContent> = {
     relatedSlugs: [
       "hickory-forge-steakhouse",
       "fiesta-taqueria",
-      "smoky-wheels",
+      "cumberland-smash",
     ],
   },
 };
@@ -612,7 +612,7 @@ export const HUB_DEMO_BLURBS: Record<string, string> = {
     "Local gym layout with class schedules, memberships, and a clear join path for small-town Kentucky.",
   "ridge-pasture-care":
     "Wayne County land and pasture services — brush hogging, fence work, free quotes for ridge properties.",
-  "blue-door-smokehouse":
+  "ridge-run-smokehouse":
     "Kentucky pit BBQ layout with menu, catering, and a local supper-house feel for lake and town traffic.",
   "sea-island-soul":
     "Lowcountry Gullah Geechee food truck example — heritage menu and mobile location for SC coastal routes.",
@@ -626,7 +626,10 @@ function normalizeLandingSlug(slug: string): string {
   } catch {
     // keep raw
   }
-  return s.trim().replace(/^\/+|\/+$/g, "").toLowerCase();
+  const cleaned = s.trim().replace(/^\/+|\/+$/g, "").toLowerCase();
+  // Rebranded BBQ demo — keep old /work/blue-door-smokehouse bookmarks working
+  if (cleaned === "blue-door-smokehouse") return "ridge-run-smokehouse";
+  return cleaned;
 }
 
 export function getDemoLanding(slug: string): DemoLandingContent | undefined {

@@ -41,7 +41,7 @@ const demoImageMap: Record<string, string> = {
   "Landing Point Bait & Tackle": "/assets/demo-landing-point.jpg",
   "Ridge Pasture Care": "/assets/demo-ridge-pasture.jpg",
   "Blade Haven": "/assets/demo-blade-haven.jpg",
-  "Blue Door Smokehouse": "/assets/demo-blue-door-smokehouse.jpg",
+  "Ridge Run Smokehouse": "/assets/demo-ridge-run-smokehouse.jpg",
   "Bluegrass Fence Co.": "/assets/demo-bluegrass-fence.jpg",
   "Sea Island Soul": "/assets/demo-sea-island-soul.jpg",
   "La Hacienda Cumberland": "/assets/demo-la-hacienda.jpg",
@@ -86,8 +86,8 @@ const demoAltMap: Record<string, string> = {
     "Korean BBQ restaurant website demo with table grills, menu, and group reservations",
   "Blade Haven":
     "Specialty knife shop website demo with featured blades and store story",
-  "Blue Door Smokehouse":
-    "BBQ restaurant website demo for Lake Cumberland with pit-smoked menu and catering",
+  "Ridge Run Smokehouse":
+    "Ridge Run Smokehouse website demo for Lake Cumberland BBQ with pit-smoked menu and catering",
   "Bluegrass Fence Co.":
     "Fence company website demo for Somerset KY and Lake Cumberland with services and free quotes",
   "Sea Island Soul":

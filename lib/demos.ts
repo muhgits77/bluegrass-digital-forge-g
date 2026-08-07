@@ -34,7 +34,7 @@ export const FEATURED_HOMEPAGE_LIMIT = 6;
 export const DEFAULT_FEATURED_SLUGS = [
   "fiesta-taqueria",
   "cumberland-smash",
-  "blue-door-smokehouse",
+  "ridge-run-smokehouse",
   "anchorline-guide-service",
   "bluegrass-fence-co",
   "ignite-fitness-company",
@@ -53,7 +53,7 @@ export const WORK_TIER1_SLUGS = [
   "cumberland-smash",
   "cluckin-chaos",
   "sea-island-soul",
-  "blue-door-smokehouse",
+  "ridge-run-smokehouse",
   "hickory-forge-steakhouse",
   "anchorline-guide-service",
   "bluegrass-fence-co",
@@ -223,15 +223,15 @@ const DEFAULT_DEMOS: Demo[] = [
   // ——— Tier 1: Restaurants, guides, outdoor, fitness ———
   {
     id: "demo-17",
-    title: "Blue Door Smokehouse",
-    slug: "blue-door-smokehouse",
+    title: "Ridge Run Smokehouse",
+    slug: "ridge-run-smokehouse",
     category: "BBQ Restaurant",
-    href: "https://blue-door-smokehouse.lovable.app",
+    href: "https://ridge-run-smokehouse.lovable.app/",
     description:
       "Kentucky pit BBQ website for Lake Cumberland — menu, catering, and a warm local supper-house feel. Portfolio example built in Monticello.",
-    image: "/assets/demo-blue-door-smokehouse.jpg",
+    image: "/assets/demo-ridge-run-smokehouse.jpg",
     imageAlt:
-      "BBQ restaurant website demo for Lake Cumberland with pit-smoked menu and catering",
+      "Ridge Run Smokehouse website demo for Lake Cumberland BBQ with pit-smoked menu and catering",
     sortOrder: 7,
     visible: true,
     featured: true,
@@ -533,13 +533,19 @@ const DEFAULT_DEMOS: Demo[] = [
 ];
 
 /**
- * One-time href rewrites for known-broken production URLs still sitting in Supabase.
- * Keeps public + admin displays correct until the row is re-saved from /admin.
- * New admin edits always win (these keys only match the broken hosts).
+ * One-time identity rewrites for renamed demos / known-broken production URLs
+ * still sitting in Supabase. Keeps public + admin correct until re-saved.
  */
 const KNOWN_BROKEN_HREF_REWRITES: Record<string, string> = {
   "https://lake-cumberland-lines.lovable.app": "https://anchorline-template.lovable.app/",
   "https://lake-cumberland-lines.lovable.app/": "https://anchorline-template.lovable.app/",
+  "https://blue-door-smokehouse.lovable.app": "https://ridge-run-smokehouse.lovable.app/",
+  "https://blue-door-smokehouse.lovable.app/": "https://ridge-run-smokehouse.lovable.app/",
+};
+
+/** Old slug → current slug (e.g. rebranded portfolio demos). */
+const KNOWN_SLUG_REWRITES: Record<string, string> = {
+  "blue-door-smokehouse": "ridge-run-smokehouse",
 };
 
 function rewriteBrokenHref(href: string): string {
@@ -547,16 +553,39 @@ function rewriteBrokenHref(href: string): string {
   if (!trimmed) return trimmed;
   const direct = KNOWN_BROKEN_HREF_REWRITES[trimmed];
   if (direct) return direct;
-  // Host-only match (query/hash variants)
   try {
     const u = new URL(trimmed);
     if (u.hostname === "lake-cumberland-lines.lovable.app") {
       return "https://anchorline-template.lovable.app/";
     }
+    if (u.hostname === "blue-door-smokehouse.lovable.app") {
+      return "https://ridge-run-smokehouse.lovable.app/";
+    }
   } catch {
     /* ignore invalid URLs */
   }
   return trimmed;
+}
+
+function rewriteDemoSlug(slug: string): string {
+  const key = slug.trim().toLowerCase();
+  return KNOWN_SLUG_REWRITES[key] ?? slug.trim();
+}
+
+function rewriteDemoTitle(title: string): string {
+  const t = title.trim();
+  if (/^blue\s*door(\s+smokehouse)?$/i.test(t) || t === "Blue Door Smokehouse") {
+    return "Ridge Run Smokehouse";
+  }
+  return t;
+}
+
+function rewriteDemoImagePath(image: string | undefined): string | undefined {
+  if (!image) return image;
+  if (image.includes("demo-blue-door-smokehouse")) {
+    return image.replace("demo-blue-door-smokehouse", "demo-ridge-run-smokehouse");
+  }
+  return image;
 }
 
 /**
@@ -587,15 +616,25 @@ export function normalizeDemo(raw: Partial<Demo> & { title?: string; href?: stri
       ? raw.imageAlt.trim()
       : undefined;
 
+  const rawSlug = String(raw.slug || "");
+  const slug = rewriteDemoSlug(rawSlug);
+  const title = rewriteDemoTitle(String(raw.title || ""));
+  // If this is the rebranded BBQ demo, keep alt text accurate even if Supabase is stale
+  let resolvedAlt = imageAlt;
+  if (slug === "ridge-run-smokehouse" && (!resolvedAlt || /blue\s*door/i.test(resolvedAlt))) {
+    resolvedAlt =
+      "Ridge Run Smokehouse website demo for Lake Cumberland BBQ with pit-smoked menu and catering";
+  }
+
   return {
     id: String(raw.id || `demo-${Date.now()}`),
-    title: String(raw.title || ""),
-    slug: String(raw.slug || ""),
+    title,
+    slug,
     category: String(raw.category || "Other"),
     href: rewriteBrokenHref(String(raw.href || "")),
     description: String(raw.description || ""),
-    image: raw.image || undefined,
-    imageAlt,
+    image: rewriteDemoImagePath(raw.image || undefined),
+    imageAlt: resolvedAlt,
     sortOrder,
     visible,
     featured,
@@ -651,7 +690,8 @@ export function normalizeDemoSlug(slug: string): string {
   } catch {
     // keep raw
   }
-  return normalized.trim().replace(/^\/+|\/+$/g, "").toLowerCase();
+  const cleaned = normalized.trim().replace(/^\/+|\/+$/g, "").toLowerCase();
+  return rewriteDemoSlug(cleaned);
 }
 
 export function normalizeDemos(list: Partial<Demo>[]): Demo[] {
@@ -753,7 +793,7 @@ export function normalizeFeaturedSlugs(slugs: string[], limit = FEATURED_HOMEPAG
   const out: string[] = [];
   const seen = new Set<string>();
   for (const raw of slugs) {
-    const s = String(raw || "").trim().toLowerCase();
+    const s = rewriteDemoSlug(String(raw || "").trim().toLowerCase());
     if (!s || seen.has(s)) continue;
     seen.add(s);
     out.push(s);

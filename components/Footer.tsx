@@ -54,6 +54,7 @@ export default function Footer() {
                 ["/", "Home"],
                 ["/work", "My Work"],
                 ["/services", "Services & Pricing"],
+                ["/templates", "DIY Templates"],
                 ["/marina-websites", "Marina Websites"],
                 ["/fishing-guide-websites", "Fishing Guide Sites"],
                 ["/food-truck-websites", "Food Truck Sites"],

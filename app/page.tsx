@@ -4,6 +4,7 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import ServiceAreas from "@/components/ServiceAreas";
 import ReferralDiscountNote from "@/components/ReferralDiscountNote";
+import TemplateStoreSection from "@/components/TemplateStoreSection";
 
 /**
  * Homepage — Server Component for critical LCP path.
@@ -315,6 +316,9 @@ export default function Home() {
       </section>
 
       <hr className="section-rule mx-auto max-w-7xl" />
+
+      {/* DIY TEMPLATES — lower-cost self-serve path */}
+      <TemplateStoreSection />
 
       {/* SERVICE AREAS — compact */}
       <ServiceAreas variant="compact" />

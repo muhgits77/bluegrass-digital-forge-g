@@ -23,6 +23,9 @@ export const LOCATION = "Monticello, Kentucky • Lake Cumberland Region";
 /** Preferred production origin — always .com (never .live or staging hosts). */
 export const SITE_URL = "https://bluegrassdigitalforge.com";
 
+/** DIY template store — ready-to-remix sites, one-time purchase from $99. */
+export const TEMPLATE_STORE_URL = "https://bluegrasstemplates.com";
+
 /**
  * Absolute self-referencing canonical URL for a path.
  * Homepage is exactly https://bluegrassdigitalforge.com/ (trailing slash).

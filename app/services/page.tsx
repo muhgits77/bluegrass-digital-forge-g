@@ -5,6 +5,7 @@ import BrandingCard from "@/components/BrandingCard";
 import ServiceAreas from "@/components/ServiceAreas";
 import ReferralDiscountNote from "@/components/ReferralDiscountNote";
 import DemoLiveLink from "@/components/DemoLiveLink";
+import TemplateStoreSection from "@/components/TemplateStoreSection";
 import { canonicalUrl } from "@/lib/constants";
 import { loadLivePublicDemosCatalog } from "@/lib/demos";
 
@@ -190,6 +191,9 @@ export default async function Services() {
       />
 
       <p className="text-[14.5px] text-center mt-5 text-[#9aa6ad]">Not sure which one? <Link href="/quote" className="underline hover:text-white">Tell me about your business</Link> — I&apos;ll recommend the right fit for your Lake Cumberland spot. Need a <Link href="/food-truck-websites" className="underline hover:text-white">food truck website Kentucky</Link>? We also build <Link href="/south-carolina" className="underline hover:text-[#f4a261]">Lowcountry food truck websites</Link> and <Link href="/south-carolina" className="underline hover:text-[#f4a261]">Charleston SC web design</Link> for restaurants and small businesses.</p>
+
+      {/* DIY Templates — lower-cost self-serve alternative to custom builds */}
+      <TemplateStoreSection variant="compact" />
 
       {/* Vertical specialty teasers */}
       <div className="mt-10 grid md:grid-cols-3 gap-4">

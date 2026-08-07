@@ -18,13 +18,19 @@ import {
 } from "@/lib/demos";
 import type { SupabaseConnectionStatus } from "@/lib/supabase";
 import { CONTACT_EMAIL } from "@/lib/constants";
-import { loginAdmin, logoutAdmin, isAdminAuthenticated } from "@/lib/adminAuth";
+import {
+  loginAdmin,
+  logoutAdmin,
+  isAdminAuthenticated,
+  sendMagicLink,
+  sendPasswordReset,
+} from "@/lib/adminAuth";
 
 // ==================================================================
 // ADMIN PANEL — BLUEGRASS DIGITAL FORGE
 // Dark modern professional style (separate from warm public Kentucky theme)
 //
-// - Auth: Supabase Auth (email + password) + fixed admin token (see lib/adminAuth.ts)
+// - Auth: Supabase Auth (email + password / magic link / password reset) + fixed admin token (see lib/adminAuth.ts)
 // - Session persisted via Supabase client (persistSession / autoRefreshToken)
 // - CRUD uses Supabase (forge_demos) as PRIMARY + Supabase Storage for images
 // - Graceful fallback to localStorage/IndexedDB on Supabase failure
@@ -78,7 +84,12 @@ export default function AdminPanel() {
   const [password, setPassword] = useState("");
   const [adminToken, setAdminToken] = useState("");
   const [authError, setAuthError] = useState("");
+  const [authSuccess, setAuthSuccess] = useState("");
   const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [isSendingMagicLink, setIsSendingMagicLink] = useState(false);
+  const [isSendingReset, setIsSendingReset] = useState(false);
+
+  const authBusy = isLoggingIn || isSendingMagicLink || isSendingReset;
 
   const [demos, setDemos] = useState<Demo[]>([]);
   const [showModal, setShowModal] = useState(false);
@@ -186,10 +197,11 @@ export default function AdminPanel() {
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
-    if (isLoggingIn) return;
+    if (authBusy) return;
 
     setIsLoggingIn(true);
     setAuthError("");
+    setAuthSuccess("");
 
     try {
       const result = await loginAdmin(email, password, adminToken);
@@ -199,6 +211,7 @@ export default function AdminPanel() {
         setPassword("");
         setAdminToken("");
         setAuthError("");
+        setAuthSuccess("");
         void loadDemos();
       } else {
         setAuthError(result.error);
@@ -207,6 +220,62 @@ export default function AdminPanel() {
       setAuthError(err instanceof Error ? err.message : "Sign-in failed.");
     } finally {
       setIsLoggingIn(false);
+    }
+  }
+
+  async function handleSendMagicLink() {
+    if (authBusy) return;
+
+    if (!email.trim() || !adminToken) {
+      setAuthError("Email and admin token are required to send a magic link.");
+      setAuthSuccess("");
+      return;
+    }
+
+    setIsSendingMagicLink(true);
+    setAuthError("");
+    setAuthSuccess("");
+
+    try {
+      const result = await sendMagicLink(email, adminToken);
+      if (result.ok) {
+        setPassword("");
+        setAuthSuccess(result.message ?? "Magic link sent — check your inbox.");
+      } else {
+        setAuthError(result.error);
+      }
+    } catch (err) {
+      setAuthError(err instanceof Error ? err.message : "Could not send magic link.");
+    } finally {
+      setIsSendingMagicLink(false);
+    }
+  }
+
+  async function handleForgotPassword() {
+    if (authBusy) return;
+
+    if (!email.trim() || !adminToken) {
+      setAuthError("Email and admin token are required to reset your password.");
+      setAuthSuccess("");
+      return;
+    }
+
+    setIsSendingReset(true);
+    setAuthError("");
+    setAuthSuccess("");
+
+    try {
+      const result = await sendPasswordReset(email, adminToken);
+      if (result.ok) {
+        setPassword("");
+        setAuthSuccess(result.message ?? "Password reset email sent — check your inbox.");
+      } else {
+        setAuthError(result.error);
+      }
+    } catch (err) {
+      setAuthError(err instanceof Error ? err.message : "Could not send password reset.");
+    } finally {
+      setIsSendingReset(false);
     }
   }
 
@@ -219,6 +288,7 @@ export default function AdminPanel() {
     setPassword("");
     setAdminToken("");
     setAuthError("");
+    setAuthSuccess("");
   }
 
   // ==================== IMAGE UPLOAD HANDLERS (Drag & Drop + Preview) ====================
@@ -782,7 +852,7 @@ export default function AdminPanel() {
                     className="input w-full text-base"
                     placeholder="you@example.com"
                     autoFocus
-                    disabled={isLoggingIn}
+                    disabled={authBusy}
                     required
                   />
                 </div>
@@ -799,7 +869,7 @@ export default function AdminPanel() {
                     onChange={(e) => setPassword(e.target.value)}
                     className="input w-full text-base"
                     placeholder="••••••••••••"
-                    disabled={isLoggingIn}
+                    disabled={authBusy}
                     required
                   />
                 </div>
@@ -816,7 +886,7 @@ export default function AdminPanel() {
                     onChange={(e) => setAdminToken(e.target.value)}
                     className="input w-full text-base"
                     placeholder="••••••••••••"
-                    disabled={isLoggingIn}
+                    disabled={authBusy}
                     required
                   />
                 </div>
@@ -827,14 +897,42 @@ export default function AdminPanel() {
                   </div>
                 )}
 
+                {authSuccess && (
+                  <div className="text-sm text-[#34d399]" role="status">
+                    {authSuccess}
+                  </div>
+                )}
+
                 <button
                   type="submit"
-                  disabled={isLoggingIn}
+                  disabled={authBusy}
                   className="w-full btn bg-[#3b82f6] hover:bg-[#2563eb] disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold py-3 rounded-2xl transition flex items-center justify-center gap-2"
                 >
                   {isLoggingIn ? "Signing in…" : "Sign In to Admin"}
                 </button>
               </form>
+
+              <div className="mt-5 flex flex-col sm:flex-row sm:items-center sm:justify-center gap-3 sm:gap-6">
+                <button
+                  type="button"
+                  onClick={handleSendMagicLink}
+                  disabled={authBusy}
+                  className="text-sm text-[#9aa6ad] hover:text-[#3ddbd9] underline-offset-4 hover:underline disabled:opacity-50 disabled:cursor-not-allowed disabled:no-underline transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3ddbd9] rounded-sm"
+                >
+                  {isSendingMagicLink ? "Sending magic link…" : "Send magic link instead"}
+                </button>
+                <span className="hidden sm:inline text-[#2d3748]" aria-hidden>
+                  ·
+                </span>
+                <button
+                  type="button"
+                  onClick={handleForgotPassword}
+                  disabled={authBusy}
+                  className="text-sm text-[#9aa6ad] hover:text-[#3ddbd9] underline-offset-4 hover:underline disabled:opacity-50 disabled:cursor-not-allowed disabled:no-underline transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3ddbd9] rounded-sm"
+                >
+                  {isSendingReset ? "Sending reset email…" : "Forgot password?"}
+                </button>
+              </div>
 
               <p className="text-[11px] text-center text-[#6b787e] mt-6">
                 Protected with Supabase Auth. Session persists until you sign out.

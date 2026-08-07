@@ -31,7 +31,6 @@ export const FEATURED_HOMEPAGE_LIMIT = 6;
  */
 export const HOMEPAGE_FEATURED_SLUGS = [
   "fiesta-taqueria",
-  "truckdash",
   "blue-door-smokehouse",
   "anchorline-guide-service",
   "bluegrass-fence-co",
@@ -41,15 +40,13 @@ export const HOMEPAGE_FEATURED_SLUGS = [
 /**
  * Curated placement tiers for /work grid grouping.
  * Tier 1 = primary examples · Tier 2 = supporting · else = more examples.
- * Keys are demo slugs (TruckDash uses slug "truckdash").
+ * Keys are demo slugs.
  */
 export const WORK_TIER1_SLUGS = [
   "fiesta-taqueria",
-  "smoky-wheels",
   "cumberland-smash",
   "cluckin-chaos",
   "sea-island-soul",
-  "truckdash",
   "blue-door-smokehouse",
   "hickory-forge-steakhouse",
   "anchorline-guide-service",
@@ -173,21 +170,6 @@ const DEFAULT_DEMOS: Demo[] = [
     featured: true,
   },
   {
-    id: "demo-2",
-    title: "Smoky Wheels",
-    slug: "smoky-wheels",
-    category: "Food Truck",
-    href: "https://smoky-wheels.lovable.app",
-    description:
-      "Kentucky food truck site with live “Where We Are Today” location updates, festival calendar, online ordering, and easy menu photos from a mobile dashboard.",
-    image: "/assets/demo-smoky-wheels.jpg",
-    imageAlt:
-      "Kentucky food truck website demo for Lake Cumberland with live location updates and online ordering",
-    sortOrder: 2,
-    visible: true,
-    featured: false,
-  },
-  {
     id: "demo-21",
     title: "Cumberland Smash",
     slug: "cumberland-smash",
@@ -198,7 +180,7 @@ const DEFAULT_DEMOS: Demo[] = [
     image: "/assets/demo-cumberland-smash.jpg",
     imageAlt:
       "Smashburger food truck website demo for Lake Cumberland with menu and location updates",
-    sortOrder: 3,
+    sortOrder: 2,
     visible: true,
     featured: false,
   },
@@ -213,7 +195,7 @@ const DEFAULT_DEMOS: Demo[] = [
     image: "/assets/demo-cluckin-chaos.jpg",
     imageAlt:
       "Chicken food truck website demo for Lake Cumberland with digital menu and location updates",
-    sortOrder: 4,
+    sortOrder: 3,
     visible: true,
     featured: false,
   },
@@ -228,24 +210,9 @@ const DEFAULT_DEMOS: Demo[] = [
     image: "/assets/demo-sea-island-soul.jpg",
     imageAlt:
       "Lowcountry food truck website demo for Beaufort SC with menu and location updates",
-    sortOrder: 5,
+    sortOrder: 4,
     visible: true,
     featured: false,
-  },
-  {
-    id: "demo-truckdash",
-    title: "TruckDash",
-    slug: "truckdash",
-    category: "Food Truck App",
-    href: "/truckdash",
-    description:
-      "Bluegrass Command Center for Kentucky food trucks — schedule, live map, flyer studio, offline tools. Flat one-time pricing; you own your purchase.",
-    image: "/assets/demo-smoky-wheels.jpg",
-    imageAlt:
-      "TruckDash food truck dashboard product for Kentucky operators — schedule and live location tools",
-    sortOrder: 6,
-    visible: true,
-    featured: true,
   },
   // ——— Tier 1: Restaurants, guides, outdoor, fitness ———
   {

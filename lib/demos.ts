@@ -16,26 +16,31 @@
  *   - Drag & drop images → Supabase Storage "demos" bucket. Base64 never saved to Supabase.
  *
  * Fields used by cards: title, href (url), description (short), category (badge), image (thumbnail).
- * Featured Work (homepage): demos with featured=true, sorted by sortOrder, max FEATURED_HOMEPAGE_LIMIT.
- * All existing demos preserved exactly.
+ * Featured Work (homepage): ordered slug list in Supabase forge_settings (max FEATURED_HOMEPAGE_LIMIT).
+ * DEFAULT_FEATURED_SLUGS / featured flags are offline fallbacks only — admin is live source of truth.
  *
  * Follows Master Project Settings + Critical Safety Rules.
  */
 
-/** How many featured cards the homepage "Featured Work" section shows. */
+/** How many featured cards the homepage "Featured Work" section shows. Always aim for exactly this many. */
 export const FEATURED_HOMEPAGE_LIMIT = 6;
 
 /**
- * Exact homepage Featured Work order (slug list wins over featured flags / remote data).
- * Bluegrass Market & Mercantile and other Tier 2 demos must never appear here.
+ * Offline / first-paint fallback when Supabase forge_settings has no homepage_featured_slugs yet.
+ * Admin drag-and-drop order replaces this at runtime once saved.
+ * Keep exactly 6 strong demos so the homepage never looks sparse.
  */
-export const HOMEPAGE_FEATURED_SLUGS = [
+export const DEFAULT_FEATURED_SLUGS = [
   "fiesta-taqueria",
+  "cumberland-smash",
   "blue-door-smokehouse",
   "anchorline-guide-service",
   "bluegrass-fence-co",
   "ignite-fitness-company",
 ] as const;
+
+/** @deprecated Prefer DEFAULT_FEATURED_SLUGS — kept as alias for older imports. */
+export const HOMEPAGE_FEATURED_SLUGS = DEFAULT_FEATURED_SLUGS;
 
 /**
  * Curated placement tiers for /work grid grouping.
@@ -150,7 +155,7 @@ export type DemosPublishedDetail = {
 
 // The editable source of truth for all public demos.
 // Placement Map: Tier 1 first (food trucks grouped), then Tier 2, then more examples.
-// Homepage Featured Work: featured=true, sorted by sortOrder, max FEATURED_HOMEPAGE_LIMIT (6).
+// Homepage Featured Work: DEFAULT_FEATURED_SLUGS (6) until admin saves order to Supabase.
 // Add new entries following the exact shape (see commented template at bottom of array).
 const DEFAULT_DEMOS: Demo[] = [
   // ——— Tier 1: Food truck cluster ———
@@ -182,7 +187,7 @@ const DEFAULT_DEMOS: Demo[] = [
       "Smashburger food truck website demo for Lake Cumberland with menu and location updates",
     sortOrder: 2,
     visible: true,
-    featured: false,
+    featured: true,
   },
   {
     id: "demo-22",
@@ -573,32 +578,134 @@ export function normalizeDemos(list: Partial<Demo>[]): Demo[] {
   return list.map((d) => normalizeDemo(d)).sort((a, b) => a.sortOrder - b.sortOrder);
 }
 
-/** Select demos for homepage Featured Work (or fall back to first N visible). */
-export function selectFeaturedDemos(demos: Demo[], limit = FEATURED_HOMEPAGE_LIMIT): Demo[] {
+/**
+ * Resolve homepage Featured Work cards from an ordered slug list + demo catalog.
+ *
+ * Priority:
+ *  1. `orderedSlugs` (from Supabase forge_settings / admin draft) — exact order
+ *  2. DEFAULT_FEATURED_SLUGS offline seed
+ *  3. demos with featured=true by sortOrder
+ *  4. first N visible demos
+ *
+ * Always returns up to `limit` cards when enough demos exist.
+ */
+export function selectFeaturedDemos(
+  demos: Demo[],
+  limit = FEATURED_HOMEPAGE_LIMIT,
+  orderedSlugs?: string[] | null
+): Demo[] {
   const visible = demos.filter(
     (d) => d.visible && d.title.trim() && d.href.trim() && d.slug.trim()
   );
   const bySlug = new Map(visible.map((d) => [d.slug.toLowerCase(), d]));
 
-  // Placement Map: exact forced order (never Bluegrass Market or other Tier 2)
-  const forced: Demo[] = [];
-  for (const slug of HOMEPAGE_FEATURED_SLUGS) {
-    const d = bySlug.get(slug);
-    if (d) forced.push(d);
-    if (forced.length >= limit) break;
-  }
-  if (forced.length > 0) {
-    return forced.slice(0, limit);
+  const pickFromSlugs = (slugs: readonly string[]): Demo[] => {
+    const picked: Demo[] = [];
+    const used = new Set<string>();
+    for (const raw of slugs) {
+      const slug = String(raw || "").trim().toLowerCase();
+      if (!slug || used.has(slug)) continue;
+      const d = bySlug.get(slug);
+      if (d) {
+        picked.push(d);
+        used.add(slug);
+      }
+      if (picked.length >= limit) break;
+    }
+    return picked;
+  };
+
+  // 1) Live ordered list from admin / Supabase
+  if (orderedSlugs && orderedSlugs.length > 0) {
+    const fromOrder = pickFromSlugs(orderedSlugs);
+    if (fromOrder.length > 0) {
+      // Top up to `limit` with remaining featured / visible if list is short
+      if (fromOrder.length < limit) {
+        const used = new Set(fromOrder.map((d) => d.slug.toLowerCase()));
+        const fillers = visible
+          .filter((d) => d.featured && !used.has(d.slug.toLowerCase()))
+          .sort((a, b) => a.sortOrder - b.sortOrder);
+        for (const d of fillers) {
+          fromOrder.push(d);
+          if (fromOrder.length >= limit) break;
+        }
+      }
+      return fromOrder.slice(0, limit);
+    }
   }
 
-  // Fallback: featured flags by sortOrder, then first N visible
+  // 2) Offline DEFAULT_FEATURED_SLUGS seed (exactly 6 strong demos)
+  const fromDefaults = pickFromSlugs(DEFAULT_FEATURED_SLUGS);
+  if (fromDefaults.length > 0) {
+    return fromDefaults.slice(0, limit);
+  }
+
+  // 3) featured flags by sortOrder
   const featured = visible
     .filter((d) => d.featured)
     .sort((a, b) => a.sortOrder - b.sortOrder);
   if (featured.length > 0) {
     return featured.slice(0, limit);
   }
+
+  // 4) first N visible
   return [...visible].sort((a, b) => a.sortOrder - b.sortOrder).slice(0, limit);
+}
+
+/**
+ * Apply an ordered featured-slug list onto a demo catalog:
+ * - demos in the list get featured=true
+ * - others get featured=false
+ * Does not change sortOrder (gallery order stays independent).
+ */
+export function applyFeaturedSlugsToDemos(demos: Demo[], orderedSlugs: string[]): Demo[] {
+  const set = new Set(
+    orderedSlugs.map((s) => s.trim().toLowerCase()).filter(Boolean).slice(0, FEATURED_HOMEPAGE_LIMIT)
+  );
+  return demos.map((d) => ({
+    ...d,
+    featured: set.has(d.slug.toLowerCase()),
+  }));
+}
+
+/** Normalize + cap ordered featured slugs. */
+export function normalizeFeaturedSlugs(slugs: string[], limit = FEATURED_HOMEPAGE_LIMIT): string[] {
+  const out: string[] = [];
+  const seen = new Set<string>();
+  for (const raw of slugs) {
+    const s = String(raw || "").trim().toLowerCase();
+    if (!s || seen.has(s)) continue;
+    seen.add(s);
+    out.push(s);
+    if (out.length >= limit) break;
+  }
+  return out;
+}
+
+/**
+ * Derive the current featured order from demos (featured flags + sortOrder),
+ * falling back to DEFAULT_FEATURED_SLUGS so the admin always has 6 slots to work with.
+ */
+export function deriveFeaturedSlugsFromDemos(demos: Demo[]): string[] {
+  const featured = demos
+    .filter((d) => d.featured && d.visible && d.slug.trim())
+    .sort((a, b) => a.sortOrder - b.sortOrder)
+    .map((d) => d.slug.toLowerCase())
+    .slice(0, FEATURED_HOMEPAGE_LIMIT);
+
+  if (featured.length >= FEATURED_HOMEPAGE_LIMIT) return featured;
+
+  // Top up from defaults so admin + homepage can show a full set of 6
+  const seen = new Set(featured);
+  for (const slug of DEFAULT_FEATURED_SLUGS) {
+    if (seen.has(slug)) continue;
+    const exists = demos.some((d) => d.slug.toLowerCase() === slug && d.visible);
+    if (!exists) continue;
+    featured.push(slug);
+    seen.add(slug);
+    if (featured.length >= FEATURED_HOMEPAGE_LIMIT) break;
+  }
+  return featured;
 }
 
 /** Slugify helper for unique slugs */
@@ -718,9 +825,152 @@ export function getPublicDemoBySlug(slug: string): Demo | undefined {
   );
 }
 
-/** Homepage Featured Work — featured + visible, or first N if none flagged. */
+/** Homepage Featured Work — offline seed (DEFAULT_FEATURED_SLUGS). Prefer loadLiveFeaturedPublicDemos on client. */
 export function getFeaturedPublicDemos(limit = FEATURED_HOMEPAGE_LIMIT): Demo[] {
-  return selectFeaturedDemos(getPublicDemos(), limit);
+  return selectFeaturedDemos(getPublicDemos(), limit, [...DEFAULT_FEATURED_SLUGS]);
+}
+
+/**
+ * Live homepage Featured Work: Supabase demos + ordered slugs from forge_settings.
+ * Falls back to DEFAULT_DEMOS / DEFAULT_FEATURED_SLUGS when offline or unconfigured.
+ */
+export async function loadLiveFeaturedPublicDemos(
+  limit = FEATURED_HOMEPAGE_LIMIT
+): Promise<{ demos: Demo[]; source: DemoDataSource; orderedSlugs: string[] }> {
+  const api = await supabaseApi();
+  const [demosResult, slugsResult] = await Promise.all([
+    api.getDemosFromSupabase(),
+    api.getHomepageFeaturedSlugsFromSupabase(),
+  ]);
+
+  const catalog =
+    demosResult && demosResult.length > 0
+      ? normalizeDemos(demosResult)
+      : getPublicDemos();
+
+  const source: DemoDataSource =
+    demosResult && demosResult.length > 0 ? "supabase" : "defaults";
+
+  let orderedSlugs: string[] | null =
+    slugsResult.ok && slugsResult.data && slugsResult.data.length > 0
+      ? normalizeFeaturedSlugs(slugsResult.data, limit)
+      : null;
+
+  if (!orderedSlugs || orderedSlugs.length === 0) {
+    orderedSlugs = deriveFeaturedSlugsFromDemos(catalog);
+  }
+
+  const demos = selectFeaturedDemos(catalog, limit, orderedSlugs);
+  return { demos, source, orderedSlugs };
+}
+
+/**
+ * Live full public catalog (for /work). Prefers Supabase; falls back to DEFAULT_DEMOS.
+ */
+export async function loadLivePublicDemosCatalog(): Promise<{
+  demos: Demo[];
+  source: DemoDataSource;
+}> {
+  const api = await supabaseApi();
+  const fromSupa = await api.getDemosFromSupabase();
+  if (fromSupa && fromSupa.length > 0) {
+    return {
+      demos: normalizeDemos(fromSupa).filter((d) => d.visible),
+      source: "supabase",
+    };
+  }
+  return { demos: getPublicDemos(), source: "defaults" };
+}
+
+/**
+ * Load ordered featured slugs for admin (Supabase settings → derive from demos → defaults).
+ */
+export async function loadHomepageFeaturedSlugs(demos: Demo[]): Promise<string[]> {
+  const api = await supabaseApi();
+  const slugsResult = await api.getHomepageFeaturedSlugsFromSupabase();
+  if (slugsResult.ok && slugsResult.data && slugsResult.data.length > 0) {
+    // Keep only slugs that still exist + are visible
+    const valid = new Set(
+      demos.filter((d) => d.visible && d.slug).map((d) => d.slug.toLowerCase())
+    );
+    const cleaned = normalizeFeaturedSlugs(
+      slugsResult.data.filter((s) => valid.has(s)),
+      FEATURED_HOMEPAGE_LIMIT
+    );
+    if (cleaned.length > 0) {
+      // Top up if under 6 so admin always shows full slots when possible
+      if (cleaned.length < FEATURED_HOMEPAGE_LIMIT) {
+        const seen = new Set(cleaned);
+        for (const slug of deriveFeaturedSlugsFromDemos(demos)) {
+          if (seen.has(slug)) continue;
+          cleaned.push(slug);
+          seen.add(slug);
+          if (cleaned.length >= FEATURED_HOMEPAGE_LIMIT) break;
+        }
+      }
+      return cleaned;
+    }
+  }
+  return deriveFeaturedSlugsFromDemos(demos);
+}
+
+/**
+ * Save homepage Featured Work order (source of truth).
+ * Writes forge_settings + syncs featured flags on all demos in Supabase.
+ */
+export async function saveHomepageFeaturedOrder(
+  orderedSlugs: string[],
+  currentDemos?: Demo[]
+): Promise<DemoOperationResult & { orderedSlugs: string[] }> {
+  const baseList = currentDemos ?? (await getDemos());
+  const slugs = normalizeFeaturedSlugs(orderedSlugs, FEATURED_HOMEPAGE_LIMIT);
+
+  // Only keep slugs that exist on visible demos
+  const valid = new Set(
+    baseList.filter((d) => d.visible && d.slug).map((d) => d.slug.toLowerCase())
+  );
+  const filtered = slugs.filter((s) => valid.has(s));
+
+  const updatedDemos = applyFeaturedSlugsToDemos(baseList, filtered);
+
+  // 1) Persist ordered slug list
+  const settingsResult = await (await supabaseApi()).setHomepageFeaturedSlugsInSupabase(filtered);
+  if (!settingsResult.ok) {
+    // Still update local featured flags for admin UX
+    const backup = await saveBackup(updatedDemos, "admin");
+    return {
+      demos: updatedDemos,
+      supabaseOk: false,
+      backup,
+      error: `Could not save featured order: ${formatSupabaseError(settingsResult.error)}`,
+      warning:
+        "Featured flags updated locally only. Run forge_settings migration in supabase/schema.sql, then Force Sync.",
+      orderedSlugs: filtered,
+    };
+  }
+
+  // 2) Sync featured booleans on demos (best-effort bulk upsert)
+  const syncResult = await (await supabaseApi()).bulkUpsertDemosToSupabase(updatedDemos);
+  const backup = await saveBackup(updatedDemos, "admin");
+
+  if (!syncResult.ok) {
+    return {
+      demos: updatedDemos,
+      supabaseOk: false,
+      backup,
+      error: `Featured order saved, but demo flags failed: ${formatSupabaseError(syncResult.error)}`,
+      orderedSlugs: filtered,
+    };
+  }
+
+  dispatchDemosPublished(updatedDemos, "admin");
+
+  return {
+    demos: updatedDemos,
+    supabaseOk: true,
+    backup,
+    orderedSlugs: filtered,
+  };
 }
 
 /** Visible demos from localStorage backup — used for instant cross-tab refresh before Supabase confirms. */
@@ -1036,7 +1286,7 @@ export function generateDemosTsCode(demos: Demo[]): string {
 // To add many more demos (e.g. 30+ food trucks), just append objects to DEFAULT_DEMOS above.
 // Descriptions render in full on demo cards (no line-clamp). Write complete, local SEO-friendly blurbs.
 // Always provide accurate local thumbnail paths.
-// Set featured: true (and a low sortOrder) for homepage "Featured Work" cards (max 6 shown).
-// Prefer Admin Panel → Featured Work section to swap demos without editing this file.
-// The structure is: title | href | description (subtitle) | category (badge) | image | featured
+// Homepage Featured Work order is managed live in Admin (forge_settings) — DEFAULT_FEATURED_SLUGS is fallback only.
+// Prefer Admin Panel → Featured Work (drag-and-drop) for live control.
+// The structure is: title | href | description (subtitle) | category (badge) | image | imageAlt | featured
 

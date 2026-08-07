@@ -1,11 +1,16 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
+  DEMOS_PUBLISHED_EVENT,
   FEATURED_HOMEPAGE_LIMIT,
   getFeaturedPublicDemos,
   getPublicDemos,
+  loadLiveFeaturedPublicDemos,
+  loadLivePublicDemosCatalog,
+  selectFeaturedDemos,
   toCardProps,
+  type DemosPublishedDetail,
 } from "./demos";
 
 type CardProps = ReturnType<typeof toCardProps>;
@@ -14,8 +19,8 @@ export type UseLivePublicDemosOptions = {
   /** Max cards to return (homepage featured uses FEATURED_HOMEPAGE_LIMIT). Omit for full /work gallery. */
   limit?: number;
   /**
-   * When true, only the curated homepage featured set is returned
-   * (HOMEPAGE_FEATURED_SLUGS / featured flags in DEFAULT_DEMOS).
+   * When true, only the homepage Featured Work set is returned
+   * (live ordered slugs from Supabase forge_settings when available).
    */
   featuredOnly?: boolean;
 };
@@ -23,12 +28,11 @@ export type UseLivePublicDemosOptions = {
 /**
  * Public homepage + /work catalog.
  *
- * Source of truth is hardcoded DEFAULT_DEMOS in lib/demos.ts (getPublicDemos).
- * Stale Supabase / localStorage admin data must NOT override the curated
- * Placement Map — that was wiping Blue Door, Fence, TruckDash, and wrong
- * featured cards (e.g. Bluegrass Market) on the live site.
+ * First paint uses hardcoded DEFAULT_DEMOS (fast, SEO-safe).
+ * Then hydrates from Supabase (demos + ordered featured slugs) so Admin
+ * Featured Work / SEO edits go live without a redeploy.
  *
- * To permanently change public demos: edit DEFAULT_DEMOS (or Admin export → paste).
+ * Listens for bdf:demos-published so same-browser admin saves refresh the grid.
  */
 export function useLivePublicDemos(
   limitOrOptions?: number | UseLivePublicDemosOptions
@@ -39,15 +43,71 @@ export function useLivePublicDemos(
       : limitOrOptions ?? {};
 
   const { limit, featuredOnly = false } = options;
+  const featuredLimit = limit ?? FEATURED_HOMEPAGE_LIMIT;
 
-  return useMemo(() => {
+  const staticCards = useMemo(() => {
     if (featuredOnly) {
-      return getFeaturedPublicDemos(limit ?? FEATURED_HOMEPAGE_LIMIT).map(
-        toCardProps
-      );
+      return getFeaturedPublicDemos(featuredLimit).map(toCardProps);
     }
     const all = getPublicDemos();
     const list = limit != null ? all.slice(0, limit) : all;
     return list.map(toCardProps);
-  }, [limit, featuredOnly]);
+  }, [limit, featuredOnly, featuredLimit]);
+
+  const [liveCards, setLiveCards] = useState<CardProps[] | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function hydrate() {
+      try {
+        if (featuredOnly) {
+          const { demos } = await loadLiveFeaturedPublicDemos(featuredLimit);
+          if (!cancelled) setLiveCards(demos.map(toCardProps));
+        } else {
+          const { demos } = await loadLivePublicDemosCatalog();
+          const list = limit != null ? demos.slice(0, limit) : demos;
+          if (!cancelled) setLiveCards(list.map(toCardProps));
+        }
+      } catch (err) {
+        console.warn("[useLivePublicDemos] live hydrate failed — using defaults", err);
+      }
+    }
+
+    void hydrate();
+
+    const onPublished = (e: Event) => {
+      const detail = (e as CustomEvent<DemosPublishedDetail>).detail;
+      if (!detail) return;
+
+      if (featuredOnly) {
+        // Prefer live re-fetch so forge_settings order is respected after save
+        void loadLiveFeaturedPublicDemos(featuredLimit).then(({ demos }) => {
+          if (!cancelled) setLiveCards(demos.map(toCardProps));
+        });
+      } else if (detail.demos?.length) {
+        const list = limit != null ? detail.demos.slice(0, limit) : detail.demos;
+        setLiveCards(list.map(toCardProps));
+      } else {
+        void hydrate();
+      }
+    };
+
+    window.addEventListener(DEMOS_PUBLISHED_EVENT, onPublished);
+    return () => {
+      cancelled = true;
+      window.removeEventListener(DEMOS_PUBLISHED_EVENT, onPublished);
+    };
+  }, [featuredOnly, featuredLimit, limit]);
+
+  return liveCards ?? staticCards;
+}
+
+/** Helper for tests / admin preview: resolve featured cards from a demo list + slug order. */
+export function resolveFeaturedCards(
+  demos: Parameters<typeof selectFeaturedDemos>[0],
+  orderedSlugs: string[],
+  limit = FEATURED_HOMEPAGE_LIMIT
+): CardProps[] {
+  return selectFeaturedDemos(demos, limit, orderedSlugs).map(toCardProps);
 }

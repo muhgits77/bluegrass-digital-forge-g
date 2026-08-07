@@ -147,7 +147,11 @@ function mapRowToDemo(row: Record<string, unknown>): Demo {
   };
 }
 
-function demoToRow(demo: Demo, includeFeatured = true): Record<string, unknown> {
+function demoToRow(
+  demo: Demo,
+  options: { includeFeatured?: boolean; includeImageAlt?: boolean } = {}
+): Record<string, unknown> {
+  const { includeFeatured = true, includeImageAlt = true } = options;
   const row: Record<string, unknown> = {
     id: demo.id,
     title: demo.title,
@@ -162,17 +166,123 @@ function demoToRow(demo: Demo, includeFeatured = true): Record<string, unknown> 
   if (includeFeatured) {
     row.featured = !!demo.featured;
   }
+  if (includeImageAlt) {
+    row.image_alt = demo.imageAlt?.trim() || null;
+  }
   return row;
 }
 
-/** True when PostgREST rejects the row because `featured` column is not migrated yet. */
-function isMissingFeaturedColumnError(error: { message?: string; code?: string } | null): boolean {
+/** True when PostgREST rejects the row because a column is not migrated yet. */
+function isMissingColumnError(
+  error: { message?: string; code?: string } | null,
+  column: string
+): boolean {
   if (!error) return false;
   const msg = (error.message || '').toLowerCase();
   return (
-    msg.includes('featured') &&
+    msg.includes(column.toLowerCase()) &&
     (msg.includes('column') || msg.includes('schema cache') || msg.includes('could not find'))
   );
+}
+
+function isMissingFeaturedColumnError(error: { message?: string; code?: string } | null): boolean {
+  return isMissingColumnError(error, 'featured');
+}
+
+function isMissingImageAltColumnError(error: { message?: string; code?: string } | null): boolean {
+  return isMissingColumnError(error, 'image_alt');
+}
+
+/** Setting key for ordered homepage Featured Work slugs (max FEATURED_HOMEPAGE_LIMIT). */
+export const HOMEPAGE_FEATURED_SLUGS_KEY = 'homepage_featured_slugs';
+
+/**
+ * Read ordered homepage featured slugs from forge_settings.
+ * Returns null when unset / table missing / not configured (caller uses fallbacks).
+ */
+export async function getHomepageFeaturedSlugsFromSupabase(): Promise<SupabaseResult<string[] | null>> {
+  if (!supabase) return notConfigured();
+
+  try {
+    const { data, error } = await supabase
+      .from('forge_settings')
+      .select('value')
+      .eq('key', HOMEPAGE_FEATURED_SLUGS_KEY)
+      .maybeSingle();
+
+    if (error) {
+      // Table may not exist yet — treat as empty so defaults apply
+      if (
+        error.message?.toLowerCase().includes('forge_settings') ||
+        error.code === '42P01' ||
+        error.message?.toLowerCase().includes('schema cache')
+      ) {
+        return success(null);
+      }
+      return failure(toSupabaseError(error));
+    }
+
+    if (!data?.value) return success(null);
+
+    const raw = data.value;
+    const list = Array.isArray(raw)
+      ? raw
+      : typeof raw === 'object' && raw !== null && Array.isArray((raw as { slugs?: unknown }).slugs)
+        ? (raw as { slugs: unknown[] }).slugs
+        : null;
+
+    if (!list) return success(null);
+
+    const slugs = list
+      .map((s) => String(s || '').trim().toLowerCase())
+      .filter(Boolean);
+
+    return success(slugs.length > 0 ? slugs : null);
+  } catch (err) {
+    return failure(toSupabaseError(err, 'settings_read'));
+  }
+}
+
+/**
+ * Persist ordered homepage featured slugs (up to 6) in forge_settings.
+ */
+export async function setHomepageFeaturedSlugsInSupabase(
+  slugs: string[]
+): Promise<SupabaseResult<string[]>> {
+  if (!supabase) return notConfigured();
+
+  const cleaned = [
+    ...new Set(
+      slugs
+        .map((s) => String(s || '').trim().toLowerCase())
+        .filter(Boolean)
+    ),
+  ].slice(0, 6);
+
+  try {
+    const { error } = await supabase.from('forge_settings').upsert(
+      {
+        key: HOMEPAGE_FEATURED_SLUGS_KEY,
+        value: cleaned,
+        updated_at: new Date().toISOString(),
+      },
+      { onConflict: 'key' }
+    );
+
+    if (error) {
+      return failure({
+        ...toSupabaseError(error),
+        hint:
+          error.message?.toLowerCase().includes('forge_settings')
+            ? 'Run forge_settings migration in supabase/schema.sql'
+            : undefined,
+      });
+    }
+
+    return success(cleaned);
+  } catch (err) {
+    return failure(toSupabaseError(err, 'settings_write'));
+  }
 }
 
 /** Quick health check — verifies table access and returns row count. */
@@ -292,17 +402,24 @@ export async function upsertDemoToSupabaseResult(demo: Demo): Promise<SupabaseRe
   }
 
   try {
-    const { error } = await supabase
+    let options = { includeFeatured: true, includeImageAlt: true };
+    let { error } = await supabase
       .from('forge_demos')
-      .upsert(demoToRow(demo), { onConflict: 'id' });
+      .upsert(demoToRow(demo, options), { onConflict: 'id' });
+
+    // Graceful path until migrations run: strip missing optional columns and retry
+    if (error && isMissingImageAltColumnError(error)) {
+      options = { ...options, includeImageAlt: false };
+      ({ error } = await supabase
+        .from('forge_demos')
+        .upsert(demoToRow(demo, options), { onConflict: 'id' }));
+    }
 
     if (error && isMissingFeaturedColumnError(error)) {
-      // Graceful path until migration runs: persist without featured column
-      const { error: retryError } = await supabase
+      options = { ...options, includeFeatured: false };
+      ({ error } = await supabase
         .from('forge_demos')
-        .upsert(demoToRow(demo, false), { onConflict: 'id' });
-      if (retryError) return failure(toSupabaseError(retryError, 'upsert'));
-      return success(demo);
+        .upsert(demoToRow(demo, options), { onConflict: 'id' }));
     }
 
     if (error) return failure(toSupabaseError(error, 'upsert'));
@@ -362,11 +479,9 @@ export async function bulkUpsertDemosToSupabase(demos: Demo[]): Promise<BulkSync
     };
   }
 
-  const rows = demos
-    .filter((d) => !d.image?.startsWith('data:'))
-    .map((d) => demoToRow(d));
+  const baseDemos = demos.filter((d) => !d.image?.startsWith('data:'));
 
-  if (rows.length === 0 && demos.length > 0) {
+  if (baseDemos.length === 0 && demos.length > 0) {
     return {
       ok: false,
       upserted: 0,
@@ -379,26 +494,25 @@ export async function bulkUpsertDemosToSupabase(demos: Demo[]): Promise<BulkSync
   }
 
   try {
-    const { error } = await supabase
-      .from('forge_demos')
-      .upsert(rows, { onConflict: 'id' });
+    let options = { includeFeatured: true, includeImageAlt: true };
+    let rows = baseDemos.map((d) => demoToRow(d, options));
+    let { error } = await supabase.from('forge_demos').upsert(rows, { onConflict: 'id' });
+
+    if (error && isMissingImageAltColumnError(error)) {
+      options = { ...options, includeImageAlt: false };
+      rows = baseDemos.map((d) => demoToRow(d, options));
+      ({ error } = await supabase.from('forge_demos').upsert(rows, { onConflict: 'id' }));
+    }
 
     if (error && isMissingFeaturedColumnError(error)) {
-      const rowsWithoutFeatured = demos
-        .filter((d) => !d.image?.startsWith('data:'))
-        .map((d) => demoToRow(d, false));
-      const { error: retryError } = await supabase
-        .from('forge_demos')
-        .upsert(rowsWithoutFeatured, { onConflict: 'id' });
-      if (retryError) {
-        const supaErr = toSupabaseError(retryError, 'bulk_upsert');
-        console.error('[Supabase] bulkUpsert failed (no featured column):', supaErr);
-        return { ok: false, upserted: 0, deleted: 0, error: supaErr };
+      options = { ...options, includeFeatured: false };
+      rows = baseDemos.map((d) => demoToRow(d, options));
+      ({ error } = await supabase.from('forge_demos').upsert(rows, { onConflict: 'id' }));
+      if (!error) {
+        console.warn(
+          '[Supabase] forge_demos.featured column missing — synced without it. Run migration in supabase/schema.sql.'
+        );
       }
-      console.warn(
-        '[Supabase] forge_demos.featured column missing — synced without it. Run migration in supabase/schema.sql.'
-      );
-      return { ok: true, upserted: rowsWithoutFeatured.length, deleted: 0, error: null };
     }
 
     if (error) {

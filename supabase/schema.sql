@@ -10,30 +10,31 @@ create table if not exists public.forge_demos (
   href text not null default '',
   description text not null default '',
   image text,
+  image_alt text,
   sort_order integer not null default 99,
   visible boolean not null default true,
-  -- Homepage "Featured Work" flag (first 4 by sort_order among featured show on /)
+  -- Homepage "Featured Work" flag (order lives in forge_settings.homepage_featured_slugs)
   featured boolean not null default false,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
 
 -- ============================================================
--- MIGRATION (run once if forge_demos already exists without featured)
+-- MIGRATIONS (safe to re-run)
 -- Supabase Dashboard → SQL Editor → paste & run:
 -- ============================================================
 alter table public.forge_demos
   add column if not exists featured boolean not null default false;
 
--- Seed homepage Featured Work from lowest sort_order (only if none featured yet)
-update public.forge_demos
-set featured = true
-where id in (
-  select id from public.forge_demos
-  order by sort_order asc
-  limit 4
-)
-and (select count(*) from public.forge_demos where featured = true) = 0;
+alter table public.forge_demos
+  add column if not exists image_alt text;
+
+-- Ordered homepage Featured Work (max 6 slugs) — admin is source of truth
+create table if not exists public.forge_settings (
+  key text primary key,
+  value jsonb not null default '[]'::jsonb,
+  updated_at timestamptz not null default now()
+);
 
 create index if not exists forge_demos_sort_order_idx on public.forge_demos (sort_order);
 create index if not exists forge_demos_visible_idx on public.forge_demos (visible);
@@ -79,6 +80,34 @@ create policy "forge_demos_anon_update"
 drop policy if exists "forge_demos_anon_delete" on public.forge_demos;
 create policy "forge_demos_anon_delete"
   on public.forge_demos for delete
+  to anon, authenticated
+  using (true);
+
+-- forge_settings RLS (homepage featured slug order, etc.)
+alter table public.forge_settings enable row level security;
+
+drop policy if exists "forge_settings_anon_select" on public.forge_settings;
+create policy "forge_settings_anon_select"
+  on public.forge_settings for select
+  to anon, authenticated
+  using (true);
+
+drop policy if exists "forge_settings_anon_insert" on public.forge_settings;
+create policy "forge_settings_anon_insert"
+  on public.forge_settings for insert
+  to anon, authenticated
+  with check (true);
+
+drop policy if exists "forge_settings_anon_update" on public.forge_settings;
+create policy "forge_settings_anon_update"
+  on public.forge_settings for update
+  to anon, authenticated
+  using (true)
+  with check (true);
+
+drop policy if exists "forge_settings_anon_delete" on public.forge_settings;
+create policy "forge_settings_anon_delete"
+  on public.forge_settings for delete
   to anon, authenticated
   using (true);
 

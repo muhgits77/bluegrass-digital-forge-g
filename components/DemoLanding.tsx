@@ -316,14 +316,24 @@ export default function DemoLanding({ demo, content, related }: DemoLandingProps
   );
 }
 
-/** Resolve related landing cards from slugs (skips missing). */
+/**
+ * Resolve related landing cards from slugs (skips missing).
+ * Pass `catalog` (live merged demos from loadLivePublicDemosCatalog) so admin edits apply.
+ * Falls back to DEFAULT_DEMOS via getPublicDemoBySlug when catalog is omitted.
+ */
 export function resolveRelatedCards(
   slugs: string[],
-  blurbs?: Record<string, string>
+  blurbs?: Record<string, string>,
+  catalog?: Demo[]
 ): RelatedCard[] {
+  const bySlug = catalog
+    ? new Map(catalog.map((d) => [d.slug.toLowerCase(), d] as const))
+    : null;
+
   const cards: RelatedCard[] = [];
   for (const slug of slugs) {
-    const d = getPublicDemoBySlug(slug);
+    const key = slug.toLowerCase();
+    const d = bySlug?.get(key) ?? getPublicDemoBySlug(slug);
     if (!d) continue;
     cards.push({
       slug: d.slug,

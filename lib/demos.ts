@@ -3,10 +3,11 @@
  * 
  * Shared data layer for public homepage / work pages and the /admin panel.
  *
- * PUBLIC DEMOS (CRITICAL — UNCHANGED):
- *   - getPublicDemos() ALWAYS returns the hardcoded DEFAULT_DEMOS array below.
- *   - Public pages (/, /work) use this + optional live Supabase via getDemosFromSupabase().
- *   - To permanently bake changes: use Admin "Export to demos.ts" → paste into this file.
+ * PUBLIC DEMOS:
+ *   - Live source of truth: Supabase forge_demos (edited in /admin) when available.
+ *   - DEFAULT_DEMOS is offline/first-paint fallback + merge base for missing rows.
+ *   - loadLivePublicDemosCatalog() merges Supabase over defaults by slug so admin href edits go live.
+ *   - Export to demos.ts still bakes a snapshot into this file for no-Supabase deploys.
  *
  * ADMIN PANEL (Supabase primary + lightweight local backup):
  *   - getDemos(), addDemo(), updateDemo(), deleteDemo() write to Supabase FIRST (forge_demos).
@@ -255,7 +256,7 @@ const DEFAULT_DEMOS: Demo[] = [
     title: "Anchorline Guide Service",
     slug: "anchorline-guide-service",
     category: "Fishing Guide",
-    href: "https://lake-cumberland-lines.lovable.app",
+    href: "https://anchorline-template.lovable.app/",
     description:
       "Lake Cumberland fishing guide site with species-based trip booking, captain bios, and trophy striper hunts.",
     image: "/assets/demo-anchorline.png",
@@ -532,6 +533,33 @@ const DEFAULT_DEMOS: Demo[] = [
 ];
 
 /**
+ * One-time href rewrites for known-broken production URLs still sitting in Supabase.
+ * Keeps public + admin displays correct until the row is re-saved from /admin.
+ * New admin edits always win (these keys only match the broken hosts).
+ */
+const KNOWN_BROKEN_HREF_REWRITES: Record<string, string> = {
+  "https://lake-cumberland-lines.lovable.app": "https://anchorline-template.lovable.app/",
+  "https://lake-cumberland-lines.lovable.app/": "https://anchorline-template.lovable.app/",
+};
+
+function rewriteBrokenHref(href: string): string {
+  const trimmed = href.trim();
+  if (!trimmed) return trimmed;
+  const direct = KNOWN_BROKEN_HREF_REWRITES[trimmed];
+  if (direct) return direct;
+  // Host-only match (query/hash variants)
+  try {
+    const u = new URL(trimmed);
+    if (u.hostname === "lake-cumberland-lines.lovable.app") {
+      return "https://anchorline-template.lovable.app/";
+    }
+  } catch {
+    /* ignore invalid URLs */
+  }
+  return trimmed;
+}
+
+/**
  * Normalize a demo object from storage/import/Supabase so older payloads
  * without `featured` still work (back-compat: first 4 by sortOrder are featured).
  */
@@ -564,7 +592,7 @@ export function normalizeDemo(raw: Partial<Demo> & { title?: string; href?: stri
     title: String(raw.title || ""),
     slug: String(raw.slug || ""),
     category: String(raw.category || "Other"),
-    href: String(raw.href || ""),
+    href: rewriteBrokenHref(String(raw.href || "")),
     description: String(raw.description || ""),
     image: raw.image || undefined,
     imageAlt,
@@ -572,6 +600,58 @@ export function normalizeDemo(raw: Partial<Demo> & { title?: string; href?: stri
     visible,
     featured,
   };
+}
+
+/**
+ * Merge live Supabase demos over DEFAULT_DEMOS by slug.
+ * - Admin/Supabase fields win when a slug exists remotely (href, title, description, image, …).
+ * - Defaults fill gaps for demos not yet in Supabase.
+ * - Extra admin-only demos (not in DEFAULT_DEMOS) are included.
+ * This makes /admin the runtime source of truth for every public demo link.
+ */
+export function mergeLiveDemosWithDefaults(live: Demo[] | null | undefined): Demo[] {
+  const defaults = DEFAULT_DEMOS.map((d) => normalizeDemo(d));
+  if (!live || live.length === 0) {
+    return defaults
+      .filter((d) => d.visible)
+      .sort((a, b) => a.sortOrder - b.sortOrder);
+  }
+
+  const liveBySlug = new Map(
+    normalizeDemos(live).map((d) => [d.slug.toLowerCase(), d] as const)
+  );
+  const seen = new Set<string>();
+  const merged: Demo[] = [];
+
+  for (const base of defaults) {
+    const key = base.slug.toLowerCase();
+    seen.add(key);
+    const remote = liveBySlug.get(key);
+    merged.push(remote ? { ...base, ...remote, id: remote.id || base.id } : base);
+  }
+
+  for (const remote of liveBySlug.values()) {
+    const key = remote.slug.toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    merged.push(remote);
+  }
+
+  return merged
+    .filter((d) => d.visible && d.title.trim() && d.href.trim())
+    .sort((a, b) => a.sortOrder - b.sortOrder);
+}
+
+/** Normalize slug strings for lookup (decode, trim, lower). */
+export function normalizeDemoSlug(slug: string): string {
+  if (!slug) return "";
+  let normalized = slug;
+  try {
+    normalized = decodeURIComponent(slug);
+  } catch {
+    // keep raw
+  }
+  return normalized.trim().replace(/^\/+|\/+$/g, "").toLowerCase();
 }
 
 export function normalizeDemos(list: Partial<Demo>[]): Demo[] {
@@ -800,29 +880,35 @@ export function getLocalStorageStatus(): StorageStatus {
   return getStorageStatus();
 }
 
-/** Get only visible demos, sorted by sortOrder (for public pages / work gallery) */
+/**
+ * Sync offline catalog (DEFAULT_DEMOS only).
+ * Prefer loadLivePublicDemosCatalog() on public pages so /admin edits apply.
+ */
 export function getPublicDemos(): Demo[] {
-  // Switched to hardcoded source (DEFAULT_DEMOS). Ignores any localStorage data.
-  // Guarantees no quota issues + keeps public demos in version control.
-  // Admin may still load from LS for its own table, but this always uses the array below.
   return [...DEFAULT_DEMOS]
+    .map((d) => normalizeDemo(d))
     .filter((d) => d.visible)
     .sort((a, b) => a.sortOrder - b.sortOrder);
 }
 
-/** Look up a visible public demo by slug (for /work/[slug] landings). */
+/** Look up a visible public demo by slug from DEFAULT_DEMOS (sync / offline). */
 export function getPublicDemoBySlug(slug: string): Demo | undefined {
-  if (!slug) return undefined;
-  let normalized = slug;
-  try {
-    normalized = decodeURIComponent(slug);
-  } catch {
-    // keep raw
-  }
-  normalized = normalized.trim().replace(/^\/+|\/+$/g, "").toLowerCase();
+  const normalized = normalizeDemoSlug(slug);
+  if (!normalized) return undefined;
   return getPublicDemos().find(
     (d) => d.slug && d.slug.toLowerCase() === normalized
   );
+}
+
+/**
+ * Live lookup by slug — Supabase (admin) over defaults.
+ * Use this for portfolio landings and any server page that needs the current href.
+ */
+export async function getLivePublicDemoBySlug(slug: string): Promise<Demo | undefined> {
+  const normalized = normalizeDemoSlug(slug);
+  if (!normalized) return undefined;
+  const { demos } = await loadLivePublicDemosCatalog();
+  return demos.find((d) => d.slug && d.slug.toLowerCase() === normalized);
 }
 
 /** Homepage Featured Work — offline seed (DEFAULT_FEATURED_SLUGS). Prefer loadLiveFeaturedPublicDemos on client. */
@@ -831,8 +917,8 @@ export function getFeaturedPublicDemos(limit = FEATURED_HOMEPAGE_LIMIT): Demo[] 
 }
 
 /**
- * Live homepage Featured Work: Supabase demos + ordered slugs from forge_settings.
- * Falls back to DEFAULT_DEMOS / DEFAULT_FEATURED_SLUGS when offline or unconfigured.
+ * Live homepage Featured Work: merged catalog + ordered slugs from forge_settings.
+ * Admin href / title / description edits apply immediately after hydrate.
  */
 export async function loadLiveFeaturedPublicDemos(
   limit = FEATURED_HOMEPAGE_LIMIT
@@ -843,13 +929,9 @@ export async function loadLiveFeaturedPublicDemos(
     api.getHomepageFeaturedSlugsFromSupabase(),
   ]);
 
-  const catalog =
-    demosResult && demosResult.length > 0
-      ? normalizeDemos(demosResult)
-      : getPublicDemos();
-
-  const source: DemoDataSource =
-    demosResult && demosResult.length > 0 ? "supabase" : "defaults";
+  const hasLive = Boolean(demosResult && demosResult.length > 0);
+  const catalog = mergeLiveDemosWithDefaults(demosResult);
+  const source: DemoDataSource = hasLive ? "supabase" : "defaults";
 
   let orderedSlugs: string[] | null =
     slugsResult.ok && slugsResult.data && slugsResult.data.length > 0
@@ -865,7 +947,8 @@ export async function loadLiveFeaturedPublicDemos(
 }
 
 /**
- * Live full public catalog (for /work). Prefers Supabase; falls back to DEFAULT_DEMOS.
+ * Live full public catalog (homepage, /work, specialty pages).
+ * Merges Supabase over DEFAULT_DEMOS by slug so every “View live demo” href is admin-controlled.
  */
 export async function loadLivePublicDemosCatalog(): Promise<{
   demos: Demo[];
@@ -873,13 +956,20 @@ export async function loadLivePublicDemosCatalog(): Promise<{
 }> {
   const api = await supabaseApi();
   const fromSupa = await api.getDemosFromSupabase();
-  if (fromSupa && fromSupa.length > 0) {
-    return {
-      demos: normalizeDemos(fromSupa).filter((d) => d.visible),
-      source: "supabase",
-    };
-  }
-  return { demos: getPublicDemos(), source: "defaults" };
+  const hasLive = Boolean(fromSupa && fromSupa.length > 0);
+  return {
+    demos: mergeLiveDemosWithDefaults(fromSupa),
+    source: hasLive ? "supabase" : "defaults",
+  };
+}
+
+/**
+ * External live-demo URL for a slug (never the portfolio /work path).
+ * Use for “View live demo” / “Open live site” CTAs.
+ */
+export function getExternalDemoHref(demo: Demo | undefined | null): string | null {
+  if (!demo?.href?.trim()) return null;
+  return rewriteBrokenHref(demo.href.trim());
 }
 
 /**

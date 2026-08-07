@@ -28,9 +28,9 @@ export type UseLivePublicDemosOptions = {
 /**
  * Public homepage + /work catalog.
  *
- * First paint uses hardcoded DEFAULT_DEMOS (fast, SEO-safe).
- * Then hydrates from Supabase (demos + ordered featured slugs) so Admin
- * Featured Work / SEO edits go live without a redeploy.
+ * First paint uses DEFAULT_DEMOS (fast, SEO-safe).
+ * Then hydrates from Supabase merged over defaults so /admin edits to href,
+ * title, description, image, and featured order go live without a redeploy.
  *
  * Listens for bdf:demos-published so same-browser admin saves refresh the grid.
  */

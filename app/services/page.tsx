@@ -4,7 +4,9 @@ import { Check } from "lucide-react";
 import BrandingCard from "@/components/BrandingCard";
 import ServiceAreas from "@/components/ServiceAreas";
 import ReferralDiscountNote from "@/components/ReferralDiscountNote";
+import DemoLiveLink from "@/components/DemoLiveLink";
 import { canonicalUrl } from "@/lib/constants";
+import { loadLivePublicDemosCatalog } from "@/lib/demos";
 
 export const metadata: Metadata = {
   title:
@@ -79,7 +81,13 @@ const faqs = [
   { q: "What if I just need a logo or business cards?", a: "Branding add-ons can be bought on their own — no website required. Visit the business cards page." },
 ];
 
-export default function Services() {
+export default async function Services() {
+  // Live admin catalog — every “live demo” CTA uses forge_demos.href (not hard-coded URLs)
+  const { demos } = await loadLivePublicDemosCatalog();
+  const bySlug = new Map(demos.map((d) => [d.slug.toLowerCase(), d]));
+  const fiesta = bySlug.get("fiesta-taqueria");
+  const hickory = bySlug.get("hickory-forge-steakhouse");
+
   return (
     <div className="mx-auto max-w-6xl px-5 py-12">
       {/* Header */}
@@ -123,7 +131,13 @@ export default function Services() {
           <div className="mt-auto pt-8">
             <Link href="/quote" className="btn btn-secondary w-full">Start a Starter Site →</Link>
             <p className="text-center text-[12.5px] text-[var(--text-muted)] mt-3">
-              See it live: <a href="https://smoky-wheels.lovable.app" target="_blank" rel="noopener noreferrer" className="underline hover:text-[var(--copper-bright)]">Smoky Wheels demo</a>
+              See it live:{" "}
+              <DemoLiveLink
+                demo={fiesta}
+                className="underline hover:text-[var(--copper-bright)]"
+              >
+                {fiesta?.title || "Food truck"} demo
+              </DemoLiveLink>
             </p>
           </div>
         </div>
@@ -159,9 +173,12 @@ export default function Services() {
                 Hickory Forge write-up
               </Link>
               {" · "}
-              <a href="https://hickory-forge-steakhouse.lovable.app" target="_blank" rel="noopener noreferrer" className="underline hover:text-[var(--copper-bright)]">
+              <DemoLiveLink
+                demo={hickory}
+                className="underline hover:text-[var(--copper-bright)]"
+              >
                 live demo
-              </a>
+              </DemoLiveLink>
             </p>
           </div>
         </div>

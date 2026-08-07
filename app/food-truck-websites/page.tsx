@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { canonicalUrl, SITE_URL, CONTACT_EMAIL } from "@/lib/constants";
+import DemoLiveLink, { DemoPortfolioOrLiveLink } from "@/components/DemoLiveLink";
+import { loadLivePublicDemosCatalog } from "@/lib/demos";
 
 export const metadata: Metadata = {
   title:
@@ -107,7 +109,13 @@ const faqSchema = {
   })),
 };
 
-export default function FoodTruckWebsites() {
+export default async function FoodTruckWebsites() {
+  const { demos } = await loadLivePublicDemosCatalog();
+  const bySlug = new Map(demos.map((d) => [d.slug.toLowerCase(), d]));
+  const fiesta = bySlug.get("fiesta-taqueria");
+  const smash = bySlug.get("cumberland-smash");
+  const cluckin = bySlug.get("cluckin-chaos");
+
   return (
     <div className="mx-auto max-w-3xl px-5 py-12">
       <script
@@ -332,15 +340,15 @@ export default function FoodTruckWebsites() {
             <div className="text-[11px] uppercase tracking-wider text-[#8a9599]">
               Featured · Food truck
             </div>
-            <Link
-              href="/work/fiesta-taqueria"
+            <DemoPortfolioOrLiveLink
+              demo={fiesta}
               className="mt-1 block font-semibold tracking-tight text-white hover:text-[#f4a261]"
             >
-              Fiesta Taqueria
-            </Link>
+              {fiesta?.title || "Fiesta Taqueria"}
+            </DemoPortfolioOrLiveLink>
             <p className="mt-1.5 text-[14.5px] text-[#c8cfd3] leading-relaxed">
-              Mexican food truck example with a readable menu, today&apos;s
-              location, and catering notes for Wayne County and lake traffic.
+              {fiesta?.description ||
+                "Mexican food truck example with a readable menu, today's location, and catering notes for Wayne County and lake traffic."}
             </p>
             <Link
               href="/work/fiesta-taqueria"
@@ -348,78 +356,55 @@ export default function FoodTruckWebsites() {
             >
               Read the example →
             </Link>
-          </li>
-          <li className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-5">
-            <div className="text-[11px] uppercase tracking-wider text-[#8a9599]">
-              Featured · Food truck
-            </div>
-            <Link
-              href="/work/smoky-wheels"
-              className="mt-1 block font-semibold tracking-tight text-white hover:text-[#f4a261]"
-            >
-              Smoky Wheels
-            </Link>
-            <p className="mt-1.5 text-[14.5px] text-[#c8cfd3] leading-relaxed">
-              Location updates, menu, and festival stops for a truck that moves
-              around the lake — a simple reference for Kentucky food truck
-              sites.
-            </p>
-            <Link
-              href="/work/smoky-wheels"
-              className="mt-2 inline-block text-[13px] text-[#f4a261] underline underline-offset-2 hover:text-white"
-            >
-              Read the example →
-            </Link>
-          </li>
-          <li className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-5">
-            <div className="text-[11px] uppercase tracking-wider text-[#8a9599]">
-              Featured · Food truck
-            </div>
-            <a
-              href="https://cumberland-smash.vercel.app"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-1 block font-semibold tracking-tight text-white hover:text-[#f4a261]"
-            >
-              Cumberland Smash ↗
-            </a>
-            <p className="mt-1.5 text-[14.5px] text-[#c8cfd3] leading-relaxed">
-              Smashburger truck for Lake Cumberland — menu, today&apos;s
-              location, and weekend lake-road stops.
-            </p>
-            <a
-              href="https://cumberland-smash.vercel.app"
-              target="_blank"
-              rel="noopener noreferrer"
+            {" · "}
+            <DemoLiveLink
+              demo={fiesta}
               className="mt-2 inline-block text-[13px] text-[#f4a261] underline underline-offset-2 hover:text-white"
             >
               Open live demo →
-            </a>
+            </DemoLiveLink>
           </li>
           <li className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-5">
             <div className="text-[11px] uppercase tracking-wider text-[#8a9599]">
               Featured · Food truck
             </div>
-            <a
-              href="https://cluckin-chaos.vercel.app"
-              target="_blank"
-              rel="noopener noreferrer"
+            <DemoPortfolioOrLiveLink
+              demo={smash}
               className="mt-1 block font-semibold tracking-tight text-white hover:text-[#f4a261]"
             >
-              Cluckin Chaos ↗
-            </a>
+              {smash?.title || "Cumberland Smash"} ↗
+            </DemoPortfolioOrLiveLink>
             <p className="mt-1.5 text-[14.5px] text-[#c8cfd3] leading-relaxed">
-              Crispy chicken truck with live location, bold menu, and
-              festival-ready layout for Lake Cumberland operators.
+              {smash?.description ||
+                "Smashburger truck for Lake Cumberland — menu, today's location, and weekend lake-road stops."}
             </p>
-            <a
-              href="https://cluckin-chaos.vercel.app"
-              target="_blank"
-              rel="noopener noreferrer"
+            <DemoLiveLink
+              demo={smash}
               className="mt-2 inline-block text-[13px] text-[#f4a261] underline underline-offset-2 hover:text-white"
             >
               Open live demo →
-            </a>
+            </DemoLiveLink>
+          </li>
+          <li className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-5">
+            <div className="text-[11px] uppercase tracking-wider text-[#8a9599]">
+              Featured · Food truck
+            </div>
+            <DemoPortfolioOrLiveLink
+              demo={cluckin}
+              className="mt-1 block font-semibold tracking-tight text-white hover:text-[#f4a261]"
+            >
+              {cluckin?.title || "Cluckin Chaos"} ↗
+            </DemoPortfolioOrLiveLink>
+            <p className="mt-1.5 text-[14.5px] text-[#c8cfd3] leading-relaxed">
+              {cluckin?.description ||
+                "Crispy chicken truck with live location, bold menu, and festival-ready layout for Lake Cumberland operators."}
+            </p>
+            <DemoLiveLink
+              demo={cluckin}
+              className="mt-2 inline-block text-[13px] text-[#f4a261] underline underline-offset-2 hover:text-white"
+            >
+              Open live demo →
+            </DemoLiveLink>
           </li>
           <li className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-5">
             <div className="text-[11px] uppercase tracking-wider text-[#8a9599]">

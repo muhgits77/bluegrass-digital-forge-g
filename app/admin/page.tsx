@@ -43,7 +43,8 @@ import {
 // - SEO-focused edit modal: title counter, large description, image alt
 // - Graceful fallback to localStorage/IndexedDB on Supabase failure
 // - "Export to demos.ts" still works for baking into DEFAULT_DEMOS
-// - Public pages hydrate from Supabase so featured + SEO edits go live instantly
+// - Public pages hydrate from Supabase so featured + SEO + href edits go live instantly
+// - Every "View live demo" link on the public site uses forge_demos.href (admin is source of truth)
 // ==================================================================
 
 type FormData = Omit<Demo, "id">;

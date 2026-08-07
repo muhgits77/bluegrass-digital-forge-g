@@ -83,6 +83,37 @@ create policy "forge_demos_anon_delete"
   to anon, authenticated
   using (true);
 
+-- Fix known broken live URLs (safe to re-run)
+update public.forge_demos
+set href = 'https://anchorline-template.lovable.app/',
+    updated_at = now()
+where slug = 'anchorline-guide-service'
+  and (
+    href ilike '%lake-cumberland-lines.lovable.app%'
+    or href is null
+    or trim(href) = ''
+  );
+
+-- Upsert Anchorline if the row is missing entirely (admin + public need it)
+insert into public.forge_demos (
+  id, title, slug, category, href, description, image, image_alt,
+  sort_order, visible, featured
+)
+values (
+  'demo-9',
+  'Anchorline Guide Service',
+  'anchorline-guide-service',
+  'Fishing Guide',
+  'https://anchorline-template.lovable.app/',
+  'Lake Cumberland fishing guide site with species-based trip booking, captain bios, and trophy striper hunts.',
+  '/assets/demo-anchorline.png',
+  'Fishing guide website demo for Lake Cumberland with trip booking and captain bios',
+  9,
+  true,
+  true
+)
+on conflict (id) do nothing;
+
 -- forge_settings RLS (homepage featured slug order, etc.)
 alter table public.forge_settings enable row level security;
 

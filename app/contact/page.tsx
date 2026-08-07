@@ -53,6 +53,17 @@ export default function ContactPage() {
       <div className="label">CONTACT — MONTICELLO KY WEBSITE DESIGNER</div>
       <h1 className="section-title tracking-tight mt-1">Contact the Monticello KY Website Designer for Lake Cumberland &amp; Charleston SC Business Websites</h1>
       <p className="text-[#8a9599] mt-2">Talk to the Monticello KY website designer serving Lake Cumberland business websites, Wayne County web design, and now Charleston SC, Summerville &amp; the South Carolina Lowcountry. I usually reply within a few hours.</p>
+      <p className="text-[15px] text-[#c8cfd3] mt-4">
+        Prefer to email directly? Reach me at{" "}
+        <a
+          href={`mailto:${EMAIL}`}
+          className="text-[#f4a261] underline underline-offset-2 hover:text-white font-medium"
+        >
+          {EMAIL}
+        </a>
+        {" "}
+        — real replies from Monticello.
+      </p>
 
       {!sent ? (
         <form onSubmit={handleSubmit} className="mt-8 space-y-4" noValidate>
@@ -170,7 +181,14 @@ export default function ContactPage() {
       {!sent && (
         <>
           <div className="mt-10 text-[14.5px] text-[#9aa6ad] border-t border-[#1a2225] pt-6">
-            Prefer to call or text? Reach out via the email above and I&apos;ll happily share my number. Based in Monticello — serving the entire Lake Cumberland &amp; Wayne County region.
+            Prefer to call or text? Email{" "}
+            <a
+              href={`mailto:${EMAIL}`}
+              className="text-[#f4a261] underline underline-offset-2 hover:text-white"
+            >
+              {EMAIL}
+            </a>{" "}
+            and I&apos;ll happily share my number. Based in Monticello — serving the entire Lake Cumberland &amp; Wayne County region.
           </div>
 
           <div className="mt-6 flex flex-wrap gap-3">

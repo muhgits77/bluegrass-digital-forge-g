@@ -7,10 +7,10 @@ import ReferralDiscountNote from "@/components/ReferralDiscountNote";
 
 const EMAIL = CONTACT_EMAIL;
 
-/** TruckDash plan query → budget label (Buy Now buttons use ?plan=starter | ?plan=pro). */
+/** TruckDash plan query → budget label (legacy ?plan=starter|pro still recognized). */
 const TRUCKDASH_PLAN_BUDGET: Record<string, string> = {
-  starter: "TruckDash Starter — $1,497 one-time",
-  pro: "TruckDash Pro — $2,497 (or $1,997 launch)",
+  starter: "TruckDash — custom quote",
+  pro: "TruckDash — custom quote",
 };
 
 /** Read ?plan= without useSearchParams — avoids Suspense “Loading quote form…” flash. */
@@ -83,10 +83,9 @@ const mustHaveOptions = [
 ];
 
 const budgetOptions = [
-  "Starter Site — from $1,200",
-  "Business Suite — from $2,500",
-  "TruckDash Starter — $1,497 one-time",
-  "TruckDash Pro — $2,497 (or $1,997 launch)",
+  "Starter Site — KY from $1,200 · SC Lowcountry $1,550",
+  "Business Suite — KY from $2,500 · SC Lowcountry $3,250",
+  "TruckDash — custom quote",
   "Not sure yet",
 ];
 
@@ -127,7 +126,7 @@ export default function QuotePage() {
   const [submittedBusiness, setSubmittedBusiness] = useState("");
   const [truckDashPlan, setTruckDashPlan] = useState<string | null>(null);
 
-  // Prefill budget + goals when arriving from TruckDash Buy Now (?plan=starter|pro)
+  // Prefill budget when arriving from TruckDash with legacy ?plan=starter|pro
   // Uses window.location so the form paints immediately (no Suspense fallback).
   useEffect(() => {
     const plan = getPlanFromLocation();
@@ -248,12 +247,12 @@ export default function QuotePage() {
         <p className="mt-2 text-[#8a9599]">A few quick questions for your Wayne County, Lake Cumberland, or Charleston SC / Lowcountry project. Flat price proposal from the local Monticello builder. Real responses, no automated fluff. Takes 4–6 minutes.</p>
         {truckDashPlan && (
           <div className="mt-4 rounded-xl border border-[#f4a261]/35 bg-[#0a0c0f] px-4 py-3 text-[14px] text-[#c8cfd3]">
-            <span className="font-medium text-[#f4a261]">TruckDash {truckDashPlan === "pro" ? "Pro" : "Starter"}</span>
+            <span className="font-medium text-[#f4a261]">TruckDash</span>
             {" — "}
-            interest noted. Budget is pre-filled; complete the form and Brian will follow up on purchase details.
+            interest noted. Budget is pre-filled; complete the form and Brian will follow up with details.
             {" "}
             <Link href="/truckdash" className="underline hover:text-white text-[#d4a373]">
-              View TruckDash plans
+              About TruckDash
             </Link>
           </div>
         )}
@@ -303,7 +302,7 @@ export default function QuotePage() {
                     value={form.business} 
                     onChange={(e) => update("business", e.target.value)} 
                     required 
-                    placeholder="Smoky Wheels BBQ" 
+                    placeholder="Fiesta Taqueria" 
                     autoComplete="organization"
                   />
                 </div>
@@ -681,7 +680,7 @@ export default function QuotePage() {
           </Link>
           {" · "}
           <Link href="/truckdash" className="text-[#c17a5a] hover:underline">
-            TruckDash plans
+            TruckDash
           </Link>
         </div>
       )}

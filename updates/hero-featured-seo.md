@@ -31,7 +31,7 @@
 ### Key Changes:
 - Added/replaced with "FEATURED WORK"
 - Copy: "Here’s the kind of work I build for local businesses"
-- Shows 4 live demos (Hickory Forge, Smoky Wheels, etc.) via DemoCard
+- Shows live demos (Hickory Forge, Fiesta Taqueria, etc.) via DemoCard
 - Straightforward, shows quality: "Real websites for restaurants, food trucks, guides, and shops around Lake Cumberland — built by a neighbor in Monticello."
 - Links to full /work
 

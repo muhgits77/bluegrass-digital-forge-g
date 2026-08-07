@@ -31,62 +31,6 @@ export type DemoLandingContent = {
 };
 
 const LANDINGS: Record<string, DemoLandingContent> = {
-  "smoky-wheels": {
-    slug: "smoky-wheels",
-    title: "Food Truck Website Example | Smoky Wheels – Lake Cumberland",
-    metaDescription:
-      "A working example of a food truck website for Lake Cumberland — today’s location, a simple menu, and festival stops. Built in Monticello, KY. Portfolio piece by Bluegrass Digital Forge.",
-    h1: "Smoky Wheels – Food Truck Website Example",
-    categoryLabel: "Food truck",
-    intro:
-      "A working example of a food truck site built for the way operators actually move around Lake Cumberland — location updates, a simple menu, and festival stops. Built in Monticello as a portfolio piece you can click through and study.",
-    featuresHeading: "What’s on this example",
-    features: [
-      "A clear “where we are today” area for daily spots and hours",
-      "Menu with photos and short descriptions",
-      "Festival and event notes so regulars know the weekend plan",
-      "Easy phone and map links for people searching from the road",
-      "A simple path for pre-orders or catering questions",
-      "Mobile layout that works in a parking lot or marina lot",
-    ],
-    sampleHeading: "Sample menu language (example only)",
-    sampleIntro:
-      "Real sites need readable text Google and customers can both use — not just photos. Here’s the kind of wording that fits a Lake Cumberland truck:",
-    sampleItems: [
-      {
-        name: "Smoked brisket sandwich",
-        detail:
-          "Slow-smoked, house sauce, pickles — the kind of plate people look up before they leave the ramp.",
-      },
-      {
-        name: "Lake day nachos",
-        detail:
-          "Pulled pork, queso, jalapeños — built for groups walking up from the lot.",
-      },
-      {
-        name: "Festival special",
-        detail:
-          "Half rack and slaw when the truck’s booked at a weekend event near Burnside or downtown Monticello.",
-      },
-      {
-        name: "Where we are today",
-        detail:
-          "Example note: “Conley Bottom marina lot · 11–3” or “Monticello lunch stop · sold out of brisket after 1.”",
-      },
-    ],
-    serviceAreaNote:
-      "Language on a truck site like this often mentions marina lots, Main Street lunch stops, and festival weekends from Monticello toward Jamestown, Russell Springs, Burnside, and Somerset — wherever the week actually takes the truck.",
-    whyItHelps:
-      "Food truck customers mostly need two answers: where are you, and what’s on the menu. A clear site makes those easy to find on a phone, so people aren’t guessing from a half-updated social post while they’re already in the car.",
-    specialtyHub: "/food-truck-websites",
-    specialtyHubLabel: "Food truck websites",
-    relatedSlugs: [
-      "fiesta-taqueria",
-      "hickory-forge-steakhouse",
-      "anchorline-guide-service",
-    ],
-  },
-
   "anchorline-guide-service": {
     slug: "anchorline-guide-service",
     title: "Fishing Guide Website Example | Lake Cumberland",
@@ -138,7 +82,7 @@ const LANDINGS: Record<string, DemoLandingContent> = {
     specialtyHubLabel: "Fishing guide websites",
     relatedSlugs: [
       "landing-point-bait-tackle",
-      "smoky-wheels",
+      "fiesta-taqueria",
       "hickory-forge-steakhouse",
     ],
   },
@@ -193,7 +137,7 @@ const LANDINGS: Record<string, DemoLandingContent> = {
     specialtyHub: "/food-truck-websites",
     specialtyHubLabel: "Food truck websites",
     relatedSlugs: [
-      "smoky-wheels",
+      "ridge-run-smokehouse",
       "hickory-forge-steakhouse",
       "anchorline-guide-service",
     ],
@@ -251,7 +195,7 @@ const LANDINGS: Record<string, DemoLandingContent> = {
     relatedSlugs: [
       "sunny-hollow-donut-dash",
       "fiesta-taqueria",
-      "smoky-wheels",
+      "ridge-run-smokehouse",
     ],
   },
 
@@ -306,7 +250,7 @@ const LANDINGS: Record<string, DemoLandingContent> = {
     specialtyHubLabel: "Fishing guide websites",
     relatedSlugs: [
       "anchorline-guide-service",
-      "smoky-wheels",
+      "fiesta-taqueria",
       "hickory-forge-steakhouse",
     ],
   },
@@ -363,7 +307,7 @@ const LANDINGS: Record<string, DemoLandingContent> = {
     relatedSlugs: [
       "hickory-forge-steakhouse",
       "fiesta-taqueria",
-      "smoky-wheels",
+      "ridge-run-smokehouse",
     ],
   },
 
@@ -587,15 +531,13 @@ const LANDINGS: Record<string, DemoLandingContent> = {
     relatedSlugs: [
       "hickory-forge-steakhouse",
       "fiesta-taqueria",
-      "cumberland-smash",
+      "sunny-hollow-donut-dash",
     ],
   },
 };
 
 /** Short blurbs for hub “Live examples” cards — unique from full landing intros. */
 export const HUB_DEMO_BLURBS: Record<string, string> = {
-  "smoky-wheels":
-    "Location updates, menu, and festival stops for a truck that moves around the lake — a simple reference for Kentucky food truck sites.",
   "anchorline-guide-service":
     "Trip types, captain intro, and a plain booking path for striper and multi-species days on Lake Cumberland.",
   "fiesta-taqueria":

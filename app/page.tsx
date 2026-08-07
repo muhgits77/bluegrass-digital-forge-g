@@ -191,7 +191,7 @@ export default function Home() {
               <div className="relative rounded-[1.75rem] border border-[rgba(212,140,74,0.28)] bg-[rgba(2,4,3,0.55)] backdrop-blur-2xl p-6 sm:p-7 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.85),0_0_0_1px_rgba(255,255,255,0.04)_inset]">
                 <div className="absolute -top-px left-8 right-8 h-px bg-gradient-to-r from-transparent via-[var(--copper-bright)] to-transparent opacity-80" />
                 <div className="text-[11px] tracking-[0.2em] uppercase text-[var(--copper-bright)] font-semibold mb-3">
-                  Starting investment
+                  Kentucky base rates
                 </div>
                 <div className="flex items-baseline gap-2">
                   <span className="text-[clamp(2.8rem,6vw,3.6rem)] font-semibold tracking-[-0.05em] text-white tabular-nums">
@@ -202,8 +202,9 @@ export default function Home() {
                   </span>
                 </div>
                 <p className="mt-3 text-[14.5px] text-white/75 leading-relaxed">
-                  Business Suites from $2,500. Flat rate, no monthly lock-in for
-                  the build. Full ownership — you own the code.
+                  Business Suites from $2,500. SC Lowcountry: $1,550 / $3,250.
+                  Flat rate, no monthly lock-in for the build. Full ownership —
+                  you own the code.
                 </p>
                 <ul className="mt-5 space-y-2.5 text-[14px] text-white/80">
                   {[
@@ -412,7 +413,13 @@ export default function Home() {
             >
               food trucks
             </Link>
-            {" · Ask about TruckDash"}
+            {" · "}
+            <Link
+              href="/quote"
+              className="text-[var(--copper-bright)] underline hover:text-white"
+            >
+              Ask about TruckDash
+            </Link>
             . Towns:{" "}
             <Link
               href="/service-areas#jamestown"

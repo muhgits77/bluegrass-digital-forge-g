@@ -63,8 +63,8 @@ export async function GET(request: Request) {
     // Mock top demos
     const mock = [
       { title: "Hickory Forge Steakhouse", views: 432 },
-      { title: "Smoky Wheels", views: 378 },
-      { title: "Fiesta Taqueria", views: 289 },
+      { title: "Fiesta Taqueria", views: 378 },
+      { title: "Cumberland Smash", views: 289 },
       { title: "Bluegrass Fence Co.", views: 210 },
       { title: "Anchorline Guide Service", views: 198 },
     ];

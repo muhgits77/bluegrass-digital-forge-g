@@ -27,7 +27,6 @@ interface DemoCardProps {
  */
 const demoImageMap: Record<string, string> = {
   "Hickory Forge Steakhouse": "/assets/demo-hickory-forge.jpg",
-  "Smoky Wheels": "/assets/demo-smoky-wheels.jpg",
   "Fiesta Taqueria": "/assets/demo-fiesta-taqueria.jpg",
   "Ignite Fitness Company": "/assets/demo-ignite-fitness.jpg",
   "Summit Tire & Auto": "/assets/demo-summit-tire.jpg",
@@ -46,7 +45,7 @@ const demoImageMap: Record<string, string> = {
   "Sea Island Soul": "/assets/demo-sea-island-soul.jpg",
   "La Hacienda Cumberland": "/assets/demo-la-hacienda.jpg",
   "Bourbon Ridge Artisan Studio": "/assets/demo-bourbon-ridge.png",
-  TruckDash: "/assets/demo-smoky-wheels.jpg",
+  TruckDash: "/assets/demo-cumberland-smash.jpg",
   "Cumberland Smash": "/assets/demo-cumberland-smash.jpg",
   "Cluckin Chaos": "/assets/demo-cluckin-chaos.jpg",
   "Bluegrass Market & Mercantile": "/assets/demo-bluegrass-market.webp",
@@ -60,8 +59,6 @@ const demoAltMap: Record<string, string> = {
     "Mexican food truck website demo for Wayne County and Lake Cumberland with digital menu and location updates",
   "Hickory Forge Steakhouse":
     "Steakhouse website demo for Lake Cumberland restaurants with digital menu and reservations",
-  "Smoky Wheels":
-    "Kentucky food truck website demo for Lake Cumberland with live location updates and online ordering",
   "Ridge Pasture Care":
     "Land and pasture services website demo for Wayne County with fence building and free quotes",
   "Landing Point Bait & Tackle":

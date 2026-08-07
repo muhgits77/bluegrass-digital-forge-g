@@ -94,7 +94,7 @@ export default async function Services() {
       <div className="max-w-3xl">
         <div className="label tracking-[2px]">SERVICES &amp; PRICING — MONTICELLO KY WEBSITE DESIGNER</div>
         <h1 className="section-title tracking-tight mt-2">Monticello KY Website Designer — Flat Pricing &amp; Full Ownership for Lake Cumberland Business Websites</h1>
-        <p className="mt-3 text-lg text-[#9aa6ad]">Transparent <strong className="text-[#c8cfd3] font-medium">flat rate</strong> pricing — one-time, no surprises. Starter Sites from $1,200 and Business Suites from $2,500 for food trucks, restaurants, marinas, and shops from Monticello to Jamestown, Burnside, Russell Springs, Nancy, and Albany. When we&apos;re done, <strong className="text-[#c8cfd3] font-medium">you own the code</strong> with full ownership forever.</p>
+        <p className="mt-3 text-lg text-[#9aa6ad]">Transparent <strong className="text-[#c8cfd3] font-medium">flat rate</strong> pricing — one-time, no surprises. <strong className="text-[#c8cfd3] font-medium">Kentucky base rates:</strong> Starter Sites $1,200 · Business Suites from $2,500 for food trucks, restaurants, marinas, and shops from Monticello to Jamestown, Burnside, Russell Springs, Nancy, and Albany. <strong className="text-[#c8cfd3] font-medium">South Carolina Lowcountry:</strong> Starter Sites $1,550 · Business Suites $3,250. When we&apos;re done, <strong className="text-[#c8cfd3] font-medium">you own the code</strong> with full ownership forever.</p>
         <p className="text-[14.5px] text-[#9aa6ad] mt-1">Handcrafted in Monticello for Lake Cumberland. Also serving{" "}
           <Link href="/south-carolina" className="underline hover:text-[#f4a261]">Charleston SC web design</Link>,{" "}
           <Link href="/south-carolina" className="underline hover:text-[#f4a261]">Lowcountry food truck websites</Link>, and{" "}
@@ -107,7 +107,7 @@ export default async function Services() {
         <strong className="text-[#c8cfd3] font-medium">you own the code</strong> and get full ownership of the site. No subscriptions required to keep your build.
       </p>
       <div className="mt-5 grid lg:grid-cols-2 gap-5">
-        {/* Starter Sites */}
+        {/* Starter Sites — Kentucky base rates */}
         <div className="pricing-card rounded-3xl p-8 md:p-9 flex flex-col">
           <div>
             <h3 className="text-3xl font-semibold tracking-tight">Starter Sites</h3>
@@ -118,7 +118,7 @@ export default async function Services() {
             <span className="text-5xl font-semibold tracking-[-2.5px] tabular-nums text-[var(--cream)]">$1,200</span>
             <span className="text-[14px] text-[var(--text-muted)]">starting at • one-time</span>
           </div>
-          <div className="mt-1 text-[11px] uppercase tracking-[1.5px] text-[var(--copper-bright)]">FLAT SCOPE-BASED PRICING</div>
+          <div className="mt-1 text-[11px] uppercase tracking-[1.5px] text-[var(--copper-bright)]">KENTUCKY BASE RATES · FLAT PRICING</div>
 
           <ul className="mt-7 space-y-3 text-[15px]">
             {starterFeatures.map((f, i) => (
@@ -142,7 +142,7 @@ export default async function Services() {
           </div>
         </div>
 
-        {/* Business Suites — MOST POPULAR */}
+        {/* Business Suites — MOST POPULAR · Kentucky base rates */}
         <div className="pricing-card popular rounded-3xl p-8 md:p-9 flex flex-col">
           <div className="flex items-center gap-2 mb-1">
             <h3 className="text-3xl font-semibold tracking-tight">Business Suites</h3>
@@ -154,8 +154,8 @@ export default async function Services() {
             <span className="text-5xl font-semibold tracking-[-2.5px] tabular-nums text-[var(--cream)]">$2,500</span>
             <span className="text-[14px] text-[var(--text-muted)]">starting at • one-time</span>
           </div>
-          <div className="mt-1 text-[11px] uppercase tracking-[1.5px] text-[var(--copper-bright)]">FLAT SCOPE-BASED PRICING</div>
-          <p className="mt-1.5 text-[12.5px] text-[var(--text-muted)]">Most local businesses complete their suite between $2,500–$4,500 depending on custom needs.</p>
+          <div className="mt-1 text-[11px] uppercase tracking-[1.5px] text-[var(--copper-bright)]">KENTUCKY BASE RATES · FLAT PRICING</div>
+          <p className="mt-1.5 text-[12.5px] text-[var(--text-muted)]">Most local Kentucky businesses complete their suite between $2,500–$4,500 depending on custom needs.</p>
 
           <ul className="mt-7 space-y-3 text-[15px]">
             {businessFeatures.map((f, i) => (
@@ -225,37 +225,19 @@ export default async function Services() {
         </div>
       </div>
 
-      {/* TruckDash Web App — tiered product pricing (separate from website packages) */}
-      <div className="mt-10 rounded-3xl border border-[#f4a261]/30 bg-[#0a0c0f] p-7 md:p-9">
+      {/* TruckDash — low-pressure mention (separate from website packages) */}
+      <div className="mt-10 rounded-3xl border border-[#1f282b] bg-[#0a0c0f] p-7 md:p-9">
         <div className="text-[#f4a261] text-xs tracking-[1.5px] mb-1">WEB APP — TRUCKDASH</div>
-        <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">TruckDash for Kentucky food truckers</h2>
+        <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">Need more than a website?</h2>
         <p className="mt-2 text-[15px] text-[#c8cfd3] max-w-2xl">
-          Dashboard, schedule manager, flyer studio, live map with location sharing, offline mode, and one-tap JSON export. Honest pricing, no hidden fees, lifetime updates for your purchase. Referral discount does not apply to Web Apps.
+          Ask about TruckDash — our food-truck command center for schedules, live location sharing, and flyer tools. Custom quote; referral discount does not apply to Web Apps.
         </p>
-        <div className="mt-5 grid sm:grid-cols-2 gap-4 max-w-xl">
-          <div className="rounded-2xl border border-[#1f282b] bg-[#050708]/80 p-4">
-            <div className="text-sm text-[#8a9599]">Starter</div>
-            <div className="text-2xl font-semibold tabular-nums tracking-tight">$1,497</div>
-            <p className="text-[13px] text-[#9aa6ad] mt-1">Core dashboard, flyer studio, live map, offline mode, lifetime updates</p>
-          </div>
-          <div className="rounded-2xl border border-[#c17a5a]/50 bg-[#050708]/80 p-4">
-            <div className="flex items-center gap-2">
-              <span className="text-sm text-[#8a9599]">Pro</span>
-              <span className="badge text-[9px] py-px">MOST POPULAR</span>
-            </div>
-            <div className="text-2xl font-semibold tabular-nums tracking-tight">$2,497</div>
-            <p className="text-[13px] text-[#9aa6ad] mt-1">
-              Everything in Starter + Advanced Flyer Studio, multi-stop routing, recurring events, menu pricing, social captions, priority support
-            </p>
-            <p className="text-[13px] text-[#d4a373] mt-1">Launch: first 10 trucks get Pro for $1,997</p>
-          </div>
-        </div>
         <div className="mt-5 flex flex-wrap gap-3">
-          <Link href="/truckdash" className="btn btn-primary">
-            Choose Your TruckDash Plan →
+          <Link href="/quote" className="btn btn-primary">
+            Ask about TruckDash →
           </Link>
-          <Link href="/quote?plan=pro" className="btn btn-secondary">
-            Buy Pro →
+          <Link href="/truckdash" className="btn btn-secondary">
+            Learn more
           </Link>
         </div>
       </div>

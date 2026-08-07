@@ -34,7 +34,7 @@ export const metadata: Metadata = {
 const faqs = [
   {
     q: "How much does a food truck website cost in Kentucky?",
-    a: "Starter Sites start at $1,200 one-time; fuller Business Suites from $2,500 if you need more pages, ordering, or custom features. TruckDash (the food-truck web app) is priced separately. Flat scope-based pricing — no monthly retainer required for the website build. You own the finished site and code.",
+    a: "Kentucky base rates: Starter Sites start at $1,200 one-time; Business Suites from $2,500. South Carolina Lowcountry: Starter Sites $1,550 · Business Suites $3,250. TruckDash (the food-truck web app) is a separate custom quote. Flat scope-based pricing — no monthly retainer required for the website build. You own the finished site and code.",
   },
   {
     q: "Can I update my location from my phone?",
@@ -173,7 +173,7 @@ export default async function FoodTruckWebsites() {
           Monticello for Kentucky food truckers who hate monthly agency fees.
         </p>
         <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-[14.5px] text-[#c8cfd3]">
-          <li>• Starter Sites from $1,200 one-time</li>
+          <li>• Kentucky Starter Sites from $1,200 one-time</li>
           <li>• You own the code forever</li>
           <li>• No monthly fees for the website itself</li>
           <li>• Built by a neighbor — not a call center</li>
@@ -324,7 +324,7 @@ export default async function FoodTruckWebsites() {
         </p>
       </div>
 
-      {/* Live portfolio examples — first-party landings + TruckDash */}
+      {/* Live portfolio examples — first-party landings */}
       <div className="mt-12">
         <div className="label tracking-[1.5px]">LIVE EXAMPLES</div>
         <h2 className="text-2xl font-semibold tracking-tight mt-1">
@@ -406,28 +406,6 @@ export default async function FoodTruckWebsites() {
               Open live demo →
             </DemoLiveLink>
           </li>
-          <li className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-5">
-            <div className="text-[11px] uppercase tracking-wider text-[#8a9599]">
-              Featured · Food truck app
-            </div>
-            <Link
-              href="/truckdash"
-              className="mt-1 block font-semibold tracking-tight text-white hover:text-[#f4a261]"
-            >
-              TruckDash
-            </Link>
-            <p className="mt-1.5 text-[14.5px] text-[#c8cfd3] leading-relaxed">
-              Bluegrass Command Center — schedule, live map, flyer studio, and
-              offline tools. Flat one-time pricing separate from the website
-              build.
-            </p>
-            <Link
-              href="/truckdash"
-              className="mt-2 inline-block text-[13px] text-[#f4a261] underline underline-offset-2 hover:text-white"
-            >
-              Choose your TruckDash plan →
-            </Link>
-          </li>
         </ul>
       </div>
 
@@ -441,32 +419,24 @@ export default async function FoodTruckWebsites() {
         </Link>
       </div>
 
-      {/* TruckDash */}
-      <div className="mt-10 rounded-3xl border border-[#f4a261]/30 bg-[#0a0c0f] p-7">
+      {/* TruckDash — low-pressure CTA only */}
+      <div className="mt-10 rounded-3xl border border-[#1f282b] bg-[#0a0c0f] p-7">
         <div className="text-[#f4a261] text-xs tracking-[1.5px] mb-1">
-          TRUCKDASH — FOOD TRUCK WEB APP
+          TRUCKDASH
         </div>
         <h2 className="text-xl font-semibold tracking-tight">
-          Need the Bluegrass Command Center, not just a website?
+          Need more than a website?
         </h2>
         <p className="mt-2 text-[15px] text-[#c8cfd3]">
-          TruckDash is our dashboard + flyer studio for Kentucky food truckers —
-          schedule manager, live map with location sharing, offline mode, and
-          lifetime updates. Starter $1,497 · Pro $2,497 one-time (Most Popular):
-          Advanced Flyer Studio, multi-stop routing, recurring event calendar,
-          advanced menu pricing, social caption generator, priority support
-          &amp; custom branding guidance — launch offer: first 10 trucks get Pro
-          for $1,997 through August 2026.
+          Ask about TruckDash — our food-truck command center for schedules, live
+          location sharing, and flyer tools.
         </p>
         <div className="mt-4 flex flex-wrap gap-3">
-          <Link href="/truckdash" className="btn btn-primary">
-            Choose Your TruckDash Plan →
+          <Link href="/quote" className="btn btn-primary">
+            Ask about TruckDash →
           </Link>
-          <Link href="/quote?plan=starter" className="btn btn-secondary">
-            Buy Starter
-          </Link>
-          <Link href="/quote?plan=pro" className="btn btn-secondary">
-            Buy Pro
+          <Link href="/truckdash" className="btn btn-secondary">
+            Learn more
           </Link>
         </div>
       </div>
@@ -580,9 +550,9 @@ export default async function FoodTruckWebsites() {
         <p className="mt-3 text-[15px] text-[#c8cfd3]">
           Charleston food trucks roll to the waterfront, King Street pop-ups,
           North Charleston markets, Firefly Distillery events, Summerville town
-          days, and festivals across the Lowcountry. Same flat pricing and
-          neighborly process as our Lake Cumberland food truck sites. You own
-          the code.
+          days, and festivals across the Lowcountry. Same neighborly process as
+          our Lake Cumberland food truck sites — South Carolina Lowcountry rates:
+          Starter Sites $1,550 · Business Suites $3,250. You own the code.
         </p>
         <div className="mt-5">
           <Link

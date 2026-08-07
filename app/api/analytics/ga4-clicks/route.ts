@@ -17,8 +17,8 @@ const MOCK_RESPONSE = {
     totalClicks: 720,
     topDemos: [
       { title: "Hickory Forge Steakhouse", clicks: 142, path: "/templates/steakhouse" },
-      { title: "Smoky Wheels", clicks: 118, path: "/templates/food-truck" },
-      { title: "Fiesta Taqueria", clicks: 96, path: "/templates/mexican" },
+      { title: "Fiesta Taqueria", clicks: 118, path: "/templates/mexican" },
+      { title: "Cumberland Smash", clicks: 96, path: "/templates/food-truck" },
       { title: "Bluegrass Fence Co.", clicks: 78, path: "/templates/fencing" },
       { title: "Anchorline Guide Service", clicks: 64, path: "/templates/outdoor" },
     ],

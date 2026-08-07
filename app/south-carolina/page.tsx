@@ -61,7 +61,7 @@ const scBenefits = [
   "Authentic local voice — no generic copy or plastic stock photos. We research the real Lowcountry feel.",
   "Mobile-first and fast — critical when customers search on the go near the market, the battery, or the beaches.",
   "Conversion focused — clear menus, booking links, directions, and contact that turn searches into customers.",
-  "Flat pricing, full ownership — $1,200 Starter or $2,500 Business Suite. You own the code and site. No subscriptions.",
+  "Flat pricing, full ownership — South Carolina Lowcountry: Starter Sites $1,550 · Business Suites $3,250 (Kentucky base: $1,200 / from $2,500). You own the code and site. No subscriptions.",
   "Local SEO built-in — optimized for 'Web Design Charleston SC', 'Charleston food truck', 'Summerville restaurant' and city-specific terms.",
   "Same proven process we use for Kentucky marinas, guides, and food trucks — now available for the Lowcountry.",
 ];
@@ -270,8 +270,13 @@ export default function SouthCarolinaPage() {
 
       {/* Pricing teaser — reuses familiar language */}
       <div className="mt-12 text-center">
-        <p className="text-[#9aa6ad] max-w-md mx-auto">
-          Same flat pricing as our Kentucky projects. Starter Sites from <span className="font-semibold text-white">$1,200</span>. Business Suites from <span className="font-semibold text-white">$2,500</span>. 2–4 week typical launch.
+        <p className="text-[#9aa6ad] max-w-lg mx-auto">
+          South Carolina Lowcountry rates: Starter Sites{" "}
+          <span className="font-semibold text-white">$1,550</span>
+          {" · "}
+          Business Suites{" "}
+          <span className="font-semibold text-white">$3,250</span>
+          . Kentucky base rates: $1,200 / from $2,500. Same craft, full ownership. 2–4 week typical launch.
         </p>
 
         {/* Regional Pricing — additive, honest, clean language on SC page. Kentucky as base + SC Lowcountry 25-35% higher. Two-column format. */}

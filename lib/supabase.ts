@@ -13,6 +13,9 @@ import type { Demo } from './demos';
 const supabaseUrl = (process.env.NEXT_PUBLIC_SUPABASE_URL ?? '').trim();
 const supabaseAnonKey = (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? '').trim();
 
+/** Runtime NEXT_PUBLIC_SUPABASE_URL (empty string if unset). Safe to surface in admin diagnostics. */
+export const publicSupabaseUrl = supabaseUrl;
+
 export const isSupabaseConfigured = Boolean(supabaseUrl && supabaseAnonKey);
 
 export const supabase: SupabaseClient | null =

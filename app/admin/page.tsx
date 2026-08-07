@@ -17,6 +17,7 @@ import {
   normalizeDemos,
 } from "@/lib/demos";
 import type { SupabaseConnectionStatus } from "@/lib/supabase";
+import { supabase, publicSupabaseUrl } from "@/lib/supabase";
 import { CONTACT_EMAIL } from "@/lib/constants";
 import {
   loginAdmin,
@@ -88,8 +89,11 @@ export default function AdminPanel() {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [isSendingMagicLink, setIsSendingMagicLink] = useState(false);
   const [isSendingReset, setIsSendingReset] = useState(false);
+  const [diagCopied, setDiagCopied] = useState(false);
 
   const authBusy = isLoggingIn || isSendingMagicLink || isSendingReset;
+  const diagSupabaseUrl = publicSupabaseUrl || "NOT CONFIGURED";
+  const diagClientReady = supabase != null;
 
   const [demos, setDemos] = useState<Demo[]>([]);
   const [showModal, setShowModal] = useState(false);
@@ -937,6 +941,39 @@ export default function AdminPanel() {
               <p className="text-[11px] text-center text-[#6b787e] mt-6">
                 Protected with Supabase Auth. Session persists until you sign out.
               </p>
+
+              {/* TEMP diagnostic: which Supabase project this build is wired to */}
+              <div className="mt-5 pt-4 border-t border-[#1a2225]/80 text-[11px] text-[#6b787e] space-y-1.5">
+                <div className="flex flex-wrap items-start gap-x-2 gap-y-1">
+                  <span className="shrink-0 text-[#6b787e]">Supabase URL:</span>
+                  <span className="break-all text-[#8a9599] font-mono">
+                    {diagSupabaseUrl}
+                  </span>
+                  {publicSupabaseUrl ? (
+                    <button
+                      type="button"
+                      onClick={async () => {
+                        try {
+                          await navigator.clipboard.writeText(publicSupabaseUrl);
+                          setDiagCopied(true);
+                          setTimeout(() => setDiagCopied(false), 2000);
+                        } catch {
+                          /* ignore clipboard failures */
+                        }
+                      }}
+                      className="shrink-0 text-[#6b787e] hover:text-[#9aa6ad] underline-offset-2 hover:underline transition"
+                    >
+                      {diagCopied ? "Copied" : "Copy URL"}
+                    </button>
+                  ) : null}
+                </div>
+                <div>
+                  <span className="text-[#6b787e]">Client ready: </span>
+                  <span className={diagClientReady ? "text-[#8a9599]" : "text-red-400/80"}>
+                    {diagClientReady ? "Yes" : "No"}
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         ) : (
@@ -1582,16 +1619,19 @@ export default function AdminPanel() {
                     <p className="text-[10px] text-[#6b787e] mt-0.5">Where “Open live site” goes.</p>
                   </div>
 
-                  {/* Subtitle / Description */}
+                  {/* Subtitle / Description — full text shows on public demo cards (no clamp) */}
                   <div>
                     <label className="label mb-1 block">Subtitle / Description</label>
                     <textarea
                       value={form.description}
                       onChange={(e) => updateForm("description", e.target.value)}
-                      className="input w-full min-h-[68px] resize-y text-[14px] py-2"
+                      rows={6}
+                      className="input w-full min-h-[140px] resize-y text-[14px] leading-relaxed py-2.5"
                       placeholder="Warm steakhouse website with digital menu and reservations for Lake Cumberland visitors."
                     />
-                    <p className="text-[10px] text-[#6b787e] mt-0.5">Short blurb under the title on the card.</p>
+                    <p className="text-[10px] text-[#6b787e] mt-0.5">
+                      Full description on the public card (homepage + /work). Good for SEO — write a complete, local blurb.
+                    </p>
                   </div>
 
                   {/* Preview Image */}

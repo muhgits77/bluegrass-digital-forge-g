@@ -135,8 +135,9 @@ export default function DemoCard({
     demoAltMap[title] ||
     `${category} website demo for Lake Cumberland — ${title}, handcrafted in Monticello KY`;
 
+  // min-h keeps shorter cards even in a grid row; longer SEO descriptions grow the card naturally.
   const shellClass =
-    "demo-card shimmer-hover group min-h-[480px] sm:min-h-[500px] md:min-h-[520px] flex flex-col bg-[var(--bg-card)] border border-[var(--border)] overflow-hidden rounded-[1.35rem]";
+    "demo-card shimmer-hover group min-h-[460px] sm:min-h-[480px] md:min-h-[500px] h-full flex flex-col bg-[var(--bg-card)] border border-[var(--border)] overflow-hidden rounded-[1.35rem]";
 
   const primaryInner = (
     <>
@@ -197,7 +198,8 @@ export default function DemoCard({
         <h3 className="font-semibold text-[17px] leading-[1.18] mb-1.5 group-hover:text-[var(--copper-bright)] transition-colors duration-200">
           {title}
         </h3>
-        <p className="text-[var(--text-muted)] text-[14px] leading-relaxed line-clamp-3 min-h-[4.35rem]">
+        {/* Full description — no line-clamp; always in the DOM for visitors + SEO */}
+        <p className="text-[var(--text-muted)] text-[14px] sm:text-[14.5px] leading-[1.55] sm:leading-relaxed">
           {subtitle}
         </p>
 
@@ -205,7 +207,7 @@ export default function DemoCard({
           {SITE_TAGLINE}
         </p>
 
-        <div className="mt-auto pt-3">
+        <div className="mt-auto pt-3.5">
           <div className="inline-flex items-center gap-2 text-[14px] font-semibold text-[var(--copper-bright)] group-hover:text-[var(--cream)] transition-colors">
             <span>
               {isPortfolioLanding ? "View example" : "Open live site"}

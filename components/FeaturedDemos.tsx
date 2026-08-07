@@ -32,7 +32,7 @@ export default function FeaturedDemos({
   }
 
   return (
-    // 1-col mobile / 2-col tablet+ — cards stretch evenly via DemoCard min-h
+    // 1-col mobile / 2-col tablet+ — cards stretch evenly; full descriptions, no line-clamp
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 items-stretch">
       {demos.map((d) => (
         <DemoCard key={d.slug || d.href} {...d} />

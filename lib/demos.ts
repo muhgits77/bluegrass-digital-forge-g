@@ -1067,7 +1067,7 @@ export function generateDemosTsCode(demos: Demo[]): string {
 
 // NOTE FOR FUTURE EDITS:
 // To add many more demos (e.g. 30+ food trucks), just append objects to DEFAULT_DEMOS above.
-// Descriptions render on demo cards (line-clamp-3; keep blurbs ~2–3 lines / ~140–160 chars).
+// Descriptions render in full on demo cards (no line-clamp). Write complete, local SEO-friendly blurbs.
 // Always provide accurate local thumbnail paths.
 // Set featured: true (and a low sortOrder) for homepage "Featured Work" cards (max 6 shown).
 // Prefer Admin Panel → Featured Work section to swap demos without editing this file.

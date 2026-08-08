@@ -16,6 +16,10 @@ interface DemoCardProps {
   imageAlt?: string;
   slug?: string;
   isPortfolioLanding?: boolean;
+  /** Real client/community project (not a fictional demo) */
+  isLocalProject?: boolean;
+  /** Override primary CTA text (e.g. "Open live guide") */
+  ctaLabel?: string;
 }
 
 /**
@@ -51,6 +55,7 @@ const demoImageMap: Record<string, string> = {
   "Bluegrass Market & Mercantile": "/assets/demo-bluegrass-market.webp",
   "Lakeside Harmony Massage": "/assets/demo-lakeside-harmony.jpg",
   "Bluegrass Digital Forge Templates": "/assets/demo-bluegrass-templates.jpg",
+  "Monticello Eats & Finds": "/assets/demo-monticello-eats-and-finds.jpg",
 };
 
 /** Fallback alts when demos lack imageAlt — follows SEO pattern for main cards. */
@@ -103,6 +108,8 @@ const demoAltMap: Record<string, string> = {
     "Market and mercantile website demo for Central Kentucky with antiques and handmade goods",
   "Lakeside Harmony Massage":
     "Massage therapy website demo for Jamestown KY and Lake Cumberland with services and booking",
+  "Monticello Eats & Finds":
+    "Monticello Eats & Finds live food guide for Lake Cumberland — menus, hours, and directions for Wayne County restaurants and food trucks",
 };
 
 export default function DemoCard({
@@ -115,10 +122,22 @@ export default function DemoCard({
   imageAlt,
   slug,
   isPortfolioLanding,
+  isLocalProject,
+  ctaLabel,
 }: DemoCardProps) {
   const previewImage =
     image || demoImageMap[title] || "/hero-cumberland-golden.jpg";
+  // Real live projects show the public hostname in the faux browser chrome
+  const localProjectHost = (() => {
+    if (!isLocalProject || !href || href.startsWith("/")) return null;
+    try {
+      return new URL(href).hostname.replace(/^www\./, "");
+    } catch {
+      return null;
+    }
+  })();
   const displaySlug =
+    localProjectHost ||
     slug ||
     href.replace("https://", "").replace("http://", "").replace(/^\//, "");
 
@@ -130,7 +149,21 @@ export default function DemoCard({
   const localAlt =
     imageAlt ||
     demoAltMap[title] ||
-    `${category} website demo for Lake Cumberland — ${title}, handcrafted in Monticello KY`;
+    (isLocalProject
+      ? `${title} — live local project built in Monticello KY for Lake Cumberland`
+      : `${category} website demo for Lake Cumberland — ${title}, handcrafted in Monticello KY`);
+
+  const primaryCta =
+    ctaLabel ||
+    (isPortfolioLanding
+      ? "View example"
+      : isLocalProject
+        ? "Open live project"
+        : "Open live site");
+
+  const tagline = isLocalProject
+    ? `${SITE_TAGLINE} · Built in Monticello`
+    : SITE_TAGLINE;
 
   // min-h keeps shorter cards even in a grid row; longer SEO descriptions grow the card naturally.
   const shellClass =
@@ -185,7 +218,8 @@ export default function DemoCard({
           <span className="text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 bg-[#050a08] border border-[var(--border-strong)] rounded text-[var(--text-muted)]">
             {category}
           </span>
-          {!isTemplateSite && (
+          {/* Local projects already say “Local Project · Live” — skip fictional “LIVE DEMO” badge */}
+          {!isTemplateSite && !isLocalProject && (
             <span className="text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 bg-[#2a1c12] border border-[rgba(212,140,74,0.4)] rounded text-[var(--copper-bright)]">
               {isPortfolioLanding ? "PORTFOLIO EXAMPLE" : "LIVE DEMO"}
             </span>
@@ -201,14 +235,12 @@ export default function DemoCard({
         </p>
 
         <p className="mt-2.5 text-[12px] font-medium tracking-[0.03em] text-[var(--copper)]">
-          {SITE_TAGLINE}
+          {tagline}
         </p>
 
         <div className="mt-auto pt-3.5">
           <div className="inline-flex items-center gap-2 text-[14px] font-semibold text-[var(--copper-bright)] group-hover:text-[var(--cream)] transition-colors">
-            <span>
-              {isPortfolioLanding ? "View example" : "Open live site"}
-            </span>
+            <span>{primaryCta}</span>
             <svg
               width="16"
               height="16"
@@ -249,7 +281,11 @@ export default function DemoCard({
           target="_blank"
           rel="noopener noreferrer"
           className={primaryClass}
-          aria-label={`Open live demo of ${title}`}
+          aria-label={
+            isLocalProject
+              ? `Open live project: ${title}`
+              : `Open live demo of ${title}`
+          }
         >
           {primaryInner}
         </a>

@@ -194,6 +194,19 @@ export default function RestaurantWebsitesPage() {
         that make sense, and whether you can seat a group — not a slow brochure
         or a PDF that won&apos;t open on weak signal.
       </p>
+      <p className="mt-3 text-[15px] text-[#c8cfd3]">
+        We also built and maintain{" "}
+        <a
+          href="https://monticelloeatsandfinds.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#f4a261] underline underline-offset-2 hover:text-white"
+        >
+          Monticello Eats &amp; Finds
+        </a>
+        — a free Lake Cumberland food guide so cabin-week visitors can find real
+        Monticello restaurants and hometown menus.
+      </p>
 
       <div className="mt-6 p-6 rounded-3xl bg-[#0a0c0f] border border-[#f4a261]/30">
         <div className="uppercase text-[10px] tracking-[2px] text-[#f4a261] mb-1">

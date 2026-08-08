@@ -158,6 +158,19 @@ export default async function FoodTruckWebsites() {
         rushes, county festivals, and weekend lake traffic from Monticello to
         Somerset — and for operators across Kentucky who want the same honesty.
       </p>
+      <p className="mt-3 text-[15px] text-[#c8cfd3]">
+        We also built and maintain{" "}
+        <a
+          href="https://monticelloeatsandfinds.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#f4a261] underline underline-offset-2 hover:text-white"
+        >
+          Monticello Eats &amp; Finds
+        </a>
+        — a free live food guide that helps cabin-week visitors find real Wayne
+        County food trucks and hometown spots.
+      </p>
 
       {/* Ownership differentiators */}
       <div className="mt-6 p-6 rounded-3xl bg-[#0a0c0f] border border-[#f4a261]/30">

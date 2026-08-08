@@ -124,9 +124,9 @@ export default function WorkPage() {
               Strongest demos for Lake Cumberland businesses
             </h2>
             <p className="mt-1.5 text-[14px] text-[var(--text-dim)] max-w-2xl">
-              Food trucks grouped first, then BBQ &amp; steakhouse, fishing guide,
-              fence &amp; outdoor, gym, and land services — flat pricing, you own
-              the code.
+              Live local project first, then food trucks, BBQ &amp; steakhouse,
+              fishing guide, fence &amp; outdoor, gym, and land services — flat
+              pricing, you own the code.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">

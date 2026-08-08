@@ -49,6 +49,7 @@ export const HOMEPAGE_FEATURED_SLUGS = DEFAULT_FEATURED_SLUGS;
  * Keys are demo slugs.
  */
 export const WORK_TIER1_SLUGS = [
+  "monticello-eats-and-finds",
   "fiesta-taqueria",
   "cumberland-smash",
   "cluckin-chaos",
@@ -159,6 +160,22 @@ export type DemosPublishedDetail = {
 // Homepage Featured Work: DEFAULT_FEATURED_SLUGS (6) until admin saves order to Supabase.
 // Add new entries following the exact shape (see commented template at bottom of array).
 const DEFAULT_DEMOS: Demo[] = [
+  // ——— Tier 1: Live local project (real client work, not a fictional demo) ———
+  {
+    id: "demo-monticello-eats",
+    title: "Monticello Eats & Finds",
+    slug: "monticello-eats-and-finds",
+    category: "Local Project · Live",
+    href: "https://monticelloeatsandfinds.com/",
+    description:
+      "Free Lake Cumberland food guide for cabin-week visitors. Menus, hours, and directions for Monticello food trucks, restaurants, and hometown spots — built and maintained locally so lake traffic finds real Wayne County businesses.",
+    image: "/assets/demo-monticello-eats-and-finds.jpg",
+    imageAlt:
+      "Monticello Eats & Finds live food guide for Lake Cumberland — menus, hours, and directions for Wayne County restaurants and food trucks",
+    sortOrder: 0,
+    visible: true,
+    featured: false,
+  },
   // ——— Tier 1: Food truck cluster ———
   {
     id: "demo-3",
@@ -1347,11 +1364,20 @@ export function generateUniqueSlug(title: string, excludeId?: string): string {
   return candidate;
 }
 
+/** Real client / community projects — not fictional portfolio demos. */
+export function isLocalProjectDemo(d: Pick<Demo, "slug" | "category">): boolean {
+  const slug = (d.slug || "").toLowerCase();
+  if (slug === "monticello-eats-and-finds") return true;
+  return /local\s*project/i.test(d.category || "");
+}
+
 /** Map internal Demo to the shape expected by DemoCard + pages (backwards compatible) */
 export function toCardProps(d: Demo) {
   // Primary card link: first-party landing when it exists; otherwise external live demo.
   // Landing pages are defined in lib/demoLandings.ts (Phase A: 4 priority demos).
   const hasLanding = Boolean(d.slug && hasDemoLanding(d.slug));
+  const isLocalProject = isLocalProjectDemo(d);
+  const slug = (d.slug || "").toLowerCase();
 
   return {
     title: d.title,
@@ -1365,6 +1391,12 @@ export function toCardProps(d: Demo) {
     imageAlt: d.imageAlt,
     slug: d.slug,
     isPortfolioLanding: hasLanding,
+    isLocalProject,
+    /** Primary CTA label — local guides use “Open live guide”, not “Open live site”. */
+    ctaLabel:
+      isLocalProject && slug === "monticello-eats-and-finds"
+        ? "Open live guide"
+        : undefined,
   };
 }
 

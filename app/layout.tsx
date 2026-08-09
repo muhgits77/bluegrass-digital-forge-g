@@ -1,11 +1,13 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import {
   CONTACT_EMAIL,
   CONTACT_PHONE,
+  GA_MEASUREMENT_ID,
   SITE_URL,
   canonicalUrl,
 } from "@/lib/constants";
@@ -297,6 +299,8 @@ export default function RootLayout({
         <main className="flex-1">{children}</main>
         <Footer />
       </body>
+      {/* GA4 via @next/third-parties — loads after hydration; SPA pageviews auto-tracked */}
+      <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
     </html>
   );
 }

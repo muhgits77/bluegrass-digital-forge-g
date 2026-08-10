@@ -93,7 +93,11 @@ export const metadata: Metadata = {
     images: ["/hero-lake-cumberland-golden.jpg"],
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png" },
+    ],
+    apple: "/apple-icon.png",
   },
   // Homepage default; every other public page sets its own self-referencing .com canonical.
   alternates: {

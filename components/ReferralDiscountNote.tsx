@@ -17,8 +17,9 @@ export default function ReferralDiscountNote({
       role="note"
     >
       <span className="font-medium text-[#c9b9a8]">Note:</span> The{" "}
-      <span className="text-[#d4a373]">$300 referral discount</span> applies to
-      standard website projects. It does not apply to Web Apps like TruckDash.
+      <span className="text-[#d4a373]">$300 referral credit</span> applies only
+      to standard custom website projects. It does not apply to templates or
+      Web Apps like TruckDash.
     </p>
   );
 }

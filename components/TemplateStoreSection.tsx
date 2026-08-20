@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { TEMPLATE_STORE_URL } from "@/lib/constants";
 
 function IconCheck({ className }: { className?: string }) {
@@ -62,19 +63,52 @@ export default function TemplateStoreSection({
 }: TemplateStoreSectionProps) {
   const isCompact = variant === "compact";
 
+  const storeLink = (
+    <a
+      href={TEMPLATE_STORE_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`btn btn-secondary-strong ${
+        isCompact ? "px-7 py-3 text-[14.5px]" : "px-8 py-3.5 text-[15px]"
+      }`}
+      aria-label="Browse templates on bluegrasstemplates.com (opens in a new tab)"
+    >
+      Browse templates
+      <IconArrowRight />
+    </a>
+  );
+
   return (
     <section
       id="diy-templates"
       className={
         isCompact
           ? `mt-10 ${className}`
-          : `section-block border-t border-[var(--border)] bg-[var(--bg)] ${className}`
+          : `section-block forge-panel ${className}`
       }
       aria-labelledby="diy-templates-heading"
     >
       <div className={isCompact ? "" : "mx-auto max-w-7xl px-5 sm:px-8"}>
-        <div className="relative overflow-hidden rounded-[1.5rem] md:rounded-[1.75rem] border border-[var(--border-strong)] bg-[var(--bg-card)] shadow-[var(--shadow-card)]">
-          {/* Soft copper / moss ambient */}
+        {!isCompact && (
+          <div className="mb-8 md:mb-9">
+            <div className="label mb-2">DIY Templates · One-time from $99</div>
+            <h2
+              id="diy-templates-heading"
+              className="section-title tracking-tight max-w-[16ch]"
+            >
+              Prefer to build it yourself?
+            </h2>
+            <p className="mt-4 text-[var(--text-muted)] max-w-2xl text-[15.5px] md:text-[16.5px] leading-relaxed">
+              Ready-to-remix website templates hand-built in Kentucky. Launch a
+              professional site in an afternoon — starting at{" "}
+              <strong className="text-[var(--cream)] font-medium">$99</strong>.
+              One-time purchase, no monthly lock-in, with free updates for bug
+              fixes and refinements.
+            </p>
+          </div>
+        )}
+
+        <div className="template-offer relative overflow-hidden rounded-[1.5rem] md:rounded-[1.75rem]">
           <div
             className="pointer-events-none absolute inset-0 opacity-90"
             aria-hidden
@@ -83,7 +117,6 @@ export default function TemplateStoreSection({
                 "radial-gradient(800px 320px at 0% 0%, rgba(212,140,74,0.12), transparent 55%), radial-gradient(600px 280px at 100% 100%, rgba(31,92,72,0.14), transparent 50%)",
             }}
           />
-          <div className="absolute -top-px left-10 right-10 h-px bg-gradient-to-r from-transparent via-[var(--copper-bright)] to-transparent opacity-70" />
 
           <div
             className={`relative grid items-center gap-8 ${
@@ -94,40 +127,43 @@ export default function TemplateStoreSection({
           >
             {/* Copy */}
             <div className={isCompact ? "" : "lg:col-span-7"}>
-              <div className="label mb-2.5">
-                DIY Templates · One-time from $99
-              </div>
-              <h2
-                id="diy-templates-heading"
-                className={`font-semibold tracking-tight ${
-                  isCompact
-                    ? "text-2xl md:text-3xl max-w-[22ch]"
-                    : "section-title text-[clamp(1.65rem,4vw,2.45rem)] max-w-[18ch]"
-                }`}
-              >
-                Prefer to build it yourself?
-              </h2>
+              {isCompact && (
+                <>
+                  <div className="label mb-2.5">
+                    DIY Templates · One-time from $99
+                  </div>
+                  <h2
+                    id="diy-templates-heading"
+                    className="font-semibold tracking-tight text-2xl md:text-3xl max-w-[22ch]"
+                  >
+                    Prefer to build it yourself?
+                  </h2>
+                  <p className="mt-3 text-[var(--text-muted)] leading-relaxed text-[15px] max-w-xl">
+                    Explore ready-to-remix website templates hand-built in
+                    Kentucky. Launch a professional site in an afternoon —
+                    starting at{" "}
+                    <strong className="text-[var(--cream)] font-medium">
+                      $99
+                    </strong>
+                    . One-time purchase, no monthly lock-in, with free updates
+                    for bug fixes and refinements.
+                  </p>
+                </>
+              )}
               <p
-                className={`mt-3 text-[var(--text-muted)] leading-relaxed ${
+                className={`text-[var(--text-dim)] max-w-lg leading-relaxed ${
                   isCompact
-                    ? "text-[15px] max-w-xl"
-                    : "text-[15.5px] md:text-[16.5px] max-w-xl"
+                    ? "mt-2.5 text-[14px]"
+                    : "text-[15px] md:text-[15.5px] text-[var(--text-muted)]"
                 }`}
               >
-                Explore ready-to-remix website templates hand-built in Kentucky.
-                Launch a professional site in an afternoon — starting at{" "}
-                <strong className="text-[var(--cream)] font-medium">$99</strong>
-                . One-time purchase, no monthly lock-in, with free updates for
-                bug fixes and refinements.
-              </p>
-              <p className="mt-2.5 text-[14px] text-[var(--text-dim)] max-w-lg leading-relaxed">
                 A lower-cost path when you want to DIY — same care and local
                 craft as our custom Lake Cumberland builds, just self-serve.
               </p>
 
               <ul
                 className={`mt-5 space-y-2 ${
-                  isCompact ? "text-[13.5px]" : "text-[14px]"
+                  isCompact ? "text-[13.5px]" : "text-[14.5px]"
                 } text-[var(--text-muted)]`}
               >
                 {highlights.map((item) => (
@@ -138,17 +174,29 @@ export default function TemplateStoreSection({
                 ))}
               </ul>
 
-              <div className="mt-7">
+              <div className="mt-7 flex flex-col sm:flex-row sm:items-center gap-3.5">
+                {storeLink}
+                {!isCompact && (
+                  <Link
+                    href="/templates"
+                    className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-[var(--copper-bright)] hover:text-[var(--cream)] transition-colors"
+                  >
+                    How DIY templates work
+                    <IconArrowRight />
+                  </Link>
+                )}
+              </div>
+              <p className="mt-3 text-[13px] text-[var(--text-dim)]">
+                Opens{" "}
                 <a
                   href={TEMPLATE_STORE_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn btn-primary px-8 py-3.5 text-[15px]"
+                  className="underline decoration-[var(--copper)]/40 underline-offset-2 hover:text-[var(--copper-bright)]"
                 >
-                  Browse Templates
-                  <IconArrowRight />
+                  bluegrasstemplates.com
                 </a>
-              </div>
+              </p>
             </div>
 
             {/* Visual / price card */}

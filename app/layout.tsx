@@ -132,7 +132,8 @@ export default function RootLayout({
         {/*
           No fonts.googleapis.com / gstatic preconnect (next/font is self-hosted).
           No raw hero.jpg preload (would bypass AVIF/WebP + sized srcset).
-          Hero LCP: <Image priority fetchPriority="high"> on app/page.tsx only.
+          Hero LCP: loading="eager" + fetchPriority="high" on app/page.tsx only
+          (avoid deprecated priority/preload, which can warn as unused).
         */}
       </head>
       <body className="min-h-full flex flex-col bg-[var(--bg)] text-[var(--text)] scroll-smooth selection:bg-[rgba(212,140,74,0.35)] selection:text-white">

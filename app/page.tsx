@@ -8,7 +8,7 @@ import TemplateStoreSection from "@/components/TemplateStoreSection";
 
 /**
  * Homepage — Server Component for critical LCP path.
- * Hero: next/image priority + fetchPriority high (discoverable LCP in HTML).
+ * Hero: loading eager + fetchPriority high (LCP without a conflicting preload).
  * FeaturedDemos is a deferred client island (no Framer; Supabase loads idle).
  */
 const FeaturedDemos = dynamic(() => import("@/components/FeaturedDemos"), {
@@ -96,7 +96,7 @@ export default function Home() {
             src="/hero-lake-cumberland-golden.jpg"
             alt="Golden hour view of Lake Cumberland with calm water and rolling hills near Monticello, Kentucky — authentic local scene"
             fill
-            priority
+            loading="eager"
             fetchPriority="high"
             quality={75}
             sizes="100vw"
@@ -166,14 +166,31 @@ export default function Home() {
                   href="/quote"
                   className="btn btn-primary text-[15.5px] px-9 py-[17px] shadow-xl"
                 >
-                  Get a free quote →
+                  Get a free quote
+                  <span aria-hidden="true"> →</span>
                 </Link>
                 <Link href="/work" className="btn btn-ghost">
                   Browse live demos
                 </Link>
               </div>
 
-              <div className="hero-fade hero-fade-5 mt-8 flex flex-wrap gap-x-5 gap-y-2.5 text-[13px] text-white/75">
+              <ul
+                className="hero-fade hero-fade-5 mt-5 flex flex-wrap gap-2"
+                aria-label="Local proof"
+              >
+                {[
+                  "Built in Monticello",
+                  "Serving every ramp town",
+                  "You own the code",
+                ].map((label) => (
+                  <li key={label} className="local-proof-chip">
+                    <span className="local-proof-dot" aria-hidden />
+                    {label}
+                  </li>
+                ))}
+              </ul>
+
+              <div className="hero-fade hero-fade-5 mt-6 flex flex-wrap gap-x-5 gap-y-2.5 text-[13px] text-white/75">
                 {[
                   "Flat pricing, no surprises",
                   "You own the code — full ownership",
@@ -457,7 +474,8 @@ export default function Home() {
 
           <div className="mt-9 flex flex-col sm:flex-row gap-3.5 justify-center">
             <Link href="/quote" className="btn btn-primary px-9 py-3.5 text-base">
-              Get your free quote →
+              Get a free quote
+              <span aria-hidden="true"> →</span>
             </Link>
             <Link href="/services" className="btn btn-secondary px-7 py-3.5">
               See pricing
@@ -486,10 +504,10 @@ export default function Home() {
       <a
         href="/quote"
         className="fixed bottom-6 right-6 z-50 float-cta px-5 py-3.5 rounded-2xl flex items-center gap-2.5 font-semibold active:scale-[0.985] transition-all md:hidden"
-        aria-label="Get a free quote from the Monticello KY website designer"
+        aria-label="Get a free quote"
       >
         <IconPhone className="w-5 h-5" />
-        <span>Get Free Quote</span>
+        <span>Get a free quote</span>
       </a>
     </>
   );

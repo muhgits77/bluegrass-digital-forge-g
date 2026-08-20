@@ -66,7 +66,8 @@ export default function Nav() {
             href="/quote"
             className="btn btn-primary px-6 py-2.5 text-[14px] shadow-lg active:scale-[0.985]"
           >
-            Get a Quote →
+            Get a free quote
+            <span aria-hidden="true"> →</span>
           </Link>
         </div>
 
@@ -75,6 +76,7 @@ export default function Nav() {
           className="md:hidden inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-[var(--border-strong)] text-[var(--text-muted)] hover:text-white hover:border-[var(--copper)]/50 transition-all active:scale-[0.97]"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
+          aria-controls="mobile-menu"
         >
           {open ? <IconClose /> : <IconMenu />}
         </button>
@@ -108,7 +110,8 @@ export default function Nav() {
               onClick={() => setOpen(false)}
               className="btn btn-primary w-full py-[15px] text-center text-[15.5px]"
             >
-              Get a Free Quote →
+              Get a free quote
+              <span aria-hidden="true"> →</span>
             </Link>
             <Link
               href="/business-cards"

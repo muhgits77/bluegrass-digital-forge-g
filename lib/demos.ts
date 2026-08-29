@@ -44,6 +44,21 @@ export const DEFAULT_FEATURED_SLUGS = [
 export const HOMEPAGE_FEATURED_SLUGS = DEFAULT_FEATURED_SLUGS;
 
 /**
+ * Never show these on public pages (homepage, /work, specialty catalogs)
+ * even if a stale Supabase row still has visible: true.
+ * Objects stay in DEFAULT_DEMOS for Admin / export stability.
+ */
+export const PUBLICLY_HIDDEN_SLUGS = new Set([
+  "hickory-bloom",
+  "summit-tire-and-auto",
+]);
+
+export function isPubliclyHiddenSlug(slug: string | undefined | null): boolean {
+  if (!slug) return false;
+  return PUBLICLY_HIDDEN_SLUGS.has(String(slug).trim().toLowerCase());
+}
+
+/**
  * Curated placement tiers for /work grid grouping.
  * Tier 1 = primary examples · Tier 2 = supporting · else = more examples.
  * Keys are demo slugs.
@@ -462,7 +477,7 @@ const DEFAULT_DEMOS: Demo[] = [
     imageAlt:
       "Florist website demo for Kentucky with same-day delivery and wedding bouquets",
     sortOrder: 42,
-    visible: true,
+    visible: false,
     featured: false,
   },
   {
@@ -477,7 +492,7 @@ const DEFAULT_DEMOS: Demo[] = [
     imageAlt:
       "Auto service website demo for tire shops with service booking and instant quotes",
     sortOrder: 43,
-    visible: true,
+    visible: false,
     featured: false,
   },
   {
@@ -669,7 +684,7 @@ export function mergeLiveDemosWithDefaults(live: Demo[] | null | undefined): Dem
   const defaults = DEFAULT_DEMOS.map((d) => normalizeDemo(d));
   if (!live || live.length === 0) {
     return defaults
-      .filter((d) => d.visible)
+      .filter((d) => d.visible && !isPubliclyHiddenSlug(d.slug))
       .sort((a, b) => a.sortOrder - b.sortOrder);
   }
 
@@ -694,7 +709,7 @@ export function mergeLiveDemosWithDefaults(live: Demo[] | null | undefined): Dem
   }
 
   return merged
-    .filter((d) => d.visible && d.title.trim() && d.href.trim())
+    .filter((d) => d.visible && !isPubliclyHiddenSlug(d.slug) && d.title.trim() && d.href.trim())
     .sort((a, b) => a.sortOrder - b.sortOrder);
 }
 
@@ -732,7 +747,12 @@ export function selectFeaturedDemos(
   orderedSlugs?: string[] | null
 ): Demo[] {
   const visible = demos.filter(
-    (d) => d.visible && d.title.trim() && d.href.trim() && d.slug.trim()
+    (d) =>
+      d.visible &&
+      !isPubliclyHiddenSlug(d.slug) &&
+      d.title.trim() &&
+      d.href.trim() &&
+      d.slug.trim()
   );
   const bySlug = new Map(visible.map((d) => [d.slug.toLowerCase(), d]));
 
@@ -741,7 +761,7 @@ export function selectFeaturedDemos(
     const used = new Set<string>();
     for (const raw of slugs) {
       const slug = String(raw || "").trim().toLowerCase();
-      if (!slug || used.has(slug)) continue;
+      if (!slug || used.has(slug) || isPubliclyHiddenSlug(slug)) continue;
       const d = bySlug.get(slug);
       if (d) {
         picked.push(d);
@@ -944,7 +964,7 @@ export function getLocalStorageStatus(): StorageStatus {
 export function getPublicDemos(): Demo[] {
   return [...DEFAULT_DEMOS]
     .map((d) => normalizeDemo(d))
-    .filter((d) => d.visible)
+    .filter((d) => d.visible && !isPubliclyHiddenSlug(d.slug))
     .sort((a, b) => a.sortOrder - b.sortOrder);
 }
 

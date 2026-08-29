@@ -200,6 +200,14 @@ export default function Footer() {
           <div>
             © {new Date().getFullYear()} Bluegrass Digital Forge · Forged in
             Monticello, Kentucky
+            {" · "}
+            <Link href="/privacy" className="footer-link underline underline-offset-2">
+              Privacy
+            </Link>
+            {" · "}
+            <Link href="/terms" className="footer-link underline underline-offset-2">
+              Terms
+            </Link>
           </div>
           <div className="flex items-center gap-2 flex-wrap">
             Independently owned · No agency middlemen ·{" "}

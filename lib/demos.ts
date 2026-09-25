@@ -1,1 +1,1 @@
-@/workspace/demos.ts.fixed
+PLACEHOLDER_REPLACE_WITH_FULL_FILE

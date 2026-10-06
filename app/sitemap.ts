@@ -27,6 +27,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/south-carolina', priority: 0.85, changeFrequency: 'monthly' as const },
     { path: '/privacy', priority: 0.3, changeFrequency: 'yearly' as const },
     { path: '/terms', priority: 0.3, changeFrequency: 'yearly' as const },
+    { path: '/blog', priority: 0.7, changeFrequency: 'weekly' as const },
+    { path: '/blog/late-oct-cabin-week', priority: 0.75, changeFrequency: 'monthly' as const },
   ];
 
   const demoLandings = getAllDemoLandingSlugs().map((slug) => ({

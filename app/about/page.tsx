@@ -3,7 +3,7 @@ import Link from "next/link";
 import { canonicalUrl } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "About the Monticello KY Website Designer | Bluegrass Digital Forge",
+  title: "About | Bluegrass Digital Forge",
   description:
     "Meet Brian, the Monticello KY website designer building authentic Lake Cumberland business websites. Local, honest flat pricing, and you own the code — full ownership from day one.",
   keywords: [
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: canonicalUrl("/about") },
   openGraph: {
-    title: "About the Monticello KY Website Designer | Bluegrass Digital Forge",
+    title: "About | Bluegrass Digital Forge",
     description:
       "Meet Brian, the Monticello KY website designer building authentic Lake Cumberland business websites. Local, honest flat pricing, and you own the code — full ownership from day one.",
     url: canonicalUrl("/about"),
@@ -25,7 +25,7 @@ export default function AboutPage() {
   return (
     <div className="mx-auto max-w-4xl px-5 py-12">
       <div className="label tracking-[1.6px]">ABOUT — MONTICELLO KY WEBSITE DESIGNER</div>
-      <h1 className="section-title tracking-tight mt-1">Monticello KY Website Designer — Flat Pricing &amp; Full Ownership for Lake Cumberland Businesses</h1>
+      <h1 className="section-title tracking-tight mt-1">About the Monticello Website Designer</h1>
 
       <div className="prose prose-invert mt-5 max-w-none text-[#c8cfd3] text-[15.5px] leading-relaxed">
         <p>

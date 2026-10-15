@@ -75,10 +75,10 @@ export const metadata: Metadata = {
     url: canonicalUrl("/"),
     images: [
       {
-        url: "/hero-lake-cumberland-golden.jpg",
-        width: 1280,
-        height: 720,
-        alt: "Golden hour on Lake Cumberland near Monticello, Kentucky — calm water, rolling forested hills",
+        url: "/og-default.png",
+        width: 1200,
+        height: 630,
+        alt: "Bluegrass Digital Forge — Kentucky web design for small businesses and tourist businesses",
       },
     ],
     locale: "en_US",
@@ -91,7 +91,7 @@ export const metadata: Metadata = {
       "Monticello KY Website Designer | Lake Cumberland Business Websites | Bluegrass Digital Forge",
     description:
       "Handcrafted websites for Lake Cumberland businesses by a Monticello KY designer. Flat pricing from $1,200. You own the code.",
-    images: ["/hero-lake-cumberland-golden.jpg"],
+    images: ["/og-default.png"],
   },
   icons: {
     icon: [

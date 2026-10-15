@@ -4,26 +4,26 @@ import { canonicalUrl } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title:
-    "Late-October Cabin Week on Lake Cumberland | Bluegrass Digital Forge",
+    "Late-October Lake House Week on Lake Cumberland | Bluegrass Digital Forge",
   description:
     "Somerset Moonlight Festival Oct 17 and Monticello Fall Fest Oct 23–24. Show fall hours on Google and say plainly where you are — that’s what we build.",
   keywords: [
-    "Lake Cumberland cabin week",
+    "Lake Cumberland lake house week",
     "Moonlight Festival Somerset",
     "Fall Fest Monticello",
     "Lake Cumberland business website",
     "food truck Google hours",
   ],
-  alternates: { canonical: canonicalUrl("/blog/late-oct-cabin-week") },
+  alternates: { canonical: canonicalUrl("/blog/late-oct-lake-house-week") },
   openGraph: {
-    title: "Late-October Cabin Week on Lake Cumberland",
+    title: "Late-October Lake House Week on Lake Cumberland",
     description:
       "Busy shore calendar, quieter coves — make sure Google and your site match your fall hours and location.",
-    url: canonicalUrl("/blog/late-oct-cabin-week"),
+    url: canonicalUrl("/blog/late-oct-lake-house-week"),
   },
 };
 
-export default function LateOctCabinWeekPost() {
+export default function LateOctLakeHouseWeekPost() {
   return (
     <div className="mx-auto max-w-3xl px-5 py-12">
       <p className="text-[13px] text-[var(--text-muted)]">
@@ -31,23 +31,23 @@ export default function LateOctCabinWeekPost() {
           Blog
         </Link>
         <span className="mx-2">/</span>
-        Late-October cabin week
+        Late-October lake house week
       </p>
       <div className="label tracking-[1.6px] mt-4">FORGE NIGHT · 2026-10-06</div>
       <h1 className="section-title tracking-tight mt-1">
-        Late-October cabin week on Lake Cumberland
+        Late-October lake house week on Lake Cumberland
       </h1>
 
       <div className="prose prose-invert mt-6 max-w-none text-[#c8cfd3] text-[15.5px] leading-relaxed">
         <p>
-          Late-October cabin week on Lake Cumberland means quieter coves, cooler
-          mornings, and a busy calendar on shore. Somerset&apos;s Moonlight
+          Late-October lake house week on Lake Cumberland means quieter coves, cooler
+          mornings, and a busy calendar on shore. Somerset's Moonlight
           Festival is October 17, and Fall Fest takes over Monticello October
-          23–24. If you run a cabin, a marina shop, or a food truck anywhere
-          between Fall Creek and Lee&apos;s Ford, these are the weekends people
-          search for &quot;things to do near Lake Cumberland.&quot; Make sure
+          23–24. If you run a lake house, a marina shop, or a food truck anywhere
+          between Fall Creek and Lee's Ford, these are the weekends people
+          search for "things to do near Lake Cumberland." Make sure
           your Google profile shows your fall hours, and that your site says
-          plainly where you are. That&apos;s what we build.
+          plainly where you are. That's what we build.
         </p>
 
         <p className="mt-4 text-[14px] text-[var(--text-muted)]">

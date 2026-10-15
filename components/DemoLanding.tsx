@@ -3,7 +3,7 @@ import Link from "next/link";
 import type { Demo } from "@/lib/demos";
 import type { DemoLandingContent } from "@/lib/demoLandings";
 import { getPublicDemoBySlug } from "@/lib/demos";
-import { SITE_URL } from "@/lib/constants";
+import { SITE_URL, TEMPLATE_STORE_URL } from "@/lib/constants";
 
 type RelatedCard = {
   slug: string;
@@ -151,6 +151,14 @@ export default function DemoLanding({ demo, content, related }: DemoLandingProps
         >
           {content.specialtyHubLabel}
         </Link>
+        <a
+          href={TEMPLATE_STORE_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[13px] text-[var(--text-muted)] underline underline-offset-2 hover:text-white"
+        >
+          Ready-made templates from $49
+        </a>
       </div>
 
       {/* Screenshot preview — no iframe for speed */}

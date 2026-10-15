@@ -183,7 +183,7 @@ const DEFAULT_DEMOS: Demo[] = [
     category: "Local Project · Live",
     href: "https://monticelloeatsandfinds.com/",
     description:
-      "Free Lake Cumberland food guide for cabin-week visitors. Menus, hours, and directions for Monticello food trucks, restaurants, and hometown spots — built and maintained locally so lake traffic finds real Wayne County businesses.",
+      "Free Lake Cumberland food guide for lake house week visitors. Menus, hours, and directions for Monticello food trucks, restaurants, and hometown spots — built and maintained locally so lake traffic finds real Wayne County businesses.",
     image: "/assets/demo-monticello-eats-and-finds.jpg",
     imageAlt:
       "Monticello Eats & Finds live food guide for Lake Cumberland — menus, hours, and directions for Wayne County restaurants and food trucks",

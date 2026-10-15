@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { canonicalUrl, SITE_URL, CONTACT_EMAIL } from "@/lib/constants";
+import { canonicalUrl, SITE_URL, CONTACT_EMAIL, TEMPLATE_STORE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title:
@@ -33,7 +33,7 @@ const benefits = [
   },
   {
     title: "Catering and group paths that get used",
-    body: "Cabin crowds, church dinners, post-ramp tables — a simple form or phone path for large orders beats an email buried in the footer.",
+    body: "Lake house crowds, church dinners, post-ramp tables — a simple form or phone path for large orders beats an email buried in the footer.",
   },
   {
     title: "Hours, location, and tap-to-call up front",
@@ -45,7 +45,7 @@ const benefits = [
   },
   {
     title: "Built for lake + town traffic",
-    body: "Locals know you. Boaters and cabin renters often don’t. A clear site helps both — Monticello weeknights and Saturday nights when the lake empties into town.",
+    body: "Locals know you. Boaters and lake house renters often don’t. A clear site helps both — Monticello weeknights and Saturday nights when the lake empties into town.",
   },
   {
     title: "Local search language that fits",
@@ -60,7 +60,7 @@ const towns = [
   },
   {
     name: "Jamestown & State Dock area",
-    note: "Houseboat and cabin traffic looking for a sit-down meal after a day on the water.",
+    note: "Houseboat and lake house traffic looking for a sit-down meal after a day on the water.",
   },
   {
     name: "Burnside & US 27 corridor",
@@ -188,8 +188,18 @@ export default function RestaurantWebsitesPage() {
         </strong>
         . No monthly retainer required to keep what you paid for.
       </p>
+      <p className="mt-3 text-[13.5px]">
+        <a
+          href={TEMPLATE_STORE_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#f4a261] underline underline-offset-2 hover:text-white"
+        >
+          Ready-made templates from $49
+        </a>
+      </p>
       <p className="mt-3 text-[15px] text-[#c8cfd3]">
-        Locals already know your door. Weekend boaters and cabin guests often
+        Locals already know your door. Weekend boaters and lake house guests often
         don&apos;t. They search from a phone for a menu they can read, hours
         that make sense, and whether you can seat a group — not a slow brochure
         or a PDF that won&apos;t open on weak signal.
@@ -204,7 +214,7 @@ export default function RestaurantWebsitesPage() {
         >
           Monticello Eats &amp; Finds
         </a>
-        — a free Lake Cumberland food guide so cabin-week visitors can find real
+        — a free Lake Cumberland food guide so lake house week visitors can find real
         Monticello restaurants and hometown menus.
       </p>
 

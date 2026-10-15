@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { canonicalUrl, SITE_URL, CONTACT_EMAIL } from "@/lib/constants";
+import { canonicalUrl, SITE_URL, CONTACT_EMAIL, TEMPLATE_STORE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title:
@@ -46,7 +46,7 @@ const benefits = [
   },
   {
     title: "Mobile-first for ramp-side decisions",
-    body: "Guests compare captains from the cabin or the truck. Fast pages, big call buttons, clear rates, and weather/season notes that load even when signal is thin near the water.",
+    body: "Guests compare captains from the lake house or the truck. Fast pages, big call buttons, clear rates, and weather/season notes that load even when signal is thin near the water.",
   },
   {
     title: "Local launch & season knowledge",
@@ -77,7 +77,7 @@ const guideAreas = [
   },
   {
     name: "Russell Springs & US 127 corridor",
-    detail: "Local ramps & cabin traffic",
+    detail: "Local ramps & lake house traffic",
     note: "Quiet access points popular with locals — sites that rank for real nearby searches, not just big marina names.",
   },
   {
@@ -195,6 +195,16 @@ export default function FishingGuideWebsitesPage() {
           Full ownership of the site and code
         </strong>
         . No monthly retainer required to keep what you paid for.
+      </p>
+      <p className="mt-3 text-[13.5px]">
+        <a
+          href={TEMPLATE_STORE_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#f4a261] underline underline-offset-2 hover:text-white"
+        >
+          Ready-made templates from $49
+        </a>
       </p>
       <p className="mt-3 text-[15px] text-[#c8cfd3]">
         Anglers searching for a striper trip out of Jamestown, a bass day near

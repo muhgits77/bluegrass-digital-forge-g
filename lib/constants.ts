@@ -26,7 +26,7 @@ export const SITE_URL = "https://bluegrassdigitalforge.com";
 /** Google Analytics 4 measurement ID (public client-side tag). */
 export const GA_MEASUREMENT_ID = "G-MBSR6NNFX4";
 
-/** DIY template store — ready-to-remix sites, one-time purchase from $99. */
+/** DIY template store — ready-to-remix sites, one-time purchase from $49. */
 export const TEMPLATE_STORE_URL = "https://bluegrasstemplates.com";
 
 /**

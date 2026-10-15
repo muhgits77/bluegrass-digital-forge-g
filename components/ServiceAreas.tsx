@@ -58,7 +58,7 @@ const areas = [
   {
     town: "Creelsboro, KY",
     detail: "Creelsboro Boat Ramp & Cumberland River access",
-    desc: "Scenic public ramp loved by anglers. Sites for guides, cabins, and tackle that target serious Lake Cumberland fishermen.",
+    desc: "Scenic public ramp loved by anglers. Sites for guides, lake houses, and tackle that target serious Lake Cumberland fishermen.",
     href: "/service-areas",
   },
 ];

@@ -59,6 +59,11 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: "/blog/late-oct-cabin-week",
+        destination: "https://bluegrassdigitalforge.com/blog/late-oct-lake-house-week",
+        statusCode: 301,
+      },
+      {
         source: "/:path*",
         has: [{ type: "host", value: "bluegrassdigitalforge.live" }],
         destination: "https://bluegrassdigitalforge.com/:path*",

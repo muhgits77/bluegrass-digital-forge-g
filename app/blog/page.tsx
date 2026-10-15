@@ -5,20 +5,20 @@ import { canonicalUrl } from "@/lib/constants";
 export const metadata: Metadata = {
   title: "Blog | Lake Cumberland Business Notes | Bluegrass Digital Forge",
   description:
-    "Forge Night notes for Lake Cumberland cabins, marinas, shops, and food trucks — hours, location, and the weekends people actually search for.",
+    "Forge Night notes for lake houses, marinas, shops, and food trucks on Lake Cumberland — hours, location, and the weekends people actually search for.",
   alternates: { canonical: canonicalUrl("/blog") },
   openGraph: {
     title: "Blog | Bluegrass Digital Forge",
     description:
-      "Practical notes for Lake Cumberland businesses — cabin week calendars, Google hours, and clear location on your site.",
+      "Practical notes for Lake Cumberland businesses — lake house week calendars, Google hours, and clear location on your site.",
     url: canonicalUrl("/blog"),
   },
 };
 
 const posts = [
   {
-    href: "/blog/late-oct-cabin-week",
-    title: "Late-October cabin week on Lake Cumberland",
+    href: "/blog/late-oct-lake-house-week",
+    title: "Late-October lake house week on Lake Cumberland",
     date: "2026-10-06",
     blurb:
       "Moonlight Festival Oct 17 in Somerset, Fall Fest Oct 23–24 in Monticello — show your fall hours and where you are.",
@@ -33,7 +33,7 @@ export default function BlogIndexPage() {
         Blog — Lake Cumberland business notes
       </h1>
       <p className="mt-4 text-[15.5px] leading-relaxed text-[#c8cfd3]">
-        Short, practical posts for cabin weeks, marina shops, and food trucks
+        Short, practical posts for lake house weeks, marina shops, and food trucks
         between Fall Creek and Lee&apos;s Ford. Propose-only until go-live —
         organizers double-check before publish.
       </p>

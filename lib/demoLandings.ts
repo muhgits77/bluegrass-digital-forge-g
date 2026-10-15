@@ -77,7 +77,7 @@ const LANDINGS: Record<string, DemoLandingContent> = {
     serviceAreaNote:
       "This kind of site usually mentions the ramps a captain actually uses — State Dock and Jamestown, Creelsboro, Conley Bottom and Beaver Creek near Monticello, Burnside approaches, and quieter access around Russell Springs or the southern shore when the week calls for it.",
     whyItHelps:
-      "Out-of-town anglers often compare a few options from the cabin or the truck. Clear trip types, honest photos, and an easy phone or form path make it simpler to choose a captain without a long back-and-forth on social media.",
+      "Out-of-town anglers often compare a few options from the lake house or the truck. Clear trip types, honest photos, and an easy phone or form path make it simpler to choose a captain without a long back-and-forth on social media.",
     specialtyHub: "/fishing-guide-websites",
     specialtyHubLabel: "Fishing guide websites",
     relatedSlugs: [
@@ -117,7 +117,7 @@ const LANDINGS: Record<string, DemoLandingContent> = {
       {
         name: "Family trays",
         detail:
-          "Built for groups — cabin crowds, marina lots, or a table that doesn’t want twelve separate orders.",
+          "Built for groups — lake house crowds, marina lots, or a table that doesn’t want twelve separate orders.",
       },
       {
         name: "Catering for local events",
@@ -239,7 +239,7 @@ const LANDINGS: Record<string, DemoLandingContent> = {
       {
         name: "Call-ahead holds",
         detail:
-          "Hold a couple dozen bait before you leave the cabin — one tap to call the shop from the parking lot.",
+          "Hold a couple dozen bait before you leave the lake house — one tap to call the shop from the parking lot.",
       },
     ],
     serviceAreaNote:
@@ -290,7 +290,7 @@ const LANDINGS: Record<string, DemoLandingContent> = {
       {
         name: "Coffee and cold drinks",
         detail:
-          "Enough to pair with the box for a cabin drive or a Main Street breakfast.",
+          "Enough to pair with the box for a lake house drive or a Main Street breakfast.",
       },
       {
         name: "Pre-order for Saturday",
@@ -509,7 +509,7 @@ const LANDINGS: Record<string, DemoLandingContent> = {
       {
         name: "Pulled pork & ribs",
         detail:
-          "Family trays and half racks for cabin groups and marina-lot crowds.",
+          "Family trays and half racks for lake house groups and marina-lot crowds.",
       },
       {
         name: "Catering",

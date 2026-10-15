@@ -54,8 +54,7 @@ export default function WorkPage() {
           MY WORK — LAKE CUMBERLAND BUSINESS WEBSITES
         </div>
         <h1 className="section-title tracking-tight">
-          Lake Cumberland Business Websites &amp; Wayne County Web Design Demos —
-          Monticello KY Website Designer
+          Lake Cumberland Website Demos
         </h1>
         <p className="mt-3 text-[15px] text-[var(--text-muted)] leading-relaxed">
           Portfolio examples of Lake Cumberland business websites — food trucks,

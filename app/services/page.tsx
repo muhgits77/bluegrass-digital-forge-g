@@ -10,8 +10,7 @@ import { canonicalUrl } from "@/lib/constants";
 import { loadLivePublicDemosCatalog } from "@/lib/demos";
 
 export const metadata: Metadata = {
-  title:
-    "Monticello KY Website Designer Pricing | Lake Cumberland Business Websites",
+  title: "Services & Pricing | Bluegrass Digital Forge",
   description:
     "Transparent flat pricing from the Monticello KY website designer. Starter Sites from $1,200 and Business Suites from $2,500 for Lake Cumberland & Wayne County businesses. You own the code — full ownership forever.",
   keywords: [
@@ -27,8 +26,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: canonicalUrl("/services") },
   openGraph: {
-    title:
-      "Monticello KY Website Designer Pricing | Lake Cumberland Business Websites",
+    title: "Services & Pricing | Bluegrass Digital Forge",
     description:
       "Transparent flat pricing from the Monticello KY website designer. Starter Sites from $1,200 and Business Suites from $2,500. You own the code — full ownership forever.",
     url: canonicalUrl("/services"),
@@ -94,7 +92,7 @@ export default async function Services() {
       {/* Header */}
       <div className="max-w-3xl">
         <div className="label tracking-[2px]">SERVICES &amp; PRICING — MONTICELLO KY WEBSITE DESIGNER</div>
-        <h1 className="section-title tracking-tight mt-2">Monticello KY Website Designer — Flat Pricing &amp; Full Ownership for Lake Cumberland Business Websites</h1>
+        <h1 className="section-title tracking-tight mt-2">Website Services & Flat Pricing</h1>
         <p className="mt-3 text-lg text-[#9aa6ad]">Transparent <strong className="text-[#c8cfd3] font-medium">flat rate</strong> pricing — one-time, no surprises. <strong className="text-[#c8cfd3] font-medium">Kentucky base rates:</strong> Starter Sites $1,200 · Business Suites from $2,500 for food trucks, restaurants, marinas, and shops from Monticello to Jamestown, Burnside, Russell Springs, Nancy, and Albany. <strong className="text-[#c8cfd3] font-medium">South Carolina Lowcountry:</strong> Starter Sites $1,550 · Business Suites $3,250. When we&apos;re done, <strong className="text-[#c8cfd3] font-medium">you own the code</strong> with full ownership forever.</p>
         <p className="text-[14.5px] text-[#9aa6ad] mt-1">Handcrafted in Monticello for Lake Cumberland. Also serving{" "}
           <Link href="/south-carolina" className="underline hover:text-[#f4a261]">Charleston SC web design</Link>,{" "}

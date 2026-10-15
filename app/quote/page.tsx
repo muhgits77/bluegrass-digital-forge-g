@@ -243,7 +243,7 @@ export default function QuotePage() {
     <div className="mx-auto max-w-3xl px-5 py-10">
       <div className="mb-8">
         <div className="label tracking-[2px]">CUSTOM QUOTE — MONTICELLO KY WEBSITE DESIGNER</div>
-        <h1 className="section-title tracking-tight mt-1">Get a Quote from the Monticello KY Website Designer for Lake Cumberland &amp; South Carolina Lowcountry Business Websites</h1>
+        <h1 className="section-title tracking-tight mt-1">Get a Website Quote</h1>
         <p className="mt-2 text-[#8a9599]">A few quick questions for your Wayne County, Lake Cumberland, or Charleston SC / Lowcountry project. Flat price proposal from the local Monticello builder. Real responses, no automated fluff. Takes 4–6 minutes.</p>
         {truckDashPlan && (
           <div className="mt-4 rounded-xl border border-[#f4a261]/35 bg-[#0a0c0f] px-4 py-3 text-[14px] text-[#c8cfd3]">

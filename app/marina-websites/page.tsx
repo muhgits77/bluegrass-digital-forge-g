@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { canonicalUrl, SITE_URL, CONTACT_EMAIL } from "@/lib/constants";
+import { canonicalUrl, SITE_URL, CONTACT_EMAIL, TEMPLATE_STORE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title:
@@ -43,7 +43,7 @@ const benefits = [
   },
   {
     title: "Mobile-first for dockside use",
-    body: "Most visitors search from the parking lot, the cabin, or the boat. Big tap targets, fast load, tap-to-call, and directions that work when Wi-Fi is thin.",
+    body: "Most visitors search from the parking lot, the lake house, or the boat. Big tap targets, fast load, tap-to-call, and directions that work when Wi-Fi is thin.",
   },
   {
     title: "Peak-season realities in mind",
@@ -196,9 +196,19 @@ export default function MarinaWebsitesPage() {
         </strong>
         . No monthly retainer required to keep your build.
       </p>
+      <p className="mt-3 text-[13.5px]">
+        <a
+          href={TEMPLATE_STORE_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#f4a261] underline underline-offset-2 hover:text-white"
+        >
+          Ready-made templates from $49
+        </a>
+      </p>
       <p className="mt-3 text-[15px] text-[#c8cfd3]">
         Houseboat renters, slip holders, and weekend boaters search from the
-        parking lot or the cabin. They need fuel hours, amenities, rates, and a
+        parking lot or the lake house. They need fuel hours, amenities, rates, and a
         phone number that works — not a slow brochure site. Whether you&apos;re
         near Burnside, Lee&apos;s Ford, State Dock, Conley Bottom, Grider Hill,
         Marina Rowena, or another dock on the lake, the job is the same: a

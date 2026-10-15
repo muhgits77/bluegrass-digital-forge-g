@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { canonicalUrl, SITE_URL, CONTACT_EMAIL } from "@/lib/constants";
+import { canonicalUrl, SITE_URL, CONTACT_EMAIL, TEMPLATE_STORE_URL } from "@/lib/constants";
 import DemoLiveLink, { DemoPortfolioOrLiveLink } from "@/components/DemoLiveLink";
 import { loadLivePublicDemosCatalog } from "@/lib/demos";
 
@@ -148,6 +148,16 @@ export default async function FoodTruckWebsites() {
         </strong>
         . No monthly website retainer required.
       </p>
+      <p className="mt-3 text-[13.5px]">
+        <a
+          href={TEMPLATE_STORE_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#f4a261] underline underline-offset-2 hover:text-white"
+        >
+          Ready-made templates from $49
+        </a>
+      </p>
 
       <p className="mt-3 text-[15px] text-[#c8cfd3]">
         The difference that matters most: your customers can always find you
@@ -168,7 +178,7 @@ export default async function FoodTruckWebsites() {
         >
           Monticello Eats &amp; Finds
         </a>
-        — a free live food guide that helps cabin-week visitors find real Wayne
+        — a free live food guide that helps lake house week visitors find real Wayne
         County food trucks and hometown spots.
       </p>
 
@@ -277,7 +287,7 @@ export default async function FoodTruckWebsites() {
           Built for how trucks actually move around the lake and the Commonwealth.
         </h2>
         <p className="mt-3 text-[15px] text-[#c8cfd3]">
-          Summer weekends mean marina lots, cabin rentals, and boaters looking
+          Summer weekends mean marina lots, lake house rentals, and boaters looking
           for lunch without leaving the shore. Weekdays mean office parks,
           factory gates, and downtown lunch lines. Your site should make both
           easy to find.

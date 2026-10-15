@@ -38,7 +38,7 @@ const townDeepDives = [
     county: "Russell County",
     anchors: "State Dock · Lake Cumberland Marina · Recreation Area",
     summary:
-      "Jamestown is one of the lake’s busiest visitor hubs — houseboats, guides, lodging, and dockside dining. People search for rentals, striper trips, and “what’s open near State Dock” before they ever leave the cabin.",
+      "Jamestown is one of the lake’s busiest visitor hubs — houseboats, guides, lodging, and dockside dining. People search for rentals, striper trips, and “what’s open near State Dock” before they ever leave the lake house.",
     points: [
       "Houseboat rental and marina sites need clear rates, amenity lists, fuel/pump-out info, and a phone that works on mobile.",
       "Fishing guides launching from State Dock convert with species pages (striper, bass, multi-species), trophy photos, and simple booking forms.",
@@ -95,7 +95,7 @@ const townDeepDives = [
     county: "Russell County",
     anchors: "US 127 & KY 80 corridor · local ramps near Jamestown",
     summary:
-      "Russell Springs sits on the highway approaches to the lake — cabin traffic, locals who know the quieter ramps, and businesses that serve both town and water. You don’t need a 20-page site; you need a fast, honest one.",
+      "Russell Springs sits on the highway approaches to the lake — lake house traffic, locals who know the quieter ramps, and businesses that serve both town and water. You don’t need a 20-page site; you need a fast, honest one.",
     points: [
       "Fishing guides and small marina operators benefit from pages that rank for Russell Springs and nearby launch searches.",
       "Retail, auto, and service businesses draw lake weekenders who stop in town — clear hours and contact win.",
@@ -117,7 +117,7 @@ const townDeepDives = [
       "Albany and Clinton County feed the southern side of Lake Cumberland. Weekenders coming from the south need businesses that look open, local, and easy to reach — not a placeholder site from 2014.",
     points: [
       "Dock services, rentals, and outfitters near Grider Hill and southern access points need directions, hours, and mobile contact first.",
-      "Guides and cabins serving Albany traffic convert with real photos and clear trip or stay details.",
+      "Guides and lake houses serving Albany traffic convert with real photos and clear trip or stay details.",
       "Main Street shops, eateries, and services in Albany get the same flat-price, full-ownership treatment as lake-front operators.",
       "Local SEO pairs Albany / Clinton County language with Lake Cumberland intent so the right searches find you.",
     ],

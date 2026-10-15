@@ -28,6 +28,11 @@ export const metadata: Metadata = {
     description:
       "Real-time location, menus, and festival schedules for Kentucky food trucks. Flat one-time pricing. You own the code. Built by a neighbor in Monticello for Lake Cumberland and beyond.",
     url: canonicalUrl("/food-truck-websites"),
+    images: ["/og-default.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/og-default.png"],
   },
 };
 

@@ -14,7 +14,8 @@ export const metadata: Metadata = {
     "Lake Cumberland food truck tools",
   ],
   alternates: { canonical: canonicalUrl("/truckdash") },
-  openGraph: { url: canonicalUrl("/truckdash") },
+  openGraph: { url: canonicalUrl("/truckdash"), images: ["/og-default.png"] },
+  twitter: { card: "summary_large_image", images: ["/og-default.png"] },
 };
 
 export default function TruckDashPage() {

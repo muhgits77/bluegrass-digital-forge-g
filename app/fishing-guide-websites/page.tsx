@@ -24,6 +24,11 @@ export const metadata: Metadata = {
     description:
       "Sites for striper, bass, and multi-species guides on Lake Cumberland. Trip types, booking forms, real trophy photos. Flat one-time pricing. You own everything. Built in Monticello, KY.",
     url: canonicalUrl("/fishing-guide-websites"),
+    images: ["/og-default.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/og-default.png"],
   },
 };
 

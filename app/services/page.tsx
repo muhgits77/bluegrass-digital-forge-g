@@ -30,6 +30,11 @@ export const metadata: Metadata = {
     description:
       "Transparent flat pricing from the Monticello KY website designer. Starter Sites from $1,200 and Business Suites from $2,500. You own the code — full ownership forever.",
     url: canonicalUrl("/services"),
+    images: ["/og-default.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/og-default.png"],
   },
 };
 

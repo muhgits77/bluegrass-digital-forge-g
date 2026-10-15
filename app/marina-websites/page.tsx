@@ -25,6 +25,11 @@ export const metadata: Metadata = {
     description:
       "Websites for marinas and docks around Lake Cumberland — booking, slip info, fuel, amenities, and mobile-first design. Flat one-time pricing. You own everything. Built by a neighbor in Monticello.",
     url: canonicalUrl("/marina-websites"),
+    images: ["/og-default.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/og-default.png"],
   },
 };
 

@@ -13,6 +13,11 @@ export const metadata: Metadata = {
     description:
       "Plain terms for Bluegrass Digital Forge in Monticello, Kentucky — portfolio demos, quotes, and ownership after a paid build.",
     url: canonicalUrl("/terms"),
+    images: ["/og-default.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/og-default.png"],
   },
 };
 

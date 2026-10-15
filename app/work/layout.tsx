@@ -11,6 +11,11 @@ export const metadata: Metadata = {
     description:
       "Live demos of Lake Cumberland business websites built by the Monticello KY website designer. Food trucks, restaurants, marinas, shops & more. Flat pricing. You own everything.",
     url: canonicalUrl("/work"),
+    images: ["/og-default.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/og-default.png"],
   },
 };
 

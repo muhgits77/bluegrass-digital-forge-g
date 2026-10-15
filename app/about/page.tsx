@@ -18,6 +18,11 @@ export const metadata: Metadata = {
     description:
       "Meet Brian, the Monticello KY website designer building authentic Lake Cumberland business websites. Local, honest flat pricing, and you own the code — full ownership from day one.",
     url: canonicalUrl("/about"),
+    images: ["/og-default.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/og-default.png"],
   },
 };
 

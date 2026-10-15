@@ -12,6 +12,11 @@ export const metadata: Metadata = {
     description:
       "Practical notes for Lake Cumberland businesses — lake house week calendars, Google hours, and clear location on your site.",
     url: canonicalUrl("/blog"),
+    images: ["/og-default.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/og-default.png"],
   },
 };
 

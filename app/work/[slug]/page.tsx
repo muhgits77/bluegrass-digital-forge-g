@@ -55,12 +55,13 @@ export async function generateMetadata({
                 `${demo.title} website portfolio example`,
             },
           ]
-        : undefined,
+        : ["/og-default.png"],
     },
     twitter: {
       card: "summary_large_image",
       title: content.title,
       description: content.metaDescription,
+      images: ["/og-default.png"],
     },
     robots: {
       index: true,

@@ -54,6 +54,8 @@ const townDeepDives = [
       { href: "/marina-websites", label: "Marina websites" },
       { href: "/fishing-guide-websites", label: "Fishing guide websites" },
       { href: "/food-truck-websites", label: "Food truck websites" },
+      { href: "/lake-house-rental-websites", label: "Lake house rental websites" },
+      { href: "/bait-and-tackle-websites", label: "Bait and boat rental websites" },
     ],
   },
   {
@@ -73,6 +75,8 @@ const townDeepDives = [
       { href: "/marina-websites", label: "Marina websites" },
       { href: "/food-truck-websites", label: "Food truck websites" },
       { href: "/services", label: "Restaurant & shop packages" },
+      { href: "/lake-house-rental-websites", label: "Lake house rental websites" },
+      { href: "/bait-and-tackle-websites", label: "Bait and boat rental websites" },
     ],
   },
   {
@@ -92,6 +96,7 @@ const townDeepDives = [
       { href: "/marina-websites", label: "Marina websites" },
       { href: "/fishing-guide-websites", label: "Fishing guide websites" },
       { href: "/services", label: "Business Suite pricing" },
+      { href: "/lake-house-rental-websites", label: "Lake house rental websites" },
     ],
   },
   {
@@ -111,6 +116,8 @@ const townDeepDives = [
       { href: "/fishing-guide-websites", label: "Fishing guide websites" },
       { href: "/food-truck-websites", label: "Food truck websites" },
       { href: "/marina-websites", label: "Marina websites" },
+      { href: "/lake-house-rental-websites", label: "Lake house rental websites" },
+      { href: "/bait-and-tackle-websites", label: "Bait and boat rental websites" },
     ],
   },
   {
@@ -130,6 +137,7 @@ const townDeepDives = [
       { href: "/marina-websites", label: "Marina websites" },
       { href: "/fishing-guide-websites", label: "Fishing guide websites" },
       { href: "/food-truck-websites", label: "Food truck websites" },
+      { href: "/lake-house-rental-websites", label: "Lake house rental websites" },
     ],
   },
 ];
@@ -197,6 +205,18 @@ export default function ServiceAreasPage() {
         </Link>
         <Link href="/food-truck-websites" className="btn btn-secondary px-5 py-2.5 text-sm">
           Food truck websites
+        </Link>
+        <Link href="/lake-house-rental-websites" className="btn btn-secondary px-5 py-2.5 text-sm">
+          Lake house websites
+        </Link>
+        <Link href="/bait-and-tackle-websites" className="btn btn-secondary px-5 py-2.5 text-sm">
+          Bait and boat websites
+        </Link>
+        <Link href="/myrtle-beach-small-business-websites" className="btn btn-secondary px-5 py-2.5 text-sm">
+          Myrtle Beach websites
+        </Link>
+        <Link href="/florida-gulf-coast-business-websites" className="btn btn-secondary px-5 py-2.5 text-sm">
+          Florida Gulf Coast websites
         </Link>
         <Link href="/quote" className="btn btn-primary px-5 py-2.5 text-sm">
           Get a free quote →
@@ -310,6 +330,20 @@ export default function ServiceAreasPage() {
             className="text-[#f4a261] hover:underline font-medium"
           >
             Visit dedicated South Carolina page for details and local examples →
+          </Link>
+        </div>
+        <div className="mt-3 text-sm flex flex-col gap-2">
+          <Link
+            href="/myrtle-beach-small-business-websites"
+            className="text-[#f4a261] hover:underline font-medium"
+          >
+            Myrtle Beach and Grand Strand small business websites →
+          </Link>
+          <Link
+            href="/florida-gulf-coast-business-websites"
+            className="text-[#f4a261] hover:underline font-medium"
+          >
+            Florida Gulf Coast websites for Destin, Panama City Beach, and 30A →
           </Link>
         </div>
       </div>

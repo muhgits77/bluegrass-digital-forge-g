@@ -230,6 +230,46 @@ export default async function Services() {
             </Link>
           </p>
         </div>
+        <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-[var(--shadow-card)]">
+          <div className="text-[var(--gold-light)] text-xs tracking-[1.5px] mb-1">LAKE HOUSES</div>
+          <h3 className="font-semibold text-lg tracking-tight">Rental sites for Lake Cumberland lake houses.</h3>
+          <p className="mt-2 text-[14.5px] text-[var(--text-muted)]">
+            Calendars, galleries, house rules, and direct booking for Monticello, Jamestown, Somerset, and Burnside.{" "}
+            <Link href="/lake-house-rental-websites" className="text-[var(--gold-light)] underline hover:text-white">
+              Lake house websites →
+            </Link>
+          </p>
+        </div>
+        <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-[var(--shadow-card)]">
+          <div className="text-[var(--gold-light)] text-xs tracking-[1.5px] mb-1">BAIT & BOATS</div>
+          <h3 className="font-semibold text-lg tracking-tight">Bait shops and rental docks.</h3>
+          <p className="mt-2 text-[14.5px] text-[var(--text-muted)]">
+            Live bait, hours, fleet cards, fishing reports, and directions to the dock.{" "}
+            <Link href="/bait-and-tackle-websites" className="text-[var(--gold-light)] underline hover:text-white">
+              Bait and boat websites →
+            </Link>
+          </p>
+        </div>
+        <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-[var(--shadow-card)]">
+          <div className="text-[var(--gold-light)] text-xs tracking-[1.5px] mb-1">MYRTLE BEACH</div>
+          <h3 className="font-semibold text-lg tracking-tight">Grand Strand shops, charters, and beach houses.</h3>
+          <p className="mt-2 text-[14.5px] text-[var(--text-muted)]">
+            Small business sites for Myrtle Beach and the Strand.{" "}
+            <Link href="/myrtle-beach-small-business-websites" className="text-[var(--gold-light)] underline hover:text-white">
+              Myrtle Beach websites →
+            </Link>
+          </p>
+        </div>
+        <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-[var(--shadow-card)]">
+          <div className="text-[var(--gold-light)] text-xs tracking-[1.5px] mb-1">GULF COAST</div>
+          <h3 className="font-semibold text-lg tracking-tight">Destin, Panama City Beach, and 30A.</h3>
+          <p className="mt-2 text-[14.5px] text-[var(--text-muted)]">
+            Beach rentals, charters, restaurants, and gift shops on the Florida Gulf.{" "}
+            <Link href="/florida-gulf-coast-business-websites" className="text-[var(--gold-light)] underline hover:text-white">
+              Gulf Coast websites →
+            </Link>
+          </p>
+        </div>
       </div>
 
       {/* TruckDash — low-pressure mention (separate from website packages) */}

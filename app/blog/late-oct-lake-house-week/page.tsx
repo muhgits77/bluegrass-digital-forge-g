@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     description:
       "Busy shore calendar, quieter coves — make sure Google and your site match your fall hours and location.",
     url: canonicalUrl("/blog/late-oct-lake-house-week"),
-    images: ["/og-default.png"],
+    images: [{ url: "/og-default.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",

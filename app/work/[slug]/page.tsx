@@ -55,7 +55,7 @@ export async function generateMetadata({
                 `${demo.title} website portfolio example`,
             },
           ]
-        : ["/og-default.png"],
+        : [{ url: "/og-default.png", width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image",

@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     title: "Charleston SC Web Design | Lowcountry Web Design for Food Trucks, Restaurants & Small Businesses",
     description: "Handcrafted Charleston SC and Lowcountry web design for food trucks, restaurants, and small businesses in Summerville, North Charleston, and the South Carolina Lowcountry. Flat pricing. Full ownership.",
     url: canonicalUrl("/south-carolina"),
-    images: ["/og-default.png"],
+    images: [{ url: "/og-default.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",

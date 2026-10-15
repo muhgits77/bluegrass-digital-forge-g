@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     description:
       "Digital menus, catering paths, and mobile-first sites for restaurants around Monticello and Lake Cumberland. Flat one-time pricing. You own everything. Built by a neighbor in Monticello.",
     url: canonicalUrl("/restaurant-websites"),
-    images: ["/og-default.png"],
+    images: [{ url: "/og-default.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",

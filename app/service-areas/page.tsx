@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     description:
       "Handcrafted websites for Jamestown, Burnside, Nancy, Russell Springs, Albany, Monticello and every major Lake Cumberland boat ramp town. Flat pricing. You own the code.",
     url: canonicalUrl("/service-areas"),
-    images: ["/og-default.png"],
+    images: [{ url: "/og-default.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",

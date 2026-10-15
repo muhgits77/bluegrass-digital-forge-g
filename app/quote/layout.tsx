@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Get a Quote | Bluegrass Digital Forge",
     url: canonicalUrl("/quote"),
-    images: ["/og-default.png"],
+    images: [{ url: "/og-default.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",

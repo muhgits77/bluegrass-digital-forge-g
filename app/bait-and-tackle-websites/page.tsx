@@ -68,7 +68,7 @@ const included = [
 const faqs = [
   {
     q: "How much does a bait shop or boat rental website cost?",
-    a: "Custom builds start at $1,200 one-time. A larger fleet, more gallery pages, or a fuller shop usually starts at $2,500. You own the finished site and the code. Ready-made templates start at $49 if you want a head start instead of a custom build.",
+    a: "Custom builds start at $1,200 one-time. A larger fleet, more gallery pages, or a fuller shop usually starts at $2,500. You own the finished site and the code. Ready-made templates start at $99 if you want a head start instead of a custom build.",
   },
   {
     q: "Can the site explain how live bait is packed?",
@@ -162,7 +162,7 @@ export default function BaitAndTackleWebsitesPage() {
           rel="noopener noreferrer"
           className="text-[#f4a261] underline underline-offset-2 hover:text-white"
         >
-          Ready-made templates from $49
+          Ready-made templates from $99
         </a>
       </p>
       <p className="mt-3 text-[15px] text-[#c8cfd3]">
@@ -253,7 +253,7 @@ export default function BaitAndTackleWebsitesPage() {
             rel="noopener noreferrer"
             className="text-[#f4a261] underline hover:text-white"
           >
-            ready-made templates from $49
+            ready-made templates from $99
           </a>
           .
         </p>

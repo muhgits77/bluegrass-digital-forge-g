@@ -69,7 +69,7 @@ const included = [
 const faqs = [
   {
     q: "How much does a Florida Gulf Coast business website cost?",
-    a: "Custom builds start at $1,200 one-time. A larger charter, restaurant, or multi-page beach rental site usually starts at $2,500. You own the site and the code. Ready-made templates start at $49 if you would rather begin with a template.",
+    a: "Custom builds start at $1,200 one-time. A larger charter, restaurant, or multi-page beach rental site usually starts at $2,500. You own the site and the code. Ready-made templates start at $99 if you would rather begin with a template.",
   },
   {
     q: "Which towns do you write for?",
@@ -165,7 +165,7 @@ export default function FloridaGulfCoastBusinessWebsitesPage() {
           rel="noopener noreferrer"
           className="text-[#f4a261] underline underline-offset-2 hover:text-white"
         >
-          Ready-made templates from $49
+          Ready-made templates from $99
         </a>
       </p>
       <p className="mt-3 text-[15px] text-[#c8cfd3]">
@@ -256,7 +256,7 @@ export default function FloridaGulfCoastBusinessWebsitesPage() {
             rel="noopener noreferrer"
             className="text-[#f4a261] underline hover:text-white"
           >
-            Ready-made templates from $49
+            Ready-made templates from $99
           </a>{" "}
           are on the template store if you want to start there.
         </p>

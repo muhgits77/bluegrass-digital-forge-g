@@ -59,7 +59,6 @@ export default function Footer() {
                 ["/fishing-guide-websites", "Fishing Guide Sites"],
                 ["/food-truck-websites", "Food Truck Sites"],
                 ["/restaurant-websites", "Restaurant Sites"],
-                ["/truckdash", "TruckDash"],
                 ["/quote", "Get a Quote"],
                 ["/business-cards", "Business Cards"],
                 ["/about", "About"],

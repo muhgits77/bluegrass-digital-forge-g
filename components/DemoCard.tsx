@@ -49,7 +49,6 @@ const demoImageMap: Record<string, string> = {
   "Sea Island Soul": "/assets/demo-sea-island-soul.jpg",
   "La Hacienda Cumberland": "/assets/demo-la-hacienda.jpg",
   "Bourbon Ridge Artisan Studio": "/assets/demo-bourbon-ridge.png",
-  TruckDash: "/assets/demo-cumberland-smash.jpg",
   "Cumberland Smash": "/assets/demo-cumberland-smash.jpg",
   "Cluckin Chaos": "/assets/demo-cluckin-chaos.jpg",
   "Bluegrass Market & Mercantile": "/assets/demo-bluegrass-market.webp",
@@ -98,8 +97,6 @@ const demoAltMap: Record<string, string> = {
     "Mexican restaurant website demo for Lake Cumberland with digital menu and lakeside dining feel",
   "Bourbon Ridge Artisan Studio":
     "Artisan studio website demo for Kentucky makers with classes and handmade goods",
-  TruckDash:
-    "TruckDash food truck dashboard product for Kentucky operators — schedule and live location tools",
   "Cumberland Smash":
     "Smashburger food truck website demo for Lake Cumberland with menu and location updates",
   "Cluckin Chaos":

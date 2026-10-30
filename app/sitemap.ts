@@ -12,7 +12,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     { path: '/', priority: 1.0, changeFrequency: 'weekly' as const },
     { path: '/services', priority: 0.9, changeFrequency: 'monthly' as const },
-    { path: '/truckdash', priority: 0.9, changeFrequency: 'monthly' as const },
     { path: '/work', priority: 0.95, changeFrequency: 'weekly' as const },
     { path: '/food-truck-websites', priority: 0.9, changeFrequency: 'monthly' as const },
     { path: '/restaurant-websites', priority: 0.9, changeFrequency: 'monthly' as const },

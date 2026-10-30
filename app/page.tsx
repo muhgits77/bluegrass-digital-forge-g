@@ -434,13 +434,6 @@ export default function Home() {
             >
               food trucks
             </Link>
-            {" · "}
-            <Link
-              href="/quote"
-              className="text-[var(--copper-bright)] underline hover:text-white"
-            >
-              Ask about TruckDash
-            </Link>
             . Towns:{" "}
             <Link
               href="/service-areas#jamestown"

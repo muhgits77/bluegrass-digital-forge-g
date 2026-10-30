@@ -272,23 +272,6 @@ export default async function Services() {
         </div>
       </div>
 
-      {/* TruckDash — low-pressure mention (separate from website packages) */}
-      <div className="mt-10 rounded-3xl border border-[#1f282b] bg-[#0a0c0f] p-7 md:p-9">
-        <div className="text-[#f4a261] text-xs tracking-[1.5px] mb-1">WEB APP — TRUCKDASH</div>
-        <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">Need more than a website?</h2>
-        <p className="mt-2 text-[15px] text-[#c8cfd3] max-w-2xl">
-          Ask about TruckDash — our food-truck command center for schedules, live location sharing, and flyer tools. Custom quote; referral discount does not apply to Web Apps.
-        </p>
-        <div className="mt-5 flex flex-wrap gap-3">
-          <Link href="/quote" className="btn btn-primary">
-            Ask about TruckDash →
-          </Link>
-          <Link href="/truckdash" className="btn btn-secondary">
-            Learn more
-          </Link>
-        </div>
-      </div>
-
       {/* Regional Pricing — additive, honest, clean language. Kentucky as base + SC Lowcountry 25-35% higher. Two-column format. */}
       <div className="mt-10">
         <div className="max-w-3xl mb-6">

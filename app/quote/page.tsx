@@ -1,29 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { CONTACT_EMAIL } from "@/lib/constants";
 import ReferralDiscountNote from "@/components/ReferralDiscountNote";
 
 const EMAIL = CONTACT_EMAIL;
-
-/** TruckDash plan query → budget label (legacy ?plan=starter|pro still recognized). */
-const TRUCKDASH_PLAN_BUDGET: Record<string, string> = {
-  starter: "TruckDash — custom quote",
-  pro: "TruckDash — custom quote",
-};
-
-/** Read ?plan= without useSearchParams — avoids Suspense “Loading quote form…” flash. */
-function getPlanFromLocation(): string {
-  if (typeof window === "undefined") return "";
-  try {
-    return (new URLSearchParams(window.location.search).get("plan") || "")
-      .toLowerCase()
-      .trim();
-  } catch {
-    return "";
-  }
-}
 
 interface FormData {
   name: string;
@@ -85,7 +67,6 @@ const mustHaveOptions = [
 const budgetOptions = [
   "Starter Site — KY from $1,200 · SC Lowcountry $1,550",
   "Business Suite — KY from $2,500 · SC Lowcountry $3,250",
-  "TruckDash — custom quote",
   "Not sure yet",
 ];
 
@@ -124,29 +105,6 @@ export default function QuotePage() {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submittedName, setSubmittedName] = useState("");
   const [submittedBusiness, setSubmittedBusiness] = useState("");
-  const [truckDashPlan, setTruckDashPlan] = useState<string | null>(null);
-
-  // Prefill budget when arriving from TruckDash with legacy ?plan=starter|pro
-  // Uses window.location so the form paints immediately (no Suspense fallback).
-  useEffect(() => {
-    const plan = getPlanFromLocation();
-    if (plan !== "starter" && plan !== "pro") return;
-    const budget = TRUCKDASH_PLAN_BUDGET[plan];
-    if (!budget) return;
-    setTruckDashPlan(plan);
-    setForm((f) => {
-      if (f.budget === budget) return f;
-      const goals = f.goals.includes(
-        "Easily update daily location and hours myself (food trucks & mobile businesses)"
-      )
-        ? f.goals
-        : [
-            ...f.goals,
-            "Easily update daily location and hours myself (food trucks & mobile businesses)",
-          ];
-      return { ...f, budget, goals };
-    });
-  }, []);
 
   const update = <K extends keyof FormData>(key: K, value: FormData[K]) => {
     setForm((f) => ({ ...f, [key]: value }));
@@ -245,17 +203,6 @@ export default function QuotePage() {
         <div className="label tracking-[2px]">CUSTOM QUOTE — MONTICELLO KY WEBSITE DESIGNER</div>
         <h1 className="section-title tracking-tight mt-1">Get a Website Quote</h1>
         <p className="mt-2 text-[#8a9599]">A few quick questions for your Wayne County, Lake Cumberland, or Charleston SC / Lowcountry project. Flat price proposal from the local Monticello builder. Real responses, no automated fluff. Takes 4–6 minutes.</p>
-        {truckDashPlan && (
-          <div className="mt-4 rounded-xl border border-[#f4a261]/35 bg-[#0a0c0f] px-4 py-3 text-[14px] text-[#c8cfd3]">
-            <span className="font-medium text-[#f4a261]">TruckDash</span>
-            {" — "}
-            interest noted. Budget is pre-filled; complete the form and Brian will follow up with details.
-            {" "}
-            <Link href="/truckdash" className="underline hover:text-white text-[#d4a373]">
-              About TruckDash
-            </Link>
-          </div>
-        )}
         <ReferralDiscountNote className="mt-4 rounded-xl border border-[#1f282b]/80 bg-[#0a0c0f]/60 px-4 py-2.5" />
       </div>
 
@@ -677,10 +624,6 @@ export default function QuotePage() {
         <div className="mt-10 text-center text-[14.5px]">
           <Link href="/services" className="text-[#c17a5a] hover:underline">
             ← Back to Services &amp; Pricing
-          </Link>
-          {" · "}
-          <Link href="/truckdash" className="text-[#c17a5a] hover:underline">
-            TruckDash
           </Link>
         </div>
       )}

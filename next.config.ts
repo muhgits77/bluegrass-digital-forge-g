@@ -58,6 +58,17 @@ const nextConfig: NextConfig = {
   // Prefer https://bluegrassdigitalforge.com — permanent redirects from .live hosts
   async redirects() {
     return [
+      // TruckDash is shelved — keep old links working
+      {
+        source: "/truckdash",
+        destination: "/food-truck-websites",
+        permanent: true,
+      },
+      {
+        source: "/truckdash/:path*",
+        destination: "/food-truck-websites",
+        permanent: true,
+      },
       {
         source: "/blog/late-oct-cabin-week",
         destination: "https://bluegrassdigitalforge.com/blog/late-oct-lake-house-week",

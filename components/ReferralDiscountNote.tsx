@@ -26,7 +26,7 @@ export default function ReferralDiscountNote({
       <span className="font-medium text-[#c9b9a8]">Note:</span> The{" "}
       <span className="text-[#d4a373]">$300 referral credit</span> applies only
       to standard custom website projects through October 13, 2026. It does not
-      apply to templates or Web Apps like TruckDash.
+      apply to templates.
     </p>
   );
 }

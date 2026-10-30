@@ -92,13 +92,6 @@ export default function WorkPage() {
           >
             restaurants
           </Link>
-          {" · "}
-          <Link
-            href="/truckdash"
-            className="text-[var(--gold-light)] underline hover:text-white"
-          >
-            TruckDash
-          </Link>
           .
         </p>
       </div>

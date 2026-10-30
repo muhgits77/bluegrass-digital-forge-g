@@ -39,7 +39,7 @@ export const metadata: Metadata = {
 const faqs = [
   {
     q: "How much does a food truck website cost in Kentucky?",
-    a: "Kentucky base rates: Starter Sites start at $1,200 one-time; Business Suites from $2,500. South Carolina Lowcountry: Starter Sites $1,550 · Business Suites $3,250. TruckDash (the food-truck web app) is a separate custom quote. Flat scope-based pricing — no monthly retainer required for the website build. You own the finished site and code.",
+    a: "Kentucky base rates: Starter Sites start at $1,200 one-time; Business Suites from $2,500. South Carolina Lowcountry: Starter Sites $1,550 · Business Suites $3,250. Flat scope-based pricing — no monthly retainer required for the website build. You own the finished site and code.",
   },
   {
     q: "Can I update my location from my phone?",
@@ -56,10 +56,6 @@ const faqs = [
   {
     q: "Do you only serve Lake Cumberland trucks?",
     a: "Lake Cumberland and broader Kentucky operators are home base — marina stops, festivals, Main Street lunch spots from Monticello to Somerset and beyond. We also build Charleston SC and Lowcountry food truck sites with the same real-time location approach.",
-  },
-  {
-    q: "What’s the difference between a food truck website and TruckDash?",
-    a: "A website is your public home — location, menu, ordering, SEO. TruckDash is our Bluegrass Command Center web app for schedule, live map, flyer studio, and offline tools. Many owners start with a site; some add TruckDash when they want the full ops toolkit.",
   },
 ];
 
@@ -445,28 +441,6 @@ export default async function FoodTruckWebsites() {
         <Link href="/work/fiesta-taqueria" className="underline text-[#3ddbd9]">
           see the Fiesta Taqueria example
         </Link>
-      </div>
-
-      {/* TruckDash — low-pressure CTA only */}
-      <div className="mt-10 rounded-3xl border border-[#1f282b] bg-[#0a0c0f] p-7">
-        <div className="text-[#f4a261] text-xs tracking-[1.5px] mb-1">
-          TRUCKDASH
-        </div>
-        <h2 className="text-xl font-semibold tracking-tight">
-          Need more than a website?
-        </h2>
-        <p className="mt-2 text-[15px] text-[#c8cfd3]">
-          Ask about TruckDash — our food-truck command center for schedules, live
-          location sharing, and flyer tools.
-        </p>
-        <div className="mt-4 flex flex-wrap gap-3">
-          <Link href="/quote" className="btn btn-primary">
-            Ask about TruckDash →
-          </Link>
-          <Link href="/truckdash" className="btn btn-secondary">
-            Learn more
-          </Link>
-        </div>
       </div>
 
       {/* Benefits grid */}

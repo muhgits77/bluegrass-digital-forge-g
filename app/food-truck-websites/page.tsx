@@ -160,7 +160,7 @@ export default async function FoodTruckWebsites() {
           rel="noopener noreferrer"
           className="text-[#f4a261] underline underline-offset-2 hover:text-white"
         >
-          Ready-made templates from $49
+          Ready-made templates from $99
         </a>
       </p>
 

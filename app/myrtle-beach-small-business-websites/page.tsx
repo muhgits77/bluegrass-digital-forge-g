@@ -69,7 +69,7 @@ const included = [
 const faqs = [
   {
     q: "How much does a Myrtle Beach small business website cost?",
-    a: "Custom builds start at $1,200 one-time. A larger restaurant, charter, or multi-page rental site usually starts at $2,500. You own the site and the code. Ready-made templates start at $49 if you want to launch from a template instead.",
+    a: "Custom builds start at $1,200 one-time. A larger restaurant, charter, or multi-page rental site usually starts at $2,500. You own the site and the code. Ready-made templates start at $99 if you want to launch from a template instead.",
   },
   {
     q: "What do you call a place to stay?",
@@ -163,7 +163,7 @@ export default function MyrtleBeachSmallBusinessWebsitesPage() {
           rel="noopener noreferrer"
           className="text-[#f4a261] underline underline-offset-2 hover:text-white"
         >
-          Ready-made templates from $49
+          Ready-made templates from $99
         </a>
       </p>
       <p className="mt-3 text-[15px] text-[#c8cfd3]">
@@ -254,7 +254,7 @@ export default function MyrtleBeachSmallBusinessWebsitesPage() {
             rel="noopener noreferrer"
             className="text-[#f4a261] underline hover:text-white"
           >
-            Ready-made templates from $49
+            Ready-made templates from $99
           </a>{" "}
           are available if you want to start from a template.
         </p>

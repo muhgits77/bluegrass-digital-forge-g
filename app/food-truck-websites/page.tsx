@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import NotLocalTemplates from "@/components/NotLocalTemplates";
 import Link from "next/link";
 import { canonicalUrl, SITE_URL, CONTACT_EMAIL, TEMPLATE_STORE_URL } from "@/lib/constants";
 import DemoLiveLink, { DemoPortfolioOrLiveLink } from "@/components/DemoLiveLink";
@@ -6,9 +7,9 @@ import { loadLivePublicDemosCatalog } from "@/lib/demos";
 
 export const metadata: Metadata = {
   title:
-    "Food Truck Websites Kentucky | Lake Cumberland & Monticello | Flat Pricing",
+    "Food Truck Websites – Lake Cumberland & Monticello KY",
   description:
-    "Food truck websites for Lake Cumberland and Kentucky operators. Real-time location, menus, festivals, mobile dashboard. Flat one-time pricing from $1,200. You own the code — no monthly website retainers. Handcrafted in Monticello, KY.",
+    "Food truck websites for Lake Cumberland trucks: today's location, menu, catering requests. Flat price. Not local? Templates from $129.",
   keywords: [
     "food truck website Kentucky",
     "Monticello KY website designer",
@@ -17,16 +18,15 @@ export const metadata: Metadata = {
     "food truck website Lake Cumberland",
     "real-time food truck location",
     "food truck schedule updates",
-    "Charleston Food Truck Website",
-    "Lowcountry Web Design",
+    "Somerset KY food truck website",
     "flat rate food truck website",
   ],
   alternates: { canonical: canonicalUrl("/food-truck-websites") },
   openGraph: {
     title:
-      "Food Truck Websites Kentucky | Lake Cumberland | Flat Pricing · Full Ownership",
+      "Food Truck Websites – Lake Cumberland & Monticello KY",
     description:
-      "Real-time location, menus, and festival schedules for Kentucky food trucks. Flat one-time pricing. You own the code. Built by a neighbor in Monticello for Lake Cumberland and beyond.",
+      "Food truck websites for Lake Cumberland trucks: today's location, menu, catering requests. Flat price. Not local? Templates from $129.",
     url: canonicalUrl("/food-truck-websites"),
     images: [{ url: "/og-default.png", width: 1200, height: 630 }],
   },
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
 const faqs = [
   {
     q: "How much does a food truck website cost in Kentucky?",
-    a: "Kentucky base rates: Starter Sites start at $1,200 one-time; Business Suites from $2,500. South Carolina Lowcountry: Starter Sites $1,550 · Business Suites $3,250. Flat scope-based pricing — no monthly retainer required for the website build. You own the finished site and code.",
+    a: "Kentucky base rates: Starter Sites start at $1,200 one-time; Business Suites from $2,500. Flat scope-based pricing — no monthly retainer required for the website build. You own the finished site and code.",
   },
   {
     q: "Can I update my location from my phone?",
@@ -55,7 +55,7 @@ const faqs = [
   },
   {
     q: "Do you only serve Lake Cumberland trucks?",
-    a: "Lake Cumberland and broader Kentucky operators are home base — marina stops, festivals, Main Street lunch spots from Monticello to Somerset and beyond. We also build Charleston SC and Lowcountry food truck sites with the same real-time location approach.",
+    a: "Lake Cumberland and broader Kentucky operators are home base — marina stops, festivals, Main Street lunch spots from Monticello to Somerset and beyond. Not local? Ready-made food truck website templates start at $129 at bluegrasstemplates.com.",
   },
 ];
 
@@ -89,7 +89,6 @@ const serviceSchema = {
     { "@type": "City", name: "Albany" },
     { "@type": "City", name: "Russell Springs" },
     { "@type": "City", name: "Nancy" },
-    { "@type": "Place", name: "South Carolina Lowcountry" },
   ],
   offers: {
     "@type": "AggregateOffer",
@@ -356,7 +355,7 @@ export default async function FoodTruckWebsites() {
         </h2>
         <p className="mt-2 text-[15px] text-[#9aa6ad]">
           Featured portfolio pieces — location, menu, and weekend stops for
-          Kentucky and Lowcountry trucks. Flat one-time pricing on real builds;
+          Lake Cumberland and Kentucky trucks. Flat one-time pricing on real builds;
           you own the code.
         </p>
         <ul className="mt-5 space-y-4">
@@ -452,8 +451,7 @@ export default async function FoodTruckWebsites() {
           </h2>
           <p className="mt-2 text-[15px] text-[#9aa6ad]">
             Every feature solves a real problem food truck owners face in Lake
-            Cumberland, Wayne County, broader Kentucky, and the South Carolina
-            Lowcountry.
+            Cumberland, Wayne, Pulaski, Russell and McCreary counties.
           </p>
         </div>
 
@@ -541,30 +539,10 @@ export default async function FoodTruckWebsites() {
         </div>
       </div>
 
-      {/* Charleston SC */}
-      <div className="mt-12 rounded-3xl border border-[#243530] bg-[#0a0c0f] p-8">
-        <div className="label tracking-[1.5px] text-[#f4a261]">
-          CHARLESTON SC &amp; LOWCOUNTRY FOOD TRUCKS
-        </div>
-        <h2 className="mt-2 text-2xl font-semibold tracking-tight">
-          Websites that understand the Lowcountry rhythm.
-        </h2>
-        <p className="mt-3 text-[15px] text-[#c8cfd3]">
-          Charleston food trucks roll to the waterfront, King Street pop-ups,
-          North Charleston markets, Firefly Distillery events, Summerville town
-          days, and festivals across the Lowcountry. Same neighborly process as
-          our Lake Cumberland food truck sites — South Carolina Lowcountry rates:
-          Starter Sites $1,550 · Business Suites $3,250. You own the code.
-        </p>
-        <div className="mt-5">
-          <Link
-            href="/south-carolina"
-            className="text-[#f4a261] underline hover:text-white"
-          >
-            Learn more about Charleston SC &amp; Lowcountry websites →
-          </Link>
-        </div>
-      </div>
+      <NotLocalTemplates
+        href="https://bluegrasstemplates.com/food-truck-website-templates"
+        label="Food truck website templates"
+      />
 
       {/* Related */}
       <div className="mt-10 rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-6">

@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
+import NotLocalTemplates from "@/components/NotLocalTemplates";
 import Link from "next/link";
 import { canonicalUrl, SITE_URL, CONTACT_EMAIL, TEMPLATE_STORE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title:
-    "Restaurant Websites Monticello KY | Lake Cumberland Digital Menus",
+    "Restaurant Websites – Monticello KY & Lake Cumberland",
   description:
-    "Restaurant websites for Monticello KY and Lake Cumberland — readable digital menus, catering paths, mobile-first design for locals and weekend lake traffic. Flat one-time pricing from $1,200. You own the code. Handcrafted in Monticello, KY.",
+    "Restaurant websites for Monticello, Somerset and Lake Cumberland: readable menus, catering and hours on a phone. Flat pricing, you own it.",
   keywords: [
     "restaurant website Monticello KY",
     "Lake Cumberland restaurant website",
@@ -19,9 +20,9 @@ export const metadata: Metadata = {
   alternates: { canonical: canonicalUrl("/restaurant-websites") },
   openGraph: {
     title:
-      "Restaurant Websites for Monticello KY & Lake Cumberland | Flat Pricing",
+      "Restaurant Websites – Monticello KY & Lake Cumberland",
     description:
-      "Digital menus, catering paths, and mobile-first sites for restaurants around Monticello and Lake Cumberland. Flat one-time pricing. You own everything. Built by a neighbor in Monticello.",
+      "Restaurant websites for Monticello, Somerset and Lake Cumberland: readable menus, catering and hours on a phone. Flat pricing, you own it.",
     url: canonicalUrl("/restaurant-websites"),
     images: [{ url: "/og-default.png", width: 1200, height: 630 }],
   },
@@ -594,6 +595,10 @@ export default function RestaurantWebsitesPage() {
           code · No monthly website retainer
         </p>
       </div>
+      <NotLocalTemplates
+        href="https://bluegrasstemplates.com/restaurant-website-templates"
+        label="Restaurant website templates"
+      />
     </div>
   );
 }

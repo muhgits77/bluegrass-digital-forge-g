@@ -5,9 +5,9 @@ import { canonicalUrl, SITE_URL, CONTACT_EMAIL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title:
-    "Lake Cumberland Service Areas | Jamestown, Burnside, Nancy, Albany | Monticello KY Website Designer",
+    "Web Design Service Areas – Lake Cumberland, KY",
   description:
-    "Websites for Lake Cumberland boat ramp towns — Jamestown, Burnside, Russell Springs, Nancy, Albany, Monticello & more. Marinas, fishing guides, food trucks, restaurants. Flat pricing. Full ownership. Handcrafted in Monticello, KY.",
+    "Web design for Monticello, Somerset, Russell Springs, Jamestown, Burnside, Albany, Nancy and Whitley City: Wayne, Pulaski, Russell & McCreary counties.",
   keywords: [
     "Lake Cumberland boat ramp towns",
     "Monticello KY website designer",
@@ -18,15 +18,16 @@ export const metadata: Metadata = {
     "Albany KY website designer",
     "Creelsboro fishing guide site",
     "Lake Cumberland business websites",
-    "Web Design Charleston SC",
-    "Lowcountry Web Design",
+    "Somerset KY web design",
+    "Russell Springs KY web design",
+    "McCreary County web design",
   ],
   alternates: { canonical: canonicalUrl("/service-areas") },
   openGraph: {
     title:
-      "Lake Cumberland Service Areas | Websites for Every Major Ramp Town | Monticello KY",
+      "Web Design Service Areas – Lake Cumberland, KY",
     description:
-      "Handcrafted websites for Jamestown, Burnside, Nancy, Russell Springs, Albany, Monticello and every major Lake Cumberland boat ramp town. Flat pricing. You own the code.",
+      "Web design for Monticello, Somerset, Russell Springs, Jamestown, Burnside, Albany, Nancy and Whitley City: Wayne, Pulaski, Russell & McCreary counties.",
     url: canonicalUrl("/service-areas"),
     images: [{ url: "/og-default.png", width: 1200, height: 630 }],
   },
@@ -113,6 +114,7 @@ const townDeepDives = [
       "Same Monticello neighbor process: flat pricing, you own the code, optional care only if you want it.",
     ],
     specialties: [
+      { href: "/web-design-russell-springs-ky", label: "Russell Springs web design" },
       { href: "/fishing-guide-websites", label: "Fishing guide websites" },
       { href: "/food-truck-websites", label: "Food truck websites" },
       { href: "/marina-websites", label: "Marina websites" },
@@ -140,6 +142,43 @@ const townDeepDives = [
       { href: "/lake-house-rental-websites", label: "Lake house rental websites" },
     ],
   },
+  {
+    id: "somerset",
+    town: "Somerset, KY",
+    county: "Pulaski County",
+    anchors: "Pulaski County seat · Burnside, Lee’s Ford & Waitsboro nearby",
+    summary:
+      "Somerset is the largest town on the north side of the lake and the Pulaski County seat. Restaurants, contractors, shops and services here compete with a bigger town’s worth of businesses, so a fast, clear site matters.",
+    points: [
+      "Contractors and home services across Pulaski County need a service list, service area and a quote form that works on a phone.",
+      "Restaurants and food trucks win with menus, hours and today’s location that load quickly.",
+      "Lake traffic from Burnside and Nancy passes through, so lake-related businesses benefit from naming both the town and the lake.",
+    ],
+    specialties: [
+      { href: "/web-design-somerset-ky", label: "Somerset web design" },
+      { href: "/contractor-websites", label: "Contractor websites" },
+      { href: "/restaurant-websites", label: "Restaurant websites" },
+      { href: "/food-truck-websites", label: "Food truck websites" },
+    ],
+  },
+  {
+    id: "whitley-city",
+    town: "Whitley City, KY",
+    county: "McCreary County",
+    anchors: "Pine Knot · Stearns · Big South Fork & Daniel Boone National Forest",
+    summary:
+      "Whitley City is the McCreary County seat, south of the lake along US 27, with Pine Knot and Stearns close by. Outdoor visitors heading to the Big South Fork and the national forest search on their phones for lodging, food and outfitters.",
+    points: [
+      "Cabins, campgrounds and outfitters need clear directions, rates and a simple booking or inquiry form.",
+      "Local restaurants, shops and contractors need the basics done right: hours, service area and tap-to-call contact.",
+      "Same Monticello process: flat pricing, you own the code, optional care only if you want it.",
+    ],
+    specialties: [
+      { href: "/contractor-websites", label: "Contractor websites" },
+      { href: "/lake-house-rental-websites", label: "Cabin & rental websites" },
+      { href: "/restaurant-websites", label: "Restaurant websites" },
+    ],
+  },
 ];
 
 const localBusinessSchema = {
@@ -147,7 +186,8 @@ const localBusinessSchema = {
   "@type": "LocalBusiness",
   name: "Bluegrass Digital Forge — Lake Cumberland Service Areas",
   description:
-    "Monticello KY website designer serving Lake Cumberland boat ramp towns including Jamestown, Burnside, Nancy, Russell Springs, Albany, Monticello, and surrounding communities. Flat pricing. Full ownership.",
+    "Monticello KY website designer serving Lake Cumberland boat ramp towns including Jamestown, Burnside, Nancy, Russell Springs, Albany, Monticello, Somerset and Whitley City across Wayne, Pulaski, Russell and McCreary counties. Flat pricing. Full ownership.",
+  sameAs: ["https://share.google/JKjYBoMEpHxleaFfL"],
   url: canonicalUrl("/service-areas"),
   email: CONTACT_EMAIL,
   address: {
@@ -157,10 +197,17 @@ const localBusinessSchema = {
     postalCode: "42633",
     addressCountry: "US",
   },
-  areaServed: townDeepDives.map((t) => ({
-    "@type": "City",
-    name: t.town.replace(", KY", ""),
-  })),
+  areaServed: [
+    ...townDeepDives.map((t) => ({
+      "@type": "City",
+      name: t.town.replace(", KY", ""),
+    })),
+    { "@type": "City", name: "Monticello" },
+    ...["Wayne County", "Pulaski County", "Russell County", "McCreary County"].map((name) => ({
+      "@type": "AdministrativeArea",
+      name,
+    })),
+  ],
   priceRange: "$1,200 - $2,500",
 };
 
@@ -178,8 +225,8 @@ export default function ServiceAreasPage() {
       <div className="max-w-3xl">
         <div className="label tracking-[2px]">SERVICE AREAS — LAKE CUMBERLAND</div>
         <h1 className="section-title tracking-tight mt-2">
-          Websites for Lake Cumberland boat ramp towns — Jamestown, Burnside,
-          Nancy, Albany &amp; more
+          Web design for Lake Cumberland towns — Monticello, Somerset, Russell
+          Springs, Jamestown, Burnside, Whitley City &amp; more
         </h1>
         <p className="mt-3 text-lg text-[#9aa6ad]">
           Handcrafted by a neighbor in Monticello for the marinas, fishing
@@ -212,11 +259,14 @@ export default function ServiceAreasPage() {
         <Link href="/bait-and-tackle-websites" className="btn btn-secondary px-5 py-2.5 text-sm">
           Bait and boat websites
         </Link>
-        <Link href="/myrtle-beach-small-business-websites" className="btn btn-secondary px-5 py-2.5 text-sm">
-          Myrtle Beach websites
+        <Link href="/contractor-websites" className="btn btn-secondary px-5 py-2.5 text-sm">
+          Contractor websites
         </Link>
-        <Link href="/florida-gulf-coast-business-websites" className="btn btn-secondary px-5 py-2.5 text-sm">
-          Florida Gulf Coast websites
+        <Link href="/web-design-somerset-ky" className="btn btn-secondary px-5 py-2.5 text-sm">
+          Somerset KY web design
+        </Link>
+        <Link href="/web-design-russell-springs-ky" className="btn btn-secondary px-5 py-2.5 text-sm">
+          Russell Springs KY web design
         </Link>
         <Link href="/quote" className="btn btn-primary px-5 py-2.5 text-sm">
           Get a free quote →
@@ -310,41 +360,20 @@ export default function ServiceAreasPage() {
         </div>
       </div>
 
-      {/* Additive: South Carolina Lowcountry */}
+      {/* Not local */}
       <div className="mt-12 rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-8">
-        <div className="label tracking-[1.5px] text-[#c17a5a]">
-          NOW SERVING THE SOUTH CAROLINA LOWCOUNTRY
-        </div>
+        <div className="label tracking-[1.5px] text-[#c17a5a]">NOT LOCAL?</div>
         <h3 className="text-2xl tracking-tight font-semibold mt-2">
-          Charleston SC Web Design &amp; Lowcountry Business Websites
+          Get a ready-made template for $129
         </h3>
         <p className="mt-3 text-[15px] text-[#9aa6ad]">
-          Same flat-price, handcrafted approach now available for Charleston,
-          Summerville, Walterboro, Ladson, North Charleston and surrounding
-          Lowcountry towns. Perfect for restaurants, food trucks, small retail,
-          and professional services that want an authentic, fast-loading site.
+          Outside the Lake Cumberland area? Pick a finished website template at
+          bluegrasstemplates.com, or ask about custom work by email.
         </p>
         <div className="mt-4 text-sm">
-          <Link
-            href="/south-carolina"
-            className="text-[#f4a261] hover:underline font-medium"
-          >
-            Visit dedicated South Carolina page for details and local examples →
-          </Link>
-        </div>
-        <div className="mt-3 text-sm flex flex-col gap-2">
-          <Link
-            href="/myrtle-beach-small-business-websites"
-            className="text-[#f4a261] hover:underline font-medium"
-          >
-            Myrtle Beach and Grand Strand small business websites →
-          </Link>
-          <Link
-            href="/florida-gulf-coast-business-websites"
-            className="text-[#f4a261] hover:underline font-medium"
-          >
-            Florida Gulf Coast websites for Destin, Panama City Beach, and 30A →
-          </Link>
+          <a href="https://bluegrasstemplates.com/small-business-website-templates" className="text-[#f4a261] hover:underline font-medium">
+            Browse small business website templates →
+          </a>
         </div>
       </div>
 
@@ -428,8 +457,7 @@ export default function ServiceAreasPage() {
         </div>
         <p className="mt-4 text-xs text-[#8a9599]">
           Serving every ramp town on Lake Cumberland from the heart of
-          Monticello, KY — and Charleston SC, Summerville &amp; the full
-          Lowcountry.
+          Monticello, KY, across Wayne, Pulaski, Russell and McCreary counties.
         </p>
       </div>
     </div>

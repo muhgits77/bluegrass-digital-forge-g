@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import NotLocalTemplates from "@/components/NotLocalTemplates";
 import Link from "next/link";
 import { canonicalUrl, SITE_URL, CONTACT_EMAIL, TEMPLATE_STORE_URL } from "@/lib/constants";
 
-const title = "Bait & Tackle and Boat Rental Websites";
+const title = "Bait Shop & Boat Rental Websites – Lake Cumberland KY";
 const description =
-  "Websites for bait shops, tackle stores, and boat or pontoon rental docks. Live bait, hours, fleet cards, fishing reports, and dock directions.";
+  "Websites for Lake Cumberland bait shops, tackle stores and pontoon rental docks: live bait, fleet rates and fishing reports.";
 
 export const metadata: Metadata = {
   title,
@@ -303,6 +304,10 @@ export default function BaitAndTackleWebsitesPage() {
           </Link>
         </div>
       </div>
+      <NotLocalTemplates
+        href="https://bluegrasstemplates.com/lake-and-marina-website-templates"
+        label="Lake & marina website templates"
+      />
     </div>
   );
 }

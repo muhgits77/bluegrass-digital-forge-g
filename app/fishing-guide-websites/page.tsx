@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
+import NotLocalTemplates from "@/components/NotLocalTemplates";
 import Link from "next/link";
 import { canonicalUrl, SITE_URL, CONTACT_EMAIL, TEMPLATE_STORE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title:
-    "Fishing Guide Websites Lake Cumberland | Striper & Bass Guides | Monticello KY",
+    "Fishing Guide Websites – Lake Cumberland, KY",
   description:
-    "Fishing guide websites for Lake Cumberland striper, bass & multi-species captains. Trip booking, captain bios, trophy photos, mobile-first. Flat one-time pricing from $1,200. You own the code. Handcrafted in Monticello, KY — no monthly retainers.",
+    "Websites for Lake Cumberland striper and bass guides: trip booking, captain bios and fishing reports. Flat pricing from Monticello KY.",
   keywords: [
     "fishing guide website Lake Cumberland",
     "striper fishing guide website",
@@ -20,9 +21,9 @@ export const metadata: Metadata = {
   alternates: { canonical: canonicalUrl("/fishing-guide-websites") },
   openGraph: {
     title:
-      "Fishing Guide Websites for Lake Cumberland | Flat Pricing · Full Ownership",
+      "Fishing Guide Websites – Lake Cumberland, KY",
     description:
-      "Sites for striper, bass, and multi-species guides on Lake Cumberland. Trip types, booking forms, real trophy photos. Flat one-time pricing. You own everything. Built in Monticello, KY.",
+      "Websites for Lake Cumberland striper and bass guides: trip booking, captain bios and fishing reports. Flat pricing from Monticello KY.",
     url: canonicalUrl("/fishing-guide-websites"),
     images: [{ url: "/og-default.png", width: 1200, height: 630 }],
   },
@@ -510,6 +511,10 @@ export default function FishingGuideWebsitesPage() {
           code · Serving guides lake-wide
         </p>
       </div>
+      <NotLocalTemplates
+        href="https://bluegrasstemplates.com/lake-and-marina-website-templates"
+        label="Lake & marina website templates"
+      />
     </div>
   );
 }

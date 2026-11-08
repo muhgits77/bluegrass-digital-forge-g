@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import { canonicalUrl } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Get a Quote | Bluegrass Digital Forge",
+  title: "Get a Website Quote – Monticello KY & Lake Cumberland",
   description:
-    "Request a flat-price website quote from the Monticello KY website designer for Lake Cumberland and South Carolina Lowcountry businesses. Honest pricing, real responses.",
+    "Request a flat-price website quote for your Monticello, Somerset or Lake Cumberland business. Clear price up front, no monthly lock-in.",
   alternates: { canonical: canonicalUrl("/quote") },
   openGraph: {
-    title: "Get a Quote | Bluegrass Digital Forge",
+    title: "Get a Website Quote – Monticello KY & Lake Cumberland",
     url: canonicalUrl("/quote"),
     images: [{ url: "/og-default.png", width: 1200, height: 630 }],
   },

@@ -1,18 +1,17 @@
 import type { Metadata } from "next";
+import NotLocalTemplates from "@/components/NotLocalTemplates";
 import Link from "next/link";
 import { canonicalUrl, SITE_URL, CONTACT_EMAIL, TEMPLATE_STORE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title:
-    "Marina Websites Lake Cumberland | Burnside, State Dock, Lee’s Ford | Flat Pricing Monticello KY",
+    "Marina Website Design – Lake Cumberland, KY",
   description:
-    "Marina websites for Lake Cumberland — Burnside Marina, Lee’s Ford, State Dock, Conley Bottom, Grider Hill, Marina Rowena & more. Booking, amenities, fuel info, mobile-first. Flat one-time pricing. You own the code. Handcrafted in Monticello, KY. No monthly fees.",
+    "Websites for Lake Cumberland marinas and boat docks: slip rates, rentals, fuel dock hours and events. Flat pricing from a Monticello KY designer.",
   keywords: [
     "marina website Lake Cumberland",
-    "Burnside Marina website",
-    "Lee’s Ford marina website",
-    "State Dock Jamestown website",
-    "Conley Bottom website",
+    "marina web design Kentucky",
+    "boat dock website Lake Cumberland",
     "houseboat rental website Kentucky",
     "Lake Cumberland marina web design",
     "Monticello KY website designer",
@@ -21,9 +20,9 @@ export const metadata: Metadata = {
   alternates: { canonical: canonicalUrl("/marina-websites") },
   openGraph: {
     title:
-      "Marina Websites for Lake Cumberland | Flat Pricing · Full Ownership | Monticello KY",
+      "Marina Website Design – Lake Cumberland, KY",
     description:
-      "Websites for marinas and docks around Lake Cumberland — booking, slip info, fuel, amenities, and mobile-first design. Flat one-time pricing. You own everything. Built by a neighbor in Monticello.",
+      "Websites for Lake Cumberland marinas and boat docks: slip rates, rentals, fuel dock hours and events. Flat pricing from a Monticello KY designer.",
     url: canonicalUrl("/marina-websites"),
     images: [{ url: "/og-default.png", width: 1200, height: 630 }],
   },
@@ -188,8 +187,7 @@ export default function MarinaWebsitesPage() {
         SPECIALTY — MARINA WEBSITES LAKE CUMBERLAND
       </div>
       <h1 className="section-title tracking-tight">
-        Marina Websites for Lake Cumberland — Burnside, State Dock, Lee&apos;s
-        Ford &amp; Beyond
+        Marina Website Design for Lake Cumberland, Kentucky
       </h1>
       <p className="mt-3 text-lg text-[#8a9599]">
         If you run a dock or marina on Lake Cumberland, this is the kind of
@@ -470,6 +468,10 @@ export default function MarinaWebsitesPage() {
           code · No monthly website retainer
         </p>
       </div>
+      <NotLocalTemplates
+        href="https://bluegrasstemplates.com/lake-and-marina-website-templates"
+        label="Lake & marina website templates"
+      />
     </div>
   );
 }

@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import NotLocalTemplates from "@/components/NotLocalTemplates";
 import Link from "next/link";
 import { canonicalUrl, SITE_URL, CONTACT_EMAIL, TEMPLATE_STORE_URL } from "@/lib/constants";
 
-const title = "Lake House Rental Websites | Lake Cumberland";
+const title = "Lake House Rental Websites – Lake Cumberland, KY";
 const description =
-  "Lake house rental websites for owners and managers in Monticello, Jamestown, Somerset, and Burnside. Calendars, galleries, and booking inquiries.";
+  "Direct-booking websites for Lake Cumberland lake house owners in Monticello, Jamestown, Somerset and Burnside. Skip booking-site fees.";
 
 export const metadata: Metadata = {
   title,
@@ -311,6 +312,10 @@ export default function LakeHouseRentalWebsitesPage() {
           </Link>
         </div>
       </div>
+      <NotLocalTemplates
+        href="https://bluegrasstemplates.com/lake-and-marina-website-templates"
+        label="Lake & marina website templates"
+      />
     </div>
   );
 }

@@ -6,11 +6,12 @@ const serviceTowns: { label: string; href: string }[] = [
   { label: "Monticello", href: "/service-areas" },
   { label: "Jamestown", href: "/service-areas#jamestown" },
   { label: "Burnside", href: "/service-areas#burnside" },
-  { label: "Somerset", href: "/service-areas" },
-  { label: "Russell Springs", href: "/service-areas#russell-springs" },
+  { label: "Somerset", href: "/web-design-somerset-ky" },
+  { label: "Russell Springs", href: "/web-design-russell-springs-ky" },
   { label: "Albany", href: "/service-areas#albany" },
   { label: "Nancy", href: "/service-areas#nancy" },
   { label: "Creelsboro", href: "/service-areas" },
+  { label: "Whitley City", href: "/service-areas#whitley-city" },
 ];
 
 export default function Footer() {
@@ -19,7 +20,7 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-5 sm:px-8 py-14 md:py-16">
         <div className="grid grid-cols-1 gap-y-12 md:grid-cols-12 md:gap-x-10">
           {/* Brand */}
-          <div className="md:col-span-5">
+          <div className="md:col-span-3">
             <div className="flex items-center gap-2.5 mb-4">
               <Image
                 src="/logo.jpg"
@@ -37,9 +38,9 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-[var(--text-muted)] max-w-sm leading-relaxed">
-              Handcrafted websites for Lake Cumberland and the South Carolina
-              Lowcountry. Flat pricing, fast launches, full ownership — forged in
-              Monticello, Kentucky.
+              Handcrafted websites for the Lake Cumberland area of Kentucky. Flat
+              pricing, fast launches, full ownership — forged in Monticello,
+              Kentucky.
             </p>
             <p className="mt-5 text-[12.5px] text-[var(--copper-bright)] tracking-wide font-semibold">
               Forged by Brian · Monticello, Kentucky
@@ -59,6 +60,7 @@ export default function Footer() {
                 ["/fishing-guide-websites", "Fishing Guide Sites"],
                 ["/food-truck-websites", "Food Truck Sites"],
                 ["/restaurant-websites", "Restaurant Sites"],
+                ["/contractor-websites", "Contractor Sites"],
                 ["/quote", "Get a Quote"],
                 ["/business-cards", "Business Cards"],
                 ["/about", "About"],
@@ -86,20 +88,36 @@ export default function Footer() {
               ))}
             </ul>
             <p className="mt-3 text-[12.5px] text-[var(--text-dim)]">
-              + Lake Cumberland ramps &amp; Wayne County
-            </p>
-            <p className="mt-2 text-[12.5px] text-[var(--copper-bright)] font-medium">
-              Also: Charleston SC &amp; Lowcountry
+              + Wayne, Pulaski, Russell &amp; McCreary counties
             </p>
             <p className="mt-3 text-xs text-[var(--text-muted)]">
               <Link href="/service-areas" className="footer-link underline">
                 Full service areas
               </Link>
-              {" · "}
-              <Link href="/south-carolina" className="footer-link underline">
-                South Carolina
-              </Link>
             </p>
+          </div>
+
+          {/* Template Store */}
+          <div className="md:col-span-2">
+            <div className="label mb-4">Template Store</div>
+            <ul className="space-y-2 text-[var(--text-muted)] text-[13.5px]">
+              {[
+                ["https://bluegrasstemplates.com/", "Website templates from $129"],
+                ["https://bluegrasstemplates.com/small-business-website-templates", "Small business"],
+                ["https://bluegrasstemplates.com/food-truck-website-templates", "Food truck"],
+                ["https://bluegrasstemplates.com/restaurant-website-templates", "Restaurant"],
+                ["https://bluegrasstemplates.com/contractor-website-templates", "Contractor"],
+                ["https://bluegrasstemplates.com/automotive-website-templates", "Tire & auto"],
+                ["https://bluegrasstemplates.com/lake-and-marina-website-templates", "Lake & marina"],
+                ["https://bluegrasstemplates.com/calculator-templates", "Calculators from $99"],
+              ].map(([href, label]) => (
+                <li key={href}>
+                  <a href={href} className="footer-link">
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
 
           {/* Contact */}

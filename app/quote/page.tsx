@@ -65,8 +65,8 @@ const mustHaveOptions = [
 ];
 
 const budgetOptions = [
-  "Starter Site — KY from $1,200 · SC Lowcountry $1,550",
-  "Business Suite — KY from $2,500 · SC Lowcountry $3,250",
+  "Starter Site — from $1,200",
+  "Business Suite — from $2,500",
   "Not sure yet",
 ];
 
@@ -202,7 +202,7 @@ export default function QuotePage() {
       <div className="mb-8">
         <div className="label tracking-[2px]">CUSTOM QUOTE — MONTICELLO KY WEBSITE DESIGNER</div>
         <h1 className="section-title tracking-tight mt-1">Get a Website Quote</h1>
-        <p className="mt-2 text-[#8a9599]">A few quick questions for your Wayne County, Lake Cumberland, or Charleston SC / Lowcountry project. Flat price proposal from the local Monticello builder. Real responses, no automated fluff. Takes 4–6 minutes.</p>
+        <p className="mt-2 text-[#8a9599]">A few quick questions for your Lake Cumberland area project in Wayne, Pulaski, Russell or McCreary County. Flat price proposal from the local Monticello builder. Real responses, no automated fluff. Takes 4–6 minutes.</p>
         <ReferralDiscountNote className="mt-4 rounded-xl border border-[#1f282b]/80 bg-[#0a0c0f]/60 px-4 py-2.5" />
       </div>
 
@@ -586,7 +586,7 @@ export default function QuotePage() {
               </li>
               <li className="flex gap-2.5">
                 <span className="text-[#c17a5a] mt-1">→</span>
-                We’ll talk through the details for your Lake Cumberland or Lowcountry business.
+                We’ll talk through the details for your Lake Cumberland business.
               </li>
             </ul>
             <p className="mt-5 pt-4 border-t border-[#243530] text-[#9aa6ad] leading-relaxed">

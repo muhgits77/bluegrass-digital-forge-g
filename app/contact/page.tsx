@@ -52,7 +52,8 @@ export default function ContactPage() {
     <div className="mx-auto max-w-2xl px-5 py-12">
       <div className="label">CONTACT — MONTICELLO KY WEBSITE DESIGNER</div>
       <h1 className="section-title tracking-tight mt-1">Contact Bluegrass Digital Forge</h1>
-      <p className="text-[#8a9599] mt-2">Talk to the Monticello KY website designer serving Lake Cumberland business websites, Wayne County web design, and now Charleston SC, Summerville &amp; the South Carolina Lowcountry. I usually reply within a few hours.</p>
+      <p className="text-[#8a9599] mt-2">Talk to the Monticello KY website designer serving Lake Cumberland business websites, and web design across Wayne, Pulaski, Russell &amp; McCreary counties. I usually reply within a few hours.</p>
+      <p className="text-[15px] text-[#c8cfd3] mt-3">Outside Kentucky? Custom work is available anywhere, all by email.</p>
       <p className="text-[15px] text-[#c8cfd3] mt-4">
         Prefer to email directly? Reach me at{" "}
         <a

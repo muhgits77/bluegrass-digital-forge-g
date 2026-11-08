@@ -3,20 +3,20 @@ import Link from "next/link";
 import { canonicalUrl } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "About | Bluegrass Digital Forge",
+  title: "About Brian – Monticello KY Web Designer",
   description:
-    "Meet Brian, the Monticello KY website designer building authentic Lake Cumberland business websites. Local, honest flat pricing, and you own the code — full ownership from day one.",
+    "Meet Brian, the Monticello KY web designer building websites for Lake Cumberland businesses. Local, flat pricing, and you own your site.",
   keywords: [
     "Monticello KY website designer",
     "Lake Cumberland business websites",
-    "Web Design Charleston SC",
-    "Lowcountry Web Design",
+    "Wayne County web design",
+    "Somerset KY web design",
   ],
   alternates: { canonical: canonicalUrl("/about") },
   openGraph: {
-    title: "About | Bluegrass Digital Forge",
+    title: "About Brian – Monticello KY Web Designer",
     description:
-      "Meet Brian, the Monticello KY website designer building authentic Lake Cumberland business websites. Local, honest flat pricing, and you own the code — full ownership from day one.",
+      "Meet Brian, the Monticello KY web designer building websites for Lake Cumberland businesses. Local, flat pricing, and you own your site.",
     url: canonicalUrl("/about"),
     images: [{ url: "/og-default.png", width: 1200, height: 630 }],
   },
@@ -50,19 +50,9 @@ export default function AboutPage() {
           yours forever.
         </p>
         <p className="mt-3">
-          Serving Lake Cumberland towns from Monticello outward — and{" "}
-          <Link href="/south-carolina" className="underline hover:text-[var(--gold-light)]">
-            Charleston SC web design
-          </Link>
-          ,{" "}
-          <Link href="/south-carolina" className="underline hover:text-[var(--gold-light)]">
-            Lowcountry food truck websites
-          </Link>
-          , and{" "}
-          <Link href="/south-carolina" className="underline hover:text-[var(--gold-light)]">
-            South Carolina Lowcountry websites
-          </Link>{" "}
-          with the same neighborly approach.{" "}
+          Serving Lake Cumberland towns from Monticello outward: Somerset,
+          Russell Springs, Jamestown, Burnside, Albany and Whitley City, across
+          Wayne, Pulaski, Russell and McCreary counties.{" "}
           <Link href="/service-areas" className="underline hover:text-[var(--gold-light)]">
             Full service areas →
           </Link>
@@ -120,10 +110,10 @@ export default function AboutPage() {
           <Link href="/food-truck-websites" className="underline hover:text-[var(--gold-light)]">
             food truck
           </Link>{" "}
-          pages. Same approach for{" "}
-          <Link href="/south-carolina" className="underline hover:text-[var(--gold-light)]">
-            South Carolina Lowcountry websites
-          </Link>
+          pages. Not local? Ready-made templates start at $129 at{" "}
+          <a href="https://bluegrasstemplates.com/" className="underline hover:text-[var(--gold-light)]">
+            bluegrasstemplates.com
+          </a>
           .
         </p>
         <div className="flex flex-wrap gap-3 mt-5 justify-center">

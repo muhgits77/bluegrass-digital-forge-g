@@ -220,7 +220,7 @@ export default function Home() {
                   </span>
                 </div>
                 <p className="mt-3 text-[14.5px] text-white/75 leading-relaxed">
-                  Business Suites from $2,500. SC Lowcountry: $1,550 / $3,250.
+                  Business Suites from $2,500.
                   Flat rate, no monthly lock-in for the build. Full ownership —
                   you own the code.
                 </p>
@@ -340,60 +340,6 @@ export default function Home() {
       {/* SERVICE AREAS — compact */}
       <ServiceAreas variant="compact" />
 
-      {/* SC teaser */}
-      <div className="border-t border-[var(--border)] bg-[var(--bg)]">
-        <div className="mx-auto max-w-7xl px-5 sm:px-8 pt-10">
-          <div className="relative overflow-hidden rounded-[1.5rem] border border-[var(--border-strong)] h-44 md:h-56 shadow-[var(--shadow-card)]">
-            <Image
-              src="/sc-palmetto-marsh.jpg"
-              alt="South Carolina Lowcountry coastal marsh with palmetto trees glowing at golden hour"
-              fill
-              loading="lazy"
-              decoding="async"
-              quality={70}
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1280px"
-              className="object-cover"
-              style={{ objectPosition: "center 40%" }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#020403]/85 via-[#020403]/35 to-transparent" />
-            <div className="absolute inset-0 flex items-end p-6 md:p-8">
-              <div>
-                <div className="text-[11px] tracking-[0.18em] uppercase text-[var(--copper-bright)] font-semibold mb-1">
-                  Expanding south
-                </div>
-                <p className="text-white text-[17px] md:text-[20px] font-semibold tracking-tight max-w-md">
-                  Charleston SC web design for the Lowcountry
-                </p>
-                <Link
-                  href="/south-carolina"
-                  className="mt-2 inline-flex text-[14px] font-semibold text-[var(--cream)] underline decoration-[var(--copper)] underline-offset-4 hover:text-white"
-                >
-                  Charleston SC web design →
-                </Link>
-                <p className="mt-1.5 text-[13px] text-white/70 max-w-sm">
-                  Also serving{" "}
-                  <Link
-                    href="/south-carolina"
-                    className="underline decoration-[var(--copper)]/50 underline-offset-2 hover:text-white"
-                  >
-                    Lowcountry food truck websites
-                  </Link>{" "}
-                  and{" "}
-                  <Link
-                    href="/south-carolina"
-                    className="underline decoration-[var(--copper)]/50 underline-offset-2 hover:text-white"
-                  >
-                    South Carolina Lowcountry websites
-                  </Link>
-                  .
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="h-8" />
-      </div>
-
       {/* FINAL CTA */}
       <section className="section-block text-center border-t border-[var(--border)] bg-[var(--bg)]">
         <div className="mx-auto max-w-[640px] px-5">
@@ -403,14 +349,8 @@ export default function Home() {
           </h2>
           <p className="mt-4 text-[15.5px] text-[var(--text-muted)] max-w-[48ch] mx-auto leading-relaxed">
             Flat pricing. Full ownership — you own the code. No agency. Lake
-            Cumberland towns from Albany to Nancy, plus{" "}
-            <Link
-              href="/south-carolina"
-              className="text-[var(--copper-bright)] underline decoration-[var(--copper)]/40 underline-offset-2 hover:text-white"
-            >
-              Charleston SC web design
-            </Link>{" "}
-            for the Lowcountry.
+            Cumberland towns from Albany to Whitley City, across Wayne, Pulaski,
+            Russell and McCreary counties.
           </p>
           <p className="mt-3 text-[14px] text-[var(--text-dim)]">
             Specialty sites:{" "}

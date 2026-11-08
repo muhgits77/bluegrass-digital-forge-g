@@ -103,8 +103,8 @@ export default function ServiceAreas({ variant = "full" }: ServiceAreasProps) {
                 {town.label}
               </Link>
             ))}
-            <Link href="/south-carolina" className="area-chip area-chip--accent">
-              + Lowcountry SC
+            <Link href="/service-areas#whitley-city" className="area-chip area-chip--accent">
+              + McCreary County
             </Link>
           </div>
 
@@ -137,10 +137,10 @@ export default function ServiceAreas({ variant = "full" }: ServiceAreasProps) {
               Restaurant sites →
             </Link>
             <Link
-              href="/south-carolina"
+              href="/contractor-websites"
               className="text-[var(--copper-bright)] hover:underline text-sm font-semibold"
             >
-              Charleston SC →
+              Contractor sites →
             </Link>
           </div>
         </div>
@@ -205,17 +205,16 @@ export default function ServiceAreas({ variant = "full" }: ServiceAreasProps) {
 
         <div className="mt-10 pt-6 border-t border-[var(--border)]">
           <div className="text-[12.5px] uppercase tracking-[1.5px] text-[var(--warm)] mb-1">
-            EXPANDING OUR REACH
+            NOT LOCAL?
           </div>
           <p className="text-[14.5px] text-[var(--text-muted)]">
-            We also build websites across the South Carolina Lowcountry.{" "}
-            <Link
-              href="/south-carolina"
+            Outside the Lake Cumberland area? Get a ready-made template for $129.{" "}
+            <a
+              href="https://bluegrasstemplates.com/"
               className="text-[var(--gold-light)] underline hover:text-white"
             >
-              Charleston SC web design, Summerville small business websites &amp;
-              more →
-            </Link>
+              Browse bluegrasstemplates.com →
+            </a>
           </p>
         </div>
       </div>

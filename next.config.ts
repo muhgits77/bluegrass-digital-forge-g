@@ -58,6 +58,22 @@ const nextConfig: NextConfig = {
   // Prefer https://bluegrassdigitalforge.com — permanent redirects from .live hosts
   async redirects() {
     return [
+      // Out-of-state service pages retired (Nov 2026) — send to the template store
+      {
+        source: "/south-carolina",
+        destination: "https://bluegrasstemplates.com/food-truck-website-templates",
+        statusCode: 301,
+      },
+      {
+        source: "/myrtle-beach-small-business-websites",
+        destination: "https://bluegrasstemplates.com/small-business-website-templates",
+        statusCode: 301,
+      },
+      {
+        source: "/florida-gulf-coast-business-websites",
+        destination: "https://bluegrasstemplates.com/small-business-website-templates",
+        statusCode: 301,
+      },
       // TruckDash is shelved — keep old links working
       {
         source: "/truckdash",

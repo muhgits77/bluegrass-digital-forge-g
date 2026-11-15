@@ -1,5 +1,27 @@
 @import "tailwindcss";
 
+@theme inline {
+  --font-display: var(--font-display);
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
+  --color-card: var(--bg-card);
+  --color-primary: var(--copper);
+  --color-primary-foreground: var(--copper-ink);
+  --color-muted-foreground: var(--text-muted);
+  --color-accent: var(--accent);
+  --color-border: var(--border);
+}
+
+@utility text-copper {
+  background-image: linear-gradient(90deg, oklch(0.86 0.08 75), oklch(0.7 0.14 55));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@utility bg-copper {
+  background-image: linear-gradient(180deg, oklch(0.8 0.11 68), oklch(0.68 0.13 55));
+}
+
 /*
   BLUEGRASS DIGITAL FORGE — Forge Night Design System (v2)
   Distinctive copper-forge aesthetic: deep forest night + bourbon copper + cream.
@@ -11,41 +33,42 @@
   --font-mono: var(--font-geist-mono);
   --font-display: var(--font-display);
 
-  /* Core surfaces */
-  --bg: #020403;
-  --bg-elev: #07110e;
-  --bg-panel: #0a1612;
-  --bg-card: #0b1411;
-  --bg-card-lift: #101c18;
-  --border: #1c2e28;
-  --border-strong: #2f4a40;
-  --border-copper: rgba(212, 140, 74, 0.45);
+  /* Core surfaces — mirrored from the Lovable polish (bluegrass-forge-studio) */
+  --bg: oklch(0.14 0.008 60);
+  --bg-elev: oklch(0.17 0.009 60);
+  --bg-panel: oklch(0.17 0.009 60);
+  --bg-card: oklch(0.19 0.01 60);
+  --bg-card-lift: oklch(0.22 0.01 60);
+  --border: oklch(0.32 0.02 60);
+  --border-strong: oklch(0.38 0.025 60);
+  --border-copper: oklch(0.74 0.12 60 / 0.55);
 
   /* Type */
-  --text: #f7f1e6;
-  --text-muted: #a8b3ad;
-  --text-dim: #7d8a84;
+  --text: oklch(0.96 0.01 80);
+  --text-muted: oklch(0.72 0.015 70);
+  --text-dim: oklch(0.62 0.015 70);
 
-  /* Brand — copper forge + moss */
-  --copper: #d48c4a;
-  --copper-bright: #e8a862;
-  --copper-deep: #b06e32;
-  --copper-glow: rgba(212, 140, 74, 0.35);
-  --cream: #f3e6d0;
-  --moss: #1f5c48;
-  --moss-deep: #0f3a2e;
-  --teal: #4ecdc4;
+  /* Brand — copper */
+  --copper: oklch(0.74 0.12 60);
+  --copper-bright: oklch(0.8 0.11 68);
+  --copper-deep: oklch(0.68 0.13 55);
+  --copper-glow: oklch(0.74 0.12 60 / 0.35);
+  --copper-ink: oklch(0.18 0.02 50);
+  --cream: oklch(0.96 0.01 80);
+  --moss: oklch(0.26 0.02 60);
+  --moss-deep: oklch(0.2 0.012 60);
+  --teal: oklch(0.8 0.11 68);
+  --accent: oklch(0.26 0.02 60);
 
   /* Legacy aliases used across pages (map to new system) */
   --warm: var(--copper);
   --warm-dark: var(--copper-deep);
   --warm-glow: var(--copper-glow);
-  --gold: #d4a373;
-  --gold-light: #f0c896;
+  --gold: oklch(0.8 0.11 68);
+  --gold-light: oklch(0.86 0.08 75);
   --green-deep: var(--moss-deep);
   --green-mid: var(--moss);
   --accent-teal: var(--teal);
-  --text-dim: #7d8a84;
 
   --shadow-card: 0 16px 48px -20px rgba(0, 0, 0, 0.7),
     0 0 0 1px rgba(255, 255, 255, 0.03) inset;
@@ -71,10 +94,7 @@ body {
   line-height: 1.72;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background:
-    radial-gradient(1200px 600px at 10% -10%, rgba(31, 92, 72, 0.12), transparent 55%),
-    radial-gradient(900px 500px at 100% 0%, rgba(212, 140, 74, 0.06), transparent 50%),
-    var(--bg);
+  background: var(--bg);
   color: var(--text);
 }
 
@@ -966,3 +986,92 @@ summary:focus-visible {
   opacity: 0;
   pointer-events: none;
 }
+
+/* ==========================================================
+   Lovable mirror layer (Nov 15, 2026)
+   Flat warm-brown surfaces, copper pill buttons, Bricolage
+   display type, simple bordered cards — matches
+   bluegrass-forge-studio.lovable.app. Later rules win.
+   ========================================================== */
+html { font-size: 16px; }
+body { line-height: 1.6; }
+h1, h2, h3, .section-title { letter-spacing: -0.025em; line-height: 1.08; }
+.section-title { font-size: clamp(2.25rem, 5.2vw, 3.75rem); }
+
+.btn { font-family: var(--font-display); font-weight: 600; border-radius: 9999px; }
+.btn-primary,
+.btn-primary:hover {
+  background: linear-gradient(180deg, oklch(0.8 0.11 68), oklch(0.68 0.13 55));
+  color: var(--copper-ink);
+  border: 0;
+  padding: 0.875rem 1.75rem;
+  box-shadow: 0 10px 25px -10px oklch(0 0 0 / 0.6);
+}
+.btn-primary:hover { filter: brightness(1.1); transform: none; }
+.btn-secondary,
+.btn-ghost,
+.btn-secondary-strong {
+  background: oklch(0.14 0.008 60 / 0.6);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 0.875rem 1.75rem;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+.btn-secondary:hover,
+.btn-ghost:hover,
+.btn-secondary-strong:hover {
+  background: oklch(0.14 0.008 60 / 0.6);
+  border-color: var(--copper);
+  color: var(--text);
+  transform: none;
+  box-shadow: none;
+}
+
+.label { font-size: 0.75rem; letter-spacing: 0.2em; font-weight: 600; color: var(--copper); }
+
+.demo-card,
+.pricing-card,
+.card,
+.area-card,
+.branding-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  box-shadow: none;
+}
+.demo-card:hover,
+.card:hover,
+.area-card:hover { border-color: var(--copper); box-shadow: none; }
+
+.area-chip,
+.area-chip--accent {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  box-shadow: none;
+  font-size: 0.875rem;
+}
+.area-chip:hover { border-color: var(--copper); }
+
+.forge-panel { background: var(--bg); border-color: var(--border); }
+.template-offer {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  box-shadow: none;
+}
+.template-offer::before { display: none; }
+.site-footer { background: var(--bg-card); border-top: 1px solid var(--border); }
+.site-footer::before { display: none; }
+.site-nav {
+  background: oklch(0.14 0.008 60 / 0.9);
+  border-bottom: 1px solid var(--border);
+  box-shadow: none;
+}
+.site-nav::after { display: none; }
+.badge { background: linear-gradient(180deg, oklch(0.8 0.11 68), oklch(0.68 0.13 55)); color: var(--copper-ink); border: 0; }
+.input { background: var(--bg); border-color: var(--border); border-radius: 0.75rem; }
+.input:focus { border-color: var(--copper); }
+
+/* Floating mobile quote pill: never over the open phone menu */
+html[data-menu-open] .floating-quote { display: none; }

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import ServiceAreas from "@/components/ServiceAreas";
-import { canonicalUrl, SITE_URL, CONTACT_EMAIL } from "@/lib/constants";
+import { CopperButton, GhostButton, PageHero } from "@/components/site/ui";
+import { canonicalUrl, CONTACT_EMAIL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title:
@@ -214,253 +214,110 @@ const localBusinessSchema = {
 
 export default function ServiceAreasPage() {
   return (
-    <div className="mx-auto max-w-6xl px-5 py-12">
+    <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(localBusinessSchema).replace(/</g, "\\u003c"),
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema).replace(/</g, "\\u003c") }}
       />
 
-      {/* Header */}
-      <div className="max-w-3xl">
-        <div className="label tracking-[2px]">SERVICE AREAS — LAKE CUMBERLAND</div>
-        <h1 className="section-title tracking-tight mt-2">
-          Web design for Lake Cumberland towns — Monticello, Somerset, Russell
-          Springs, Jamestown, Burnside, Whitley City &amp; more
-        </h1>
-        <p className="mt-3 text-lg text-[#9aa6ad]">
-          Handcrafted by a neighbor in Monticello for the marinas, fishing
-          guides, restaurants, rentals, food trucks, and shops that make every
-          ramp from Conley Bottom to Creelsboro special. Mobile-first. Fast.
-          Authentic Kentucky voice.{" "}
-          <strong className="text-[#c8cfd3] font-medium">Flat one-time pricing</strong>
-          .{" "}
-          <strong className="text-[#c8cfd3] font-medium">
-            Full ownership of the site and code
-          </strong>
-          . No monthly website retainer required.
-        </p>
-      </div>
+      <PageHero eyebrow="Service areas — Lake Cumberland" title="Websites for every major boat ramp town on the lake.">
+        Web design for Monticello, Somerset, Russell Springs, Jamestown, Burnside, Whitley City and more — handcrafted by a neighbor in Monticello for the marinas, guides, restaurants, rentals, food trucks, and shops from Conley Bottom to Creelsboro.{" "}
+        <strong className="text-foreground">Flat pricing. Full ownership.</strong> No monthly website retainer.
+      </PageHero>
 
-      {/* Specialty jump links */}
-      <div className="mt-6 flex flex-wrap gap-3 text-sm">
-        <Link href="/marina-websites" className="btn btn-secondary px-5 py-2.5 text-sm">
-          Marina websites
-        </Link>
-        <Link href="/fishing-guide-websites" className="btn btn-secondary px-5 py-2.5 text-sm">
-          Fishing guide websites
-        </Link>
-        <Link href="/food-truck-websites" className="btn btn-secondary px-5 py-2.5 text-sm">
-          Food truck websites
-        </Link>
-        <Link href="/lake-house-rental-websites" className="btn btn-secondary px-5 py-2.5 text-sm">
-          Lake house websites
-        </Link>
-        <Link href="/bait-and-tackle-websites" className="btn btn-secondary px-5 py-2.5 text-sm">
-          Bait and boat websites
-        </Link>
-        <Link href="/contractor-websites" className="btn btn-secondary px-5 py-2.5 text-sm">
-          Contractor websites
-        </Link>
-        <Link href="/web-design-somerset-ky" className="btn btn-secondary px-5 py-2.5 text-sm">
-          Somerset KY web design
-        </Link>
-        <Link href="/web-design-russell-springs-ky" className="btn btn-secondary px-5 py-2.5 text-sm">
-          Russell Springs KY web design
-        </Link>
-        <Link href="/quote" className="btn btn-primary px-5 py-2.5 text-sm">
-          Get a free quote →
-        </Link>
-      </div>
-
-      {/* Jump nav for deep towns */}
-      <div className="mt-8 flex flex-wrap gap-2 text-[13px]">
-        <span className="text-[#8a9599] self-center mr-1">Deep local notes:</span>
+      <nav aria-label="Jump to a town" className="mx-auto flex max-w-6xl flex-wrap gap-2 px-5 pb-10">
+        <a href="#monticello" className="rounded-full border border-border px-4 py-2 text-sm hover:border-primary">Monticello</a>
         {townDeepDives.map((t) => (
-          <a
-            key={t.id}
-            href={`#${t.id}`}
-            className="area-chip hover:border-[var(--copper)]/50 transition-colors"
-          >
+          <a key={t.id} href={`#${t.id}`} className="rounded-full border border-border px-4 py-2 text-sm hover:border-primary">
             {t.town.replace(", KY", "")}
           </a>
         ))}
-      </div>
+      </nav>
 
-      {/* The rich areas grid */}
-      <div className="mt-10">
-        <ServiceAreas />
-      </div>
-
-      {/* Town deep dives — substantial, not thin pages */}
-      <div className="mt-16">
-        <div className="max-w-3xl mb-8">
-          <div className="label tracking-[2px]">TOWN-BY-TOWN LOCAL KNOWLEDGE</div>
-          <h2 className="text-2xl md:text-3xl font-semibold tracking-tight mt-2">
-            What matters in Jamestown, Burnside, Nancy, Russell Springs &amp;
-            Albany
-          </h2>
-          <p className="mt-3 text-[15px] text-[#9aa6ad]">
-            Same lake, different traffic patterns. These notes are written for
-            business owners in each town — not cookie-cutter “we serve your city”
-            filler. Every site still gets{" "}
-            <strong className="text-[#c8cfd3] font-medium">flat pricing</strong>,{" "}
-            <strong className="text-[#c8cfd3] font-medium">full ownership</strong>
-            , and a Monticello neighbor on the other end of the email.
+      <section className="mx-auto grid max-w-6xl gap-6 px-5 pb-20 md:grid-cols-2">
+        <article id="monticello" className="scroll-mt-28 rounded-2xl border border-border bg-card p-7">
+          <h2 className="font-display text-2xl font-bold">Monticello, KY</h2>
+          <p className="mt-1 text-sm text-primary">Wayne County · Home base · Conley Bottom &amp; Beaver Creek nearby</p>
+          <p className="mt-4 text-muted-foreground">
+            Home base for Bluegrass Digital Forge. Restaurants, shops, guides and trades around Wayne County get a neighbor who can meet in person and knows what lake visitors search for.
           </p>
-        </div>
+          <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-sm">
+            <Link href="/restaurant-websites" className="text-primary">Restaurant websites</Link>
+            <Link href="/food-truck-websites" className="text-primary">Food truck websites</Link>
+            <Link href="/fishing-guide-websites" className="text-primary">Fishing guide websites</Link>
+          </div>
+          <Link href="/quote" className="mt-4 inline-block text-sm font-semibold text-primary">Get a quote for Monticello →</Link>
+        </article>
+        {townDeepDives.map((t) => (
+          <article key={t.id} id={t.id} className="scroll-mt-28 rounded-2xl border border-border bg-card p-7">
+            <h2 className="font-display text-2xl font-bold">{t.town}</h2>
+            <p className="mt-1 text-sm text-primary">{t.county} · {t.anchors}</p>
+            <p className="mt-4 text-muted-foreground">{t.summary}</p>
+            <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+              {t.points.map((pt) => (
+                <li key={pt} className="flex gap-2">
+                  <span className="shrink-0 text-primary">•</span>
+                  <span>{pt}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-sm">
+              {t.specialties.map((sp) => (
+                <Link key={sp.href} href={sp.href} className="text-primary">{sp.label}</Link>
+              ))}
+            </div>
+            <Link href="/quote" className="mt-4 inline-block text-sm font-semibold text-primary">
+              Get a quote for {t.town.replace(", KY", "")} →
+            </Link>
+          </article>
+        ))}
+      </section>
 
-        <div className="space-y-8">
-          {townDeepDives.map((t) => (
-            <section
-              key={t.id}
-              id={t.id}
-              className="scroll-mt-28 rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-6 md:p-8"
-            >
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-3">
-                <div>
-                  <h3 className="text-xl md:text-2xl font-semibold tracking-tight text-white">
-                    {t.town}
-                  </h3>
-                  <div className="text-[#c17a5a] text-[13px] mt-0.5 font-medium">
-                    {t.county} · {t.anchors}
-                  </div>
-                </div>
-                <Link
-                  href="/quote"
-                  className="text-sm text-[#f4a261] underline hover:text-white shrink-0"
-                >
-                  Quote for {t.town.replace(", KY", "")} →
-                </Link>
-              </div>
-              <p className="mt-4 text-[15px] text-[#c8cfd3] leading-relaxed">
-                {t.summary}
-              </p>
-              <ul className="mt-4 space-y-2 text-[14.5px] text-[#9aa6ad]">
-                {t.points.map((p) => (
-                  <li key={p} className="flex gap-2">
-                    <span className="text-[#f4a261] shrink-0">•</span>
-                    <span>{p}</span>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-[14px]">
-                {t.specialties.map((s) => (
-                  <Link
-                    key={s.href}
-                    href={s.href}
-                    className="text-[#3ddbd9] underline hover:text-white"
-                  >
-                    {s.label}
-                  </Link>
-                ))}
-              </div>
-            </section>
-          ))}
+      <section className="border-y border-border bg-card/50 py-16">
+        <div className="mx-auto grid max-w-6xl gap-5 px-5 md:grid-cols-2">
+          <div className="rounded-2xl border border-border bg-background p-6">
+            <h2 className="font-display text-xl font-bold">Why towns near the ramps need better sites</h2>
+            <p className="mt-3 text-muted-foreground">
+              Boaters and families search on their phones at the ramp, in the parking lot, or while planning Friday night on the water. They look for “houseboat rental Jamestown”, “fishing guide Lake Cumberland”, “best steak near Burnside Marina”, or “bait shop Monticello KY”. A fast, clear, local-feeling site wins the click and the booking.
+            </p>
+          </div>
+          <div className="rounded-2xl border border-border bg-background p-6">
+            <h2 className="font-display text-xl font-bold">What I build for lake businesses</h2>
+            <ul className="mt-3 space-y-2 text-muted-foreground">
+              <li>• Mobile menus and real-time availability that load instantly on spotty signal</li>
+              <li>• Simple booking or contact flows that turn visitors into reservations</li>
+              <li>• Honest photos and copy that feel like the lake — not generic stock</li>
+              <li>• Local SEO tuned to actual searches around each ramp and town</li>
+              <li>• You own the site and code. No subscriptions required to keep your build.</li>
+            </ul>
+          </div>
         </div>
-      </div>
+      </section>
 
-      {/* Not local */}
-      <div className="mt-12 rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-8">
-        <div className="label tracking-[1.5px] text-[#c17a5a]">NOT LOCAL?</div>
-        <h3 className="text-2xl tracking-tight font-semibold mt-2">
-          Get a ready-made template for $129
-        </h3>
-        <p className="mt-3 text-[15px] text-[#9aa6ad]">
-          Outside the Lake Cumberland area? Pick a finished website template at
-          bluegrasstemplates.com, or ask about custom work by email.
+      <section className="mx-auto max-w-3xl px-5 py-20 text-center">
+        <p className="mb-6 text-muted-foreground">
+          Specialty sites: <Link href="/marina-websites" className="text-primary">marinas</Link> ·{" "}
+          <Link href="/fishing-guide-websites" className="text-primary">fishing guides</Link> ·{" "}
+          <Link href="/food-truck-websites" className="text-primary">food trucks</Link> ·{" "}
+          <Link href="/restaurant-websites" className="text-primary">restaurants</Link> ·{" "}
+          <Link href="/contractor-websites" className="text-primary">contractors</Link> ·{" "}
+          <Link href="/lake-house-rental-websites" className="text-primary">lake houses</Link> ·{" "}
+          <Link href="/bait-and-tackle-websites" className="text-primary">bait &amp; boats</Link>
+          <br />
+          Town pages: <Link href="/web-design-somerset-ky" className="text-primary">Somerset KY web design</Link> ·{" "}
+          <Link href="/web-design-russell-springs-ky" className="text-primary">Russell Springs KY web design</Link>
         </p>
-        <div className="mt-4 text-sm">
-          <a href="https://bluegrasstemplates.com/small-business-website-templates" className="text-[#f4a261] hover:underline font-medium">
-            Browse small business website templates →
-          </a>
+        <h2 className="font-display text-4xl font-bold">Ready to show up for the boaters at your ramp?</h2>
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
+          <CopperButton href="/quote">Get a free quote →</CopperButton>
+          <GhostButton href="/work">See Lake Cumberland demos</GhostButton>
         </div>
-      </div>
-
-      {/* Why local matters */}
-      <div className="mt-10 grid md:grid-cols-2 gap-5">
-        <div className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-6">
-          <h3 className="font-semibold text-lg tracking-tight">
-            Why towns near the ramps need better sites
-          </h3>
-          <p className="mt-3 text-[15px] text-[#9aa6ad] leading-relaxed">
-            Boaters and families search on their phones at the ramp, in the
-            parking lot, or while planning Friday night on the water. They look
-            for “houseboat rental Jamestown”, “fishing guide Lake Cumberland”,
-            “best steak near Burnside Marina”, or “bait shop Monticello KY”. A
-            fast, clear, local-feeling site wins the click and the booking.
-          </p>
-        </div>
-        <div className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-6">
-          <h3 className="font-semibold text-lg tracking-tight">
-            What we build for lake businesses
-          </h3>
-          <ul className="mt-3 space-y-2 text-[15px] text-[#c8cfd3]">
-            <li>• Mobile menus and real-time availability that load instantly on spotty signal</li>
-            <li>• Simple booking or contact flows that turn visitors into reservations</li>
-            <li>• Honest photos and copy that feel like the lake — not generic stock</li>
-            <li>• Local SEO tuned to actual searches around each ramp and town</li>
-            <li>• You own the site and code. No subscriptions required to keep your build.</li>
-          </ul>
-        </div>
-      </div>
-
-      {/* Differentiator strip */}
-      <div className="mt-10 rounded-2xl border border-[#f4a261]/30 bg-[#0a0c0f] p-6 md:p-8">
-        <div className="text-[#f4a261] text-xs tracking-[1.5px] mb-2">
-          EVERY TOWN · SAME PROMISE
-        </div>
-        <h3 className="text-xl font-semibold tracking-tight">
-          Flat pricing. Full ownership. Handcrafted in Monticello. No monthly
-          website retainer.
-        </h3>
-        <p className="mt-2 text-[15px] text-[#c8cfd3] max-w-2xl">
-          Whether you&apos;re at Lee&apos;s Ford, State Dock, Burnside Marina,
-          Grider Hill, or Main Street Albany — you pay a clear one-time rate for
-          the build, own the code when we&apos;re done, and never need an agency
-          subscription just to keep your pages online.
+        <p className="mt-6 text-sm text-muted-foreground">
+          Not local? Get a ready-made website template for $129 at{" "}
+          <a href="https://bluegrasstemplates.com/small-business-website-templates" target="_blank" rel="noopener noreferrer" className="text-primary">bluegrasstemplates.com</a>, or email{" "}
+          <a href={`mailto:${CONTACT_EMAIL}`} className="text-primary">{CONTACT_EMAIL}</a> about custom work.
         </p>
-        <div className="mt-4 flex flex-wrap gap-3">
-          <Link href="/services" className="btn btn-secondary text-sm">
-            See pricing
-          </Link>
-          <Link href="/quote" className="btn btn-primary text-sm">
-            Get a free quote →
-          </Link>
-        </div>
-      </div>
-
-      {/* CTA */}
-      <div className="mt-12 rounded-2xl border border-[#1a2225] bg-[#0a0c0f] p-8 text-center">
-        <h2 className="text-2xl tracking-tight font-semibold">
-          Ready to show up for the boaters at your ramp?
-        </h2>
-        <p className="mt-2 text-[#9aa6ad] max-w-md mx-auto">
-          Tell me which town or marina you&apos;re in — Monticello, Jamestown,
-          Creelsboro, Burnside, Nancy, Russell Springs, Albany, anywhere on the
-          lake — and I&apos;ll send a flat-price proposal built for your
-          customers.
-        </p>
-        <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
-          <Link href="/quote" className="btn btn-primary px-8">
-            Get a free quote in 2 minutes →
-          </Link>
-          <Link href="/work" className="btn btn-secondary px-7">
-            See Lake Cumberland demos
-          </Link>
-          <Link
-            href="/contact"
-            className="inline-flex items-center justify-center rounded-full border border-[#2a3437] hover:bg-[#111518] px-7 py-3.5 text-[15px] font-semibold"
-          >
-            Contact me directly
-          </Link>
-        </div>
-        <p className="mt-4 text-xs text-[#8a9599]">
-          Serving every ramp town on Lake Cumberland from the heart of
-          Monticello, KY, across Wayne, Pulaski, Russell and McCreary counties.
-        </p>
-      </div>
-    </div>
+      </section>
+    </>
   );
 }

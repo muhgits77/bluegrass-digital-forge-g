@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
+import { Check, Eyebrow, GhostButton, PageHero, StoreButton } from "@/components/site/ui";
 import {
   CONTACT_EMAIL,
   SITE_NAME,
@@ -254,417 +254,110 @@ const offerSchema = {
   },
 };
 
-function IconCheck({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      width="15"
-      height="15"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      <path d="M20 6 9 17l-5-5" />
-    </svg>
-  );
-}
+
+const storeCategories: { label: string; href: string }[] = [
+  { label: "Small business", href: "https://bluegrasstemplates.com/small-business-website-templates" },
+  { label: "Food truck", href: "https://bluegrasstemplates.com/food-truck-website-templates" },
+  { label: "Restaurant", href: "https://bluegrasstemplates.com/restaurant-website-templates" },
+  { label: "Contractor", href: "https://bluegrasstemplates.com/contractor-website-templates" },
+  { label: "Tire & auto", href: "https://bluegrasstemplates.com/automotive-website-templates" },
+  { label: "Lake & marina", href: "https://bluegrasstemplates.com/lake-and-marina-website-templates" },
+  { label: "Calculators from $99", href: "https://bluegrasstemplates.com/calculator-templates" },
+];
 
 export default function TemplatesPage() {
   return (
-    <div className="mx-auto max-w-5xl px-5 py-12 md:py-16">
+    <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(collectionSchema).replace(/</g, "\\u003c"),
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema).replace(/</g, "\\u003c") }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(offerSchema).replace(/</g, "\\u003c"),
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(offerSchema).replace(/</g, "\\u003c") }}
       />
 
-      {/* Hero */}
-      <header className="max-w-3xl">
-        <div className="label tracking-[1.6px]">
-          DIY TEMPLATES · BLUEGRASS DIGITAL FORGE · MONTICELLO KY
+      <PageHero eyebrow="Website templates from $129 · Calculators from $99" title="Prefer to build it yourself?">
+        Ready-to-remix website templates hand-built in Kentucky — the same care and local craft as our custom Lake Cumberland builds, just self-serve. Launch in an afternoon.
+      </PageHero>
+
+      <section className="mx-auto max-w-5xl px-5 pb-16">
+        <div className="grid items-center gap-8 rounded-3xl border border-primary bg-card p-6 sm:p-10 md:grid-cols-[1.4fr_1fr]">
+          <ul className="space-y-3">
+            <Check>Website templates from $129 — one-time purchase</Check>
+            <Check>Hand-built in Kentucky, ready to remix</Check>
+            <Check>Free updates for bug fixes &amp; refinements</Check>
+            <Check>Calculators from $99</Check>
+            <Check>Full ownership after purchase</Check>
+          </ul>
+          <div className="text-center md:text-right">
+            <p className="text-copper font-display text-6xl font-bold">$129</p>
+            <p className="text-sm text-muted-foreground">website templates · starting · one-time</p>
+            <StoreButton href={TEMPLATE_STORE_URL} className="mt-6 px-5">Browse templates ↗</StoreButton>
+          </div>
         </div>
-        <h1 className="section-title tracking-tight mt-2">
-          Ready-to-Remix Templates
-        </h1>
-        <p className="mt-4 text-lg text-[var(--text-muted)] leading-relaxed max-w-prose">
-          Prefer to build it yourself? Explore ready-to-remix website templates
-          hand-built in Kentucky — a lower-cost DIY path for Lake Cumberland and
-          Southern Kentucky businesses who want a professional site without a
-          full custom project. Launch in an afternoon. Website templates from{" "}
-          <strong className="text-[var(--cream)] font-medium">$129</strong>, calculators from{" "}
-          <strong className="text-[var(--cream)] font-medium">$99</strong>.
-        </p>
-        <p className="mt-3 text-[15.5px] text-[var(--text-muted)] leading-relaxed max-w-prose">
-          Same neighbor craft as our{" "}
-          <Link
-            href="/services"
-            className="text-[var(--copper-bright)] underline decoration-[var(--copper)]/40 underline-offset-2 hover:text-[var(--cream)]"
-          >
-            custom website services
-          </Link>
-          , just self-serve when that fits better. One-time purchase. Free
-          updates for bug fixes and refinements. Full ownership after you buy.
-        </p>
-      </header>
+        <div className="mt-6 flex flex-wrap justify-center gap-2">
+          {storeCategories.map((c) => (
+            <a key={c.href} href={c.href} target="_blank" rel="noopener noreferrer" className="rounded-full border border-border px-4 py-2 text-sm hover:border-primary">
+              {c.label}
+            </a>
+          ))}
+        </div>
+      </section>
 
-      {/* Sticky-visible benefits strip */}
-      <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3">
-        {[
-          ["$99–$129", "one-time"],
-          ["Free updates", "bug fixes & refinements"],
-          ["Yours", "full ownership after purchase"],
-        ].map(([value, label]) => (
-          <div
-            key={label}
-            className="rounded-2xl border border-[var(--border-strong)] bg-[var(--bg-card)] px-5 py-4 text-center shadow-[var(--shadow-card)]"
-          >
-            <div className="text-[1.35rem] font-semibold tracking-tight text-[var(--cream)] tabular-nums">
-              {value}
-            </div>
-            <div className="mt-0.5 text-[12.5px] text-[var(--text-dim)] uppercase tracking-[0.12em]">
-              {label}
-            </div>
+      <section className="mx-auto grid max-w-5xl gap-5 px-5 pb-16 sm:grid-cols-2 lg:grid-cols-4" aria-labelledby="how-heading">
+        <h2 id="how-heading" className="sr-only">How templates work</h2>
+        {howItWorks.map((h) => (
+          <div key={h.step} className="rounded-2xl border border-border bg-card p-6">
+            <p className="text-copper font-display text-2xl font-bold">{h.step}</p>
+            <h3 className="mt-2 font-display text-xl font-bold">{h.title}</h3>
+            <p className="mt-2 text-sm text-muted-foreground">{h.desc}</p>
           </div>
         ))}
-      </div>
-
-      {/* Store CTA card */}
-      <div className="mt-10 relative overflow-hidden rounded-[1.5rem] border border-[var(--border-strong)] bg-[var(--bg-card)] shadow-[var(--shadow-card)]">
-        <div className="grid md:grid-cols-2 gap-0">
-          <div className="relative min-h-[220px] md:min-h-[340px]">
-            <Image
-              src="/assets/demo-bluegrass-templates.jpg"
-              alt="Bluegrass Digital Forge DIY website template store for Lake Cumberland businesses — ready-to-remix sites from $129"
-              fill
-              priority
-              quality={75}
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[var(--bg-card)] hidden md:block opacity-80" />
-          </div>
-          <div className="p-7 md:p-9 flex flex-col justify-center">
-            <div className="text-[11px] tracking-[0.16em] uppercase text-[var(--copper-bright)] font-semibold mb-2">
-              Template Store · Templates from $129 · Calculators from $99
-            </div>
-            <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
-              Browse the full collection
-            </h2>
-            <p className="mt-2.5 text-[15px] text-[var(--text-muted)] leading-relaxed">
-              Food trucks, restaurants, shops, service businesses, and more —
-              templates you can remix and launch without waiting on a full
-              custom build. Hand-built in Monticello for real Southern Kentucky
-              work.
-            </p>
-            <ul className="mt-4 space-y-2 text-[14px] text-[var(--text-muted)]">
-              {[
-                "One-time purchase — no monthly template lock-in",
-                "Free updates for bug fixes & refinements",
-                "Full ownership after purchase",
-              ].map((t) => (
-                <li key={t} className="flex gap-2.5 items-start">
-                  <IconCheck className="text-[var(--copper)] mt-0.5 shrink-0" />
-                  <span>{t}</span>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-6 flex flex-col sm:flex-row gap-3">
-              <a
-                href={TEMPLATE_STORE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-primary px-8 py-3.5"
-              >
-                Browse Templates →
-              </a>
-              <Link href="/quote" className="btn btn-secondary px-7 py-3.5">
-                Prefer custom? Get a quote
-              </Link>
-            </div>
-            <p className="mt-4 text-[13px] text-[var(--text-dim)]">
-              Opens{" "}
-              <a
-                href={TEMPLATE_STORE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline hover:text-[var(--copper-bright)]"
-              >
-                bluegrasstemplates.com
-              </a>
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Local SEO section */}
-      <section className="mt-14 md:mt-16" aria-labelledby="affordable-heading">
-        <h2
-          id="affordable-heading"
-          className="text-2xl md:text-[1.75rem] font-semibold tracking-tight max-w-[28ch]"
-        >
-          Affordable Website Templates for Lake Cumberland &amp; Southern
-          Kentucky Businesses
-        </h2>
-        <div className="mt-4 space-y-3.5 text-[15.5px] text-[var(--text-muted)] leading-relaxed max-w-prose">
-          <p>
-            Not every business around the lake needs a fully custom site on day
-            one. A food truck prepping for festival season, a shop on Main
-            Street, or a service crew covering Wayne County may just need a
-            clean, professional web presence they can stand up quickly — without
-            agency retainers or generic national theme clutter.
-          </p>
-          <p>
-            These ready-to-remix templates are built by{" "}
-            <strong className="text-[var(--cream)] font-medium">
-              Bluegrass Digital Forge in Monticello, Kentucky
-            </strong>
-            , for the same towns and trades we serve with custom work: Lake
-            Cumberland ramps and ridge roads, Monticello, Jamestown, Burnside,
-            Russell Springs, Albany, Nancy, Somerset, and the wider Southern
-            Kentucky map. Practical layouts. Warm local feel. Honest pricing:
-            website templates from $129, calculators from $99, one-time.
-          </p>
-          <p>
-            When DIY is the right fit, you get craft without the full custom
-            timeline. When you outgrow the template — or know from the start you
-            want something built only for you — our{" "}
-            <Link
-              href="/services"
-              className="text-[var(--copper-bright)] underline decoration-[var(--copper)]/40 underline-offset-2 hover:text-[var(--cream)]"
-            >
-              custom Starter Sites and Business Suites
-            </Link>{" "}
-            are still right here, flat-priced and neighbor-built.
-          </p>
-        </div>
       </section>
 
-      {/* Who for */}
-      <section className="mt-14 md:mt-16" aria-labelledby="who-heading">
-        <h2
-          id="who-heading"
-          className="text-2xl md:text-[1.75rem] font-semibold tracking-tight"
-        >
-          Who These Templates Are Built For
-        </h2>
-        <p className="mt-3 text-[15.5px] text-[var(--text-muted)] leading-relaxed max-w-prose">
-          Self-serve sites for owners who are hands-on, budget-conscious, and
-          ready to launch — especially around Lake Cumberland and Southern
-          Kentucky, where “good enough on social” stops converting once visitors
-          start searching.
-        </p>
-        <div className="mt-6 grid sm:grid-cols-2 gap-4">
-          {audienceItems.map((item) => (
-            <div
-              key={item.title}
-              className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-[var(--shadow-card)]"
-            >
-              <h3 className="font-semibold tracking-tight text-lg text-[var(--cream)]">
-                {item.title}
-              </h3>
-              <p className="mt-1.5 text-[14.5px] text-[var(--text-muted)] leading-snug">
-                {item.desc}
-              </p>
-            </div>
-          ))}
-        </div>
-        <p className="mt-5 text-[14.5px] text-[var(--text-dim)] leading-relaxed max-w-prose">
-          Looking for inspiration from live custom demos first? Browse{" "}
-          <Link
-            href="/work"
-            className="text-[var(--copper-bright)] underline decoration-[var(--copper)]/40 underline-offset-2 hover:text-[var(--cream)]"
-          >
-            portfolio work
-          </Link>
-          , or specialty pages for{" "}
-          <Link
-            href="/food-truck-websites"
-            className="text-[var(--copper-bright)] underline decoration-[var(--copper)]/40 underline-offset-2 hover:text-[var(--cream)]"
-          >
-            food truck websites
-          </Link>
-          ,{" "}
-          <Link
-            href="/restaurant-websites"
-            className="text-[var(--copper-bright)] underline decoration-[var(--copper)]/40 underline-offset-2 hover:text-[var(--cream)]"
-          >
-            restaurant websites
-          </Link>
-          , and{" "}
-          <Link
-            href="/marina-websites"
-            className="text-[var(--copper-bright)] underline decoration-[var(--copper)]/40 underline-offset-2 hover:text-[var(--cream)]"
-          >
-            marina websites
-          </Link>
-          .
-        </p>
-      </section>
-
-      {/* How it works */}
-      <section className="mt-14 md:mt-16" aria-labelledby="how-heading">
-        <h2
-          id="how-heading"
-          className="text-2xl md:text-[1.75rem] font-semibold tracking-tight"
-        >
-          How Ready-to-Remix Templates Work
-        </h2>
-        <p className="mt-3 text-[15.5px] text-[var(--text-muted)] leading-relaxed max-w-prose">
-          Straightforward from store to launch — no sales call required for the
-          DIY path. You pick a template, purchase once, and make it yours.
-        </p>
-        <ol className="mt-6 grid sm:grid-cols-2 gap-4 list-none p-0 m-0">
-          {howItWorks.map((item) => (
-            <li
-              key={item.step}
-              className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-[var(--shadow-card)]"
-            >
-              <div className="text-[11px] tracking-[0.16em] uppercase text-[var(--copper-bright)] font-semibold">
-                Step {item.step}
-              </div>
-              <h3 className="mt-1.5 font-semibold tracking-tight text-lg">
-                {item.title}
-              </h3>
-              <p className="mt-1.5 text-[14.5px] text-[var(--text-muted)] leading-snug">
-                {item.desc}
-              </p>
-            </li>
-          ))}
-        </ol>
-        <div className="mt-7">
-          <a
-            href={TEMPLATE_STORE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-primary px-8 py-3.5"
-          >
-            Browse Templates →
-          </a>
-        </div>
-      </section>
-
-      {/* Pricing differentiators */}
-      <section className="mt-14 md:mt-16" aria-labelledby="pricing-heading">
-        <div className="rounded-3xl border border-[var(--border-copper)] bg-[var(--bg-card)] p-7 md:p-9 shadow-[var(--shadow-card)]">
-          <div className="text-[11px] tracking-[0.16em] uppercase text-[var(--copper-bright)] font-semibold mb-2">
-            One-time · Templates from $129 · Calculators from $99 · Free updates
-          </div>
-          <h2
-            id="pricing-heading"
-            className="text-2xl md:text-[1.75rem] font-semibold tracking-tight max-w-[24ch]"
-          >
-            One-Time Pricing — No Monthly Lock-In
-          </h2>
-          <p className="mt-3 text-[15.5px] text-[var(--text-muted)] leading-relaxed max-w-prose">
-            Template pricing stays simple on purpose. You&apos;re not renting a
-            look or signing up for another subscription that forgets you live in
-            Monticello, not a coastal tech hub. Pay once (website templates from $129, calculators from $99), own
-            what you purchased, and keep free updates for bug fixes and
-            refinements.
-          </p>
-          <div className="mt-6 grid sm:grid-cols-2 gap-4">
-            {benefitCards.map((item) => (
-              <div
-                key={item.title}
-                className="rounded-2xl border border-[var(--border)] bg-[var(--bg-elev)] p-5"
-              >
-                <h3 className="font-semibold tracking-tight text-[var(--cream)]">
-                  {item.title}
-                </h3>
-                <p className="mt-1.5 text-[14px] text-[var(--text-muted)] leading-snug">
-                  {item.desc}
-                </p>
+      <section className="border-y border-border bg-card/50 py-16" aria-labelledby="who-heading">
+        <div className="mx-auto max-w-5xl px-5">
+          <Eyebrow>Who templates are for</Eyebrow>
+          <h2 id="who-heading" className="mt-3 font-display text-3xl font-bold md:text-4xl">Small businesses that want a pro site without a full custom build.</h2>
+          <div className="mt-8 grid gap-5 sm:grid-cols-2">
+            {audienceItems.map((a) => (
+              <div key={a.title} className="rounded-2xl border border-border bg-background p-6">
+                <h3 className="font-display text-lg font-bold">{a.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{a.desc}</p>
               </div>
             ))}
           </div>
-          <p className="mt-5 text-[14px] text-[var(--text-dim)] leading-relaxed max-w-prose">
-            Custom sites are a different path:{" "}
-            <Link
-              href="/services"
-              className="text-[var(--copper-bright)] underline decoration-[var(--copper)]/40 underline-offset-2 hover:text-[var(--cream)]"
-            >
-              Kentucky Starter Sites from $1,200
-            </Link>{" "}
-            and Business Suites $2,500–$4,500 — still flat, still one-time for the
-            build, still full ownership of the code. Templates are the DIY lane;
-            custom is when you want a neighbor building it with you.
-          </p>
         </div>
       </section>
 
-      {/* Custom alternative */}
-      <section className="mt-14 md:mt-16" aria-labelledby="custom-heading">
-        <h2
-          id="custom-heading"
-          className="text-2xl md:text-[1.75rem] font-semibold tracking-tight"
-        >
-          Prefer a Fully Custom Site Instead?
-        </h2>
-        <p className="mt-3 text-[15.5px] text-[var(--text-muted)] leading-relaxed max-w-prose">
-          Templates are honest about what they are: a strong, affordable
-          starting point you control. Some businesses need more — unique
-          branding, tighter local SEO for Lake Cumberland searches, booking
-          flows, multi-page content, or a site that matches a marina, guide
-          service, or restaurant brand down to the last detail.
-        </p>
-        <p className="mt-3 text-[15.5px] text-[var(--text-muted)] leading-relaxed max-w-prose">
-          That&apos;s the custom side of Bluegrass Digital Forge: handcrafted in
-          Monticello, flat pricing, full ownership of the code, and no monthly
-          lock-in required for the build. Tell me about your business — food
-          truck, restaurant, shop, service company, or something on the water —
-          and I&apos;ll recommend the right fit.
-        </p>
-        <div className="mt-7 flex flex-col sm:flex-row flex-wrap gap-3">
-          <Link href="/quote" className="btn btn-primary px-8 py-3.5">
-            Get a free custom quote →
-          </Link>
-          <Link href="/services" className="btn btn-secondary px-7 py-3.5">
-            See custom pricing
-          </Link>
-          <Link href="/work" className="btn btn-secondary px-7 py-3.5">
-            View custom demos
-          </Link>
+      <section className="mx-auto max-w-5xl px-5 py-16" aria-labelledby="why-heading">
+        <Eyebrow>Why buy from a Kentucky builder</Eyebrow>
+        <h2 id="why-heading" className="mt-3 font-display text-3xl font-bold">Pay once. Own what you bought.</h2>
+        <div className="mt-8 grid gap-5 sm:grid-cols-2">
+          {benefitCards.map((b) => (
+            <div key={b.title} className="rounded-2xl border border-border bg-card p-6">
+              <h3 className="font-display text-lg font-bold">{b.title}</h3>
+              <p className="mt-2 text-sm text-muted-foreground">{b.desc}</p>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* Final dual CTA */}
-      <section className="mt-14 md:mt-16 text-center border-t border-[var(--border)] pt-12">
-        <div className="label mb-3 justify-center">Two clear paths</div>
-        <h2 className="text-[clamp(1.5rem,3.5vw,2rem)] font-semibold tracking-tight max-w-[22ch] mx-auto">
-          DIY templates or a site forged just for you
-        </h2>
-        <p className="mt-3 text-[15px] text-[var(--text-muted)] leading-relaxed max-w-[48ch] mx-auto">
-          Browse ready-to-remix website templates from $129 and calculators from $99, one-time — or start a custom
-          project with flat Lake Cumberland pricing and full ownership.
+      <section className="mx-auto max-w-3xl px-5 pb-20 text-center">
+        <Eyebrow>Want it done for you?</Eyebrow>
+        <p className="mt-3 text-muted-foreground">
+          Custom builds start at $1,200 (Business Suites $2,500–$4,500) with full code ownership.{" "}
+          <Link href="/services" className="text-primary">See pricing</Link> or <Link href="/quote" className="text-primary">get a free quote →</Link>
         </p>
-        <div className="mt-7 flex flex-col sm:flex-row gap-3.5 justify-center">
-          <a
-            href={TEMPLATE_STORE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-primary px-9 py-3.5"
-          >
-            Browse Templates →
-          </a>
-          <Link href="/quote" className="btn btn-secondary px-8 py-3.5">
-            Prefer custom? Get a quote
-          </Link>
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
+          <StoreButton href={TEMPLATE_STORE_URL}>Browse templates ↗</StoreButton>
+          <GhostButton href="/quote">Start a custom project</GhostButton>
         </div>
-        <p className="mt-5 text-[13px] text-[var(--text-dim)]">
-          Forged by a neighbor in Monticello, KY · Lake Cumberland region
+        <p className="mt-6 text-sm text-muted-foreground">
+          Questions about a template? Email <a href={`mailto:${CONTACT_EMAIL}`} className="text-primary">{CONTACT_EMAIL}</a>.
         </p>
       </section>
-    </div>
+    </>
   );
 }

@@ -2,7 +2,8 @@
 
 import DemoCard from "@/components/DemoCard";
 import Link from "next/link";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import { CopperButton, GhostButton, PageHero } from "@/components/site/ui";
 import { WORK_TIER1_SLUGS, WORK_TIER2_SLUGS } from "@/lib/demos";
 import { useLivePublicDemos } from "@/lib/useLivePublicDemos";
 
@@ -47,175 +48,56 @@ export default function WorkPage() {
     };
   }, [allDemos]);
 
+  const ordered = useMemo(() => [...tier1, ...tier2, ...more], [tier1, tier2, more]);
+  const categories = useMemo(
+    () => ["All", ...Array.from(new Set(ordered.map((d) => d.category).filter(Boolean)))],
+    [ordered]
+  );
+  const [cat, setCat] = useState("All");
+  const list = cat === "All" ? ordered : ordered.filter((d) => d.category === cat);
+
   return (
-    <div className="mx-auto max-w-7xl px-5 py-12">
-      <div className="max-w-2xl mb-8">
-        <div className="label tracking-[1.5px]">
-          MY WORK — LAKE CUMBERLAND BUSINESS WEBSITES
+    <>
+      <PageHero eyebrow="My work" title="Live demos for real Kentucky businesses">
+        Flat one-time pricing and full ownership of the code. Click any card to open the live site — food trucks, restaurants, guides, fence &amp; outdoor trades, and shops, built in Monticello.
+      </PageHero>
+      <div className="mx-auto max-w-7xl px-5 pb-20">
+        <div className="flex flex-wrap gap-2" role="group" aria-label="Filter demos by category">
+          {categories.map((c) => (
+            <button
+              key={c}
+              type="button"
+              onClick={() => setCat(c)}
+              aria-pressed={c === cat}
+              className={`rounded-full border px-4 py-2 text-sm ${c === cat ? "bg-copper border-transparent text-primary-foreground" : "border-border text-muted-foreground hover:border-primary"}`}
+            >
+              {c}
+            </button>
+          ))}
         </div>
-        <h1 className="section-title tracking-tight">
-          Lake Cumberland Website Demos
-        </h1>
-        <p className="mt-3 text-[15px] text-[var(--text-muted)] leading-relaxed">
-          Portfolio examples of Lake Cumberland business websites — food trucks,
-          restaurants, guides, fence &amp; outdoor trades, and shops — built in
-          Monticello.{" "}
-          <strong className="text-[var(--text)] font-medium">
-            Flat one-time pricing
-          </strong>
-          .{" "}
-          <strong className="text-[var(--text)] font-medium">
-            Full ownership of the code
-          </strong>
-          . Several include a write-up on this site; others open the live preview
-          directly.
-        </p>
-        <p className="mt-2 text-[14px] text-[var(--text-dim)]">
-          Specialty pages:{" "}
-          <Link
-            href="/fishing-guide-websites"
-            className="text-[var(--gold-light)] underline hover:text-white"
-          >
-            fishing guides
-          </Link>
-          ,{" "}
-          <Link
-            href="/food-truck-websites"
-            className="text-[var(--gold-light)] underline hover:text-white"
-          >
-            food trucks
-          </Link>
-          ,{" "}
-          <Link
-            href="/restaurant-websites"
-            className="text-[var(--gold-light)] underline hover:text-white"
-          >
-            restaurants
-          </Link>
-          .
-        </p>
-      </div>
-
-      <div className="mb-6 text-sm">
-        <Link
-          href="/services"
-          className="text-[var(--gold-light)] hover:underline"
-        >
-          Monticello KY website designer pricing &amp; packages →
-        </Link>
-      </div>
-
-      {tier1.length > 0 ? (
-        <section aria-labelledby="work-tier1-heading" className="mb-12">
-          <div className="mb-5">
-            <div className="label tracking-[1.5px]">PRIMARY EXAMPLES</div>
-            <h2
-              id="work-tier1-heading"
-              className="text-xl font-semibold tracking-tight mt-1"
-            >
-              Strongest demos for Lake Cumberland businesses
-            </h2>
-            <p className="mt-1.5 text-[14px] text-[var(--text-dim)] max-w-2xl">
-              Live local project first, then food trucks, BBQ &amp; steakhouse,
-              fishing guide, fence &amp; outdoor, gym, and land services — flat
-              pricing, you own the code.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {tier1.map((d) => (
-              <DemoCard key={d.slug || d.href} {...d} />
-            ))}
-          </div>
-        </section>
-      ) : null}
-
-      {tier2.length > 0 ? (
-        <section aria-labelledby="work-tier2-heading" className="mb-12">
-          <div className="mb-5">
-            <div className="label tracking-[1.5px]">SUPPORTING EXAMPLES</div>
-            <h2
-              id="work-tier2-heading"
-              className="text-xl font-semibold tracking-tight mt-1"
-            >
-              More shops and specialty layouts
-            </h2>
-            <p className="mt-1.5 text-[14px] text-[var(--text-dim)] max-w-2xl">
-              Market &amp; mercantile, artisan studio, massage, Mexican supper
-              house, donut shop, and bait &amp; tackle — same neighborly build,
-              Monticello-based.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {tier2.map((d) => (
-              <DemoCard key={d.slug || d.href} {...d} />
-            ))}
-          </div>
-        </section>
-      ) : null}
-
-      {more.length > 0 ? (
-        <section aria-labelledby="work-more-heading" className="mb-4">
-          <div className="mb-5">
-            <div className="label tracking-[1.5px]">MORE EXAMPLES</div>
-            <h2
-              id="work-more-heading"
-              className="text-xl font-semibold tracking-tight mt-1 text-[var(--text-muted)]"
-            >
-              Additional live demos
-            </h2>
-            <p className="mt-1.5 text-[14px] text-[var(--text-dim)] max-w-2xl">
-              Still live and openable — lower in the grid so the strongest local
-              examples stay easy to find.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 opacity-95">
-            {more.map((d) => (
-              <DemoCard key={d.slug || d.href} {...d} />
-            ))}
-          </div>
-        </section>
-      ) : null}
-
-      <div className="mt-12 text-center border-t border-[var(--border)] pt-10">
-        <h2 className="text-xl font-semibold tracking-tight">
-          Ready for a site like these?
-        </h2>
-        <p className="text-[14.5px] text-[var(--text-muted)] mt-2 max-w-lg mx-auto">
-          <Link
-            href="/fishing-guide-websites"
-            className="underline hover:text-white"
-          >
-            Fishing guide
-          </Link>
-          ,{" "}
-          <Link
-            href="/food-truck-websites"
-            className="underline hover:text-white"
-          >
-            food truck
-          </Link>
-          ,{" "}
-          <Link
-            href="/restaurant-websites"
-            className="underline hover:text-white"
-          >
-            restaurant
-          </Link>
-          , fence, gym, or shop — handcrafted by a neighbor in Monticello. Flat
-          pricing. You own everything.
-        </p>
-        <div className="mt-6 flex flex-wrap gap-3 justify-center">
-          <Link href="/quote" className="btn btn-primary">
-            Get a Quote →
-          </Link>
-          <Link href="/services" className="btn btn-secondary">
-            See pricing
-          </Link>
-          <Link href="/contact" className="btn btn-secondary">
-            Contact the local builder
-          </Link>
+        <h2 className="sr-only">Portfolio demos</h2>
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {list.map((d) => (
+            <DemoCard key={d.slug || d.href} {...d} />
+          ))}
         </div>
+        <p className="mt-10 text-sm text-muted-foreground">
+          Specialty pages: <Link href="/fishing-guide-websites" className="text-primary">fishing guides</Link>,{" "}
+          <Link href="/food-truck-websites" className="text-primary">food trucks</Link>,{" "}
+          <Link href="/restaurant-websites" className="text-primary">restaurants</Link>,{" "}
+          <Link href="/marina-websites" className="text-primary">marinas</Link>,{" "}
+          <Link href="/contractor-websites" className="text-primary">contractors</Link>.{" "}
+          <Link href="/services" className="text-primary">Pricing &amp; packages →</Link>
+        </p>
       </div>
-    </div>
+      <section className="mx-auto max-w-4xl px-5 pb-20 text-center">
+        <h2 className="font-display text-3xl font-bold md:text-4xl">Ready for a site like these?</h2>
+        <p className="mx-auto mt-4 max-w-xl text-muted-foreground">Handcrafted by a neighbor in Monticello. Flat pricing. You own everything.</p>
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
+          <CopperButton href="/quote">Get a free quote →</CopperButton>
+          <GhostButton href="/services">See pricing</GhostButton>
+        </div>
+      </section>
+    </>
   );
 }

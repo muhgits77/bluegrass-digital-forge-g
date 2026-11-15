@@ -43,7 +43,7 @@ export default function LateOctLakeHouseWeekPost() {
         Late-October lake house week on Lake Cumberland
       </h1>
 
-      <div className="prose prose-invert mt-6 max-w-none text-[#c8cfd3] text-[15.5px] leading-relaxed">
+      <div className="prose prose-invert mt-6 max-w-none text-foreground/85 text-[15.5px] leading-relaxed">
         <p>
           Late-October lake house week on Lake Cumberland means quieter coves, cooler
           mornings, and a busy calendar on shore. Somerset's Moonlight
@@ -82,7 +82,7 @@ export default function LateOctLakeHouseWeekPost() {
         <p className="text-[12px] uppercase tracking-[0.16em] text-[var(--copper)]">
           Soft CTA
         </p>
-        <p className="mt-2 text-[15px] leading-relaxed text-[#c8cfd3]">
+        <p className="mt-2 text-[15px] leading-relaxed text-foreground/85">
           Update fall hours on Google, put a clear location on your site, and if
           you want a neighbor to build that page — start with a free quote.
         </p>

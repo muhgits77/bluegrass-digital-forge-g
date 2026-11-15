@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
+import { Geist_Mono, Manrope, Bricolage_Grotesque } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Analytics } from '@vercel/analytics/next';
 import "./globals.css";
@@ -19,7 +19,7 @@ import {
  * - Preload only body font; display + mono load with swap (less render-blocking)
  * - Fewer weights = smaller mobile payload
  */
-const geistSans = Geist({
+const geistSans = Manrope({
   variable: "--font-geist-sans",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
@@ -37,7 +37,7 @@ const geistMono = Geist_Mono({
   adjustFontFallback: true,
 });
 
-const spaceGrotesk = Space_Grotesk({
+const spaceGrotesk = Bricolage_Grotesque({
   variable: "--font-display",
   subsets: ["latin"],
   weight: ["600", "700"],
@@ -133,7 +133,7 @@ export default function RootLayout({
           (avoid deprecated priority/preload, which can warn as unused).
         */}
       </head>
-      <body className="min-h-full flex flex-col bg-[var(--bg)] text-[var(--text)] scroll-smooth selection:bg-[rgba(212,140,74,0.35)] selection:text-white">
+      <body className="min-h-full flex flex-col bg-[var(--bg)] text-[var(--text)] scroll-smooth selection:bg-[var(--copper-glow)] selection:text-white">
         {/* Aggressive LocalBusiness + Organization + WebSite schema for Monticello KY website designer + Lake Cumberland SEO */}
         <script
           type="application/ld+json"

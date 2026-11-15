@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import SpecialtyHero from "@/components/site/SpecialtyHero";
 import NotLocalTemplates from "@/components/NotLocalTemplates";
 import Link from "next/link";
 import { canonicalUrl, SITE_URL, CONTACT_EMAIL, TEMPLATE_STORE_URL } from "@/lib/constants";
@@ -117,7 +118,7 @@ export default async function FoodTruckWebsites() {
   const cluckin = bySlug.get("cluckin-chaos");
 
   return (
-    <div className="mx-auto max-w-3xl px-5 py-12">
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -130,36 +131,37 @@ export default async function FoodTruckWebsites() {
           __html: JSON.stringify(faqSchema).replace(/</g, "\\u003c"),
         }}
       />
-
-      <div className="label tracking-[1.6px]">
-        SPECIALTY — FOOD TRUCK WEBSITE KENTUCKY
-      </div>
-      <h1 className="section-title tracking-tight">
-        Food Truck Websites in Kentucky — Lake Cumberland, Monticello &amp;
-        Beyond
-      </h1>
-      <p className="mt-3 text-lg text-[#8a9599]">
+      <SpecialtyHero
+        eyebrow="Specialty — Food Truck Website Kentucky"
+        title={<>Food Truck Websites in Kentucky — Lake Cumberland, Monticello &amp; Beyond</>}
+        image="/assets/specialty-foodtruck.jpg"
+        imageAlt="Food truck serving customers in a gravel lot beside a Lake Cumberland marina at sunset"
+        cta="Get a food truck site quote →"
+      >
+        <p>
         Bold, fast food truck websites for Lake Cumberland and Kentucky operators —
         handcrafted in Monticello by a neighbor.{" "}
-        <strong className="text-[#c8cfd3] font-medium">Flat one-time pricing</strong>
+        <strong className="text-foreground/85 font-medium">Flat one-time pricing</strong>
         .{" "}
-        <strong className="text-[#c8cfd3] font-medium">
+        <strong className="text-foreground/85 font-medium">
           You own the site and the code
         </strong>
         . No monthly website retainer required.
       </p>
-      <p className="mt-3 text-[13.5px]">
+      <p className="text-base">
         <a
           href={TEMPLATE_STORE_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-[#f4a261] underline underline-offset-2 hover:text-white"
+          className="text-primary underline underline-offset-2 hover:text-white"
         >
           Website templates from $129, calculators from $99
         </a>
       </p>
+      </SpecialtyHero>
+      <div className="mx-auto max-w-3xl px-5 py-12">
 
-      <p className="mt-3 text-[15px] text-[#c8cfd3]">
+      <p className="mt-3 text-[15px] text-foreground/85">
         The difference that matters most: your customers can always find you
         today. Real-time location, today&apos;s hours, and festival stops update
         in seconds from your phone — no laptop, no waiting on a designer. Warm,
@@ -168,13 +170,13 @@ export default async function FoodTruckWebsites() {
         rushes, county festivals, and weekend lake traffic from Monticello to
         Somerset — and for operators across Kentucky who want the same honesty.
       </p>
-      <p className="mt-3 text-[15px] text-[#c8cfd3]">
+      <p className="mt-3 text-[15px] text-foreground/85">
         We also built and maintain{" "}
         <a
           href="https://monticelloeatsandfinds.com/"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-[#f4a261] underline underline-offset-2 hover:text-white"
+          className="text-primary underline underline-offset-2 hover:text-white"
         >
           Monticello Eats &amp; Finds
         </a>
@@ -183,19 +185,19 @@ export default async function FoodTruckWebsites() {
       </p>
 
       {/* Ownership differentiators */}
-      <div className="mt-6 p-6 rounded-3xl bg-[#0a0c0f] border border-[#f4a261]/30">
-        <div className="uppercase text-[10px] tracking-[2px] text-[#f4a261] mb-1">
+      <div className="mt-6 p-6 rounded-3xl bg-card border border-primary/40">
+        <div className="uppercase text-[10px] tracking-[2px] text-primary mb-1">
           FLAT PRICING · FULL OWNERSHIP · NO RETAINER LOCK-IN
         </div>
         <h2 className="text-[21px] leading-tight font-semibold tracking-tight">
           You didn’t buy a truck to rent a website forever.
         </h2>
-        <p className="mt-2 text-[15px] text-[#c8cfd3]">
+        <p className="mt-2 text-[15px] text-foreground/85">
           Pay once for the build. Host it where you want. Keep every file.
           Optional care if you want help — never required. Handcrafted in
           Monticello for Kentucky food truckers who hate monthly agency fees.
         </p>
-        <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-[14.5px] text-[#c8cfd3]">
+        <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-[14.5px] text-foreground/85">
           <li>• Kentucky Starter Sites from $1,200 one-time</li>
           <li>• You own the code forever</li>
           <li>• No monthly fees for the website itself</li>
@@ -204,21 +206,21 @@ export default async function FoodTruckWebsites() {
       </div>
 
       {/* Biggest perk */}
-      <div className="mt-6 p-6 rounded-3xl bg-[#0a0c0f] border border-[#f4a261]/30">
-        <div className="uppercase text-[10px] tracking-[2px] text-[#f4a261] mb-1">
+      <div className="mt-6 p-6 rounded-3xl bg-card border border-primary/40">
+        <div className="uppercase text-[10px] tracking-[2px] text-primary mb-1">
           THE BIGGEST PERK FOR FOOD TRUCKS
         </div>
         <h2 className="text-[21px] leading-tight font-semibold tracking-tight">
           “Where We Are Today” — update your location in seconds, from your
           phone.
         </h2>
-        <p className="mt-2 text-[15px] text-[#c8cfd3]">
+        <p className="mt-2 text-[15px] text-foreground/85">
           Daily spots, festival grounds, last-minute marina lots — post it
           before you roll out or while you&apos;re setting up. Customers,
           Google, and your site all see the right place at the right time. No
           more “we&apos;re around here somewhere” texts.
         </p>
-        <div className="mt-3 text-[14.5px] text-[#8a9599]">
+        <div className="mt-3 text-[14.5px] text-muted-foreground">
           Simple mobile dashboard. Big friendly buttons. One tap to say
           you&apos;re at the riverfront, the distillery, Conley Bottom for a
           weekend event, or downtown Monticello for lunch. Change it again
@@ -228,7 +230,7 @@ export default async function FoodTruckWebsites() {
 
       <div className="mt-8 card p-7 rounded-3xl space-y-4 text-[15px]">
         <p>Typical inclusions for food truck sites:</p>
-        <ul className="list-disc pl-5 space-y-1 text-[#c8cfd3]">
+        <ul className="list-disc pl-5 space-y-1 text-foreground/85">
           <li>Current location + schedule (updated weekly or daily)</li>
           <li>Full menu with photos and dietary tags</li>
           <li>Online pre-order or catering inquiry form</li>
@@ -238,14 +240,14 @@ export default async function FoodTruckWebsites() {
         </ul>
       </div>
 
-      <div className="mt-8 rounded-3xl border border-[#1f282b] bg-[#0a0c0f] p-7">
-        <div className="uppercase tracking-[1.5px] text-[11px] text-[#f4a261] mb-2">
+      <div className="mt-8 rounded-3xl border border-border bg-card p-7">
+        <div className="uppercase tracking-[1.5px] text-[11px] text-primary mb-2">
           THE #1 PAIN POINT WE SOLVE
         </div>
         <h2 className="text-2xl font-semibold tracking-tight">
           Real-time location updates that actually work on the road.
         </h2>
-        <p className="mt-3 text-[15px] text-[#c8cfd3]">
+        <p className="mt-3 text-[15px] text-foreground/85">
           Food truck owners don&apos;t sit at desks. You&apos;re prepping,
           driving, serving, breaking down. Our sites give you a dead-simple,
           mobile-friendly admin dashboard. Tap in today&apos;s spot before you
@@ -253,12 +255,12 @@ export default async function FoodTruckWebsites() {
           the crowd moves. Change your festival schedule between stops. Your
           website, Google, and customers see the truth instantly.
         </p>
-        <p className="mt-3 text-[15px] text-[#c8cfd3]">
+        <p className="mt-3 text-[15px] text-foreground/85">
           The quick-update screen is designed for real life: big tap targets,
           clear “Where We Are Today” field, and a simple save that pushes
           everywhere in seconds. No menus to dig through, no desktop required.
         </p>
-        <ul className="mt-4 grid sm:grid-cols-2 gap-x-6 gap-y-2 text-[14.5px] text-[#c8cfd3]">
+        <ul className="mt-4 grid sm:grid-cols-2 gap-x-6 gap-y-2 text-[14.5px] text-foreground/85">
           <li className="flex gap-2">
             • Post “at the riverfront today 11–3” from the passenger seat
           </li>
@@ -272,27 +274,27 @@ export default async function FoodTruckWebsites() {
             • Customers get accurate directions and pre-order links without calling
           </li>
         </ul>
-        <p className="mt-4 text-[13px] text-[#8a9599]">
+        <p className="mt-4 text-[13px] text-muted-foreground">
           No training videos. No confusing CMS. We set it up so it feels like
           texting a friend who already knows your truck.
         </p>
       </div>
 
       {/* Local Lake Cumberland stops */}
-      <div className="mt-12 rounded-3xl border border-[#1f282b] bg-[#0a0c0f] p-7">
-        <div className="label tracking-[1.5px] text-[#f4a261]">
+      <div className="mt-12 rounded-3xl border border-border bg-card p-7">
+        <div className="label tracking-[1.5px] text-primary">
           LAKE CUMBERLAND + KENTUCKY STOPS
         </div>
         <h2 className="mt-2 text-2xl font-semibold tracking-tight">
           Built for how trucks actually move around the lake and the Commonwealth.
         </h2>
-        <p className="mt-3 text-[15px] text-[#c8cfd3]">
+        <p className="mt-3 text-[15px] text-foreground/85">
           Summer weekends mean marina lots, lake house rentals, and boaters looking
           for lunch without leaving the shore. Weekdays mean office parks,
           factory gates, and downtown lunch lines. Your site should make both
           easy to find.
         </p>
-        <div className="mt-5 grid sm:grid-cols-2 gap-x-8 gap-y-4 text-[14.5px] text-[#c8cfd3]">
+        <div className="mt-5 grid sm:grid-cols-2 gap-x-8 gap-y-4 text-[14.5px] text-foreground/85">
           <div>
             <span className="font-medium text-white">Marina &amp; ramp days</span>
             <br />
@@ -319,7 +321,7 @@ export default async function FoodTruckWebsites() {
             weeks — not just a single fixed address site.
           </div>
         </div>
-        <p className="mt-4 text-[14px] text-[#8a9599]">
+        <p className="mt-4 text-[14px] text-muted-foreground">
           Local context for{" "}
           <Link href="/service-areas#jamestown" className="underline hover:text-white">
             Jamestown
@@ -341,7 +343,7 @@ export default async function FoodTruckWebsites() {
             Albany
           </Link>
           .{" "}
-          <Link href="/service-areas" className="text-[#f4a261] underline hover:text-white">
+          <Link href="/service-areas" className="text-primary underline hover:text-white">
             Full service areas →
           </Link>
         </p>
@@ -353,78 +355,78 @@ export default async function FoodTruckWebsites() {
         <h2 className="text-2xl font-semibold tracking-tight mt-1">
           Food truck website examples
         </h2>
-        <p className="mt-2 text-[15px] text-[#9aa6ad]">
+        <p className="mt-2 text-[15px] text-muted-foreground">
           Featured portfolio pieces — location, menu, and weekend stops for
           Lake Cumberland and Kentucky trucks. Flat one-time pricing on real builds;
           you own the code.
         </p>
         <ul className="mt-5 space-y-4">
-          <li className="rounded-2xl border border-[#f4a261]/30 bg-[#0a0c0f] p-5">
-            <div className="text-[11px] uppercase tracking-wider text-[#8a9599]">
+          <li className="rounded-2xl border border-primary/40 bg-card p-5">
+            <div className="text-[11px] uppercase tracking-wider text-muted-foreground">
               Featured · Food truck
             </div>
             <DemoPortfolioOrLiveLink
               demo={fiesta}
-              className="mt-1 block font-semibold tracking-tight text-white hover:text-[#f4a261]"
+              className="mt-1 block font-semibold tracking-tight text-white hover:text-primary"
             >
               {fiesta?.title || "Fiesta Taqueria"}
             </DemoPortfolioOrLiveLink>
-            <p className="mt-1.5 text-[14.5px] text-[#c8cfd3] leading-relaxed">
+            <p className="mt-1.5 text-[14.5px] text-foreground/85 leading-relaxed">
               {fiesta?.description ||
                 "Mexican food truck example with a readable menu, today's location, and catering notes for Wayne County and lake traffic."}
             </p>
             <Link
               href="/work/fiesta-taqueria"
-              className="mt-2 inline-block text-[13px] text-[#f4a261] underline underline-offset-2 hover:text-white"
+              className="mt-2 inline-block text-[13px] text-primary underline underline-offset-2 hover:text-white"
             >
               Read the example →
             </Link>
             {" · "}
             <DemoLiveLink
               demo={fiesta}
-              className="mt-2 inline-block text-[13px] text-[#f4a261] underline underline-offset-2 hover:text-white"
+              className="mt-2 inline-block text-[13px] text-primary underline underline-offset-2 hover:text-white"
             >
               Open live demo →
             </DemoLiveLink>
           </li>
-          <li className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-5">
-            <div className="text-[11px] uppercase tracking-wider text-[#8a9599]">
+          <li className="rounded-2xl border border-border bg-card p-5">
+            <div className="text-[11px] uppercase tracking-wider text-muted-foreground">
               Featured · Food truck
             </div>
             <DemoPortfolioOrLiveLink
               demo={smash}
-              className="mt-1 block font-semibold tracking-tight text-white hover:text-[#f4a261]"
+              className="mt-1 block font-semibold tracking-tight text-white hover:text-primary"
             >
               {smash?.title || "Cumberland Smash"} ↗
             </DemoPortfolioOrLiveLink>
-            <p className="mt-1.5 text-[14.5px] text-[#c8cfd3] leading-relaxed">
+            <p className="mt-1.5 text-[14.5px] text-foreground/85 leading-relaxed">
               {smash?.description ||
                 "Smashburger truck for Lake Cumberland — menu, today's location, and weekend lake-road stops."}
             </p>
             <DemoLiveLink
               demo={smash}
-              className="mt-2 inline-block text-[13px] text-[#f4a261] underline underline-offset-2 hover:text-white"
+              className="mt-2 inline-block text-[13px] text-primary underline underline-offset-2 hover:text-white"
             >
               Open live demo →
             </DemoLiveLink>
           </li>
-          <li className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-5">
-            <div className="text-[11px] uppercase tracking-wider text-[#8a9599]">
+          <li className="rounded-2xl border border-border bg-card p-5">
+            <div className="text-[11px] uppercase tracking-wider text-muted-foreground">
               Featured · Food truck
             </div>
             <DemoPortfolioOrLiveLink
               demo={cluckin}
-              className="mt-1 block font-semibold tracking-tight text-white hover:text-[#f4a261]"
+              className="mt-1 block font-semibold tracking-tight text-white hover:text-primary"
             >
               {cluckin?.title || "Cluckin Chaos"} ↗
             </DemoPortfolioOrLiveLink>
-            <p className="mt-1.5 text-[14.5px] text-[#c8cfd3] leading-relaxed">
+            <p className="mt-1.5 text-[14.5px] text-foreground/85 leading-relaxed">
               {cluckin?.description ||
                 "Crispy chicken truck with live location, bold menu, and festival-ready layout for Lake Cumberland operators."}
             </p>
             <DemoLiveLink
               demo={cluckin}
-              className="mt-2 inline-block text-[13px] text-[#f4a261] underline underline-offset-2 hover:text-white"
+              className="mt-2 inline-block text-[13px] text-primary underline underline-offset-2 hover:text-white"
             >
               Open live demo →
             </DemoLiveLink>
@@ -436,8 +438,8 @@ export default async function FoodTruckWebsites() {
         <Link href="/quote" className="btn btn-primary">
           Get a food truck site quote →
         </Link>
-        <span className="mx-3 text-[#8a9599]">or</span>
-        <Link href="/work/fiesta-taqueria" className="underline text-[#3ddbd9]">
+        <span className="mx-3 text-muted-foreground">or</span>
+        <Link href="/work/fiesta-taqueria" className="underline text-primary">
           see the Fiesta Taqueria example
         </Link>
       </div>
@@ -449,88 +451,88 @@ export default async function FoodTruckWebsites() {
           <h2 className="text-2xl font-semibold tracking-tight mt-1">
             Benefits that help you sell more barbecue, tacos, and donuts.
           </h2>
-          <p className="mt-2 text-[15px] text-[#9aa6ad]">
+          <p className="mt-2 text-[15px] text-muted-foreground">
             Every feature solves a real problem food truck owners face in Lake
             Cumberland, Wayne, Pulaski, Russell and McCreary counties.
           </p>
         </div>
 
         <div className="mt-6 grid md:grid-cols-2 gap-4">
-          <div className="rounded-2xl border border-[#f4a261]/40 bg-[#0a0c0f] p-6">
-            <div className="font-semibold tracking-tight mb-1 text-[#f4a261]">
+          <div className="rounded-2xl border border-[#f4a261]/40 bg-card p-6">
+            <div className="font-semibold tracking-tight mb-1 text-primary">
               Where We Are Today — real-time location updates
             </div>
-            <p className="text-[14.5px] text-[#c8cfd3]">
+            <p className="text-[14.5px] text-foreground/85">
               Easy on-the-fly updates for daily spots, festivals, and events.
               Change your location and hours in seconds using the simple mobile
               dashboard. Customers always know exactly where to find you.
             </p>
           </div>
-          <div className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-6">
+          <div className="rounded-2xl border border-border bg-card p-6">
             <div className="font-semibold tracking-tight mb-1">
               Online ordering &amp; pre-orders
             </div>
-            <p className="text-[14.5px] text-[#c8cfd3]">
+            <p className="text-[14.5px] text-foreground/85">
               Let customers place orders or reserve favorites before you arrive.
               Great for office park lunches, large groups at festivals, or busy
               waterfront days.
             </p>
           </div>
-          <div className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-6">
+          <div className="rounded-2xl border border-border bg-card p-6">
             <div className="font-semibold tracking-tight mb-1">
               Beautiful food photography
             </div>
-            <p className="text-[14.5px] text-[#c8cfd3]">
+            <p className="text-[14.5px] text-foreground/85">
               Your real shots or simple phone photos that look mouth-watering on
               every device. No stock photos of someone else&apos;s brisket. Your
               truck, your food, your style.
             </p>
           </div>
-          <div className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-6">
+          <div className="rounded-2xl border border-border bg-card p-6">
             <div className="font-semibold tracking-tight mb-1">
               Festival &amp; event booking calendar
             </div>
-            <p className="text-[14.5px] text-[#c8cfd3]">
+            <p className="text-[14.5px] text-foreground/85">
               Show organizers and private clients when you&apos;re available.
               Display confirmed festivals, markets, and private events so
               customers know where the good stuff will be all season.
             </p>
           </div>
-          <div className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-6">
+          <div className="rounded-2xl border border-border bg-card p-6">
             <div className="font-semibold tracking-tight mb-1">
               Instant menu updates
             </div>
-            <p className="text-[14.5px] text-[#c8cfd3]">
+            <p className="text-[14.5px] text-foreground/85">
               Sold out of pulled pork? Added a smoked brisket special? Toggle
               items live from the truck or the parking lot. Your site and your
               customers stay in sync.
             </p>
           </div>
-          <div className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-6">
+          <div className="rounded-2xl border border-border bg-card p-6">
             <div className="font-semibold tracking-tight mb-1">
               Full ownership — no monthly lock-in
             </div>
-            <p className="text-[14.5px] text-[#c8cfd3]">
+            <p className="text-[14.5px] text-foreground/85">
               Flat one-time pricing for the build. You own the code. Host it
               yourself or use optional care. Built for owners who already pay
               enough for grease, propane, and festival booth fees.
             </p>
           </div>
-          <div className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-6">
+          <div className="rounded-2xl border border-border bg-card p-6">
             <div className="font-semibold tracking-tight mb-1">
               Customer reviews on the site
             </div>
-            <p className="text-[14.5px] text-[#c8cfd3]">
+            <p className="text-[14.5px] text-foreground/85">
               Collect and display real reviews so new customers at a new stop
               see that the locals already love you. Instant trust when
               you&apos;re the new truck in town.
             </p>
           </div>
-          <div className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-6">
+          <div className="rounded-2xl border border-border bg-card p-6">
             <div className="font-semibold tracking-tight mb-1">
               Mobile-first everything
             </div>
-            <p className="text-[14.5px] text-[#c8cfd3]">
+            <p className="text-[14.5px] text-foreground/85">
               Your customers are on phones. You&apos;re on a phone between
               services. Viewing today&apos;s location to placing a pre-order is
               fast, big-tap friendly, and reliable on spotty festival Wi-Fi.
@@ -545,15 +547,15 @@ export default async function FoodTruckWebsites() {
       />
 
       {/* Related */}
-      <div className="mt-10 rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-6">
+      <div className="mt-10 rounded-2xl border border-border bg-card p-6">
         <div className="font-semibold tracking-tight mb-2">
           Related Lake Cumberland specialties
         </div>
-        <ul className="space-y-2 text-[14.5px] text-[#c8cfd3]">
+        <ul className="space-y-2 text-[14.5px] text-foreground/85">
           <li>
             <Link
               href="/marina-websites"
-              className="text-[#f4a261] underline hover:text-white"
+              className="text-primary underline hover:text-white"
             >
               Marina websites
             </Link>{" "}
@@ -562,7 +564,7 @@ export default async function FoodTruckWebsites() {
           <li>
             <Link
               href="/fishing-guide-websites"
-              className="text-[#f4a261] underline hover:text-white"
+              className="text-primary underline hover:text-white"
             >
               Fishing guide websites
             </Link>{" "}
@@ -571,7 +573,7 @@ export default async function FoodTruckWebsites() {
           <li>
             <Link
               href="/restaurant-websites"
-              className="text-[#f4a261] underline hover:text-white"
+              className="text-primary underline hover:text-white"
             >
               Restaurant websites
             </Link>{" "}
@@ -580,7 +582,7 @@ export default async function FoodTruckWebsites() {
           <li>
             <Link
               href="/work/sunny-hollow-donut-dash"
-              className="text-[#f4a261] underline hover:text-white"
+              className="text-primary underline hover:text-white"
             >
               Sunny Hollow donut shop example
             </Link>{" "}
@@ -589,7 +591,7 @@ export default async function FoodTruckWebsites() {
           <li>
             <Link
               href="/services"
-              className="text-[#f4a261] underline hover:text-white"
+              className="text-primary underline hover:text-white"
             >
               Full pricing
             </Link>{" "}
@@ -603,26 +605,26 @@ export default async function FoodTruckWebsites() {
         <h2 className="font-semibold text-xl tracking-tight mb-6">
           Food truck website FAQ
         </h2>
-        <div className="divide-y divide-[#1a2225] max-w-3xl">
+        <div className="divide-y divide-border max-w-3xl">
           {faqs.map((faq) => (
             <details key={faq.q} className="group py-4">
               <summary className="flex cursor-pointer list-none items-center justify-between font-medium gap-4">
                 {faq.q}
-                <span className="text-[#3ddbd9] group-open:rotate-45 transition shrink-0">
+                <span className="text-primary group-open:rotate-45 transition shrink-0">
                   +
                 </span>
               </summary>
-              <p className="mt-2 text-[#8a9599] pr-8 text-[15px]">{faq.a}</p>
+              <p className="mt-2 text-muted-foreground pr-8 text-[15px]">{faq.a}</p>
             </details>
           ))}
         </div>
       </div>
 
-      <div className="mt-12 rounded-2xl border border-[#1a2225] bg-[#0a0c0f] p-8 text-center">
+      <div className="mt-12 rounded-2xl border border-border bg-card p-8 text-center">
         <h2 className="text-2xl tracking-tight font-semibold">
           Ready for a truck site that tells people where you are — today?
         </h2>
-        <p className="mt-2 text-[#9aa6ad] max-w-md mx-auto">
+        <p className="mt-2 text-muted-foreground max-w-md mx-auto">
           You didn&apos;t start a food truck to wrestle with a website. Tell me
           about your truck — flat quote, full ownership, honest recommendation
           from Monticello.
@@ -635,11 +637,12 @@ export default async function FoodTruckWebsites() {
             Contact me directly
           </Link>
         </div>
-        <p className="mt-4 text-xs text-[#8a9599]">
+        <p className="mt-4 text-xs text-muted-foreground">
           Handcrafted in Monticello, KY · Flat one-time pricing · You own the
           code · No monthly website retainer
         </p>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import SpecialtyHero from "@/components/site/SpecialtyHero";
 import NotLocalTemplates from "@/components/NotLocalTemplates";
 import Link from "next/link";
 import { canonicalUrl, SITE_URL, CONTACT_EMAIL, TEMPLATE_STORE_URL } from "@/lib/constants";
@@ -169,7 +170,7 @@ const faqSchema = {
 
 export default function MarinaWebsitesPage() {
   return (
-    <div className="mx-auto max-w-3xl px-5 py-12">
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -182,34 +183,36 @@ export default function MarinaWebsitesPage() {
           __html: JSON.stringify(faqSchema).replace(/</g, "\\u003c"),
         }}
       />
-
-      <div className="label tracking-[1.6px]">
-        SPECIALTY — MARINA WEBSITES LAKE CUMBERLAND
-      </div>
-      <h1 className="section-title tracking-tight">
-        Marina Website Design for Lake Cumberland, Kentucky
-      </h1>
-      <p className="mt-3 text-lg text-[#8a9599]">
+      <SpecialtyHero
+        eyebrow="Specialty — Marina Websites Lake Cumberland"
+        title={<>Marina Website Design for Lake Cumberland, Kentucky</>}
+        image="/assets/specialty-marina.jpg"
+        imageAlt="Pontoon boats and a houseboat tied in covered slips at a Lake Cumberland marina at sunset"
+        cta="Get a marina site quote →"
+      >
+        <p>
         If you run a dock or marina on Lake Cumberland, this is the kind of
         website I build — handcrafted in Monticello, KY.{" "}
-        <strong className="text-[#c8cfd3] font-medium">Flat one-time pricing</strong>
+        <strong className="text-foreground/85 font-medium">Flat one-time pricing</strong>
         .{" "}
-        <strong className="text-[#c8cfd3] font-medium">
+        <strong className="text-foreground/85 font-medium">
           You own the site and the code
         </strong>
         . No monthly retainer required to keep your build.
       </p>
-      <p className="mt-3 text-[13.5px]">
+      <p className="text-base">
         <a
           href={TEMPLATE_STORE_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-[#f4a261] underline underline-offset-2 hover:text-white"
+          className="text-primary underline underline-offset-2 hover:text-white"
         >
           Website templates from $129, calculators from $99
         </a>
       </p>
-      <p className="mt-3 text-[15px] text-[#c8cfd3]">
+      </SpecialtyHero>
+      <div className="mx-auto max-w-3xl px-5 py-12">
+      <p className="mt-3 text-[15px] text-foreground/85">
         Houseboat renters, slip holders, and weekend boaters search from the
         parking lot or the lake house. They need fuel hours, amenities, rates, and a
         phone number that works — not a slow brochure site. Whether you&apos;re
@@ -220,19 +223,19 @@ export default function MarinaWebsitesPage() {
       </p>
 
       {/* Differentiators callout */}
-      <div className="mt-6 p-6 rounded-3xl bg-[#0a0c0f] border border-[#f4a261]/30">
-        <div className="uppercase text-[10px] tracking-[2px] text-[#f4a261] mb-1">
+      <div className="mt-6 p-6 rounded-3xl bg-card border border-primary/40">
+        <div className="uppercase text-[10px] tracking-[2px] text-primary mb-1">
           WHY THIS APPROACH FITS MARINA OWNERS
         </div>
         <h2 className="text-[21px] leading-tight font-semibold tracking-tight">
           Flat pricing. Full ownership. No agency retainer.
         </h2>
-        <p className="mt-2 text-[15px] text-[#c8cfd3]">
+        <p className="mt-2 text-[15px] text-foreground/85">
           Pay once for the build. Host it where you want. Keep every file.
           Optional care plan if you want help — never required. Built by a
           neighbor in Monticello who understands how this lake actually runs.
         </p>
-        <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-[14.5px] text-[#c8cfd3]">
+        <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-[14.5px] text-foreground/85">
           <li>• One-time flat rate from $1,200</li>
           <li>• You own the code forever</li>
           <li>• No monthly fees for the website itself</li>
@@ -247,7 +250,7 @@ export default function MarinaWebsitesPage() {
         <Link href="/services" className="btn btn-secondary">
           See pricing packages
         </Link>
-        <Link href="/work" className="underline text-[#3ddbd9] self-center text-sm">
+        <Link href="/work" className="underline text-primary self-center text-sm">
           Browse lake demos
         </Link>
       </div>
@@ -258,7 +261,7 @@ export default function MarinaWebsitesPage() {
         <h2 className="text-2xl font-semibold tracking-tight mt-1">
           Features that matter at the dock — not generic agency fluff.
         </h2>
-        <p className="mt-2 text-[15px] text-[#9aa6ad]">
+        <p className="mt-2 text-[15px] text-muted-foreground">
           Here&apos;s how I approach slip inquiries, fuel hours, photo galleries,
           and the other practical pieces boaters look for during peak season and
           last-minute Friday plans.
@@ -268,12 +271,12 @@ export default function MarinaWebsitesPage() {
           {benefits.map((b) => (
             <div
               key={b.title}
-              className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-6"
+              className="rounded-2xl border border-border bg-card p-6"
             >
-              <div className="font-semibold tracking-tight mb-1 text-[#f4a261]">
+              <div className="font-semibold tracking-tight mb-1 text-primary">
                 {b.title}
               </div>
-              <p className="text-[14.5px] text-[#c8cfd3]">{b.body}</p>
+              <p className="text-[14.5px] text-foreground/85">{b.body}</p>
             </div>
           ))}
         </div>
@@ -285,7 +288,7 @@ export default function MarinaWebsitesPage() {
         <h2 className="text-2xl font-semibold tracking-tight mt-1">
           What a Lake Cumberland marina website needs
         </h2>
-        <p className="mt-2 text-[15px] text-[#9aa6ad]">
+        <p className="mt-2 text-[15px] text-muted-foreground">
           Boaters around this lake search by real place names — Burnside, Lee&apos;s
           Ford, State Dock, Conley Bottom, and the rest. I live in Monticello, so
           I write and structure sites with those places and the summer rush in
@@ -296,21 +299,21 @@ export default function MarinaWebsitesPage() {
           {marinas.map((m) => (
             <div
               key={m.name}
-              className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-5"
+              className="rounded-2xl border border-border bg-card p-5"
             >
               <div className="font-semibold tracking-tight text-white">
                 {m.name}
               </div>
-              <div className="text-[#c17a5a] text-[13px] mt-0.5 font-medium">
+              <div className="text-primary text-[13px] mt-0.5 font-medium">
                 {m.area}
               </div>
-              <p className="mt-2 text-[14px] text-[#9aa6ad] leading-relaxed">
+              <p className="mt-2 text-[14px] text-muted-foreground leading-relaxed">
                 {m.note}
               </p>
             </div>
           ))}
         </div>
-        <p className="mt-4 text-[14px] text-[#8a9599]">
+        <p className="mt-4 text-[14px] text-muted-foreground">
           Local context for businesses in{" "}
           <Link href="/service-areas#jamestown" className="underline hover:text-white">
             Jamestown
@@ -332,29 +335,29 @@ export default function MarinaWebsitesPage() {
             Albany
           </Link>
           .{" "}
-          <Link href="/service-areas" className="text-[#f4a261] underline hover:text-white">
+          <Link href="/service-areas" className="text-primary underline hover:text-white">
             Full service areas →
           </Link>
         </p>
       </div>
 
       {/* Peak season practical block */}
-      <div className="mt-12 rounded-3xl border border-[#1f282b] bg-[#0a0c0f] p-7">
-        <div className="uppercase tracking-[1.5px] text-[11px] text-[#f4a261] mb-2">
+      <div className="mt-12 rounded-3xl border border-border bg-card p-7">
+        <div className="uppercase tracking-[1.5px] text-[11px] text-primary mb-2">
           PEAK SEASON REALITY CHECK
         </div>
         <h2 className="text-2xl font-semibold tracking-tight">
           Summer weekends fill slips. Your site should work as hard as your dock
           hands.
         </h2>
-        <p className="mt-3 text-[15px] text-[#c8cfd3]">
+        <p className="mt-3 text-[15px] text-foreground/85">
           Holiday weekends, houseboat turnover days, and storm delays all
           generate phone calls. A clear site answers the easy questions — hours,
           fuel, rules, “do you have a slip this weekend?” — so your team can
           focus on the water. Winter is often the best time to build or refresh
           so you&apos;re ready when the water warms.
         </p>
-        <ul className="mt-4 space-y-2 text-[14.5px] text-[#c8cfd3]">
+        <ul className="mt-4 space-y-2 text-[14.5px] text-foreground/85">
           <li>• Seasonal hours and holiday schedules that update without a developer</li>
           <li>• Directions that mention the right highway approaches (US 27, KY 90, US 127, KY 80)</li>
           <li>• Photo-led pages for restaurants, events, and lodging tied to the marina</li>
@@ -363,14 +366,14 @@ export default function MarinaWebsitesPage() {
       </div>
 
       {/* Ownership / pricing */}
-      <div className="mt-12 rounded-3xl border border-[#f4a261]/30 bg-[#0a0c0f] p-7">
-        <div className="text-[#f4a261] text-xs tracking-[1.5px] mb-1">
+      <div className="mt-12 rounded-3xl border border-primary/40 bg-card p-7">
+        <div className="text-primary text-xs tracking-[1.5px] mb-1">
           FLAT PRICING · FULL OWNERSHIP
         </div>
         <h2 className="text-xl font-semibold tracking-tight">
           Built for owners who hate monthly website retainers.
         </h2>
-        <p className="mt-2 text-[15px] text-[#c8cfd3]">
+        <p className="mt-2 text-[15px] text-foreground/85">
           Starter Sites from <strong className="text-white">$1,200</strong>{" "}
           one-time. Business Suites{" "}
           <strong className="text-white">$2,500–$4,500</strong> one-time for fuller
@@ -390,35 +393,35 @@ export default function MarinaWebsitesPage() {
       </div>
 
       {/* Related verticals */}
-      <div className="mt-10 rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-6">
+      <div className="mt-10 rounded-2xl border border-border bg-card p-6">
         <div className="font-semibold tracking-tight mb-2">Related Lake Cumberland specialties</div>
-        <ul className="space-y-2 text-[14.5px] text-[#c8cfd3]">
+        <ul className="space-y-2 text-[14.5px] text-foreground/85">
           <li>
-            <Link href="/fishing-guide-websites" className="text-[#f4a261] underline hover:text-white">
+            <Link href="/fishing-guide-websites" className="text-primary underline hover:text-white">
               Fishing guide websites
             </Link>{" "}
             — striper, bass &amp; multi-species captains
           </li>
           <li>
-            <Link href="/food-truck-websites" className="text-[#f4a261] underline hover:text-white">
+            <Link href="/food-truck-websites" className="text-primary underline hover:text-white">
               Food truck websites
             </Link>{" "}
             — dockside and festival operators
           </li>
           <li>
-            <Link href="/restaurant-websites" className="text-[#f4a261] underline hover:text-white">
+            <Link href="/restaurant-websites" className="text-primary underline hover:text-white">
               Restaurant websites
             </Link>{" "}
             — menus for supper after a day at the dock
           </li>
           <li>
-            <Link href="/work/landing-point-bait-tackle" className="text-[#f4a261] underline hover:text-white">
+            <Link href="/work/landing-point-bait-tackle" className="text-primary underline hover:text-white">
               Landing Point bait shop example
             </Link>{" "}
             — lake retail for marina and ramp traffic
           </li>
           <li>
-            <Link href="/service-areas" className="text-[#f4a261] underline hover:text-white">
+            <Link href="/service-areas" className="text-primary underline hover:text-white">
               Service areas
             </Link>{" "}
             — every major ramp town on the lake
@@ -431,27 +434,27 @@ export default function MarinaWebsitesPage() {
         <h2 className="font-semibold text-xl tracking-tight mb-6">
           Marina website FAQ
         </h2>
-        <div className="divide-y divide-[#1a2225] max-w-3xl">
+        <div className="divide-y divide-border max-w-3xl">
           {faqs.map((faq) => (
             <details key={faq.q} className="group py-4">
               <summary className="flex cursor-pointer list-none items-center justify-between font-medium gap-4">
                 {faq.q}
-                <span className="text-[#3ddbd9] group-open:rotate-45 transition shrink-0">
+                <span className="text-primary group-open:rotate-45 transition shrink-0">
                   +
                 </span>
               </summary>
-              <p className="mt-2 text-[#8a9599] pr-8 text-[15px]">{faq.a}</p>
+              <p className="mt-2 text-muted-foreground pr-8 text-[15px]">{faq.a}</p>
             </details>
           ))}
         </div>
       </div>
 
       {/* CTA */}
-      <div className="mt-12 rounded-2xl border border-[#1a2225] bg-[#0a0c0f] p-8 text-center">
+      <div className="mt-12 rounded-2xl border border-border bg-card p-8 text-center">
         <h2 className="text-2xl tracking-tight font-semibold">
           Thinking about a website for your dock or marina?
         </h2>
-        <p className="mt-2 text-[#9aa6ad] max-w-md mx-auto">
+        <p className="mt-2 text-muted-foreground max-w-md mx-auto">
           Tell me about your dock or marina — anywhere on Lake Cumberland. Flat
           quote. Full ownership. Honest recommendation from Monticello.
         </p>
@@ -463,7 +466,7 @@ export default function MarinaWebsitesPage() {
             Contact me directly
           </Link>
         </div>
-        <p className="mt-4 text-xs text-[#8a9599]">
+        <p className="mt-4 text-xs text-muted-foreground">
           Handcrafted in Monticello, KY · Flat one-time pricing · You own the
           code · No monthly website retainer
         </p>
@@ -472,6 +475,7 @@ export default function MarinaWebsitesPage() {
         href="https://bluegrasstemplates.com/lake-and-marina-website-templates"
         label="Lake & marina website templates"
       />
-    </div>
+      </div>
+    </>
   );
 }

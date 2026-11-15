@@ -37,7 +37,7 @@ export default function BlogIndexPage() {
       <h1 className="section-title tracking-tight mt-1">
         Blog — Lake Cumberland business notes
       </h1>
-      <p className="mt-4 text-[15.5px] leading-relaxed text-[#c8cfd3]">
+      <p className="mt-4 text-[15.5px] leading-relaxed text-foreground/85">
         Short, practical posts for lake house weeks, marina shops, and food trucks
         between Fall Creek and Lee&apos;s Ford. Propose-only until go-live —
         organizers double-check before publish.
@@ -58,7 +58,7 @@ export default function BlogIndexPage() {
             >
               {p.title}
             </Link>
-            <p className="mt-2 text-[14.5px] leading-relaxed text-[#c8cfd3]">
+            <p className="mt-2 text-[14.5px] leading-relaxed text-foreground/85">
               {p.blurb}
             </p>
             <Link

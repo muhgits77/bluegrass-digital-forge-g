@@ -38,7 +38,7 @@ export default function PricingCard({
 
       <ul className="mt-7 space-y-[8.5px] text-[15px] flex-1">
         {features.map((f, i) => (
-          <li key={i} className="flex gap-2.5 text-[#c8cfd3]">
+          <li key={i} className="flex gap-2.5 text-foreground/85">
             <Check size={15} className="check mt-[3.5px] shrink-0 text-[var(--warm)]" />
             <span>{f}</span>
           </li>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import SpecialtyHero from "@/components/site/SpecialtyHero";
 import NotLocalTemplates from "@/components/NotLocalTemplates";
 import Link from "next/link";
 import { canonicalUrl, SITE_URL, CONTACT_EMAIL, TEMPLATE_STORE_URL } from "@/lib/constants";
@@ -164,7 +165,7 @@ const faqSchema = {
 
 export default function RestaurantWebsitesPage() {
   return (
-    <div className="mx-auto max-w-3xl px-5 py-12">
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -177,46 +178,48 @@ export default function RestaurantWebsitesPage() {
           __html: JSON.stringify(faqSchema).replace(/</g, "\\u003c"),
         }}
       />
-
-      <div className="label tracking-[1.6px]">
-        SPECIALTY — RESTAURANT WEBSITES MONTICELLO KY
-      </div>
-      <h1 className="section-title tracking-tight">
-        Restaurant Websites for Monticello KY &amp; Lake Cumberland
-      </h1>
-      <p className="mt-3 text-lg text-[#8a9599]">
+      <SpecialtyHero
+        eyebrow="Specialty — Restaurant Websites Monticello Ky"
+        title={<>Restaurant Websites for Monticello KY &amp; Lake Cumberland</>}
+        image="/assets/specialty-restaurant.jpg"
+        imageAlt="Plate of fried catfish, greens, and cornbread at a lake-view restaurant near Monticello, Kentucky"
+        cta="Get a restaurant site quote →"
+      >
+        <p>
         Websites for restaurants and supper houses around Monticello and the
         lake — built by a neighbor who lives here.{" "}
-        <strong className="text-[#c8cfd3] font-medium">Flat one-time pricing</strong>
+        <strong className="text-foreground/85 font-medium">Flat one-time pricing</strong>
         .{" "}
-        <strong className="text-[#c8cfd3] font-medium">
+        <strong className="text-foreground/85 font-medium">
           You own the site and the code
         </strong>
         . No monthly retainer required to keep what you paid for.
       </p>
-      <p className="mt-3 text-[13.5px]">
+      <p className="text-base">
         <a
           href={TEMPLATE_STORE_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-[#f4a261] underline underline-offset-2 hover:text-white"
+          className="text-primary underline underline-offset-2 hover:text-white"
         >
           Website templates from $129, calculators from $99
         </a>
       </p>
-      <p className="mt-3 text-[15px] text-[#c8cfd3]">
+      </SpecialtyHero>
+      <div className="mx-auto max-w-3xl px-5 py-12">
+      <p className="mt-3 text-[15px] text-foreground/85">
         Locals already know your door. Weekend boaters and lake house guests often
         don&apos;t. They search from a phone for a menu they can read, hours
         that make sense, and whether you can seat a group — not a slow brochure
         or a PDF that won&apos;t open on weak signal.
       </p>
-      <p className="mt-3 text-[15px] text-[#c8cfd3]">
+      <p className="mt-3 text-[15px] text-foreground/85">
         We also built and maintain{" "}
         <a
           href="https://monticelloeatsandfinds.com/"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-[#f4a261] underline underline-offset-2 hover:text-white"
+          className="text-primary underline underline-offset-2 hover:text-white"
         >
           Monticello Eats &amp; Finds
         </a>
@@ -224,19 +227,19 @@ export default function RestaurantWebsitesPage() {
         Monticello restaurants and hometown menus.
       </p>
 
-      <div className="mt-6 p-6 rounded-3xl bg-[#0a0c0f] border border-[#f4a261]/30">
-        <div className="uppercase text-[10px] tracking-[2px] text-[#f4a261] mb-1">
+      <div className="mt-6 p-6 rounded-3xl bg-card border border-primary/40">
+        <div className="uppercase text-[10px] tracking-[2px] text-primary mb-1">
           FLAT PRICING · FULL OWNERSHIP · NO RETAINER LOCK-IN
         </div>
         <h2 className="text-[21px] leading-tight font-semibold tracking-tight">
           Pay once for the build. Keep the files.
         </h2>
-        <p className="mt-2 text-[15px] text-[#c8cfd3]">
+        <p className="mt-2 text-[15px] text-foreground/85">
           Host it where you want. Update specials when the kitchen wants to.
           Optional care if you need help — never required. Handcrafted in
           Monticello for owners who already have enough monthly bills.
         </p>
-        <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-[14.5px] text-[#c8cfd3]">
+        <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-[14.5px] text-foreground/85">
           <li>• Starter Sites from $1,200 one-time</li>
           <li>• You own the code forever</li>
           <li>• No monthly fees for the website itself</li>
@@ -250,81 +253,81 @@ export default function RestaurantWebsitesPage() {
         <h2 className="text-2xl font-semibold tracking-tight mt-1">
           Restaurant website examples
         </h2>
-        <p className="mt-2 text-[15px] text-[#9aa6ad]">
+        <p className="mt-2 text-[15px] text-muted-foreground">
           Portfolio pieces on this site — menu language and layout ideas for
           sit-down places around the lake. Food trucks have their own page if
           that&apos;s closer to what you run.
         </p>
         <ul className="mt-5 space-y-4">
-          <li className="rounded-2xl border border-[#f4a261]/30 bg-[#0a0c0f] p-5">
-            <div className="text-[11px] uppercase tracking-wider text-[#8a9599]">
+          <li className="rounded-2xl border border-primary/40 bg-card p-5">
+            <div className="text-[11px] uppercase tracking-wider text-muted-foreground">
               Featured · BBQ restaurant
             </div>
             <Link
               href="/work/ridge-run-smokehouse"
-              className="mt-1 block font-semibold tracking-tight text-white hover:text-[#f4a261]"
+              className="mt-1 block font-semibold tracking-tight text-white hover:text-primary"
             >
               Ridge Run Smokehouse
             </Link>
-            <p className="mt-1.5 text-[14.5px] text-[#c8cfd3] leading-relaxed">
+            <p className="mt-1.5 text-[14.5px] text-foreground/85 leading-relaxed">
               Kentucky pit BBQ layout with menu, catering, and a local
               supper-house feel for lake and town traffic.
             </p>
             <Link
               href="/work/ridge-run-smokehouse"
-              className="mt-2 inline-block text-[13px] text-[#f4a261] underline underline-offset-2 hover:text-white"
+              className="mt-2 inline-block text-[13px] text-primary underline underline-offset-2 hover:text-white"
             >
               Read the example →
             </Link>
           </li>
-          <li className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-5">
-            <div className="text-[11px] uppercase tracking-wider text-[#8a9599]">
+          <li className="rounded-2xl border border-border bg-card p-5">
+            <div className="text-[11px] uppercase tracking-wider text-muted-foreground">
               Featured · Steakhouse
             </div>
             <Link
               href="/work/hickory-forge-steakhouse"
-              className="mt-1 block font-semibold tracking-tight text-white hover:text-[#f4a261]"
+              className="mt-1 block font-semibold tracking-tight text-white hover:text-primary"
             >
               Hickory Forge Steakhouse
             </Link>
-            <p className="mt-1.5 text-[14.5px] text-[#c8cfd3] leading-relaxed">
+            <p className="mt-1.5 text-[14.5px] text-foreground/85 leading-relaxed">
               A warmer neighborhood steakhouse layout with menu and reservation
               feel for Lake Cumberland supper traffic.
             </p>
             <Link
               href="/work/hickory-forge-steakhouse"
-              className="mt-2 inline-block text-[13px] text-[#f4a261] underline underline-offset-2 hover:text-white"
+              className="mt-2 inline-block text-[13px] text-primary underline underline-offset-2 hover:text-white"
             >
               Read the example →
             </Link>
           </li>
-          <li className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-5">
-            <div className="text-[11px] uppercase tracking-wider text-[#8a9599]">
+          <li className="rounded-2xl border border-border bg-card p-5">
+            <div className="text-[11px] uppercase tracking-wider text-muted-foreground">
               Supporting · Small-town food
             </div>
             <Link
               href="/work/sunny-hollow-donut-dash"
-              className="mt-1 block font-semibold tracking-tight text-white hover:text-[#f4a261]"
+              className="mt-1 block font-semibold tracking-tight text-white hover:text-primary"
             >
               Sunny Hollow Donut Dash
             </Link>
-            <p className="mt-1.5 text-[14.5px] text-[#c8cfd3] leading-relaxed">
+            <p className="mt-1.5 text-[14.5px] text-foreground/85 leading-relaxed">
               Small-town shop feel with daily menu and simple pre-order path —
               useful if your place leans bakery or morning traffic.
             </p>
             <Link
               href="/work/sunny-hollow-donut-dash"
-              className="mt-2 inline-block text-[13px] text-[#f4a261] underline underline-offset-2 hover:text-white"
+              className="mt-2 inline-block text-[13px] text-primary underline underline-offset-2 hover:text-white"
             >
               Read the example →
             </Link>
           </li>
         </ul>
-        <p className="mt-4 text-[14px] text-[#8a9599]">
+        <p className="mt-4 text-[14px] text-muted-foreground">
           Running a truck instead of a dining room?{" "}
           <Link
             href="/food-truck-websites"
-            className="text-[#f4a261] underline hover:text-white"
+            className="text-primary underline hover:text-white"
           >
             Food truck websites
           </Link>{" "}
@@ -351,7 +354,7 @@ export default function RestaurantWebsitesPage() {
         </Link>
         <Link
           href="/work"
-          className="underline text-[#3ddbd9] self-center text-sm"
+          className="underline text-primary self-center text-sm"
         >
           Browse all examples
         </Link>
@@ -362,7 +365,7 @@ export default function RestaurantWebsitesPage() {
         <h2 className="text-2xl font-semibold tracking-tight mt-1">
           Practical pieces for restaurants around the lake.
         </h2>
-        <p className="mt-2 text-[15px] text-[#9aa6ad]">
+        <p className="mt-2 text-[15px] text-muted-foreground">
           Written for how people actually decide on dinner here — often on a
           phone, sometimes after a long day on the water.
         </p>
@@ -370,22 +373,22 @@ export default function RestaurantWebsitesPage() {
           {benefits.map((b) => (
             <div
               key={b.title}
-              className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-6"
+              className="rounded-2xl border border-border bg-card p-6"
             >
-              <div className="font-semibold tracking-tight mb-1 text-[#f4a261]">
+              <div className="font-semibold tracking-tight mb-1 text-primary">
                 {b.title}
               </div>
-              <p className="text-[14.5px] text-[#c8cfd3]">{b.body}</p>
+              <p className="text-[14.5px] text-foreground/85">{b.body}</p>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="mt-12 rounded-3xl border border-[#1f282b] bg-[#0a0c0f] p-7">
-        <div className="uppercase tracking-[1.5px] text-[11px] text-[#f4a261] mb-2">
+      <div className="mt-12 rounded-3xl border border-border bg-card p-7">
+        <div className="uppercase tracking-[1.5px] text-[11px] text-primary mb-2">
           TYPICAL RESTAURANT SITE INCLUSIONS
         </div>
-        <ul className="list-disc pl-5 space-y-1.5 text-[15px] text-[#c8cfd3]">
+        <ul className="list-disc pl-5 space-y-1.5 text-[15px] text-foreground/85">
           <li>Home page with clear hours, location, and tap-to-call</li>
           <li>Digital menu by section (not only a downloadable PDF)</li>
           <li>Catering or group inquiry path</li>
@@ -407,18 +410,18 @@ export default function RestaurantWebsitesPage() {
           {towns.map((t) => (
             <div
               key={t.name}
-              className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-5"
+              className="rounded-2xl border border-border bg-card p-5"
             >
               <div className="font-semibold tracking-tight text-white">
                 {t.name}
               </div>
-              <p className="mt-2 text-[14px] text-[#9aa6ad] leading-relaxed">
+              <p className="mt-2 text-[14px] text-muted-foreground leading-relaxed">
                 {t.note}
               </p>
             </div>
           ))}
         </div>
-        <p className="mt-4 text-[14px] text-[#8a9599]">
+        <p className="mt-4 text-[14px] text-muted-foreground">
           More local context for{" "}
           <Link
             href="/service-areas#jamestown"
@@ -457,21 +460,21 @@ export default function RestaurantWebsitesPage() {
           .{" "}
           <Link
             href="/service-areas"
-            className="text-[#f4a261] underline hover:text-white"
+            className="text-primary underline hover:text-white"
           >
             Full service areas →
           </Link>
         </p>
       </div>
 
-      <div className="mt-12 rounded-3xl border border-[#f4a261]/30 bg-[#0a0c0f] p-7">
-        <div className="text-[#f4a261] text-xs tracking-[1.5px] mb-1">
+      <div className="mt-12 rounded-3xl border border-primary/40 bg-card p-7">
+        <div className="text-primary text-xs tracking-[1.5px] mb-1">
           FLAT PRICING · FULL OWNERSHIP
         </div>
         <h2 className="text-xl font-semibold tracking-tight">
           Honest pricing for small restaurants.
         </h2>
-        <p className="mt-2 text-[15px] text-[#c8cfd3]">
+        <p className="mt-2 text-[15px] text-foreground/85">
           You already pay for food cost, labor, and utilities. A website
           shouldn&apos;t be another forever subscription.{" "}
           <strong className="text-white">Flat one-time pricing</strong> for the
@@ -488,15 +491,15 @@ export default function RestaurantWebsitesPage() {
         </div>
       </div>
 
-      <div className="mt-10 rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-6">
+      <div className="mt-10 rounded-2xl border border-border bg-card p-6">
         <div className="font-semibold tracking-tight mb-2">
           Related Lake Cumberland specialties
         </div>
-        <ul className="space-y-2 text-[14.5px] text-[#c8cfd3]">
+        <ul className="space-y-2 text-[14.5px] text-foreground/85">
           <li>
             <Link
               href="/food-truck-websites"
-              className="text-[#f4a261] underline hover:text-white"
+              className="text-primary underline hover:text-white"
             >
               Food truck websites
             </Link>{" "}
@@ -505,7 +508,7 @@ export default function RestaurantWebsitesPage() {
           <li>
             <Link
               href="/marina-websites"
-              className="text-[#f4a261] underline hover:text-white"
+              className="text-primary underline hover:text-white"
             >
               Marina websites
             </Link>{" "}
@@ -514,7 +517,7 @@ export default function RestaurantWebsitesPage() {
           <li>
             <Link
               href="/fishing-guide-websites"
-              className="text-[#f4a261] underline hover:text-white"
+              className="text-primary underline hover:text-white"
             >
               Fishing guide websites
             </Link>{" "}
@@ -523,21 +526,21 @@ export default function RestaurantWebsitesPage() {
           <li>
             <Link
               href="/work/bluegrass-fence-co"
-              className="text-[#f4a261] underline hover:text-white"
+              className="text-primary underline hover:text-white"
             >
               Bluegrass Fence Co. example
             </Link>
             {" · "}
             <Link
               href="/work/ridge-pasture-care"
-              className="text-[#f4a261] underline hover:text-white"
+              className="text-primary underline hover:text-white"
             >
               Ridge Pasture Care
             </Link>
             {" · "}
             <Link
               href="/work/ignite-fitness-company"
-              className="text-[#f4a261] underline hover:text-white"
+              className="text-primary underline hover:text-white"
             >
               Gym example
             </Link>
@@ -545,7 +548,7 @@ export default function RestaurantWebsitesPage() {
           <li>
             <Link
               href="/work"
-              className="text-[#f4a261] underline hover:text-white"
+              className="text-primary underline hover:text-white"
             >
               All portfolio examples
             </Link>{" "}
@@ -558,26 +561,26 @@ export default function RestaurantWebsitesPage() {
         <h2 className="font-semibold text-xl tracking-tight mb-6">
           Restaurant website FAQ
         </h2>
-        <div className="divide-y divide-[#1a2225] max-w-3xl">
+        <div className="divide-y divide-border max-w-3xl">
           {faqs.map((faq) => (
             <details key={faq.q} className="group py-4">
               <summary className="flex cursor-pointer list-none items-center justify-between font-medium gap-4">
                 {faq.q}
-                <span className="text-[#3ddbd9] group-open:rotate-45 transition shrink-0">
+                <span className="text-primary group-open:rotate-45 transition shrink-0">
                   +
                 </span>
               </summary>
-              <p className="mt-2 text-[#8a9599] pr-8 text-[15px]">{faq.a}</p>
+              <p className="mt-2 text-muted-foreground pr-8 text-[15px]">{faq.a}</p>
             </details>
           ))}
         </div>
       </div>
 
-      <div className="mt-12 rounded-2xl border border-[#1a2225] bg-[#0a0c0f] p-8 text-center">
+      <div className="mt-12 rounded-2xl border border-border bg-card p-8 text-center">
         <h2 className="text-2xl tracking-tight font-semibold">
           Thinking about a clearer menu and site for your place?
         </h2>
-        <p className="mt-2 text-[#9aa6ad] max-w-md mx-auto">
+        <p className="mt-2 text-muted-foreground max-w-md mx-auto">
           Tell me about your restaurant — Monticello, the shore towns, or
           anywhere around Lake Cumberland. Flat quote. Full ownership. Honest
           recommendation from a neighbor.
@@ -590,7 +593,7 @@ export default function RestaurantWebsitesPage() {
             Contact me directly
           </Link>
         </div>
-        <p className="mt-4 text-xs text-[#8a9599]">
+        <p className="mt-4 text-xs text-muted-foreground">
           Handcrafted in Monticello, KY · Flat one-time pricing · You own the
           code · No monthly website retainer
         </p>
@@ -599,6 +602,7 @@ export default function RestaurantWebsitesPage() {
         href="https://bluegrasstemplates.com/restaurant-website-templates"
         label="Restaurant website templates"
       />
-    </div>
+      </div>
+    </>
   );
 }

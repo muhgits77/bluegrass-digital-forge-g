@@ -1,11 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Check } from "lucide-react";
-import BrandingCard from "@/components/BrandingCard";
-import ServiceAreas from "@/components/ServiceAreas";
-import ReferralDiscountNote from "@/components/ReferralDiscountNote";
 import DemoLiveLink from "@/components/DemoLiveLink";
-import TemplateStoreSection from "@/components/TemplateStoreSection";
+import { Check, CopperButton, Eyebrow, GhostButton, PageHero, StoreButton, TownsBand } from "@/components/site/ui";
 import { canonicalUrl } from "@/lib/constants";
 import { loadLivePublicDemosCatalog } from "@/lib/demos";
 
@@ -43,13 +39,6 @@ const businessFeatures = [
   "60 days post-launch tweaks",
 ];
 
-const brandingAddons = [
-  { title: "Business Card Design Only", price: "$150", desc: "Custom digital business card files, print-ready. You own the files." },
-  { title: "Cards + 250 Printed", price: "$250", desc: "Design plus 250 premium printed cards delivered to your door." },
-  { title: "Cards + 500 Printed", price: "$300", desc: "Design plus 500 premium printed cards — best value for local businesses." },
-  { title: "Branding Starter", price: "$450", desc: "Logo refinement, color palette, business cards, email signature." },
-  { title: "Full Branding Kit", price: "$750", desc: "Logo design, complete brand kit, printed cards, social templates, email signature." },
-];
 
 const careBullets = [
   "Fast, secure hosting + SSL",
@@ -67,8 +56,23 @@ const faqs = [
   { q: "What if I just need a one-page site?", a: "If a single page is genuinely all you need, a Starter Site starting at $1,200 covers it with room to spare." },
   { q: "Do you work outside Monticello?", a: "Most clients are around Wayne County and Lake Cumberland — Jamestown, Burnside, Nancy, Russell Springs, Albany, Somerset, and the ramp towns in between. Whitley City and McCreary County too. Outside the area? Custom work is available anywhere by email, or grab a ready-made template from bluegrasstemplates.com." },
   { q: "Do I own the website when it’s done?", a: "Yes. Full ownership of the site and code after payment. Flat one-time pricing for the build — no monthly retainer required to keep what you paid for. Optional care plan if you want ongoing help; host it yourself if you don’t." },
-  { q: "What if I just need a logo or business cards?", a: "Branding add-ons can be bought on their own — no website required. Visit the business cards page." },
+  { q: "What if I just need a logo or business cards?", a: "Branding add-ons (logo work and business cards) can be bought on their own — no website required. Just ask when you get in touch." },
 ];
+
+const niches: { label: string; title: string; body: string; href: string; cta: string; external?: boolean }[] = [
+  { label: "Marinas", title: "Docks that book slips & rentals online.", body: "Burnside, Lee's Ford, State Dock, Conley Bottom & more.", href: "/marina-websites", cta: "Marina websites →" },
+  { label: "Fishing guides", title: "Striper & bass sites that get bookings.", body: "Trip pages, captain bios, trophy galleries.", href: "/fishing-guide-websites", cta: "Guide websites →" },
+  { label: "Food trucks", title: "“Where We Are Today” from your phone.", body: "Real-time location, menus & festivals.", href: "/food-truck-websites", cta: "Food truck websites →" },
+  { label: "Lake houses", title: "Rental sites for lake houses.", body: "Calendars, galleries, house rules, and direct booking.", href: "/lake-house-rental-websites", cta: "Lake house websites →" },
+  { label: "Bait & boats", title: "Bait shops and rental docks.", body: "Live bait, hours, fleet cards, fishing reports.", href: "/bait-and-tackle-websites", cta: "Bait and boat websites →" },
+  { label: "Contractors", title: "Plumbers, roofers, HVAC and trades.", body: "Tap-to-call, service lists and quote forms.", href: "/contractor-websites", cta: "Contractor websites →" },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+};
 
 export default async function Services() {
   const { demos } = await loadLivePublicDemosCatalog();
@@ -77,189 +81,105 @@ export default async function Services() {
   const hickory = bySlug.get("hickory-forge-steakhouse");
 
   return (
-    <div className="mx-auto max-w-6xl px-5 py-12">
-      <div className="max-w-3xl">
-        <div className="label tracking-[2px]">SERVICES & PRICING — MONTICELLO KY WEBSITE DESIGNER</div>
-        <h1 className="section-title tracking-tight mt-2">Website Services & Flat Pricing</h1>
-        <p className="mt-3 text-lg text-[#9aa6ad]">Flat-rate pricing. One-time. No surprises. When we're done, you own the code.</p>
-        <p className="text-[14.5px] text-[#9aa6ad] mt-1">Kentucky base rates: Starter Sites $1,200 · Business Suites $2,500–$4,500. Handcrafted in Monticello for the Lake Cumberland area: Wayne, Pulaski, Russell & McCreary counties.</p>
-      </div>
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <PageHero eyebrow="Services & pricing — Monticello KY website designer" title="Website Services & Flat Pricing">
+        Flat-rate pricing. One-time. No surprises. When we&apos;re done, <strong className="text-foreground">you own the code.</strong>
+      </PageHero>
 
-      <p className="mt-8 max-w-2xl text-[15px] text-[#9aa6ad]">
-        Every package uses clear <strong className="text-[#c8cfd3] font-medium">flat pricing</strong> — a one-time flat rate based on scope. When the project is paid,{" "}
-        <strong className="text-[#c8cfd3] font-medium">you own the code</strong> and get full ownership of the site. No subscriptions required to keep your build.
-      </p>
-      <div className="mt-5 grid lg:grid-cols-2 gap-5">
-        <div className="pricing-card rounded-3xl p-8 md:p-9 flex flex-col">
-          <div>
-            <h3 className="text-3xl font-semibold tracking-tight">Starter Sites</h3>
-            <p className="text-[var(--text-muted)] mt-1">Food trucks, barbers & small shops</p>
-          </div>
-          <div className="mt-4 flex items-baseline gap-1.5">
-            <span className="text-5xl font-semibold tracking-[-2.5px] tabular-nums text-[var(--cream)]">$1,200</span>
-            <span className="text-[14px] text-[var(--text-muted)]">starting at • one-time</span>
-          </div>
-          <div className="mt-1 text-[11px] uppercase tracking-[1.5px] text-[var(--copper-bright)]">KENTUCKY BASE RATES · FLAT PRICING</div>
-          <ul className="mt-7 space-y-3 text-[15px]">
-            {starterFeatures.map((f, i) => (
-              <li key={i} className="flex gap-3 text-[#c8cfd3]">
-                <Check size={18} className="check mt-[3px] shrink-0 text-[var(--copper)]" /> {f}
-              </li>
-            ))}
-          </ul>
+      <section className="mx-auto grid max-w-5xl gap-6 px-5 pb-8 md:grid-cols-2">
+        <div className="relative flex flex-col rounded-3xl border border-border bg-card p-8">
+          <h2 className="font-display text-2xl font-bold">Starter Sites</h2>
+          <p className="text-muted-foreground">Food trucks, barbers &amp; small shops</p>
+          <p className="mt-6 font-display text-5xl font-bold">
+            $1,200<span className="mt-2 block font-sans text-sm font-normal text-muted-foreground">starting at · one-time</span>
+          </p>
+          <ul className="mt-6 space-y-2 text-sm">{starterFeatures.map((f) => <Check key={f}>{f}</Check>)}</ul>
           <div className="mt-auto pt-8">
-            <Link href="/quote" className="btn btn-secondary w-full">Start a Starter Site →</Link>
-            <p className="text-center text-[12.5px] text-[var(--text-muted)] mt-3">
-              See it live:{" "}
-              <DemoLiveLink demo={fiesta} className="underline hover:text-[var(--copper-bright)]">{fiesta?.title || "Food truck"} demo</DemoLiveLink>
+            <CopperButton href="/quote">Start a Starter Site →</CopperButton>
+            <p className="mt-3 text-sm text-muted-foreground">
+              See it live: <DemoLiveLink demo={fiesta} className="text-primary">{fiesta?.title || "Food truck"} demo</DemoLiveLink>
             </p>
           </div>
         </div>
-        <div className="pricing-card popular rounded-3xl p-8 md:p-9 flex flex-col">
-          <div className="flex items-center gap-2 mb-1">
-            <h3 className="text-3xl font-semibold tracking-tight">Business Suites</h3>
-            <span className="badge">MOST POPULAR</span>
-          </div>
-          <p className="text-[var(--text-muted)]">Restaurants, shops & co-ops</p>
-          <div className="mt-4 flex items-baseline gap-1.5">
-            <span className="text-5xl font-semibold tracking-[-2.5px] tabular-nums text-[var(--cream)]">$2,500</span>
-            <span className="text-[14px] text-[var(--text-muted)]">starting at • one-time</span>
-          </div>
-          <div className="mt-1 text-[11px] uppercase tracking-[1.5px] text-[var(--copper-bright)]">KENTUCKY BASE RATES · FLAT PRICING</div>
-          <p className="mt-1.5 text-[12.5px] text-[var(--text-muted)]">Most local Kentucky businesses complete their suite between $2,500–$4,500 depending on custom needs.</p>
-          <ul className="mt-7 space-y-3 text-[15px]">
-            {businessFeatures.map((f, i) => (
-              <li key={i} className="flex gap-3 text-[#c8cfd3]">
-                <Check size={18} className="check mt-[3px] shrink-0 text-[var(--copper)]" /> {f}
-              </li>
-            ))}
-          </ul>
+        <div className="relative flex flex-col rounded-3xl border border-primary bg-card p-8">
+          <span className="bg-copper absolute -top-3 right-6 rounded-full px-3 py-1 text-xs font-bold text-primary-foreground">MOST POPULAR</span>
+          <h2 className="font-display text-2xl font-bold">Business Suites</h2>
+          <p className="text-muted-foreground">Restaurants, shops &amp; co-ops</p>
+          <p className="mt-6 font-display text-3xl font-bold">
+            $2,500–$4,500<span className="mt-2 block font-sans text-sm font-normal text-muted-foreground">one-time · most local suites land in this range</span>
+          </p>
+          <ul className="mt-6 space-y-2 text-sm">{businessFeatures.map((f) => <Check key={f}>{f}</Check>)}</ul>
           <div className="mt-auto pt-8">
-            <Link href="/quote" className="btn btn-primary w-full">Start a Business Suite →</Link>
-            <p className="text-center text-[12.5px] text-[var(--text-muted)] mt-3">
-              See the example:{" "}
-              <Link href="/work/hickory-forge-steakhouse" className="underline hover:text-[var(--copper-bright)]">Hickory Forge write-up</Link>
+            <CopperButton href="/quote">Start a Business Suite →</CopperButton>
+            <p className="mt-3 text-sm text-muted-foreground">
+              See the example: <Link href="/work/hickory-forge-steakhouse" className="text-primary">Hickory Forge write-up</Link>
               {" · "}
-              <DemoLiveLink demo={hickory} className="underline hover:text-[var(--copper-bright)]">live demo</DemoLiveLink>
+              <DemoLiveLink demo={hickory} className="text-primary">live demo</DemoLiveLink>
             </p>
           </div>
         </div>
-      </div>
+      </section>
+      <p className="mx-auto max-w-3xl px-5 pb-20 text-center text-sm text-muted-foreground">
+        Not sure which one? <Link href="/quote" className="text-primary">Tell me about your business</Link> — I&apos;ll recommend the right fit. Kentucky base rates for Wayne, Pulaski, Russell &amp; McCreary counties. Final quote depends on scope.
+      </p>
 
-      <ReferralDiscountNote align="center" className="mt-6 mx-auto max-w-2xl rounded-xl border border-[#1f282b]/80 bg-[#0a0c0f]/60 px-4 py-2.5" />
+      <section className="mx-auto max-w-7xl px-5 pb-20">
+        <div className="grid items-center gap-10 rounded-3xl border border-border bg-card p-10 md:grid-cols-2">
+          <div>
+            <Eyebrow>Prefer DIY? Website templates from $129</Eyebrow>
+            <h2 className="mt-3 font-display text-3xl font-bold">Build it yourself from a ready-made template.</h2>
+            <p className="mt-4 text-muted-foreground">
+              Website templates from <strong className="text-foreground">$129</strong>, calculators from <strong className="text-foreground">$99</strong>. One-time purchase, free updates for bug fixes and refinements. Custom work is also available anywhere by email.
+            </p>
+          </div>
+          <div className="flex flex-col items-center gap-3 md:items-end">
+            <StoreButton>Browse templates ↗</StoreButton>
+            <a href="https://bluegrasstemplates.com/calculator-templates" target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-primary">Calculator templates ↗</a>
+          </div>
+        </div>
+      </section>
 
-      <p className="text-[14.5px] text-center mt-5 text-[#9aa6ad]">Not sure which one? <Link href="/quote" className="underline hover:text-white">Tell me about your business</Link> — I'll recommend the right fit for your Lake Cumberland spot. Need a <Link href="/food-truck-websites" className="underline hover:text-white">food truck website Kentucky</Link>? Running a trade? See <Link href="/contractor-websites" className="underline hover:text-white">contractor websites</Link>.</p>
-
-      <TemplateStoreSection variant="compact" />
-
-      <div className="mt-10 grid md:grid-cols-3 gap-4">
-        <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-[var(--shadow-card)]">
-          <div className="text-[var(--gold-light)] text-xs tracking-[1.5px] mb-1">MARINAS</div>
-          <h3 className="font-semibold text-lg tracking-tight">Docks that book slips & rentals online.</h3>
-          <p className="mt-2 text-[14.5px] text-[var(--text-muted)]">Burnside, Lee's Ford, State Dock, Conley Bottom & more. Flat pricing. You own the code.{" "}<Link href="/marina-websites" className="text-[var(--gold-light)] underline hover:text-white">Marina websites →</Link></p>
-        </div>
-        <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-[var(--shadow-card)]">
-          <div className="text-[var(--gold-light)] text-xs tracking-[1.5px] mb-1">FISHING GUIDES</div>
-          <h3 className="font-semibold text-lg tracking-tight">Striper & bass sites that get bookings.</h3>
-          <p className="mt-2 text-[14.5px] text-[var(--text-muted)]">Trip pages, captain bios, trophy galleries — built for Lake Cumberland captains.{" "}<Link href="/fishing-guide-websites" className="text-[var(--gold-light)] underline hover:text-white">Guide websites →</Link></p>
-        </div>
-        <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-[var(--shadow-card)]">
-          <div className="text-[var(--gold-light)] text-xs tracking-[1.5px] mb-1">FOOD TRUCKS</div>
-          <h3 className="font-semibold text-lg tracking-tight">“Where We Are Today” from your phone.</h3>
-          <p className="mt-2 text-[14.5px] text-[var(--text-muted)]">Real-time location, menus & festivals for Lake Cumberland trucks.{" "}<Link href="/food-truck-websites" className="text-[var(--gold-light)] underline hover:text-white">Food truck websites →</Link></p>
-        </div>
-        <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-[var(--shadow-card)]">
-          <div className="text-[var(--gold-light)] text-xs tracking-[1.5px] mb-1">LAKE HOUSES</div>
-          <h3 className="font-semibold text-lg tracking-tight">Rental sites for Lake Cumberland lake houses.</h3>
-          <p className="mt-2 text-[14.5px] text-[var(--text-muted)]">Calendars, galleries, house rules, and direct booking for Monticello, Jamestown, Somerset, and Burnside.{" "}<Link href="/lake-house-rental-websites" className="text-[var(--gold-light)] underline hover:text-white">Lake house websites →</Link></p>
-        </div>
-        <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-[var(--shadow-card)]">
-          <div className="text-[var(--gold-light)] text-xs tracking-[1.5px] mb-1">BAIT & BOATS</div>
-          <h3 className="font-semibold text-lg tracking-tight">Bait shops and rental docks.</h3>
-          <p className="mt-2 text-[14.5px] text-[var(--text-muted)]">Live bait, hours, fleet cards, fishing reports, and directions to the dock.{" "}<Link href="/bait-and-tackle-websites" className="text-[var(--gold-light)] underline hover:text-white">Bait and boat websites →</Link></p>
-        </div>
-        <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-[var(--shadow-card)]">
-          <div className="text-[var(--gold-light)] text-xs tracking-[1.5px] mb-1">CONTRACTORS</div>
-          <h3 className="font-semibold text-lg tracking-tight">Plumbers, roofers, HVAC and trades.</h3>
-          <p className="mt-2 text-[14.5px] text-[var(--text-muted)]">Tap-to-call, service lists and quote forms for Lake Cumberland area contractors.{" "}<Link href="/contractor-websites" className="text-[var(--gold-light)] underline hover:text-white">Contractor websites →</Link></p>
-        </div>
-        <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-[var(--shadow-card)]">
-          <div className="text-[var(--gold-light)] text-xs tracking-[1.5px] mb-1">QUOTE CALCULATORS</div>
-          <h3 className="font-semibold text-lg tracking-tight">Add an estimate calculator to your site.</h3>
-          <p className="mt-2 text-[14.5px] text-[var(--text-muted)]">Need a quote calculator for your site? Website templates from $129, calculators from $99.{" "}<a href="https://bluegrasstemplates.com/calculator-templates" className="text-[var(--gold-light)] underline hover:text-white">Calculator templates →</a></p>
-        </div>
-      </div>
-
-      <div className="mt-10">
-        <div className="max-w-3xl mb-6">
-          <div className="label tracking-[1.5px]">PRICING</div>
-          <h2 className="text-2xl font-semibold tracking-tight mt-1">Honest flat pricing — full ownership either way.</h2>
-          <p className="mt-2 text-[15px] text-[#9aa6ad]">One set of prices for Lake Cumberland area businesses in Monticello, Somerset, Russell Springs, Jamestown, Burnside, Albany and Whitley City.</p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <div className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-6">
-            <div className="text-[#c17a5a] text-xs uppercase tracking-[1.5px] mb-1">KENTUCKY — LAKE CUMBERLAND</div>
-            <div className="font-semibold tracking-tight">Wayne, Pulaski, Russell & McCreary counties</div>
-            <div className="mt-4 space-y-3 text-[15px]">
-              <div className="flex justify-between items-baseline"><span>Starter Sites</span><span className="font-semibold tabular-nums text-xl">$1,200</span></div>
-              <div className="flex justify-between items-baseline"><span>Business Suites</span><span className="font-semibold tabular-nums text-xl">$2,500–$4,500</span></div>
+      <section className="mx-auto max-w-7xl px-5 pb-20">
+        <h2 className="font-display text-3xl font-bold">Built for every kind of lake business</h2>
+        <p className="mt-3 text-muted-foreground">Also see <Link href="/restaurant-websites" className="text-primary">restaurant websites</Link>.</p>
+        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {niches.map((n) => (
+            <div key={n.label} className="rounded-2xl border border-border bg-card p-6">
+              <Eyebrow>{n.label}</Eyebrow>
+              <h3 className="mt-3 font-display text-xl font-bold">{n.title}</h3>
+              <p className="mt-2 text-sm text-muted-foreground">{n.body}</p>
+              <Link href={n.href} className="mt-3 inline-block text-sm font-semibold text-primary">{n.cta}</Link>
             </div>
-            <p className="mt-4 text-xs text-[#8a9599]">Flat one-time pricing. Final quote depends on scope.</p>
-          </div>
-          <div className="rounded-2xl border border-[#243530] bg-[#0a0c0f] p-6">
-            <div className="text-[#f4a261] text-xs uppercase tracking-[1.5px] mb-1">NOT LOCAL?</div>
-            <div className="font-semibold tracking-tight">Ready-made templates</div>
-            <p className="mt-4 text-[15px] text-[#9aa6ad]">Get a ready-made website template for $129, or a quote calculator from $99, at the template store. Custom work is also available anywhere by email.</p>
-            <a href="https://bluegrasstemplates.com/" className="mt-4 inline-block text-[15px] text-[#f4a261] underline hover:text-white">Browse bluegrasstemplates.com →</a>
-          </div>
-        </div>
-        <p className="mt-4 text-[13px] text-[#9aa6ad]">All projects include the same high-quality handcrafted work and full code ownership.</p>
-      </div>
-
-      <ServiceAreas variant="compact" />
-
-      <div className="mt-12">
-        <div className="label tracking-[1.5px]">BRANDING ADD-ONS</div>
-        <h2 className="text-2xl font-semibold tracking-tight mt-1">Look the part, everywhere.</h2>
-        <p className="mt-2 text-[15px] text-[#9aa6ad]">Business cards, logo work, and full branding kits. Add to any website, or buy on their own.</p>
-        <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {brandingAddons.map((b) => <BrandingCard key={b.title} {...b} />)}
-        </div>
-        <p className="mt-4 text-[13px] text-[#9aa6ad]">Deposit required to begin design work. You own everything once paid in full.</p>
-      </div>
-
-      <div className="mt-12 rounded-3xl border border-[var(--border)] bg-[var(--bg-card)] p-8 md:p-10">
-        <div className="label tracking-[1.5px]">OPTIONAL CARE PLAN</div>
-        <h2 className="text-2xl font-semibold tracking-tight mt-1">I'll keep it running. You run your business.</h2>
-        <p className="mt-2 text-[15px] text-[#9aa6ad]">Optional hosting + maintenance so you never have to think about it. Cancel anytime, no contract.</p>
-        <div className="mt-4 flex items-baseline gap-2">
-          <span className="text-4xl font-semibold">$79</span>
-          <span className="text-[var(--text-muted)]">/month</span>
-        </div>
-        <ul className="mt-6 space-y-2.5 text-[15px]">
-          {careBullets.map((b) => (
-            <li key={b} className="flex gap-2.5"><Check size={16} className="text-[var(--copper)] mt-0.5 shrink-0" />{b}</li>
           ))}
-        </ul>
-      </div>
+        </div>
+      </section>
 
-      <div className="mt-12">
-        <h2 className="text-2xl font-semibold tracking-tight">FAQ</h2>
-        <div className="mt-6 space-y-4">
+      <section className="mx-auto max-w-3xl px-5 pb-20 text-center">
+        <Eyebrow>Optional care plan</Eyebrow>
+        <h2 className="mt-3 font-display text-3xl font-bold">I&apos;ll keep it running. You run your business.</h2>
+        <p className="text-copper mt-6 font-display text-6xl font-bold">$79<span className="text-2xl">/month</span></p>
+        <p className="mt-4 text-muted-foreground">{careBullets.join(", ")}. Totally optional.</p>
+        <p className="mt-4 text-sm text-muted-foreground">Need a logo or business cards too? Branding add-ons are available — just ask when you get in touch.</p>
+      </section>
+
+      <TownsBand />
+
+      <section className="mx-auto max-w-3xl px-5 py-20">
+        <h2 className="font-display text-3xl font-bold">FAQ</h2>
+        <div className="mt-6 divide-y divide-border">
           {faqs.map((f) => (
-            <details key={f.q} className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
-              <summary className="font-semibold cursor-pointer">{f.q}</summary>
-              <p className="mt-2 text-[15px] text-[var(--text-muted)]">{f.a}</p>
+            <details key={f.q} className="py-4">
+              <summary className="cursor-pointer font-semibold">{f.q}</summary>
+              <p className="mt-2 text-muted-foreground">{f.a}</p>
             </details>
           ))}
         </div>
-      </div>
-
-      <div className="mt-12 text-center">
-        <h2 className="text-2xl font-semibold">Not sure which one fits?</h2>
-        <p className="mt-2 text-[15px] text-[#9aa6ad]">Tell me about your Monticello, Jamestown, Burnside, or Lake Cumberland business — honest recommendation, even if Starter is all you need. Flat rate, full ownership.</p>
-        <Link href="/quote" className="btn btn-primary mt-5 inline-flex">Get a free quote →</Link>
-      </div>
-    </div>
+        <div className="mt-12 flex flex-wrap gap-3">
+          <CopperButton href="/quote">Get a free recommendation →</CopperButton>
+          <GhostButton href="/work">See real demos first</GhostButton>
+        </div>
+      </section>
+    </>
   );
 }

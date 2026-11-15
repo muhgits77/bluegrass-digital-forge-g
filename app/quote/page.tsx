@@ -202,14 +202,14 @@ export default function QuotePage() {
       <div className="mb-8">
         <div className="label tracking-[2px]">CUSTOM QUOTE — MONTICELLO KY WEBSITE DESIGNER</div>
         <h1 className="section-title tracking-tight mt-1">Get a Website Quote</h1>
-        <p className="mt-2 text-[#8a9599]">A few quick questions for your Lake Cumberland area project in Wayne, Pulaski, Russell or McCreary County. Flat price proposal from the local Monticello builder. Real responses, no automated fluff. Takes 4–6 minutes.</p>
-        <ReferralDiscountNote className="mt-4 rounded-xl border border-[#1f282b]/80 bg-[#0a0c0f]/60 px-4 py-2.5" />
+        <p className="mt-2 text-muted-foreground">A few quick questions for your Lake Cumberland area project in Wayne, Pulaski, Russell or McCreary County. Flat price proposal from the local Monticello builder. Real responses, no automated fluff. Takes 4–6 minutes.</p>
+        <ReferralDiscountNote className="mt-4 rounded-xl border border-border/80 bg-card/60 px-4 py-2.5" />
       </div>
 
       {!submitted ? (
         <form onSubmit={handleSubmit} className="space-y-9" noValidate>
           {/* Premium Progress — clickable + visual warmth */}
-          <div className="flex items-center gap-1.5 text-[12.5px] text-[#9aa6ad] flex-wrap" role="tablist" aria-label="Form steps">
+          <div className="flex items-center gap-1.5 text-[12.5px] text-muted-foreground flex-wrap" role="tablist" aria-label="Form steps">
             {steps.map((s, i) => (
               <React.Fragment key={i}>
                 <button
@@ -221,7 +221,7 @@ export default function QuotePage() {
                 >
                   {i.toString().padStart(2, "0")}
                 </button>
-                {i < steps.length - 1 && <div className="h-px w-2.5 bg-[#1a2225]" />}
+                {i < steps.length - 1 && <div className="h-px w-2.5 bg-accent" />}
               </React.Fragment>
             ))}
           </div>
@@ -278,7 +278,7 @@ export default function QuotePage() {
                   />
                 </div>
               </div>
-              <p className="mt-4 text-[12.5px] text-[#9aa6ad]">Your information stays private and is only used to prepare your proposal.</p>
+              <p className="mt-4 text-[12.5px] text-muted-foreground">Your information stays private and is only used to prepare your proposal.</p>
             </div>
           )}
 
@@ -365,7 +365,7 @@ export default function QuotePage() {
                   <option value="">Choose one…</option>
                   {logoOptions.map((o) => <option key={o} value={o}>{o}</option>)}
                 </select>
-                <p className="text-[12.5px] text-[#9aa6ad] mt-1.5">Have logo files ready? You can reply to the confirmation email after submitting.</p>
+                <p className="text-[12.5px] text-muted-foreground mt-1.5">Have logo files ready? You can reply to the confirmation email after submitting.</p>
               </div>
             </div>
           )}
@@ -476,7 +476,7 @@ export default function QuotePage() {
                 />
               </div>
 
-              <div className="mt-8 rounded-2xl bg-[#0a0c0f] border border-[#1a2225] p-5 text-sm text-[#8a9599]">
+              <div className="mt-8 rounded-2xl bg-card border border-border p-5 text-sm text-muted-foreground">
                 Your answers go straight to Brian’s inbox in Monticello. No agency middleman. No data stored on this site.
               </div>
             </div>
@@ -498,7 +498,7 @@ export default function QuotePage() {
 
           {/* Final-step helper — only on last step, directly above primary action */}
           {step === 7 && (
-            <p className="text-center text-[12.5px] leading-relaxed text-[#9aa6ad] pt-1">
+            <p className="text-center text-[12.5px] leading-relaxed text-muted-foreground pt-1">
               This is the last step. Click below to send your request to Brian.
             </p>
           )}
@@ -544,13 +544,13 @@ export default function QuotePage() {
             )}
           </div>
 
-          <p className="text-center text-[12.5px] text-[#9aa6ad] -mt-2">
+          <p className="text-center text-[12.5px] text-muted-foreground -mt-2">
             Submitting sends your request securely by email — no email app will open on your device.
           </p>
         </form>
       ) : (
         /* Confirmation — honest, local, no public phone number */
-        <div className="rounded-3xl border border-[#1a2225] bg-[#0a0c0f] p-9 sm:p-12 text-center">
+        <div className="rounded-3xl border border-border bg-card p-9 sm:p-12 text-center">
           <div className="mx-auto mb-5 inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#c17a5a]/10">
             <span className="text-3xl" aria-hidden>
               ✓
@@ -568,8 +568,8 @@ export default function QuotePage() {
             A confirmation email is on its way to your inbox.
           </p>
 
-          <div className="my-8 mx-auto max-w-md rounded-2xl bg-[#111518] border border-[#243530] p-6 text-left text-sm">
-            <div className="uppercase tracking-[1.5px] text-xs text-[#8a9599] mb-3">
+          <div className="my-8 mx-auto max-w-md rounded-2xl bg-card border border-border p-6 text-left text-sm">
+            <div className="uppercase tracking-[1.5px] text-xs text-muted-foreground mb-3">
               What happens next
             </div>
             <p className="text-[#d9d1c4] leading-relaxed mb-4">
@@ -577,19 +577,19 @@ export default function QuotePage() {
             </p>
             <ul className="space-y-2.5 text-[#d9d1c4]">
               <li className="flex gap-2.5">
-                <span className="text-[#c17a5a] mt-1">→</span>
+                <span className="text-primary mt-1">→</span>
                 I personally review every request — no agency queue.
               </li>
               <li className="flex gap-2.5">
-                <span className="text-[#c17a5a] mt-1">→</span>
+                <span className="text-primary mt-1">→</span>
                 You’ll get a flat-price proposal built around your goals and timeline.
               </li>
               <li className="flex gap-2.5">
-                <span className="text-[#c17a5a] mt-1">→</span>
+                <span className="text-primary mt-1">→</span>
                 We’ll talk through the details for your Lake Cumberland business.
               </li>
             </ul>
-            <p className="mt-5 pt-4 border-t border-[#243530] text-[#9aa6ad] leading-relaxed">
+            <p className="mt-5 pt-4 border-t border-border text-muted-foreground leading-relaxed">
               Once we’re talking about a real project, I’m happy to share a direct number for calls or texts if that works better for you.
             </p>
           </div>
@@ -603,9 +603,9 @@ export default function QuotePage() {
             </Link>
           </div>
 
-          <div className="mt-10 text-xs text-[#8a9599]">
+          <div className="mt-10 text-xs text-muted-foreground">
             Questions right now? Email{" "}
-            <a href={`mailto:${EMAIL}`} className="underline hover:text-[#c17a5a]">
+            <a href={`mailto:${EMAIL}`} className="underline hover:text-primary">
               {EMAIL}
             </a>
           </div>
@@ -613,7 +613,7 @@ export default function QuotePage() {
           <button
             type="button"
             onClick={resetForm}
-            className="mt-6 text-xs text-[#9aa6ad] hover:text-[#c17a5a] underline"
+            className="mt-6 text-xs text-muted-foreground hover:text-primary underline"
           >
             Submit another request
           </button>
@@ -622,7 +622,7 @@ export default function QuotePage() {
 
       {!submitted && (
         <div className="mt-10 text-center text-[14.5px]">
-          <Link href="/services" className="text-[#c17a5a] hover:underline">
+          <Link href="/services" className="text-primary hover:underline">
             ← Back to Services &amp; Pricing
           </Link>
         </div>

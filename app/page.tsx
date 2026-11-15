@@ -1,211 +1,167 @@
-import type { CSSProperties } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import ServiceAreas from "@/components/ServiceAreas";
-import ReferralDiscountNote from "@/components/ReferralDiscountNote";
-import TemplateStoreSection from "@/components/TemplateStoreSection";
+import { Check, CopperButton, Eyebrow, GhostButton, StoreButton, TownsBand } from "@/components/site/ui";
+import { TEMPLATE_STORE_URL } from "@/lib/constants";
+import FloatingQuote from "@/components/site/FloatingQuote";
 
+/**
+ * Homepage — layout mirrored from the Lovable polish (bluegrass-forge-studio).
+ * Hero image stays eager/high priority for LCP; featured demos are a deferred
+ * client island that syncs with the admin catalog.
+ */
 const FeaturedDemos = dynamic(() => import("@/components/FeaturedDemos"), {
   loading: () => (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5" aria-busy="true" aria-label="Loading featured demos">
+    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" aria-busy="true" aria-label="Loading featured demos">
       {[0, 1, 2, 3, 4, 5].map((i) => (
-        <div key={i} className="h-[460px] sm:h-[480px] rounded-[1.35rem] border border-[var(--border)] bg-[var(--bg-elev)] animate-pulse" />
+        <div key={i} className="h-[420px] animate-pulse rounded-2xl border border-border bg-card" />
       ))}
     </div>
   ),
 });
 
-function IconCheck({ className }: { className?: string }) {
-  return (
-    <svg className={className} width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-      <path d="M20 6 9 17l-5-5" />
-    </svg>
-  );
-}
-
-function IconArrowRight({ className }: { className?: string }) {
-  return (
-    <svg className={className} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-      <path d="M5 12h14" />
-      <path d="m12 5 7 7-7 7" />
-    </svg>
-  );
-}
-
-function IconPhone({ className }: { className?: string }) {
-  return (
-    <svg className={className} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
-    </svg>
-  );
-}
+const stats: [string, string][] = [
+  ["16+", "Live Kentucky demos"],
+  ["2–4 wks", "Typical launch"],
+  ["Local", "Monticello builder"],
+  ["Yours", "Full ownership"],
+];
 
 export default function Home() {
   return (
     <>
-      <section className="hero-shell">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/hero-lake-cumberland-golden.jpg"
-            alt="Golden hour view of Lake Cumberland with calm water and rolling hills near Monticello, Kentucky — authentic local scene"
-            fill
-            loading="eager"
-            fetchPriority="high"
-            quality={75}
-            sizes="100vw"
-            className="object-cover scale-[1.02]"
-            style={{ objectPosition: "center 36%" }}
-          />
-        </div>
-        <div className="absolute inset-0 z-10 hero-overlay-main" />
-        <div className="absolute inset-0 z-10 hero-overlay-glow" />
-        <div className="absolute inset-0 pointer-events-none overflow-hidden z-20" aria-hidden>
-          {Array.from({ length: 10 }).map((_, i) => {
-            const style = {
-              left: `${52 + (i % 6) * 7 + (i % 2) * 2}%`,
-              top: `${28 + Math.floor(i / 2) * 7}%`,
-              opacity: 0.2 + (i % 3) * 0.1,
-              ["--spark-delay"]: `${i * 0.18}s`,
-              ["--spark-dur"]: `${6.8 + (i % 4) * 0.8}s`,
-            } as CSSProperties;
-            return <span key={i} className="hero-spark absolute w-[2px] h-[2px] rounded-full" style={style} />;
-          })}
-        </div>
-        <div className="relative flex-1 flex items-center z-30 px-5 sm:px-8 lg:px-10 pt-24 pb-12">
-          <div className="w-full max-w-7xl mx-auto grid lg:grid-cols-12 gap-10 lg:gap-8 items-center">
-            <div className="lg:col-span-7 text-left">
-              <div className="hero-fade hero-fade-1 hero-eyebrow mb-7">
-                <span className="hero-eyebrow-dot" />
-                Forged in Monticello, KY
-              </div>
-              <h1 className="hero-fade hero-fade-2 hero-title max-w-[18ch] text-balance leading-[0.94] tracking-[-0.045em] text-[clamp(2.6rem,7.5vw,4.8rem)] font-semibold text-white">
-                Lake Cumberland Business Websites Built in{" "}
-                <span className="kentucky-accent">Monticello, KY</span>
-              </h1>
-              <p className="hero-fade hero-fade-3 mt-6 max-w-[44ch] text-[17px] md:text-[19px] leading-relaxed text-white/85">
-                Sites for restaurants, food trucks, marinas, and shops around the lake. Built by a neighbor in Monticello. Flat pricing. No monthly lock-in for the build. You own the code from day one.
-              </p>
-              <p className="hero-fade hero-fade-3 mt-3 max-w-[42ch] text-[15px] md:text-[16px] leading-relaxed text-white/75">
-                Built by a neighbor, not an agency. From Monticello to Jamestown, Burnside, and the ramp towns in between.
-              </p>
-              <div className="hero-fade hero-fade-4 mt-9 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
-                <Link href="/quote" className="btn btn-primary text-[15.5px] px-9 py-[17px] shadow-xl">
-                  Get a free quote
-                  <span aria-hidden="true"> →</span>
-                </Link>
-                <Link href="/work" className="btn btn-ghost">Browse live demos</Link>
-              </div>
-              <ul className="hero-fade hero-fade-5 mt-5 flex flex-wrap gap-2" aria-label="Local proof">
-                {["Built in Monticello", "Serving every ramp town", "You own the code"].map((label) => (
-                  <li key={label} className="local-proof-chip">
-                    <span className="local-proof-dot" aria-hidden />
-                    {label}
-                  </li>
-                ))}
-              </ul>
-              <div className="hero-fade hero-fade-5 mt-6 flex flex-wrap gap-x-5 gap-y-2.5 text-[13px] text-white/75">
-                {["Flat pricing, no surprises", "You own the code", "Live in 2–4 weeks"].map((t) => (
-                  <div key={t} className="inline-flex items-center gap-1.5">
-                    <IconCheck className="text-[var(--copper-bright)]" />
-                    {t}
-                  </div>
-                ))}
-              </div>
+      <section className="relative overflow-hidden">
+        <Image
+          src="/hero-lake-cumberland-golden.jpg"
+          alt="Golden hour over Lake Cumberland near Monticello, Kentucky"
+          fill
+          loading="eager"
+          fetchPriority="high"
+          quality={75}
+          sizes="100vw"
+          className="object-cover"
+          style={{ objectPosition: "center 36%" }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-background/40" />
+        <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 lg:grid-cols-[1.3fr_1fr] lg:py-28">
+          <div>
+            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background/60 px-4 py-2 text-xs uppercase tracking-[0.2em]">
+              <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+              Forged in Monticello, KY
+            </span>
+            <h1 className="mt-6 font-display text-5xl font-bold leading-[1.02] tracking-tight md:text-7xl">
+              Lake Cumberland Business Websites Built in <span className="text-copper">Monticello, KY</span>
+            </h1>
+            <p className="mt-6 max-w-xl text-lg text-muted-foreground">
+              Sites for restaurants, food trucks, marinas, and shops around the lake. Built by a neighbor in Monticello.{" "}
+              <strong className="text-foreground">Flat pricing.</strong> No monthly lock-in for the build.{" "}
+              <strong className="text-foreground">You own the code</strong> from day one.
+            </p>
+            <p className="mt-4 max-w-xl text-muted-foreground">
+              Built by a neighbor, not an agency. From Monticello to Jamestown, Burnside, and the ramp towns in between.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <CopperButton href="/quote">Get a free quote →</CopperButton>
+              <GhostButton href="/work">Browse live demos</GhostButton>
             </div>
-            <div className="lg:col-span-5 hero-fade hero-fade-6">
-              <div className="relative rounded-[1.75rem] border border-[rgba(212,140,74,0.28)] bg-[rgba(2,4,3,0.55)] backdrop-blur-2xl p-6 sm:p-7 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.85),0_0_0_1px_rgba(255,255,255,0.04)_inset]">
-                <div className="absolute -top-px left-8 right-8 h-px bg-gradient-to-r from-transparent via-[var(--copper-bright)] to-transparent opacity-80" />
-                <div className="text-[11px] tracking-[0.2em] uppercase text-[var(--copper-bright)] font-semibold mb-3">Kentucky base rates</div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-[clamp(2.8rem,6vw,3.6rem)] font-semibold tracking-[-0.05em] text-white tabular-nums">$1,200</span>
-                  <span className="text-[var(--text-muted)] text-sm">one-time · Starter Sites</span>
-                </div>
-                <p className="mt-3 text-[14.5px] text-white/75 leading-relaxed">Business Suites $2,500–$4,500. Flat rate, no monthly lock-in for the build. Full ownership — you own the code.</p>
-                <ul className="mt-5 space-y-2.5 text-[14px] text-white/80">
-                  {["Mobile-first, fast, accessible", "Local SEO for real lake searches", "Handcrafted — not template spam"].map((item) => (
-                    <li key={item} className="flex gap-2.5 items-start">
-                      <IconCheck className="text-[var(--copper)] mt-0.5 shrink-0" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Link href="/services" className="mt-6 inline-flex items-center gap-1.5 text-[14px] font-semibold text-[var(--copper-bright)] hover:text-[var(--cream)] transition-colors">
-                  See full pricing
-                  <IconArrowRight />
-                </Link>
-              </div>
-            </div>
+            <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">
+              <Check>Flat pricing, no surprises</Check>
+              <Check>You own the code</Check>
+              <Check>Live in 2–4 weeks</Check>
+            </ul>
+            <p className="mt-5 text-sm text-muted-foreground">
+              Prefer to build it yourself?{" "}
+              <a href={TEMPLATE_STORE_URL} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary">
+                Website templates from $129, calculators from $99 ↗
+              </a>
+            </p>
           </div>
-        </div>
-        <div className="relative z-30 hero-stat-bar">
-          <div className="mx-auto max-w-7xl px-5 sm:px-8 py-5 grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
-            {[["16+", "Live Kentucky demos"], ["2–4 wks", "Typical launch"], ["Local", "Monticello builder"], ["Yours", "Full ownership"]].map(([value, label]) => (
-              <div key={label} className="hero-stat">
-                <div className="hero-stat-value">{value}</div>
-                <div className="hero-stat-label">{label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-      <section id="featured-work" className="section-block forge-panel" aria-labelledby="featured-work-heading">
-        <div className="mx-auto max-w-7xl px-5 sm:px-8">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-3">
-            <div>
-              <div className="label mb-2">Featured work</div>
-              <h2 id="featured-work-heading" className="section-title tracking-tight max-w-[18ch]">Built for real lake businesses</h2>
-            </div>
-            <Link href="/work" className="hidden md:inline-flex items-center gap-1.5 text-[14.5px] font-semibold text-[var(--copper-bright)] hover:text-[var(--cream)] group">
-              See all Lake Cumberland website demos
-              <IconArrowRight className="group-hover:translate-x-0.5 transition" />
+          <div className="rounded-3xl border border-border bg-card/70 p-8 backdrop-blur">
+            <Eyebrow>Kentucky base rates</Eyebrow>
+            <p className="mt-4 font-display text-6xl font-bold">
+              $1,200 <span className="font-sans text-base font-normal text-muted-foreground">one-time · Starter Sites</span>
+            </p>
+            <p className="mt-4 text-muted-foreground">
+              Business Suites $2,500–$4,500. Flat rate, no monthly lock-in for the build. Full ownership — you own the code.
+            </p>
+            <ul className="mt-6 space-y-3 text-sm">
+              <Check>Mobile-first, fast, accessible</Check>
+              <Check>Local SEO for real lake searches</Check>
+              <Check>Handcrafted — not template spam</Check>
+            </ul>
+            <Link href="/services" className="mt-6 inline-block font-semibold text-primary">
+              See full pricing →
             </Link>
           </div>
-          <p className="text-[var(--text-muted)] max-w-2xl mb-9 text-[15.5px] leading-relaxed">
-            Flat one-time pricing and full ownership of the code — portfolio examples for restaurants, food trucks, guides, and outdoor trades around Monticello, Wayne County, and Lake Cumberland. Click any card to open the live site. Specialty pages:{" "}
-            <Link href="/fishing-guide-websites" className="text-[var(--copper-bright)] underline decoration-[var(--copper)]/40 underline-offset-2 hover:text-[var(--cream)]">fishing guide websites</Link>,{" "}
-            <Link href="/food-truck-websites" className="text-[var(--copper-bright)] underline decoration-[var(--copper)]/40 underline-offset-2 hover:text-[var(--cream)]">food truck websites</Link>, and{" "}
-            <Link href="/restaurant-websites" className="text-[var(--copper-bright)] underline decoration-[var(--copper)]/40 underline-offset-2 hover:text-[var(--cream)]">restaurant websites</Link>.
-          </p>
+        </div>
+      </section>
+
+      <section className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-5 py-14 md:grid-cols-4">
+        {stats.map(([a, b]) => (
+          <div key={b} className="text-center">
+            <p className="text-copper font-display text-4xl font-bold">{a}</p>
+            <p className="mt-1 text-sm text-muted-foreground">{b}</p>
+          </div>
+        ))}
+      </section>
+
+      <section id="featured-work" className="mx-auto max-w-7xl px-5 pb-20" aria-labelledby="featured-work-heading">
+        <Eyebrow>Featured work</Eyebrow>
+        <div className="mt-3 flex flex-wrap items-end justify-between gap-4">
+          <h2 id="featured-work-heading" className="font-display text-4xl font-bold">Built for real lake businesses</h2>
+          <Link href="/work" className="font-semibold text-primary">See all demos →</Link>
+        </div>
+        <p className="mt-4 max-w-3xl text-muted-foreground">
+          Portfolio examples for restaurants, food trucks, guides, and outdoor trades around Monticello and Lake Cumberland. Specialty pages:{" "}
+          <Link href="/fishing-guide-websites" className="text-primary">fishing guide websites</Link>,{" "}
+          <Link href="/food-truck-websites" className="text-primary">food truck websites</Link>, and{" "}
+          <Link href="/restaurant-websites" className="text-primary">restaurant websites</Link>.
+        </p>
+        <div className="mt-10">
           <FeaturedDemos limit={6} />
-          <div className="mt-7 text-center md:hidden">
-            <Link href="/work" className="inline-flex items-center gap-1 text-[14.5px] font-semibold text-[var(--copper-bright)]">See all Lake Cumberland website demos →</Link>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-5 pb-20">
+        <div className="grid items-center gap-10 rounded-3xl border border-border bg-card p-10 md:grid-cols-2">
+          <div>
+            <Eyebrow>Website templates from $129</Eyebrow>
+            <h2 className="mt-3 font-display text-3xl font-bold">Prefer to build it yourself?</h2>
+            <p className="mt-4 text-muted-foreground">
+              Ready-to-remix website templates, hand-built in Kentucky. Launch a professional site in an afternoon. Website templates from{" "}
+              <strong className="text-foreground">$129</strong>, calculators from <strong className="text-foreground">$99</strong>. One-time purchase. Free updates for bug fixes and refinements.
+            </p>
+          </div>
+          <div className="text-center md:text-right">
+            <StoreButton>Browse templates ↗</StoreButton>
+            <p className="mt-3 text-sm">
+              <Link href="/templates" className="text-primary">How templates work →</Link>
+            </p>
           </div>
         </div>
       </section>
-      <hr className="section-rule mx-auto max-w-7xl" />
-      <TemplateStoreSection />
-      <ServiceAreas variant="compact" />
-      <section className="section-block text-center border-t border-[var(--border)] bg-[var(--bg)]">
-        <div className="mx-auto max-w-[640px] px-5">
-          <div className="label mb-3 justify-center">Let's build</div>
-          <h2 className="text-[clamp(1.75rem,4.5vw,2.35rem)] tracking-[-0.03em] font-semibold leading-tight">Ready for a website forged in Monticello?</h2>
-          <p className="mt-4 text-[15.5px] text-[var(--text-muted)] max-w-[48ch] mx-auto leading-relaxed">Flat pricing. Full ownership — you own the code. No agency. Lake Cumberland towns from Albany to Whitley City, across Wayne, Pulaski, Russell and McCreary counties.</p>
-          <p className="mt-3 text-[14px] text-[var(--text-dim)]">
-            Specialty sites:{" "}
-            <Link href="/marina-websites" className="text-[var(--copper-bright)] underline hover:text-white">marinas</Link>,{" "}
-            <Link href="/fishing-guide-websites" className="text-[var(--copper-bright)] underline hover:text-white">fishing guides</Link>,{" "}
-            <Link href="/food-truck-websites" className="text-[var(--copper-bright)] underline hover:text-white">food trucks</Link>,{" "}
-            <Link href="/restaurant-websites" className="text-[var(--copper-bright)] underline hover:text-white">restaurants</Link>,{" "}
-            <Link href="/contractor-websites" className="text-[var(--copper-bright)] underline hover:text-white">contractors</Link>. Towns:{" "}
-            <Link href="/service-areas#jamestown" className="text-[var(--copper-bright)] underline hover:text-white">Jamestown</Link>,{" "}
-            <Link href="/service-areas#burnside" className="text-[var(--copper-bright)] underline hover:text-white">Burnside</Link>,{" "}
-            <Link href="/service-areas#nancy" className="text-[var(--copper-bright)] underline hover:text-white">Nancy</Link>,{" "}
-            <Link href="/service-areas#albany" className="text-[var(--copper-bright)] underline hover:text-white">Albany</Link>.
-          </p>
-          <div className="mt-9 flex flex-col sm:flex-row gap-3.5 justify-center">
-            <Link href="/quote" className="btn btn-primary px-9 py-3.5 text-base">Get a free quote<span aria-hidden="true"> →</span></Link>
-            <Link href="/services" className="btn btn-secondary px-7 py-3.5">See pricing</Link>
-            <Link href="/work" className="btn btn-secondary px-7 py-3.5">View demos</Link>
-          </div>
-          <ReferralDiscountNote align="center" className="mt-6 mx-auto max-w-[48ch] rounded-xl border border-[var(--border)] bg-[var(--bg-card)]/70 px-4 py-2.5" />
-          <p className="mt-5 text-[12.5px] text-[var(--text-dim)]">Or{" "}<Link href="/contact" className="underline hover:text-white">just say hi</Link>. Real replies from Monticello, KY.</p>
+
+      <TownsBand />
+
+      <section className="mx-auto max-w-4xl px-5 py-20 text-center">
+        <Eyebrow>Let&apos;s build</Eyebrow>
+        <h2 className="mt-3 font-display text-4xl font-bold md:text-5xl">Ready for a website forged in Monticello?</h2>
+        <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
+          Flat pricing. Full ownership — you own the code. No agency. Lake Cumberland towns from Albany to Whitley City, across Wayne, Pulaski, Russell and McCreary counties.
+        </p>
+        <p className="mt-3 text-sm text-muted-foreground">
+          Specialty sites: <Link href="/marina-websites" className="text-primary">marinas</Link>,{" "}
+          <Link href="/fishing-guide-websites" className="text-primary">fishing guides</Link>,{" "}
+          <Link href="/food-truck-websites" className="text-primary">food trucks</Link>,{" "}
+          <Link href="/restaurant-websites" className="text-primary">restaurants</Link>,{" "}
+          <Link href="/contractor-websites" className="text-primary">contractors</Link>.
+        </p>
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
+          <CopperButton href="/quote">Get a free quote →</CopperButton>
+          <GhostButton href="/services">See pricing</GhostButton>
         </div>
       </section>
-      <a href="/quote" className="fixed bottom-6 right-6 z-50 float-cta px-5 py-3.5 rounded-2xl flex items-center gap-2.5 font-semibold active:scale-[0.985] transition-all md:hidden" aria-label="Get a free quote">
-        <IconPhone className="w-5 h-5" />
-        <span>Get a free quote</span>
-      </a>
+      <FloatingQuote />
     </>
   );
 }

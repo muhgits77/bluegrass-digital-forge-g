@@ -39,7 +39,7 @@ export const metadata: Metadata = {
 const faqs = [
   {
     q: "How much does a food truck website cost in Kentucky?",
-    a: "Kentucky base rates: Starter Sites start at $1,200 one-time; Business Suites from $2,500. Flat scope-based pricing — no monthly retainer required for the website build. You own the finished site and code.",
+    a: "Kentucky base rates: Starter Sites start at $1,200 one-time; Business Suites $2,500–$4,500. Flat scope-based pricing — no monthly retainer required for the website build. You own the finished site and code.",
   },
   {
     q: "Can I update my location from my phone?",
@@ -155,7 +155,7 @@ export default async function FoodTruckWebsites() {
           rel="noopener noreferrer"
           className="text-[#f4a261] underline underline-offset-2 hover:text-white"
         >
-          Ready-made templates from $99
+          Website templates from $129, calculators from $99
         </a>
       </p>
 

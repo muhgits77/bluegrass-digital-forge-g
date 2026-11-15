@@ -51,7 +51,7 @@ export default function LocalLandingPage(p: LocalLandingProps) {
       <p className="mt-3 text-lg text-[#8a9599]">{p.intro}</p>
       <p className="mt-3 text-[15px] text-[#c8cfd3]">
         <strong className="font-medium">Custom builds from $1,200</strong>,
-        Business Suites from $2,500. Flat one-time pricing, and you own the site
+        Business Suites $2,500–$4,500. Flat one-time pricing, and you own the site
         and the code.
       </p>
 

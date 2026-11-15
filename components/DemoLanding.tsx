@@ -157,7 +157,7 @@ export default function DemoLanding({ demo, content, related }: DemoLandingProps
           rel="noopener noreferrer"
           className="text-[13px] text-[var(--text-muted)] underline underline-offset-2 hover:text-white"
         >
-          Ready-made templates from $99
+          Website templates from $129, calculators from $99
         </a>
       </div>
 

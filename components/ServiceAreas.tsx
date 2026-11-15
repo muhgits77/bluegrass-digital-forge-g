@@ -67,8 +67,8 @@ const compactTowns: { label: string; href: string }[] = [
   { label: "Monticello", href: "/service-areas" },
   { label: "Jamestown", href: "/service-areas#jamestown" },
   { label: "Burnside", href: "/service-areas#burnside" },
-  { label: "Somerset", href: "/service-areas" },
-  { label: "Russell Springs", href: "/service-areas#russell-springs" },
+  { label: "Somerset", href: "/web-design-somerset-ky" },
+  { label: "Russell Springs", href: "/web-design-russell-springs-ky" },
   { label: "Nancy", href: "/service-areas#nancy" },
   { label: "Albany", href: "/service-areas#albany" },
   { label: "Creelsboro", href: "/service-areas" },
@@ -141,6 +141,12 @@ export default function ServiceAreas({ variant = "full" }: ServiceAreasProps) {
               className="text-[var(--copper-bright)] hover:underline text-sm font-semibold"
             >
               Contractor sites →
+            </Link>
+            <Link
+              href="/quote"
+              className="text-[var(--copper-bright)] hover:underline text-sm font-semibold"
+            >
+              Get a free quote →
             </Link>
           </div>
         </div>

@@ -95,7 +95,7 @@ const marinas = [
 const faqs = [
   {
     q: "How much does a marina website cost?",
-    a: "Starter Sites start at $1,200 one-time; Business Suites from $2,500 depending on booking tools, galleries, and page count. Flat scope-based pricing — no surprise retainers for the build. When we’re done, you own the site and the code.",
+    a: "Starter Sites start at $1,200 one-time; Business Suites $2,500–$4,500 depending on booking tools, galleries, and page count. Flat scope-based pricing — no surprise retainers for the build. When we’re done, you own the site and the code.",
   },
   {
     q: "Do I have to pay monthly fees forever?",
@@ -206,7 +206,7 @@ export default function MarinaWebsitesPage() {
           rel="noopener noreferrer"
           className="text-[#f4a261] underline underline-offset-2 hover:text-white"
         >
-          Ready-made templates from $99
+          Website templates from $129, calculators from $99
         </a>
       </p>
       <p className="mt-3 text-[15px] text-[#c8cfd3]">
@@ -372,8 +372,8 @@ export default function MarinaWebsitesPage() {
         </h2>
         <p className="mt-2 text-[15px] text-[#c8cfd3]">
           Starter Sites from <strong className="text-white">$1,200</strong>{" "}
-          one-time. Business Suites from{" "}
-          <strong className="text-white">$2,500</strong> one-time for fuller
+          one-time. Business Suites{" "}
+          <strong className="text-white">$2,500–$4,500</strong> one-time for fuller
           booking, gallery, and multi-page marina needs. When the project is
           paid, <strong className="text-white">you own everything</strong> —
           site, code, content. Optional $79/mo care if you want me on call; host

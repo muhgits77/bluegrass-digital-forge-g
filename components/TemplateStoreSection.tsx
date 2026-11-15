@@ -42,7 +42,8 @@ function IconArrowRight({ className }: { className?: string }) {
 }
 
 const highlights = [
-  "From $99 — one-time purchase",
+  "Website templates from $129 — one-time purchase",
+  "Quote calculators from $99",
   "Hand-built in Kentucky, ready to remix",
   "Free updates for bug fixes & refinements",
 ];
@@ -91,7 +92,7 @@ export default function TemplateStoreSection({
       <div className={isCompact ? "" : "mx-auto max-w-7xl px-5 sm:px-8"}>
         {!isCompact && (
           <div className="mb-8 md:mb-9">
-            <div className="label mb-2">DIY Templates · From $99</div>
+            <div className="label mb-2">DIY Templates · From $129</div>
             <h2
               id="diy-templates-heading"
               className="section-title tracking-tight max-w-[16ch]"
@@ -100,7 +101,9 @@ export default function TemplateStoreSection({
             </h2>
             <p className="mt-4 text-[var(--text-muted)] max-w-2xl text-[15.5px] md:text-[16.5px] leading-relaxed">
               Ready-to-remix website templates hand-built in Kentucky. Launch a
-              professional site in an afternoon — from{" "}
+              professional site in an afternoon. Website templates from{" "}
+              <strong className="text-[var(--cream)] font-medium">$129</strong>,
+              calculators from{" "}
               <strong className="text-[var(--cream)] font-medium">$99</strong>.
               One-time purchase, no monthly lock-in, with free updates for bug
               fixes and refinements.
@@ -130,7 +133,7 @@ export default function TemplateStoreSection({
               {isCompact && (
                 <>
                   <div className="label mb-2.5">
-                    DIY Templates · From $99
+                    DIY Templates · From $129
                   </div>
                   <h2
                     id="diy-templates-heading"
@@ -140,12 +143,12 @@ export default function TemplateStoreSection({
                   </h2>
                   <p className="mt-3 text-[var(--text-muted)] leading-relaxed text-[15px] max-w-xl">
                     Explore ready-to-remix website templates hand-built in
-                    Kentucky. Launch a professional site in an afternoon —
-                    from{" "}
+                    Kentucky. Launch a professional site in an afternoon.
+                    Website templates from{" "}
                     <strong className="text-[var(--cream)] font-medium">
-                      $99
+                      $129
                     </strong>
-                    . One-time purchase, no monthly lock-in, with free updates
+                    , calculators from $99. One-time purchase, no monthly lock-in, with free updates
                     for bug fixes and refinements.
                   </p>
                 </>
@@ -211,7 +214,7 @@ export default function TemplateStoreSection({
                   <div className="relative aspect-[16/11] w-full">
                     <Image
                       src="/assets/demo-bluegrass-templates.jpg"
-                      alt="Bluegrass Digital Forge ready-to-remix website templates — DIY sites from $99"
+                      alt="Bluegrass Digital Forge ready-to-remix website templates — DIY sites from $129"
                       fill
                       loading="lazy"
                       decoding="async"
@@ -227,7 +230,7 @@ export default function TemplateStoreSection({
                     </div>
                     <div className="flex items-baseline gap-2">
                       <span className="text-[clamp(2rem,4vw,2.5rem)] font-semibold tracking-[-0.04em] text-white tabular-nums">
-                        $99
+                        $129
                       </span>
                       <span className="text-[13px] text-white/70">
                         starting · one-time
@@ -254,7 +257,7 @@ export default function TemplateStoreSection({
                   </div>
                   <div className="flex items-baseline gap-1.5 lg:justify-end mt-0.5">
                     <span className="text-4xl font-semibold tracking-[-0.04em] text-[var(--cream)] tabular-nums">
-                      $99
+                      $129
                     </span>
                     <span className="text-[13px] text-[var(--text-muted)]">
                       one-time

@@ -75,7 +75,8 @@ const townDeepDives = [
     specialties: [
       { href: "/marina-websites", label: "Marina websites" },
       { href: "/food-truck-websites", label: "Food truck websites" },
-      { href: "/services", label: "Restaurant & shop packages" },
+      { href: "/restaurant-websites", label: "Restaurant websites" },
+      { href: "/contractor-websites", label: "Contractor websites" },
       { href: "/lake-house-rental-websites", label: "Lake house rental websites" },
       { href: "/bait-and-tackle-websites", label: "Bait and boat rental websites" },
     ],
@@ -208,7 +209,7 @@ const localBusinessSchema = {
       name,
     })),
   ],
-  priceRange: "$1,200 - $2,500",
+  priceRange: "$1,200 - $4,500",
 };
 
 export default function ServiceAreasPage() {

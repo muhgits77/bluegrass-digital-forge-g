@@ -220,7 +220,7 @@ export default function Home() {
                   </span>
                 </div>
                 <p className="mt-3 text-[14.5px] text-white/75 leading-relaxed">
-                  Business Suites from $2,500.
+                  Business Suites $2,500–$4,500.
                   Flat rate, no monthly lock-in for the build. Full ownership —
                   you own the code.
                 </p>
@@ -373,6 +373,20 @@ export default function Home() {
               className="text-[var(--copper-bright)] underline hover:text-white"
             >
               food trucks
+            </Link>
+            ,{" "}
+            <Link
+              href="/restaurant-websites"
+              className="text-[var(--copper-bright)] underline hover:text-white"
+            >
+              restaurants
+            </Link>
+            ,{" "}
+            <Link
+              href="/contractor-websites"
+              className="text-[var(--copper-bright)] underline hover:text-white"
+            >
+              contractors
             </Link>
             . Towns:{" "}
             <Link

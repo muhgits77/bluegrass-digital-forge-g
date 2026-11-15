@@ -74,7 +74,7 @@ const included = [
 const faqs = [
   {
     q: "How much does a lake house rental website cost?",
-    a: "Custom builds start at $1,200 one-time. A fuller site with several house pages, a larger gallery, and a calendar usually lands in the Business Suite range from $2,500. You own the site and the code when it is paid for. Ready-made templates start at $99 if you would rather start there.",
+    a: "Custom builds start at $1,200 one-time. A fuller site with several house pages, a larger gallery, and a calendar usually lands in the Business Suite range, $2,500–$4,500. You own the site and the code when it is paid for. Website templates start at $129 and calculators at $99 if you would rather start there.",
   },
   {
     q: "Can the site show which weeks are open?",
@@ -170,7 +170,7 @@ export default function LakeHouseRentalWebsitesPage() {
           rel="noopener noreferrer"
           className="text-[#f4a261] underline underline-offset-2 hover:text-white"
         >
-          Ready-made templates from $99
+          Website templates from $129, calculators from $99
         </a>
       </p>
       <p className="mt-3 text-[15px] text-[#c8cfd3]">
@@ -252,8 +252,8 @@ export default function LakeHouseRentalWebsitesPage() {
         </h2>
         <p className="mt-2 text-[15px] text-[#c8cfd3]">
           Starter sites from <strong className="text-white">$1,200</strong>{" "}
-          one-time. Business Suites from{" "}
-          <strong className="text-white">$2,500</strong> when you need more
+          one-time. Business Suites{" "}
+          <strong className="text-white">$2,500–$4,500</strong> when you need more
           house pages, a larger gallery, or a fuller calendar. If you want to
           start smaller,{" "}
           <a
@@ -262,7 +262,7 @@ export default function LakeHouseRentalWebsitesPage() {
             rel="noopener noreferrer"
             className="text-[#f4a261] underline hover:text-white"
           >
-            ready-made templates from $99
+            website templates from $129, calculators from $99
           </a>{" "}
           are on the template store.
         </p>

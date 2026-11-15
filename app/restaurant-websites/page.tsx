@@ -89,7 +89,7 @@ const towns = [
 const faqs = [
   {
     q: "How much does a restaurant website cost?",
-    a: "Starter Sites start at $1,200 one-time; Business Suites from $2,500 if you need more pages, fuller menus, galleries, or booking detail. Flat scope-based pricing — not a monthly agency contract for the build. You own the finished site and code.",
+    a: "Starter Sites start at $1,200 one-time; Business Suites $2,500–$4,500 if you need more pages, fuller menus, galleries, or booking detail. Flat scope-based pricing — not a monthly agency contract for the build. You own the finished site and code.",
   },
   {
     q: "Can we put the full menu online?",
@@ -201,7 +201,7 @@ export default function RestaurantWebsitesPage() {
           rel="noopener noreferrer"
           className="text-[#f4a261] underline underline-offset-2 hover:text-white"
         >
-          Ready-made templates from $99
+          Website templates from $129, calculators from $99
         </a>
       </p>
       <p className="mt-3 text-[15px] text-[#c8cfd3]">

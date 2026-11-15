@@ -66,7 +66,7 @@ const mustHaveOptions = [
 
 const budgetOptions = [
   "Starter Site — from $1,200",
-  "Business Suite — from $2,500",
+  "Business Suite — $2,500–$4,500",
   "Not sure yet",
 ];
 

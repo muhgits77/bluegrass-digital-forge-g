@@ -179,7 +179,7 @@ export default function BusinessCardsPage() {
 
               <div>
                 <div className="label mb-1.5">Card content details (tagline, services, social links, etc.)</div>
-                <textarea className="input w-full min-h-[92px]" placeholder="Brian • Bluegrass Digital Forge • 606-555-0192 • brian@..." value={form.cardContent} onChange={e => update("cardContent", e.target.value)} />
+                <textarea className="input w-full min-h-[92px]" placeholder="Brian • Bluegrass Digital Forge • brian@..." value={form.cardContent} onChange={e => update("cardContent", e.target.value)} />
               </div>
             </div>
           </div>

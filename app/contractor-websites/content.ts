@@ -7,6 +7,10 @@ export const content: LocalLandingProps = {
     imageAlt: "Contractor truck at a Lake Cumberland lake house while a roofer works from a ladder",
     cta: "Get a contractor site quote →",
   },
+  demos: [
+    { slug: "bluegrass-fence-co", title: "Bluegrass Fence Co." },
+    { slug: "ridge-pasture-care", title: "Ridge Pasture Care" },
+  ],
   label: "SPECIALTY — CONTRACTOR WEBSITES",
   h1: "Contractor Websites for the Lake Cumberland Area",
   intro:

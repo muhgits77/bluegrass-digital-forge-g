@@ -57,6 +57,7 @@ const townDeepDives = [
       { href: "/food-truck-websites", label: "Food truck websites" },
       { href: "/lake-house-rental-websites", label: "Lake house rental websites" },
       { href: "/bait-and-tackle-websites", label: "Bait and boat rental websites" },
+      { href: "/restaurant-websites", label: "Restaurant websites" },
     ],
   },
   {
@@ -79,6 +80,7 @@ const townDeepDives = [
       { href: "/contractor-websites", label: "Contractor websites" },
       { href: "/lake-house-rental-websites", label: "Lake house rental websites" },
       { href: "/bait-and-tackle-websites", label: "Bait and boat rental websites" },
+      { href: "/fishing-guide-websites", label: "Fishing guide websites" },
     ],
   },
   {
@@ -99,6 +101,7 @@ const townDeepDives = [
       { href: "/fishing-guide-websites", label: "Fishing guide websites" },
       { href: "/services", label: "Business Suite pricing" },
       { href: "/lake-house-rental-websites", label: "Lake house rental websites" },
+      { href: "/restaurant-websites", label: "Restaurant websites" },
     ],
   },
   {
@@ -121,6 +124,8 @@ const townDeepDives = [
       { href: "/marina-websites", label: "Marina websites" },
       { href: "/lake-house-rental-websites", label: "Lake house rental websites" },
       { href: "/bait-and-tackle-websites", label: "Bait and boat rental websites" },
+      { href: "/contractor-websites", label: "Contractor websites" },
+      { href: "/restaurant-websites", label: "Restaurant websites" },
     ],
   },
   {
@@ -141,6 +146,8 @@ const townDeepDives = [
       { href: "/fishing-guide-websites", label: "Fishing guide websites" },
       { href: "/food-truck-websites", label: "Food truck websites" },
       { href: "/lake-house-rental-websites", label: "Lake house rental websites" },
+      { href: "/restaurant-websites", label: "Restaurant websites" },
+      { href: "/contractor-websites", label: "Contractor websites" },
     ],
   },
   {
@@ -209,6 +216,15 @@ const localBusinessSchema = {
       name,
     })),
   ],
+  geo: { "@type": "GeoCoordinates", latitude: 36.8298, longitude: -84.8491 },
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      opens: "09:00",
+      closes: "18:00",
+    },
+  ],
   priceRange: "$1,200 - $4,500",
 };
 
@@ -220,8 +236,8 @@ export default function ServiceAreasPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema).replace(/</g, "\\u003c") }}
       />
 
-      <PageHero eyebrow="Service areas — Lake Cumberland" title="Websites for every major boat ramp town on the lake.">
-        Web design for Monticello, Somerset, Russell Springs, Jamestown, Burnside, Whitley City and more — handcrafted by a neighbor in Monticello for the marinas, guides, restaurants, rentals, food trucks, and shops from Conley Bottom to Creelsboro.{" "}
+      <PageHero eyebrow="Service areas — Lake Cumberland" title="Lake Cumberland Web Design for Every Boat Ramp Town">
+        Wayne County web design, Somerset KY small business websites, and everything between — from your Monticello KY website builder. Web design for Monticello, Somerset, Russell Springs, Jamestown, Burnside, Whitley City and more — handcrafted by a neighbor in Monticello for the marinas, guides, restaurants, rentals, food trucks, and shops from Conley Bottom to Creelsboro.{" "}
         <strong className="text-foreground">Flat pricing. Full ownership.</strong> No monthly website retainer.
       </PageHero>
 
@@ -242,8 +258,11 @@ export default function ServiceAreasPage() {
             Home base for Bluegrass Digital Forge. Restaurants, shops, guides and trades around Wayne County get a neighbor who can meet in person and knows what lake visitors search for.
           </p>
           <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-sm">
+            <span className="text-muted-foreground">Popular here:</span>
             <Link href="/restaurant-websites" className="text-primary">Restaurant websites</Link>
             <Link href="/food-truck-websites" className="text-primary">Food truck websites</Link>
+            <Link href="/contractor-websites" className="text-primary">Contractor websites</Link>
+            <Link href="/marina-websites" className="text-primary">Marina websites</Link>
             <Link href="/fishing-guide-websites" className="text-primary">Fishing guide websites</Link>
           </div>
           <Link href="/quote" className="mt-4 inline-block text-sm font-semibold text-primary">Get a quote for Monticello →</Link>
@@ -262,6 +281,7 @@ export default function ServiceAreasPage() {
               ))}
             </ul>
             <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-sm">
+              <span className="text-muted-foreground">Popular here:</span>
               {t.specialties.map((sp) => (
                 <Link key={sp.href} href={sp.href} className="text-primary">{sp.label}</Link>
               ))}

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import SpecialtyHero from "@/components/site/SpecialtyHero";
+import SpecialtyCrossLinks from "@/components/site/SpecialtyCrossLinks";
 import NotLocalTemplates from "@/components/NotLocalTemplates";
 import Link from "next/link";
 import { canonicalUrl, SITE_URL, CONTACT_EMAIL, TEMPLATE_STORE_URL } from "@/lib/constants";
@@ -642,6 +643,7 @@ export default async function FoodTruckWebsites() {
           code · No monthly website retainer
         </p>
       </div>
+        <SpecialtyCrossLinks demos={[{ slug: "sunny-hollow-donut-dash", title: "Sunny Hollow Donut Dash" }, { slug: "fiesta-taqueria", title: "Fiesta Taqueria" }]} cta="Get a food truck site quote →" />
       </div>
     </>
   );

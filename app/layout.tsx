@@ -156,7 +156,17 @@ export default function RootLayout({
                 postalCode: "42633",
                 addressCountry: "US",
               },
-              sameAs: ["https://share.google/JKjYBoMEpHxleaFfL"],
+              geo: { "@type": "GeoCoordinates", latitude: 36.8298, longitude: -84.8491 },
+              // Mon–Sat 9–6; Sunday is closed (not listed). No telephone on this site, by rule.
+              openingHoursSpecification: [
+                {
+                  "@type": "OpeningHoursSpecification",
+                  dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+                  opens: "09:00",
+                  closes: "18:00",
+                },
+              ],
+              sameAs: ["https://share.google/JKjYBoMEpHxleaFfL", "https://bluegrasstemplates.com/"],
               areaServed: [
                 { "@type": "City", name: "Monticello" },
                 { "@type": "City", name: "Albany" },
@@ -189,24 +199,34 @@ export default function RootLayout({
               ],
               hasOfferCatalog: {
                 "@type": "OfferCatalog",
-                name: "Website & Branding Services",
+                name: "Website packages",
                 itemListElement: [
                   {
                     "@type": "Offer",
+                    name: "Starter Sites",
+                    price: "1200",
+                    priceCurrency: "USD",
                     itemOffered: {
                       "@type": "Service",
-                      name: "Starter Sites — Monticello KY Website Designer",
+                      name: "Starter Site website build",
                       description:
-                        "Flat $1,200 websites for food trucks and small Lake Cumberland businesses near Conley Bottom and Beaver Creek",
+                        "Flat $1,200 websites for food trucks and small Lake Cumberland businesses",
                     },
                   },
                   {
                     "@type": "Offer",
+                    name: "Business Suites",
+                    priceSpecification: {
+                      "@type": "PriceSpecification",
+                      minPrice: "2500",
+                      maxPrice: "4500",
+                      priceCurrency: "USD",
+                    },
                     itemOffered: {
                       "@type": "Service",
-                      name: "Business Suites for Lake Cumberland Businesses",
+                      name: "Business Suite website build",
                       description:
-                        "Premium custom Wayne County web design, $2,500–$4,500, for marinas, guides, restaurants",
+                        "Custom Wayne County web design, $2,500–$4,500, for marinas, guides and restaurants",
                     },
                   },
                   {

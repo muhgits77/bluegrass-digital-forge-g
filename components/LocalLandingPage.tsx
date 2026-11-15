@@ -1,6 +1,7 @@
 import Link from "next/link";
 import NotLocalTemplates from "@/components/NotLocalTemplates";
 import SpecialtyHero from "@/components/site/SpecialtyHero";
+import SpecialtyCrossLinks from "@/components/site/SpecialtyCrossLinks";
 import { CONTACT_EMAIL, SITE_URL, canonicalUrl } from "@/lib/constants";
 
 export type LocalLandingProps = {
@@ -15,6 +16,8 @@ export type LocalLandingProps = {
   notLocal: { href: string; label: string };
   /** Optional full-bleed photo hero (Lovable layout). */
   hero?: { image: string; imageAlt: string; cta: string };
+  /** Optional relevant demos (specialty pages) with links back to Services & Pricing. */
+  demos?: { slug: string; title: string }[];
 };
 
 /** Shared layout for Lake Cumberland town and trade landing pages. */
@@ -111,6 +114,7 @@ export default function LocalLandingPage(p: LocalLandingProps) {
       </p>
 
       <NotLocalTemplates href={p.notLocal.href} label={p.notLocal.label} />
+        {p.demos?.length ? <SpecialtyCrossLinks demos={p.demos} cta={p.hero?.cta ?? "Get a free quote →"} /> : null}
       </div>
     </>
   );

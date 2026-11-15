@@ -83,8 +83,8 @@ export default async function Services() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <PageHero eyebrow="Services & pricing — Monticello KY website designer" title="Website Services & Flat Pricing">
-        Flat-rate pricing. One-time. No surprises. When we&apos;re done, <strong className="text-foreground">you own the code.</strong>
+      <PageHero eyebrow="Services & pricing — Monticello KY website designer" title="Lake Cumberland Web Design Services & Flat Pricing">
+        Wayne County web design and Somerset KY small business websites at flat-rate pricing. One-time. No surprises. When we&apos;re done, <strong className="text-foreground">you own the code.</strong>
       </PageHero>
 
       <section className="mx-auto grid max-w-5xl gap-6 px-5 pb-8 md:grid-cols-2">
@@ -142,7 +142,7 @@ export default async function Services() {
 
       <section className="mx-auto max-w-7xl px-5 pb-20">
         <h2 className="font-display text-3xl font-bold">Built for every kind of lake business</h2>
-        <p className="mt-3 text-muted-foreground">Also see <Link href="/restaurant-websites" className="text-primary">restaurant websites</Link>.</p>
+        <p className="mt-3 text-muted-foreground">Also see <Link href="/restaurant-websites" className="text-primary">restaurant websites</Link>, the <Link href="/service-areas" className="text-primary">towns I serve</Link>, or <Link href="/work" className="text-primary">live demos</Link>. Prefer DIY? <Link href="/templates" className="text-primary">Website templates from $129, calculators from $99</Link> at <a href="https://bluegrasstemplates.com/" target="_blank" rel="noopener noreferrer" className="text-primary">bluegrasstemplates.com ↗</a>.</p>
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {niches.map((n) => (
             <div key={n.label} className="rounded-2xl border border-border bg-card p-6">

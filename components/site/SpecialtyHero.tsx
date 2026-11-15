@@ -29,7 +29,9 @@ export default function SpecialtyHero({
         <div className="max-w-2xl">
           <Eyebrow>{eyebrow}</Eyebrow>
           <h1 className="mt-4 font-display text-4xl font-bold leading-tight tracking-tight md:text-6xl">{title}</h1>
-          <div className="mt-5 space-y-4 text-lg text-muted-foreground [&_strong]:text-foreground">{children}</div>
+          <div className="mt-5 space-y-4 text-lg text-muted-foreground [&_strong]:text-foreground">{children}
+            <p className="text-base">Lake Cumberland web design, handcrafted by a Monticello KY website builder for Wayne County, Somerset and the lake towns.</p>
+          </div>
           <div className="mt-8 flex flex-wrap gap-3">
             <CopperButton href="/quote">{cta}</CopperButton>
             <GhostButton href="/services">See pricing</GhostButton>

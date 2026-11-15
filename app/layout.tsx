@@ -38,7 +38,7 @@ const geistMono = Geist_Mono({
 });
 
 const spaceGrotesk = Bricolage_Grotesque({
-  variable: "--font-display",
+  variable: "--font-bricolage",
   subsets: ["latin"],
   weight: ["600", "700"],
   display: "swap",

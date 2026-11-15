@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-display: var(--font-display);
+  --font-display: var(--font-bricolage);
   --color-background: var(--bg);
   --color-foreground: var(--text);
   --color-card: var(--bg-card);
@@ -31,7 +31,7 @@
 :root {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --font-display: var(--font-display);
+  --font-display: var(--font-bricolage);
 
   /* Core surfaces — mirrored from the Lovable polish (bluegrass-forge-studio) */
   --bg: oklch(0.14 0.008 60);

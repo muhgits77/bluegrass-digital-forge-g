@@ -53,12 +53,12 @@ export default function Home() {
               Lake Cumberland Business Websites Built in <span className="text-copper">Monticello, KY</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg text-muted-foreground">
-              Sites for restaurants, food trucks, marinas, and shops around the lake. Built by a neighbor in Monticello.{" "}
+              Lake Cumberland web design for restaurants, food trucks, marinas, and shops around the lake. Built by a neighbor in Monticello.{" "}
               <strong className="text-foreground">Flat pricing.</strong> No monthly lock-in for the build.{" "}
               <strong className="text-foreground">You own the code</strong> from day one.
             </p>
             <p className="mt-4 max-w-xl text-muted-foreground">
-              Built by a neighbor, not an agency. From Monticello to Jamestown, Burnside, and the ramp towns in between.
+              Your Monticello KY website builder — a neighbor, not an agency. Wayne County web design, Somerset KY small business websites, and Jamestown, Burnside, and the ramp towns in between.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <CopperButton href="/quote">Get a free quote →</CopperButton>
@@ -108,7 +108,7 @@ export default function Home() {
       <section id="featured-work" className="mx-auto max-w-7xl px-5 pb-20" aria-labelledby="featured-work-heading">
         <Eyebrow>Featured work</Eyebrow>
         <div className="mt-3 flex flex-wrap items-end justify-between gap-4">
-          <h2 id="featured-work-heading" className="font-display text-4xl font-bold">Built for real lake businesses</h2>
+          <h2 id="featured-work-heading" className="font-display text-4xl font-bold">Lake Cumberland web design for real lake businesses</h2>
           <Link href="/work" className="font-semibold text-primary">See all demos →</Link>
         </div>
         <p className="mt-4 max-w-3xl text-muted-foreground">

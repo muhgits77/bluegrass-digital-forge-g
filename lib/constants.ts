@@ -10,11 +10,7 @@
 
 export const CONTACT_EMAIL = "contact@bluegrassdigitalforge.com";
 
-/**
- * Public phone for schema (LocalBusiness telephone) and footer.
- * Leave unset until a real local number is published — do not invent one.
- */
-export const CONTACT_PHONE: string | undefined = undefined;
+/* Standing rule: no phone number anywhere on bluegrassdigitalforge.com (pages or schema). */
 
 export const SITE_NAME = "Bluegrass Digital Forge";
 export const SITE_TAGLINE = "Powerful. Simple. Yours.";

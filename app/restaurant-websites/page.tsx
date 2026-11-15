@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import SpecialtyHero from "@/components/site/SpecialtyHero";
+import SpecialtyCrossLinks from "@/components/site/SpecialtyCrossLinks";
 import NotLocalTemplates from "@/components/NotLocalTemplates";
 import Link from "next/link";
 import { canonicalUrl, SITE_URL, CONTACT_EMAIL, TEMPLATE_STORE_URL } from "@/lib/constants";
@@ -602,6 +603,7 @@ export default function RestaurantWebsitesPage() {
         href="https://bluegrasstemplates.com/restaurant-website-templates"
         label="Restaurant website templates"
       />
+        <SpecialtyCrossLinks demos={[{ slug: "hickory-forge-steakhouse", title: "Hickory Forge Steakhouse" }, { slug: "ridge-run-smokehouse", title: "Ridge Run Smokehouse" }, { slug: "fiesta-taqueria", title: "Fiesta Taqueria" }]} cta="Get a restaurant site quote →" />
       </div>
     </>
   );

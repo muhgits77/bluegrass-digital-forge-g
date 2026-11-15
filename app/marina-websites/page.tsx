@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import SpecialtyHero from "@/components/site/SpecialtyHero";
+import SpecialtyCrossLinks from "@/components/site/SpecialtyCrossLinks";
 import NotLocalTemplates from "@/components/NotLocalTemplates";
 import Link from "next/link";
 import { canonicalUrl, SITE_URL, CONTACT_EMAIL, TEMPLATE_STORE_URL } from "@/lib/constants";
@@ -475,6 +476,7 @@ export default function MarinaWebsitesPage() {
         href="https://bluegrasstemplates.com/lake-and-marina-website-templates"
         label="Lake & marina website templates"
       />
+        <SpecialtyCrossLinks demos={[{ slug: "landing-point-bait-tackle", title: "Landing Point Bait & Tackle" }, { slug: "anchorline-guide-service", title: "Anchorline Guide Service" }]} cta="Get a marina site quote →" />
       </div>
     </>
   );

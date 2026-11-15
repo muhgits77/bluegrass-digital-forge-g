@@ -38,9 +38,9 @@ export default function AboutPage() {
       <section className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-16 lg:grid-cols-2">
         <div>
           <Eyebrow>About — Monticello KY website designer</Eyebrow>
-          <h1 className="mt-4 font-display text-4xl font-bold tracking-tight md:text-6xl">A neighbor on the lake, not an agency.</h1>
+          <h1 className="mt-4 font-display text-4xl font-bold tracking-tight md:text-6xl">A Monticello KY website builder — a neighbor on the lake, not an agency.</h1>
           <p className="mt-6 text-lg text-muted-foreground">
-            I live and work right here on Lake Cumberland. When you hire Bluegrass Digital Forge you get <strong className="text-foreground">flat pricing</strong>,{" "}
+            I live and work right here on Lake Cumberland, doing Lake Cumberland web design for local businesses. When you hire Bluegrass Digital Forge you get <strong className="text-foreground">flat pricing</strong>,{" "}
             <strong className="text-foreground">full ownership</strong> of the site — <strong className="text-foreground">you own the code</strong> — and a neighbor who knows the difference between a Wayne County food truck at the marina and a Somerset storefront.
           </p>
           <p className="mt-4 text-muted-foreground">No lock-in. No platform holding your site. Just a flat rate you can plan on. The site is yours when it’s done.</p>
@@ -74,9 +74,9 @@ export default function AboutPage() {
       <section className="border-y border-border bg-card/50 py-20">
         <div className="mx-auto max-w-7xl px-5">
           <Eyebrow>Service area</Eyebrow>
-          <h2 className="mt-3 font-display text-3xl font-bold md:text-4xl">Wayne, Pulaski, Russell &amp; McCreary counties</h2>
+          <h2 className="mt-3 font-display text-3xl font-bold md:text-4xl">Wayne County web design — plus Pulaski, Russell &amp; McCreary counties</h2>
           <p className="mt-4 max-w-2xl text-muted-foreground">
-            Serving Lake Cumberland towns from Monticello outward: Somerset, Russell Springs, Jamestown, Burnside, Albany and Whitley City. Outside the area? Custom work is available anywhere by email.
+            Serving Lake Cumberland towns from Monticello outward: Russell Springs, Jamestown, Burnside, Albany and Whitley City — plus Somerset KY small business websites to the north. Outside the area? Custom work is available anywhere by email.
           </p>
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {counties.map(([c, t]) => (

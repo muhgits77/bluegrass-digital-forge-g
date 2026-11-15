@@ -21,6 +21,18 @@ const specialties = [
   { href: "/contractor-websites", label: "Contractor websites" },
 ];
 
+const towns = [
+  { label: "Monticello", href: "/service-areas#monticello" },
+  { label: "Jamestown", href: "/service-areas#jamestown" },
+  { label: "Burnside", href: "/service-areas#burnside" },
+  { label: "Somerset", href: "/web-design-somerset-ky" },
+  { label: "Russell Springs", href: "/web-design-russell-springs-ky" },
+  { label: "Albany", href: "/service-areas#albany" },
+  { label: "Nancy", href: "/service-areas#nancy" },
+  { label: "Creelsboro", href: "/service-areas" },
+  { label: "Whitley City", href: "/service-areas#whitley-city" },
+];
+
 /** Footer mirrored from the Lovable polish: three columns, then credit, copyright and legal links. */
 export default function Footer() {
   return (
@@ -64,6 +76,20 @@ export default function Footer() {
           </div>
         </div>
       </div>
+      <nav aria-label="Towns we serve" className="mx-auto max-w-7xl px-5 pb-8">
+        <div className="flex flex-wrap items-center gap-2 border-t border-border pt-6 text-xs text-muted-foreground">
+          <span className="mr-1 font-semibold uppercase tracking-[0.18em] text-primary">Towns we serve</span>
+          {towns.map((t) => (
+            <Link
+              key={t.label}
+              href={t.href}
+              className="rounded-full border border-border px-3 py-1 hover:border-primary/50 hover:text-foreground"
+            >
+              {t.label}, KY
+            </Link>
+          ))}
+        </div>
+      </nav>
       <div className="space-y-3 px-5 pb-8 text-center text-xs text-muted-foreground">
         <p>Forged by Brian · Monticello, Kentucky</p>
         <p>© {new Date().getFullYear()} Bluegrass Digital Forge</p>

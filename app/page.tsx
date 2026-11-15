@@ -3,6 +3,7 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import { Check, CopperButton, Eyebrow, GhostButton, StoreButton, TownsBand } from "@/components/site/ui";
 import { TEMPLATE_STORE_URL } from "@/lib/constants";
+import FloatingQuote from "@/components/site/FloatingQuote";
 
 /**
  * Homepage — layout mirrored from the Lovable polish (bluegrass-forge-studio).
@@ -160,6 +161,7 @@ export default function Home() {
           <GhostButton href="/services">See pricing</GhostButton>
         </div>
       </section>
+      <FloatingQuote />
     </>
   );
 }

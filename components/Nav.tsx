@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function IconMenu() {
   return (
@@ -36,6 +36,11 @@ const navLinks = [
 export default function Nav() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+
+  // Lets the floating mobile quote button hide itself while the menu is open.
+  useEffect(() => {
+    document.documentElement.toggleAttribute("data-menu-open", open);
+  }, [open]);
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";

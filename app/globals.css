@@ -1072,3 +1072,6 @@ h1, h2, h3, .section-title { letter-spacing: -0.025em; line-height: 1.08; }
 .badge { background: linear-gradient(180deg, oklch(0.8 0.11 68), oklch(0.68 0.13 55)); color: var(--copper-ink); border: 0; }
 .input { background: var(--bg); border-color: var(--border); border-radius: 0.75rem; }
 .input:focus { border-color: var(--copper); }
+
+/* Floating mobile quote pill: never over the open phone menu */
+html[data-menu-open] .floating-quote { display: none; }

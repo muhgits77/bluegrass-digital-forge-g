@@ -42,9 +42,6 @@ export default function Footer() {
               pricing, fast launches, full ownership — forged in Monticello,
               Kentucky.
             </p>
-            <p className="mt-5 text-[12.5px] text-[var(--copper-bright)] tracking-wide font-semibold">
-              Forged by Brian · Monticello, Kentucky
-            </p>
           </div>
 
           {/* Navigate */}

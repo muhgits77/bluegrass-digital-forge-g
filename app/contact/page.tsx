@@ -52,13 +52,13 @@ export default function ContactPage() {
     <div className="mx-auto max-w-2xl px-5 py-12">
       <div className="label">CONTACT — MONTICELLO KY WEBSITE DESIGNER</div>
       <h1 className="section-title tracking-tight mt-1">Contact Bluegrass Digital Forge</h1>
-      <p className="text-[#8a9599] mt-2">Talk to the Monticello KY website designer serving Lake Cumberland business websites, and web design across Wayne, Pulaski, Russell &amp; McCreary counties. I usually reply within a few hours.</p>
-      <p className="text-[15px] text-[#c8cfd3] mt-3">Outside Kentucky? Custom work is available anywhere, all by email.</p>
-      <p className="text-[15px] text-[#c8cfd3] mt-4">
+      <p className="text-muted-foreground mt-2">Talk to the Monticello KY website designer serving Lake Cumberland business websites, and web design across Wayne, Pulaski, Russell &amp; McCreary counties. I usually reply within a few hours.</p>
+      <p className="text-[15px] text-foreground/85 mt-3">Outside Kentucky? Custom work is available anywhere, all by email.</p>
+      <p className="text-[15px] text-foreground/85 mt-4">
         Prefer to email directly? Reach me at{" "}
         <a
           href={`mailto:${EMAIL}`}
-          className="text-[#f4a261] underline underline-offset-2 hover:text-white font-medium"
+          className="text-primary underline underline-offset-2 hover:text-white font-medium"
         >
           {EMAIL}
         </a>
@@ -142,13 +142,13 @@ export default function ContactPage() {
             )}
           </button>
 
-          <p className="text-center text-[12.5px] text-[#9aa6ad] -mt-2">
+          <p className="text-center text-[12.5px] text-muted-foreground -mt-2">
             Sends securely via email. You’ll receive a confirmation — no email app opens.
           </p>
         </form>
       ) : (
         /* Beautiful Branded Thank You — consistent with quote page */
-        <div className="mt-8 rounded-3xl border border-[#1a2225] bg-[#0a0c0f] p-9 sm:p-12 text-center">
+        <div className="mt-8 rounded-3xl border border-border bg-card p-9 sm:p-12 text-center">
           <div className="mx-auto mb-5 inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#c17a5a]/10">
             <span className="text-3xl">✓</span>
           </div>
@@ -159,12 +159,12 @@ export default function ContactPage() {
             Your message was sent. A confirmation email is on its way, and I’ll reply personally from Monticello within a day (usually same day).
           </p>
 
-          <div className="my-8 mx-auto max-w-md rounded-2xl bg-[#111518] border border-[#243530] p-6 text-left text-sm">
-            <div className="uppercase tracking-[1.5px] text-xs text-[#8a9599] mb-2">What happens next</div>
+          <div className="my-8 mx-auto max-w-md rounded-2xl bg-card border border-border p-6 text-left text-sm">
+            <div className="uppercase tracking-[1.5px] text-xs text-muted-foreground mb-2">What happens next</div>
             <ul className="space-y-2.5 text-[#d9d1c4]">
-              <li className="flex gap-2.5"><span className="text-[#c17a5a] mt-1">→</span> I read every message myself.</li>
-              <li className="flex gap-2.5"><span className="text-[#c17a5a] mt-1">→</span> You’ll get a real reply from me soon.</li>
-              <li className="flex gap-2.5"><span className="text-[#c17a5a] mt-1">→</span> Need something faster? Reply to the confirmation email.</li>
+              <li className="flex gap-2.5"><span className="text-primary mt-1">→</span> I read every message myself.</li>
+              <li className="flex gap-2.5"><span className="text-primary mt-1">→</span> You’ll get a real reply from me soon.</li>
+              <li className="flex gap-2.5"><span className="text-primary mt-1">→</span> Need something faster? Reply to the confirmation email.</li>
             </ul>
           </div>
 
@@ -173,19 +173,19 @@ export default function ContactPage() {
             <Link href="/services" className="btn btn-secondary">See pricing &amp; packages</Link>
           </div>
 
-          <div className="mt-10 text-xs text-[#8a9599]">
-            Questions? Email <a href={`mailto:${EMAIL}`} className="underline hover:text-[#c17a5a]">{EMAIL}</a>
+          <div className="mt-10 text-xs text-muted-foreground">
+            Questions? Email <a href={`mailto:${EMAIL}`} className="underline hover:text-primary">{EMAIL}</a>
           </div>
         </div>
       )}
 
       {!sent && (
         <>
-          <div className="mt-10 text-[14.5px] text-[#9aa6ad] border-t border-[#1a2225] pt-6">
+          <div className="mt-10 text-[14.5px] text-muted-foreground border-t border-border pt-6">
             Prefer to call or text? Email{" "}
             <a
               href={`mailto:${EMAIL}`}
-              className="text-[#f4a261] underline underline-offset-2 hover:text-white"
+              className="text-primary underline underline-offset-2 hover:text-white"
             >
               {EMAIL}
             </a>{" "}

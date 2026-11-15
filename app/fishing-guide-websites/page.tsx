@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import SpecialtyHero from "@/components/site/SpecialtyHero";
 import NotLocalTemplates from "@/components/NotLocalTemplates";
 import Link from "next/link";
 import { canonicalUrl, SITE_URL, CONTACT_EMAIL, TEMPLATE_STORE_URL } from "@/lib/constants";
@@ -171,7 +172,7 @@ const faqSchema = {
 
 export default function FishingGuideWebsitesPage() {
   return (
-    <div className="mx-auto max-w-3xl px-5 py-12">
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -184,35 +185,36 @@ export default function FishingGuideWebsitesPage() {
           __html: JSON.stringify(faqSchema).replace(/</g, "\\u003c"),
         }}
       />
-
-      <div className="label tracking-[1.6px]">
-        SPECIALTY — FISHING GUIDE WEBSITES LAKE CUMBERLAND
-      </div>
-      <h1 className="section-title tracking-tight">
-        Fishing Guide Websites for Lake Cumberland — Striper, Bass &amp;
-        Multi-Species Captains
-      </h1>
-      <p className="mt-3 text-lg text-[#8a9599]">
+      <SpecialtyHero
+        eyebrow="Specialty — Fishing Guide Websites Lake Cumberland"
+        title={<>Fishing Guide Websites for Lake Cumberland — Striper, Bass &amp; Multi-Species Captains</>}
+        image="/assets/specialty-fishing.jpg"
+        imageAlt="Fishing guide casting from a bass boat at sunrise beneath Lake Cumberland bluffs"
+        cta="Get a guide site quote →"
+      >
+        <p>
         Websites for working fishing guides on Lake Cumberland — built by a
         neighbor in Monticello, KY.{" "}
-        <strong className="text-[#c8cfd3] font-medium">Flat one-time pricing</strong>
+        <strong className="text-foreground/85 font-medium">Flat one-time pricing</strong>
         .{" "}
-        <strong className="text-[#c8cfd3] font-medium">
+        <strong className="text-foreground/85 font-medium">
           Full ownership of the site and code
         </strong>
         . No monthly retainer required to keep what you paid for.
       </p>
-      <p className="mt-3 text-[13.5px]">
+      <p className="text-base">
         <a
           href={TEMPLATE_STORE_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-[#f4a261] underline underline-offset-2 hover:text-white"
+          className="text-primary underline underline-offset-2 hover:text-white"
         >
           Website templates from $129, calculators from $99
         </a>
       </p>
-      <p className="mt-3 text-[15px] text-[#c8cfd3]">
+      </SpecialtyHero>
+      <div className="mx-auto max-w-3xl px-5 py-12">
+      <p className="mt-3 text-[15px] text-foreground/85">
         Anglers searching for a striper trip out of Jamestown, a bass day near
         Creelsboro, or a multi-species charter off State Dock want three things
         fast: proof you catch fish, clear trip types and rates, and an easy way
@@ -220,20 +222,20 @@ export default function FishingGuideWebsitesPage() {
         search and the deposit.
       </p>
 
-      <div className="mt-6 p-6 rounded-3xl bg-[#0a0c0f] border border-[#f4a261]/30">
-        <div className="uppercase text-[10px] tracking-[2px] text-[#f4a261] mb-1">
+      <div className="mt-6 p-6 rounded-3xl bg-card border border-primary/40">
+        <div className="uppercase text-[10px] tracking-[2px] text-primary mb-1">
           BUILT FOR CAPTAINS WHO HATE RETAINERS
         </div>
         <h2 className="text-[21px] leading-tight font-semibold tracking-tight">
           Pay once. Own it forever. Fish more, fight websites less.
         </h2>
-        <p className="mt-2 text-[15px] text-[#c8cfd3]">
+        <p className="mt-2 text-[15px] text-foreground/85">
           No agency “management fee” just to keep your pages live. Host where you
           want. Update trip dates when the bite is on. Handcrafted in Monticello
           for guides who launch on this lake — not a generic charter template
           from three states away.
         </p>
-        <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-[14.5px] text-[#c8cfd3]">
+        <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-[14.5px] text-foreground/85">
           <li>• Flat rate from $1,200 one-time</li>
           <li>• You own the code — full ownership</li>
           <li>• No monthly website fees required</li>
@@ -247,50 +249,50 @@ export default function FishingGuideWebsitesPage() {
         <h2 className="text-2xl font-semibold tracking-tight mt-1">
           Fishing guide website examples
         </h2>
-        <p className="mt-2 text-[15px] text-[#9aa6ad]">
+        <p className="mt-2 text-[15px] text-muted-foreground">
           Portfolio pieces on this site — trip language and layout ideas for
           captains who launch on Lake Cumberland.
         </p>
         <ul className="mt-5 space-y-4">
-          <li className="rounded-2xl border border-[#f4a261]/30 bg-[#0a0c0f] p-5">
-            <div className="text-[11px] uppercase tracking-wider text-[#8a9599]">
+          <li className="rounded-2xl border border-primary/40 bg-card p-5">
+            <div className="text-[11px] uppercase tracking-wider text-muted-foreground">
               Primary example · Fishing guide
             </div>
             <Link
               href="/work/anchorline-guide-service"
-              className="mt-1 block font-semibold tracking-tight text-white hover:text-[#f4a261]"
+              className="mt-1 block font-semibold tracking-tight text-white hover:text-primary"
             >
               Anchorline Guide Service
             </Link>
-            <p className="mt-1.5 text-[14.5px] text-[#c8cfd3] leading-relaxed">
+            <p className="mt-1.5 text-[14.5px] text-foreground/85 leading-relaxed">
               Trip types, captain intro, and a plain booking path for striper
               and multi-species days on Lake Cumberland. Flat one-time pricing
               on real builds; you own the code.
             </p>
             <Link
               href="/work/anchorline-guide-service"
-              className="mt-2 inline-block text-[13px] text-[#f4a261] underline underline-offset-2 hover:text-white"
+              className="mt-2 inline-block text-[13px] text-primary underline underline-offset-2 hover:text-white"
             >
               Read the example →
             </Link>
           </li>
-          <li className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-5">
-            <div className="text-[11px] uppercase tracking-wider text-[#8a9599]">
+          <li className="rounded-2xl border border-border bg-card p-5">
+            <div className="text-[11px] uppercase tracking-wider text-muted-foreground">
               Supporting · Bait &amp; lake retail
             </div>
             <Link
               href="/work/landing-point-bait-tackle"
-              className="mt-1 block font-semibold tracking-tight text-white hover:text-[#f4a261]"
+              className="mt-1 block font-semibold tracking-tight text-white hover:text-primary"
             >
               Landing Point Bait &amp; Tackle
             </Link>
-            <p className="mt-1.5 text-[14.5px] text-[#c8cfd3] leading-relaxed">
+            <p className="mt-1.5 text-[14.5px] text-foreground/85 leading-relaxed">
               Bait availability, tackle notes, and call-ahead holds for Lake
               Cumberland anglers and lake-road traffic.
             </p>
             <Link
               href="/work/landing-point-bait-tackle"
-              className="mt-2 inline-block text-[13px] text-[#f4a261] underline underline-offset-2 hover:text-white"
+              className="mt-2 inline-block text-[13px] text-primary underline underline-offset-2 hover:text-white"
             >
               Read the example →
             </Link>
@@ -305,7 +307,7 @@ export default function FishingGuideWebsitesPage() {
         <Link href="/work/anchorline-guide-service" className="btn btn-secondary">
           See Anchorline example
         </Link>
-        <Link href="/services" className="underline text-[#3ddbd9] self-center text-sm">
+        <Link href="/services" className="underline text-primary self-center text-sm">
           Pricing packages
         </Link>
       </div>
@@ -315,7 +317,7 @@ export default function FishingGuideWebsitesPage() {
         <h2 className="text-2xl font-semibold tracking-tight mt-1">
           Practical features for striper, bass, and multi-species guides.
         </h2>
-        <p className="mt-2 text-[15px] text-[#9aa6ad]">
+        <p className="mt-2 text-[15px] text-muted-foreground">
           Every section is written for how Lake Cumberland clients actually
           choose a captain — on a phone, comparing options, often from out of
           town.
@@ -324,22 +326,22 @@ export default function FishingGuideWebsitesPage() {
           {benefits.map((b) => (
             <div
               key={b.title}
-              className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-6"
+              className="rounded-2xl border border-border bg-card p-6"
             >
-              <div className="font-semibold tracking-tight mb-1 text-[#f4a261]">
+              <div className="font-semibold tracking-tight mb-1 text-primary">
                 {b.title}
               </div>
-              <p className="text-[14.5px] text-[#c8cfd3]">{b.body}</p>
+              <p className="text-[14.5px] text-foreground/85">{b.body}</p>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="mt-12 rounded-3xl border border-[#1f282b] bg-[#0a0c0f] p-7">
-        <div className="uppercase tracking-[1.5px] text-[11px] text-[#f4a261] mb-2">
+      <div className="mt-12 rounded-3xl border border-border bg-card p-7">
+        <div className="uppercase tracking-[1.5px] text-[11px] text-primary mb-2">
           TYPICAL GUIDE SITE INCLUSIONS
         </div>
-        <ul className="list-disc pl-5 space-y-1.5 text-[15px] text-[#c8cfd3]">
+        <ul className="list-disc pl-5 space-y-1.5 text-[15px] text-foreground/85">
           <li>Home page with hero photo, trip highlights, and tap-to-call</li>
           <li>Trip types (half-day / full-day / species) with clear rates or “from” pricing</li>
           <li>Captain bio, safety notes, and what to bring</li>
@@ -348,7 +350,7 @@ export default function FishingGuideWebsitesPage() {
           <li>Launch / meeting-point directions for your usual ramps</li>
           <li>Google Business basics and local SEO for Lake Cumberland guide searches</li>
         </ul>
-        <p className="mt-4 text-[13px] text-[#8a9599]">
+        <p className="mt-4 text-[13px] text-muted-foreground">
           Portfolio write-up:{" "}
           <Link
             href="/work/anchorline-guide-service"
@@ -369,21 +371,21 @@ export default function FishingGuideWebsitesPage() {
           {guideAreas.map((g) => (
             <div
               key={g.name}
-              className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-5"
+              className="rounded-2xl border border-border bg-card p-5"
             >
               <div className="font-semibold tracking-tight text-white">
                 {g.name}
               </div>
-              <div className="text-[#c17a5a] text-[13px] mt-0.5 font-medium">
+              <div className="text-primary text-[13px] mt-0.5 font-medium">
                 {g.detail}
               </div>
-              <p className="mt-2 text-[14px] text-[#9aa6ad] leading-relaxed">
+              <p className="mt-2 text-[14px] text-muted-foreground leading-relaxed">
                 {g.note}
               </p>
             </div>
           ))}
         </div>
-        <p className="mt-4 text-[14px] text-[#8a9599]">
+        <p className="mt-4 text-[14px] text-muted-foreground">
           Deep local notes for{" "}
           <Link href="/service-areas#jamestown" className="underline hover:text-white">
             Jamestown
@@ -405,20 +407,20 @@ export default function FishingGuideWebsitesPage() {
             Albany
           </Link>
           .{" "}
-          <Link href="/service-areas" className="text-[#f4a261] underline hover:text-white">
+          <Link href="/service-areas" className="text-primary underline hover:text-white">
             Full service areas →
           </Link>
         </p>
       </div>
 
-      <div className="mt-12 rounded-3xl border border-[#f4a261]/30 bg-[#0a0c0f] p-7">
-        <div className="text-[#f4a261] text-xs tracking-[1.5px] mb-1">
+      <div className="mt-12 rounded-3xl border border-primary/40 bg-card p-7">
+        <div className="text-primary text-xs tracking-[1.5px] mb-1">
           FLAT PRICING · FULL OWNERSHIP · NO MONTHLY LOCK-IN
         </div>
         <h2 className="text-xl font-semibold tracking-tight">
           Small guide businesses deserve honest pricing.
         </h2>
-        <p className="mt-2 text-[15px] text-[#c8cfd3]">
+        <p className="mt-2 text-[15px] text-foreground/85">
           You already pay for fuel, bait, insurance, and boat time. A website
           shouldn&apos;t be another forever subscription.{" "}
           <strong className="text-white">Flat one-time pricing</strong> for the
@@ -435,35 +437,35 @@ export default function FishingGuideWebsitesPage() {
         </div>
       </div>
 
-      <div className="mt-10 rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-6">
+      <div className="mt-10 rounded-2xl border border-border bg-card p-6">
         <div className="font-semibold tracking-tight mb-2">Related specialties</div>
-        <ul className="space-y-2 text-[14.5px] text-[#c8cfd3]">
+        <ul className="space-y-2 text-[14.5px] text-foreground/85">
           <li>
-            <Link href="/marina-websites" className="text-[#f4a261] underline hover:text-white">
+            <Link href="/marina-websites" className="text-primary underline hover:text-white">
               Marina websites
             </Link>{" "}
             — docks, slips, houseboat rentals around the lake
           </li>
           <li>
-            <Link href="/food-truck-websites" className="text-[#f4a261] underline hover:text-white">
+            <Link href="/food-truck-websites" className="text-primary underline hover:text-white">
               Food truck websites
             </Link>{" "}
             — real-time location for lake &amp; festival stops
           </li>
           <li>
-            <Link href="/restaurant-websites" className="text-[#f4a261] underline hover:text-white">
+            <Link href="/restaurant-websites" className="text-primary underline hover:text-white">
               Restaurant websites
             </Link>{" "}
             — menus and catering for supper after the water
           </li>
           <li>
-            <Link href="/work/landing-point-bait-tackle" className="text-[#f4a261] underline hover:text-white">
+            <Link href="/work/landing-point-bait-tackle" className="text-primary underline hover:text-white">
               Landing Point bait shop example
             </Link>{" "}
             — lake retail that sits next to guide traffic
           </li>
           <li>
-            <Link href="/work" className="text-[#f4a261] underline hover:text-white">
+            <Link href="/work" className="text-primary underline hover:text-white">
               All portfolio examples
             </Link>{" "}
             — guides, bait shops, trucks, restaurants
@@ -475,26 +477,26 @@ export default function FishingGuideWebsitesPage() {
         <h2 className="font-semibold text-xl tracking-tight mb-6">
           Fishing guide website FAQ
         </h2>
-        <div className="divide-y divide-[#1a2225] max-w-3xl">
+        <div className="divide-y divide-border max-w-3xl">
           {faqs.map((faq) => (
             <details key={faq.q} className="group py-4">
               <summary className="flex cursor-pointer list-none items-center justify-between font-medium gap-4">
                 {faq.q}
-                <span className="text-[#3ddbd9] group-open:rotate-45 transition shrink-0">
+                <span className="text-primary group-open:rotate-45 transition shrink-0">
                   +
                 </span>
               </summary>
-              <p className="mt-2 text-[#8a9599] pr-8 text-[15px]">{faq.a}</p>
+              <p className="mt-2 text-muted-foreground pr-8 text-[15px]">{faq.a}</p>
             </details>
           ))}
         </div>
       </div>
 
-      <div className="mt-12 rounded-2xl border border-[#1a2225] bg-[#0a0c0f] p-8 text-center">
+      <div className="mt-12 rounded-2xl border border-border bg-card p-8 text-center">
         <h2 className="text-2xl tracking-tight font-semibold">
           Ready for a guide site that books more water days?
         </h2>
-        <p className="mt-2 text-[#9aa6ad] max-w-md mx-auto">
+        <p className="mt-2 text-muted-foreground max-w-md mx-auto">
           Tell me about your boat, your target species, and the ramps you run
           from. Flat quote from Monticello — full ownership, no retainer games.
         </p>
@@ -506,7 +508,7 @@ export default function FishingGuideWebsitesPage() {
             Contact me directly
           </Link>
         </div>
-        <p className="mt-4 text-xs text-[#8a9599]">
+        <p className="mt-4 text-xs text-muted-foreground">
           Handcrafted in Monticello, KY · Flat one-time pricing · You own the
           code · Serving guides lake-wide
         </p>
@@ -515,6 +517,7 @@ export default function FishingGuideWebsitesPage() {
         href="https://bluegrasstemplates.com/lake-and-marina-website-templates"
         label="Lake & marina website templates"
       />
-    </div>
+      </div>
+    </>
   );
 }

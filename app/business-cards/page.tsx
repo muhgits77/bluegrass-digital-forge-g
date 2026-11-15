@@ -89,7 +89,7 @@ export default function BusinessCardsPage() {
       <div className="mb-7">
         <div className="label tracking-[2px]">BUSINESS CARDS &amp; BRANDING — MONTICELLO KY WEBSITE DESIGNER</div>
         <h1 className="section-title tracking-tight mt-1">Business Cards &amp; Branding for Lake Cumberland Businesses | Monticello KY</h1>
-        <p className="mt-2 text-[#8a9599]">Custom business cards and branding designed by the Monticello KY website designer for Lake Cumberland businesses across Wayne, Pulaski, Russell &amp; McCreary counties. Premium quality, honest pricing that complements your site.</p>
+        <p className="mt-2 text-muted-foreground">Custom business cards and branding designed by the Monticello KY website designer for Lake Cumberland businesses across Wayne, Pulaski, Russell &amp; McCreary counties. Premium quality, honest pricing that complements your site.</p>
       </div>
 
       {!submitted ? (
@@ -128,7 +128,7 @@ export default function BusinessCardsPage() {
                     <div>
                       <input type="radio" name="package" className="accent-[#3ddbd9]" checked={isSelected} onChange={() => update("package", p.label)} />
                       <div className="font-medium mt-1.5 tracking-tight">{p.label}</div>
-                      {p.note && <div className="text-[12.5px] text-[#9aa6ad]">{p.note}</div>}
+                      {p.note && <div className="text-[12.5px] text-muted-foreground">{p.note}</div>}
                       {isPopular && <span className="badge-gold mt-1 inline-block text-[9.5px]">MOST POPULAR</span>}
                     </div>
                     <div className="text-right font-semibold tabular-nums tracking-tight text-lg self-start">{p.price}</div>
@@ -203,24 +203,24 @@ export default function BusinessCardsPage() {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-[#1a2225] bg-[#0a0c0f] p-5 text-[14.5px] text-[#9aa6ad]">
+          <div className="rounded-2xl border border-border bg-card p-5 text-[14.5px] text-muted-foreground">
             After we review your request, I&apos;ll send you a simple proposal. A small deposit is required to begin design work (usually $75 for design-only, $100–$150 for printed packages). This protects both of us and locks in your spot. Most projects delivered in 5–10 business days.
           </div>
 
           <button type="submit" className="btn btn-primary w-full py-3 text-base">Submit My Request →</button>
 
-          <p className="text-center text-[12.5px] text-[#9aa6ad]">Submitting opens your email app with the details pre-filled. Just hit send.</p>
+          <p className="text-center text-[12.5px] text-muted-foreground">Submitting opens your email app with the details pre-filled. Just hit send.</p>
         </form>
       ) : (
-        <div className="rounded-3xl border border-[#1a2225] bg-[#0a0c0f] p-9 text-center">
+        <div className="rounded-3xl border border-border bg-card p-9 text-center">
           <h3 className="text-2xl font-semibold tracking-tight">Request received (in your email)!</h3>
-          <p className="mt-2 text-[#8a9599]">Your mail client opened with everything ready. Send it over and I&apos;ll get back to you quickly with next steps and a deposit invoice.</p>
+          <p className="mt-2 text-muted-foreground">Your mail client opened with everything ready. Send it over and I&apos;ll get back to you quickly with next steps and a deposit invoice.</p>
           <Link href="/" className="btn btn-secondary mt-6 inline-block">Back home</Link>
         </div>
       )}
 
       <div className="mt-8 text-center">
-        <Link href="/services" className="text-sm text-[#3ddbd9] hover:underline">← See full pricing &amp; branding options</Link>
+        <Link href="/services" className="text-sm text-primary hover:underline">← See full pricing &amp; branding options</Link>
       </div>
     </div>
   );

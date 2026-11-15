@@ -18,7 +18,7 @@ export default function ReferralDiscountNote({
 
   return (
     <p
-      className={`text-[12.5px] leading-relaxed text-[#8a9599] ${
+      className={`text-[12.5px] leading-relaxed text-muted-foreground ${
         align === "center" ? "text-center" : "text-left"
       } ${className}`}
       role="note"

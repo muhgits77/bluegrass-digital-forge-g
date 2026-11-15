@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { SITE_TAGLINE } from "@/lib/constants";
 
 interface DemoCardProps {
   title: string;
@@ -117,28 +116,13 @@ export default function DemoCard({
   liveHref,
   image,
   imageAlt,
-  slug,
+
   isPortfolioLanding,
   isLocalProject,
   ctaLabel,
 }: DemoCardProps) {
   const previewImage =
     image || demoImageMap[title] || "/hero-cumberland-golden.jpg";
-  // Real live projects show the public hostname in the faux browser chrome
-  const localProjectHost = (() => {
-    if (!isLocalProject || !href || href.startsWith("/")) return null;
-    try {
-      return new URL(href).hostname.replace(/^www\./, "");
-    } catch {
-      return null;
-    }
-  })();
-  const displaySlug =
-    localProjectHost ||
-    slug ||
-    href.replace("https://", "").replace("http://", "").replace(/^\//, "");
-
-  const isTemplateSite = title === "Bluegrass Digital Forge Templates";
   const isDataUrl = !!previewImage && previewImage.startsWith("data:");
   const isInternal = href.startsWith("/");
   const showLiveSecondary = Boolean(liveHref && isPortfolioLanding);
@@ -158,28 +142,12 @@ export default function DemoCard({
         ? "Open live project"
         : "Open live site");
 
-  const tagline = isLocalProject
-    ? `${SITE_TAGLINE} · Built in Monticello`
-    : SITE_TAGLINE;
-
-  // min-h keeps shorter cards even in a grid row; longer SEO descriptions grow the card naturally.
   const shellClass =
-    "demo-card shimmer-hover group min-h-[460px] sm:min-h-[480px] md:min-h-[500px] h-full flex flex-col bg-[var(--bg-card)] border border-[var(--border)] overflow-hidden rounded-[1.35rem]";
+    "group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card transition hover:-translate-y-1 hover:border-primary";
 
   const primaryInner = (
     <>
-      <div className="flex items-center gap-3 px-3 py-2.5 bg-[#050a08] border-b border-[var(--border)] shrink-0">
-        <div className="flex gap-2" aria-hidden>
-          <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
-          <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
-          <span className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
-        </div>
-        <div className="ml-2 text-[11px] text-[var(--text-dim)] font-medium truncate">
-          {displaySlug}
-        </div>
-      </div>
-
-      <div className="relative aspect-[16/9] overflow-hidden bg-[#050708] shrink-0">
+      <div className="relative aspect-[16/10] overflow-hidden bg-[var(--bg-elev)] shrink-0">
         {isDataUrl ? (
           // eslint-disable-next-line @next/next/no-img-element -- data: URLs from admin uploads
           <img
@@ -187,7 +155,7 @@ export default function DemoCard({
             alt={localAlt}
             loading="lazy"
             decoding="async"
-            className="absolute inset-0 w-full h-full object-contain object-top transition-transform duration-500 group-hover:scale-[1.02]"
+            className="absolute inset-0 h-full w-full object-cover object-top transition duration-500 group-hover:scale-105"
           />
         ) : (
           <Image
@@ -197,70 +165,23 @@ export default function DemoCard({
             loading="lazy"
             decoding="async"
             quality={70}
-            className="object-contain object-top transition-transform duration-500 group-hover:scale-[1.02]"
+            className="object-cover object-top transition duration-500 group-hover:scale-105"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
         )}
-
-        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/15 to-black/50 pointer-events-none" />
-        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[radial-gradient(at_70%_20%,rgba(212,140,74,0.16)_0%,transparent_55%)] pointer-events-none" />
       </div>
-
-      <div
-        className={`p-4 sm:p-5 flex-1 flex flex-col min-h-0 ${
-          showLiveSecondary ? "pb-2" : ""
-        }`}
-      >
-        <div className="flex items-center gap-2 mb-2.5 flex-wrap">
-          <span className="text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 bg-[#050a08] border border-[var(--border-strong)] rounded text-[var(--text-muted)]">
-            {category}
-          </span>
-          {/* Local projects already say “Local Project · Live” — skip fictional “LIVE DEMO” badge */}
-          {!isTemplateSite && !isLocalProject && (
-            <span className="text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 bg-[#2a1c12] border border-[rgba(212,140,74,0.4)] rounded text-[var(--copper-bright)]">
-              {isPortfolioLanding ? "PORTFOLIO EXAMPLE" : "LIVE DEMO"}
-            </span>
-          )}
-        </div>
-
-        <h3 className="font-semibold text-[17px] leading-[1.18] mb-1.5 group-hover:text-[var(--copper-bright)] transition-colors duration-200">
-          {title}
-        </h3>
-        {/* Full description — no line-clamp; always in the DOM for visitors + SEO */}
-        <p className="text-[var(--text-muted)] text-[14px] sm:text-[14.5px] leading-[1.55] sm:leading-relaxed">
-          {subtitle}
-        </p>
-
-        <p className="mt-2.5 text-[12px] font-medium tracking-[0.03em] text-[var(--copper)]">
-          {tagline}
-        </p>
-
-        <div className="mt-auto pt-3.5">
-          <div className="inline-flex items-center gap-2 text-[14px] font-semibold text-[var(--copper-bright)] group-hover:text-[var(--cream)] transition-colors">
-            <span>{primaryCta}</span>
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="transform transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-              aria-hidden
-            >
-              <path d="M7 7h10v10" />
-              <path d="M7 17 17 7" />
-            </svg>
-          </div>
-        </div>
+      <div className={`flex flex-1 flex-col p-5 ${showLiveSecondary ? "pb-2" : ""}`}>
+        <span className="text-xs font-semibold uppercase tracking-widest text-primary">{category}</span>
+        <h3 className="mt-2 font-display text-xl font-bold">{title}</h3>
+        <p className="mt-2 line-clamp-3 text-sm text-muted-foreground">{subtitle}</p>
+        <span className="mt-auto pt-4 text-sm font-semibold text-primary">
+          {primaryCta} {isInternal ? "→" : "↗"}
+        </span>
       </div>
     </>
   );
-
   const primaryClass =
-    "flex flex-col flex-1 min-h-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--copper)] focus-visible:ring-inset";
+    "flex flex-col flex-1 min-h-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset";
 
   return (
     <div className={shellClass}>

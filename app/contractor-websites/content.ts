@@ -2,6 +2,11 @@ import type { LocalLandingProps } from "@/components/LocalLandingPage";
 
 export const content: LocalLandingProps = {
   path: "/contractor-websites",
+  hero: {
+    image: "/assets/specialty-contractor.jpg",
+    imageAlt: "Contractor truck at a Lake Cumberland lake house while a roofer works from a ladder",
+    cta: "Get a contractor site quote →",
+  },
   label: "SPECIALTY — CONTRACTOR WEBSITES",
   h1: "Contractor Websites for the Lake Cumberland Area",
   intro:

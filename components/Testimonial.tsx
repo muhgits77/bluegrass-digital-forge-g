@@ -17,9 +17,9 @@ export default function Testimonial({
   photo,
 }: TestimonialProps) {
   return (
-    <div className="testimonial group rounded-2xl p-6 md:p-7 flex flex-col border border-[#1a2225] bg-[#0c1013] transition-transform duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_24px_40px_-12px_rgb(0_0_0_/_0.4),0_10px_12px_-6px_rgb(0_0_0_/_0.25)]">
+    <div className="testimonial group rounded-2xl p-6 md:p-7 flex flex-col border border-border bg-card transition-transform duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_24px_40px_-12px_rgb(0_0_0_/_0.4),0_10px_12px_-6px_rgb(0_0_0_/_0.25)]">
       <div className="flex items-center justify-between mb-4">
-        <div className="flex gap-px text-[#f4a261]" aria-hidden>
+        <div className="flex gap-px text-primary" aria-hidden>
           {"★★★★★".split("").map((s, i) => (
             <span key={i} className="text-[15px]">
               {s}
@@ -42,15 +42,15 @@ export default function Testimonial({
         )}
       </div>
 
-      <p className="text-[15px] leading-[1.55] text-[#c8cfd3] flex-1 tracking-[-0.1px]">
+      <p className="text-[15px] leading-[1.55] text-foreground/85 flex-1 tracking-[-0.1px]">
         “{quote}”
       </p>
 
-      <div className="mt-auto pt-5 border-t border-[#1f282b]">
+      <div className="mt-auto pt-5 border-t border-border">
         <div className="font-semibold tracking-[-0.15px] text-[15.5px] text-white">
           {name}
         </div>
-        <div className="text-[13px] text-[#9aa6ad] mt-0.5 leading-snug">
+        <div className="text-[13px] text-muted-foreground mt-0.5 leading-snug">
           {role}
         </div>
       </div>

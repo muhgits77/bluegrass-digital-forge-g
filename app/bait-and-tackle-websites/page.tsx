@@ -150,10 +150,10 @@ export default function BaitAndTackleWebsitesPage() {
       <h1 className="section-title tracking-tight">
         Bait & Tackle and Boat Rental Websites
       </h1>
-      <p className="mt-3 text-lg text-[#8a9599]">
+      <p className="mt-3 text-lg text-muted-foreground">
         For bait shops, tackle stores, and boat or pontoon rental docks.
         Handcrafted by Brian in Monticello, KY.{" "}
-        <strong className="text-[#c8cfd3] font-medium">Custom builds from $1,200</strong>
+        <strong className="text-foreground/85 font-medium">Custom builds from $1,200</strong>
         . You own the site and the code.
       </p>
       <p className="mt-3 text-[13.5px]">
@@ -161,12 +161,12 @@ export default function BaitAndTackleWebsitesPage() {
           href={TEMPLATE_STORE_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-[#f4a261] underline underline-offset-2 hover:text-white"
+          className="text-primary underline underline-offset-2 hover:text-white"
         >
           Website templates from $129, calculators from $99
         </a>
       </p>
-      <p className="mt-3 text-[15px] text-[#c8cfd3]">
+      <p className="mt-3 text-[15px] text-foreground/85">
         Someone at the ramp wants to know if you have minnows, what time you
         close, and whether the pontoon in the photo is the one they would
         actually get. The site should answer that before they call.
@@ -190,12 +190,12 @@ export default function BaitAndTackleWebsitesPage() {
           {who.map((item) => (
             <div
               key={item.title}
-              className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-6"
+              className="rounded-2xl border border-border bg-card p-6"
             >
-              <div className="font-semibold tracking-tight mb-1 text-[#f4a261]">
+              <div className="font-semibold tracking-tight mb-1 text-primary">
                 {item.title}
               </div>
-              <p className="text-[14.5px] text-[#c8cfd3]">{item.body}</p>
+              <p className="text-[14.5px] text-foreground/85">{item.body}</p>
             </div>
           ))}
         </div>
@@ -210,25 +210,25 @@ export default function BaitAndTackleWebsitesPage() {
           {included.map((item) => (
             <div
               key={item.title}
-              className="rounded-2xl border border-[#1f282b] bg-[#0a0c0f] p-6"
+              className="rounded-2xl border border-border bg-card p-6"
             >
-              <div className="font-semibold tracking-tight mb-1 text-[#f4a261]">
+              <div className="font-semibold tracking-tight mb-1 text-primary">
                 {item.title}
               </div>
-              <p className="text-[14.5px] text-[#c8cfd3]">{item.body}</p>
+              <p className="text-[14.5px] text-foreground/85">{item.body}</p>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="mt-12 p-6 rounded-3xl bg-[#0a0c0f] border border-[#f4a261]/30">
-        <div className="uppercase text-[10px] tracking-[2px] text-[#f4a261] mb-1">
+      <div className="mt-12 p-6 rounded-3xl bg-card border border-primary/40">
+        <div className="uppercase text-[10px] tracking-[2px] text-primary mb-1">
           BUILT IN MONTICELLO
         </div>
         <h2 className="text-[21px] leading-tight font-semibold tracking-tight">
           Written by Brian, a Kentucky web designer who knows the dock.
         </h2>
-        <p className="mt-2 text-[15px] text-[#c8cfd3]">
+        <p className="mt-2 text-[15px] text-foreground/85">
           I live in Monticello and build for businesses that open early and
           stay busy when the bite is on. The copy stays specific — bait packed
           the way you pack it, boats shown whole, directions a visitor can
@@ -236,14 +236,14 @@ export default function BaitAndTackleWebsitesPage() {
         </p>
       </div>
 
-      <div className="mt-12 rounded-3xl border border-[#f4a261]/30 bg-[#0a0c0f] p-7">
-        <div className="text-[#f4a261] text-xs tracking-[1.5px] mb-1">
+      <div className="mt-12 rounded-3xl border border-primary/40 bg-card p-7">
+        <div className="text-primary text-xs tracking-[1.5px] mb-1">
           FLAT PRICING · FULL OWNERSHIP
         </div>
         <h2 className="text-xl font-semibold tracking-tight">
           Custom builds from $1,200.
         </h2>
-        <p className="mt-2 text-[15px] text-[#c8cfd3]">
+        <p className="mt-2 text-[15px] text-foreground/85">
           Starter sites from <strong className="text-white">$1,200</strong>{" "}
           one-time. Business Suites{" "}
           <strong className="text-white">$2,500–$4,500</strong> for a larger fleet or
@@ -252,7 +252,7 @@ export default function BaitAndTackleWebsitesPage() {
             href={TEMPLATE_STORE_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[#f4a261] underline hover:text-white"
+            className="text-primary underline hover:text-white"
           >
             website templates from $129, calculators from $99
           </a>
@@ -272,26 +272,26 @@ export default function BaitAndTackleWebsitesPage() {
         <h2 className="font-semibold text-xl tracking-tight mb-6">
           Bait and boat rental website FAQ
         </h2>
-        <div className="divide-y divide-[#1a2225] max-w-3xl">
+        <div className="divide-y divide-border max-w-3xl">
           {faqs.map((faq) => (
             <details key={faq.q} className="group py-4">
               <summary className="flex cursor-pointer list-none items-center justify-between font-medium gap-4">
                 {faq.q}
-                <span className="text-[#3ddbd9] group-open:rotate-45 transition shrink-0">
+                <span className="text-primary group-open:rotate-45 transition shrink-0">
                   +
                 </span>
               </summary>
-              <p className="mt-2 text-[#8a9599] pr-8 text-[15px]">{faq.a}</p>
+              <p className="mt-2 text-muted-foreground pr-8 text-[15px]">{faq.a}</p>
             </details>
           ))}
         </div>
       </div>
 
-      <div className="mt-12 rounded-2xl border border-[#1a2225] bg-[#0a0c0f] p-8 text-center">
+      <div className="mt-12 rounded-2xl border border-border bg-card p-8 text-center">
         <h2 className="text-2xl tracking-tight font-semibold">
           Need a site for the shop or the rental dock?
         </h2>
-        <p className="mt-2 text-[#9aa6ad] max-w-md mx-auto">
+        <p className="mt-2 text-muted-foreground max-w-md mx-auto">
           Tell me what you sell and how people find the dock. Flat quote from
           Monticello.
         </p>

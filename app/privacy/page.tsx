@@ -31,7 +31,7 @@ export default function PrivacyPage() {
         Last updated August 28, 2026.
       </p>
 
-      <div className="mt-8 space-y-6 text-[#c8cfd3] text-[15.5px] leading-relaxed">
+      <div className="mt-8 space-y-6 text-foreground/85 text-[15.5px] leading-relaxed">
         <section>
           <h2 className="font-semibold text-[var(--text)] text-lg tracking-tight mb-2">
             Who we are

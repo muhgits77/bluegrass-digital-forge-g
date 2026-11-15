@@ -69,7 +69,7 @@ const included = [
 const faqs = [
   {
     q: "How much does a bait shop or boat rental website cost?",
-    a: "Custom builds start at $1,200 one-time. A larger fleet, more gallery pages, or a fuller shop usually starts at $2,500. You own the finished site and the code. Ready-made templates start at $99 if you want a head start instead of a custom build.",
+    a: "Custom builds start at $1,200 one-time. A larger fleet, more gallery pages, or a fuller shop usually lands in the Business Suite range, $2,500–$4,500. You own the finished site and the code. Website templates start at $129 and calculators at $99 if you want a head start instead of a custom build.",
   },
   {
     q: "Can the site explain how live bait is packed?",
@@ -163,7 +163,7 @@ export default function BaitAndTackleWebsitesPage() {
           rel="noopener noreferrer"
           className="text-[#f4a261] underline underline-offset-2 hover:text-white"
         >
-          Ready-made templates from $99
+          Website templates from $129, calculators from $99
         </a>
       </p>
       <p className="mt-3 text-[15px] text-[#c8cfd3]">
@@ -245,8 +245,8 @@ export default function BaitAndTackleWebsitesPage() {
         </h2>
         <p className="mt-2 text-[15px] text-[#c8cfd3]">
           Starter sites from <strong className="text-white">$1,200</strong>{" "}
-          one-time. Business Suites from{" "}
-          <strong className="text-white">$2,500</strong> for a larger fleet or
+          one-time. Business Suites{" "}
+          <strong className="text-white">$2,500–$4,500</strong> for a larger fleet or
           a shop with more pages. Or start with{" "}
           <a
             href={TEMPLATE_STORE_URL}
@@ -254,7 +254,7 @@ export default function BaitAndTackleWebsitesPage() {
             rel="noopener noreferrer"
             className="text-[#f4a261] underline hover:text-white"
           >
-            ready-made templates from $99
+            website templates from $129, calculators from $99
           </a>
           .
         </p>

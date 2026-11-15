@@ -10,9 +10,9 @@ import {
 } from "@/lib/constants";
 
 const PAGE_TITLE =
-  "DIY Website Templates From $99 | Lake Cumberland & Monticello KY — Bluegrass Digital Forge";
+  "DIY Website Templates From $129 | Lake Cumberland & Monticello KY — Bluegrass Digital Forge";
 const PAGE_DESCRIPTION =
-  "Affordable ready-to-remix website templates for Lake Cumberland & Southern Kentucky businesses. Hand-built in Monticello, KY. From $99 one-time — free bug-fix updates, full ownership after purchase. Food trucks, restaurants, shops & service businesses.";
+  "Affordable ready-to-remix website templates for Lake Cumberland & Southern Kentucky businesses. Hand-built in Monticello, KY. Website templates from $129, calculators from $99, one-time — free bug-fix updates, full ownership after purchase. Food trucks, restaurants, shops & service businesses.";
 const OG_IMAGE = "/assets/demo-bluegrass-templates.jpg";
 
 export const metadata: Metadata = {
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   keywords: [
     "website templates Kentucky",
     "DIY website templates",
-    "affordable website templates $99",
+    "affordable website templates $129",
     "Lake Cumberland website templates",
     "Monticello KY website designer",
     "Southern Kentucky website templates",
@@ -45,22 +45,22 @@ export const metadata: Metadata = {
         url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "Bluegrass Digital Forge ready-to-remix website templates — DIY sites from $99, hand-built in Monticello KY",
+        alt: "Bluegrass Digital Forge ready-to-remix website templates — DIY sites from $129, hand-built in Monticello KY",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "DIY Website Templates From $99 | Lake Cumberland & Monticello KY",
+    title: "DIY Website Templates From $129 | Lake Cumberland & Monticello KY",
     description:
-      "Ready-to-remix templates hand-built in Kentucky. From $99, one-time, free updates, full ownership. Food trucks, restaurants, shops & service businesses around Lake Cumberland.",
+      "Ready-to-remix templates hand-built in Kentucky. Website templates from $129, calculators from $99, one-time, free updates, full ownership. Food trucks, restaurants, shops & service businesses around Lake Cumberland.",
     images: [OG_IMAGE],
   },
 };
 
 const benefitCards = [
   {
-    title: "From $99",
+    title: "From $129",
     desc: "One-time purchase. No monthly template subscription — pay once and the files are yours to remix and launch.",
   },
   {
@@ -105,7 +105,7 @@ const howItWorks = [
   {
     step: "02",
     title: "Purchase once",
-    desc: "Flat, one-time pricing from $99. No monthly lock-in for the template itself. Clear checkout, yours after payment.",
+    desc: "Flat, one-time pricing: website templates from $129, calculators from $99. No monthly lock-in for the template itself. Clear checkout, yours after payment.",
   },
   {
     step: "03",
@@ -145,15 +145,15 @@ const collectionSchema = {
         "@type": "Offer",
         name: "Ready-to-Remix Website Templates",
         description:
-          "Hand-built DIY website templates for food trucks, restaurants, shops, and service businesses. From $99 one-time. Free updates for bug fixes and refinements. Full ownership after purchase. Forged in Monticello, KY for Lake Cumberland and Southern Kentucky businesses.",
+          "Hand-built DIY website templates for food trucks, restaurants, shops, and service businesses. Website templates from $129 one-time; calculators from $99. Free updates for bug fixes and refinements. Full ownership after purchase. Forged in Monticello, KY for Lake Cumberland and Southern Kentucky businesses.",
         url: TEMPLATE_STORE_URL,
-        price: "99",
+        price: "129",
         priceCurrency: "USD",
         priceSpecification: {
           "@type": "UnitPriceSpecification",
-          price: "99",
+          price: "129",
           priceCurrency: "USD",
-          name: "From $99 — one-time purchase",
+          name: "From $129 — one-time purchase",
         },
         availability: "https://schema.org/InStock",
         seller: {
@@ -223,7 +223,7 @@ const offerSchema = {
   "@type": "Product",
   name: "Bluegrass Digital Forge Ready-to-Remix Website Templates",
   description:
-    "DIY website templates hand-built in Monticello, Kentucky for Lake Cumberland and Southern Kentucky small businesses. One-time purchase from $99 with free bug-fix and refinement updates. Full ownership after purchase.",
+    "DIY website templates hand-built in Monticello, Kentucky for Lake Cumberland and Southern Kentucky small businesses. Website templates from $129 and calculators from $99, one-time, with free bug-fix and refinement updates. Full ownership after purchase.",
   image: `${SITE_URL}${OG_IMAGE}`,
   brand: {
     "@type": "Brand",
@@ -301,7 +301,8 @@ export default function TemplatesPage() {
           Prefer to build it yourself? Explore ready-to-remix website templates
           hand-built in Kentucky — a lower-cost DIY path for Lake Cumberland and
           Southern Kentucky businesses who want a professional site without a
-          full custom project. Launch in an afternoon, from{" "}
+          full custom project. Launch in an afternoon. Website templates from{" "}
+          <strong className="text-[var(--cream)] font-medium">$129</strong>, calculators from{" "}
           <strong className="text-[var(--cream)] font-medium">$99</strong>.
         </p>
         <p className="mt-3 text-[15.5px] text-[var(--text-muted)] leading-relaxed max-w-prose">
@@ -344,7 +345,7 @@ export default function TemplatesPage() {
           <div className="relative min-h-[220px] md:min-h-[340px]">
             <Image
               src="/assets/demo-bluegrass-templates.jpg"
-              alt="Bluegrass Digital Forge DIY website template store for Lake Cumberland businesses — ready-to-remix sites from $99"
+              alt="Bluegrass Digital Forge DIY website template store for Lake Cumberland businesses — ready-to-remix sites from $129"
               fill
               priority
               quality={75}
@@ -355,7 +356,7 @@ export default function TemplatesPage() {
           </div>
           <div className="p-7 md:p-9 flex flex-col justify-center">
             <div className="text-[11px] tracking-[0.16em] uppercase text-[var(--copper-bright)] font-semibold mb-2">
-              Template Store · From $99 one-time
+              Template Store · Templates from $129 · Calculators from $99
             </div>
             <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
               Browse the full collection
@@ -431,8 +432,8 @@ export default function TemplatesPage() {
             , for the same towns and trades we serve with custom work: Lake
             Cumberland ramps and ridge roads, Monticello, Jamestown, Burnside,
             Russell Springs, Albany, Nancy, Somerset, and the wider Southern
-            Kentucky map. Practical layouts. Warm local feel. Honest pricing
-            from $99 one-time.
+            Kentucky map. Practical layouts. Warm local feel. Honest pricing:
+            website templates from $129, calculators from $99, one-time.
           </p>
           <p>
             When DIY is the right fit, you get craft without the full custom
@@ -557,7 +558,7 @@ export default function TemplatesPage() {
       <section className="mt-14 md:mt-16" aria-labelledby="pricing-heading">
         <div className="rounded-3xl border border-[var(--border-copper)] bg-[var(--bg-card)] p-7 md:p-9 shadow-[var(--shadow-card)]">
           <div className="text-[11px] tracking-[0.16em] uppercase text-[var(--copper-bright)] font-semibold mb-2">
-            One-time · From $99 · Free updates
+            One-time · Templates from $129 · Calculators from $99 · Free updates
           </div>
           <h2
             id="pricing-heading"
@@ -568,7 +569,7 @@ export default function TemplatesPage() {
           <p className="mt-3 text-[15.5px] text-[var(--text-muted)] leading-relaxed max-w-prose">
             Template pricing stays simple on purpose. You&apos;re not renting a
             look or signing up for another subscription that forgets you live in
-            Monticello, not a coastal tech hub. Pay once from $99, own
+            Monticello, not a coastal tech hub. Pay once (website templates from $129, calculators from $99), own
             what you purchased, and keep free updates for bug fixes and
             refinements.
           </p>
@@ -595,7 +596,7 @@ export default function TemplatesPage() {
             >
               Kentucky Starter Sites from $1,200
             </Link>{" "}
-            and Business Suites from $2,500 — still flat, still one-time for the
+            and Business Suites $2,500–$4,500 — still flat, still one-time for the
             build, still full ownership of the code. Templates are the DIY lane;
             custom is when you want a neighbor building it with you.
           </p>
@@ -644,7 +645,7 @@ export default function TemplatesPage() {
           DIY templates or a site forged just for you
         </h2>
         <p className="mt-3 text-[15px] text-[var(--text-muted)] leading-relaxed max-w-[48ch] mx-auto">
-          Browse ready-to-remix templates from $99 one-time — or start a custom
+          Browse ready-to-remix website templates from $129 and calculators from $99, one-time — or start a custom
           project with flat Lake Cumberland pricing and full ownership.
         </p>
         <div className="mt-7 flex flex-col sm:flex-row gap-3.5 justify-center">

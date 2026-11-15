@@ -48,7 +48,7 @@ export default function Nav() {
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 py-3.5 md:py-4 min-h-[68px] md:min-h-[74px]">
         <Logo />
 
-        <div className="hidden items-center gap-6 lg:gap-8 md:flex">
+        <div className="hidden items-center gap-6 2xl:gap-8 xl:flex">
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -62,7 +62,7 @@ export default function Nav() {
           ))}
         </div>
 
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden xl:flex shrink-0 items-center gap-3">
           <Link
             href="/quote"
             className="btn btn-primary px-6 py-2.5 text-[14px] shadow-lg active:scale-[0.985]"
@@ -74,7 +74,7 @@ export default function Nav() {
 
         <button
           onClick={() => setOpen(!open)}
-          className="md:hidden inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-[var(--border-strong)] text-[var(--text-muted)] hover:text-white hover:border-[var(--copper)]/50 transition-all active:scale-[0.97]"
+          className="xl:hidden inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-[var(--border-strong)] text-[var(--text-muted)] hover:text-white hover:border-[var(--copper)]/50 transition-all active:scale-[0.97]"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           aria-controls="mobile-menu"
@@ -84,12 +84,12 @@ export default function Nav() {
       </div>
 
       <div
-        className={`md:hidden border-t border-[var(--border)] bg-[var(--bg)] ${
+        className={`xl:hidden border-t border-[var(--border)] bg-[var(--bg)] max-h-[calc(100dvh-68px)] overflow-y-auto overscroll-contain ${
           open ? "block" : "hidden"
         }`}
         id="mobile-menu"
       >
-        <div className="flex flex-col px-5 py-5 gap-0.5 text-[15.5px]">
+        <div className="flex flex-col px-5 pt-5 pb-24 gap-0.5 text-[15.5px]">
           {navLinks.map((link) => (
             <Link
               key={link.href}

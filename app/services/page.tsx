@@ -12,7 +12,7 @@ import { loadLivePublicDemosCatalog } from "@/lib/demos";
 export const metadata: Metadata = {
   title: "Web Design Pricing – Monticello KY & Lake Cumberland",
   description:
-    "Flat-price websites for Wayne, Pulaski, Russell & McCreary County businesses. Starter Sites from $1,200, Business Suites from $2,500. No monthly lock-in.",
+    "Flat-price websites for Wayne, Pulaski, Russell & McCreary County businesses. Starter Sites from $1,200, Business Suites $2,500–$4,500. No monthly lock-in.",
   keywords: [
     "Monticello KY website designer",
     "Lake Cumberland business websites",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Web Design Pricing – Monticello KY & Lake Cumberland",
     description:
-      "Flat-price websites for Wayne, Pulaski, Russell & McCreary County businesses. Starter Sites from $1,200, Business Suites from $2,500. No monthly lock-in.",
+      "Flat-price websites for Wayne, Pulaski, Russell & McCreary County businesses. Starter Sites from $1,200, Business Suites $2,500–$4,500. No monthly lock-in.",
     url: canonicalUrl("/services"),
     images: [{ url: "/og-default.png", width: 1200, height: 630 }],
   },
@@ -97,7 +97,7 @@ export default async function Services() {
       <div className="max-w-3xl">
         <div className="label tracking-[2px]">SERVICES &amp; PRICING — MONTICELLO KY WEBSITE DESIGNER</div>
         <h1 className="section-title tracking-tight mt-2">Website Services & Flat Pricing</h1>
-        <p className="mt-3 text-lg text-[#9aa6ad]">Transparent <strong className="text-[#c8cfd3] font-medium">flat rate</strong> pricing — one-time, no surprises. <strong className="text-[#c8cfd3] font-medium">Kentucky base rates:</strong> Starter Sites $1,200 · Business Suites from $2,500 for food trucks, restaurants, marinas, contractors, and shops from Monticello to Somerset, Jamestown, Burnside, Russell Springs, Whitley City, Nancy, and Albany. When we&apos;re done, <strong className="text-[#c8cfd3] font-medium">you own the code</strong> with full ownership forever.</p>
+        <p className="mt-3 text-lg text-[#9aa6ad]">Transparent <strong className="text-[#c8cfd3] font-medium">flat rate</strong> pricing — one-time, no surprises. <strong className="text-[#c8cfd3] font-medium">Kentucky base rates:</strong> Starter Sites $1,200 · Business Suites $2,500–$4,500 for food trucks, restaurants, marinas, contractors, and shops from Monticello to Somerset, Jamestown, Burnside, Russell Springs, Whitley City, Nancy, and Albany. When we&apos;re done, <strong className="text-[#c8cfd3] font-medium">you own the code</strong> with full ownership forever.</p>
         <p className="text-[14.5px] text-[#9aa6ad] mt-1">Handcrafted in Monticello for the Lake Cumberland area: Wayne, Pulaski, Russell &amp; McCreary counties.</p>
       </div>
 
@@ -260,7 +260,7 @@ export default async function Services() {
           <div className="text-[var(--gold-light)] text-xs tracking-[1.5px] mb-1">QUOTE CALCULATORS</div>
           <h3 className="font-semibold text-lg tracking-tight">Add an estimate calculator to your site.</h3>
           <p className="mt-2 text-[14.5px] text-[var(--text-muted)]">
-            Need a quote calculator for your site? Ready-made calculator templates from $99.{" "}
+            Need a quote calculator for your site? Website templates from $129, calculators from $99.{" "}
             <a href="https://bluegrasstemplates.com/calculator-templates" className="text-[var(--gold-light)] underline hover:text-white">
               Calculator templates →
             </a>
@@ -287,7 +287,7 @@ export default async function Services() {
               </div>
               <div className="flex justify-between items-baseline">
                 <span>Business Suites</span>
-                <span className="font-semibold tabular-nums text-xl">$2,500</span>
+                <span className="font-semibold tabular-nums text-xl">$2,500–$4,500</span>
               </div>
             </div>
             <p className="mt-4 text-xs text-[#8a9599]">Flat one-time pricing. Final quote depends on scope.</p>

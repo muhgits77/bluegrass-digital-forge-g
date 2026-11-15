@@ -96,7 +96,7 @@ const guideAreas = [
 const faqs = [
   {
     q: "How much does a fishing guide website cost?",
-    a: "Most guides fit a Starter Site from $1,200 one-time or a Business Suite from $2,500 if you need more trip pages, galleries, and booking detail. Flat pricing based on scope — not a monthly agency contract for the build. You own the finished site and code.",
+    a: "Most guides fit a Starter Site from $1,200 one-time or a Business Suite ($2,500–$4,500) if you need more trip pages, galleries, and booking detail. Flat pricing based on scope — not a monthly agency contract for the build. You own the finished site and code.",
   },
   {
     q: "Can clients book trips online?",
@@ -209,7 +209,7 @@ export default function FishingGuideWebsitesPage() {
           rel="noopener noreferrer"
           className="text-[#f4a261] underline underline-offset-2 hover:text-white"
         >
-          Ready-made templates from $99
+          Website templates from $129, calculators from $99
         </a>
       </p>
       <p className="mt-3 text-[15px] text-[#c8cfd3]">

@@ -18,9 +18,9 @@ export default function Footer() {
   return (
     <footer className="site-footer text-[14.5px]">
       <div className="mx-auto max-w-7xl px-5 sm:px-8 py-14 md:py-16">
-        <div className="grid grid-cols-1 gap-y-12 md:grid-cols-12 md:gap-x-10">
+        <div className="grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-10 lg:grid-cols-12">
           {/* Brand */}
-          <div className="md:col-span-3">
+          <div className="lg:col-span-3">
             <div className="flex items-center gap-2.5 mb-4">
               <Image
                 src="/logo.jpg"
@@ -48,7 +48,7 @@ export default function Footer() {
           </div>
 
           {/* Navigate */}
-          <div className="md:col-span-2">
+          <div className="lg:col-span-2">
             <div className="label mb-4">Navigate</div>
             <ul className="space-y-2 text-[var(--text-muted)]">
               {[
@@ -76,7 +76,7 @@ export default function Footer() {
           </div>
 
           {/* Service area — concise */}
-          <div className="md:col-span-3">
+          <div className="lg:col-span-3">
             <div className="label mb-4">Service Area</div>
             <ul className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-[var(--text-muted)] text-[13.5px]">
               {serviceTowns.map((town) => (
@@ -98,7 +98,7 @@ export default function Footer() {
           </div>
 
           {/* Template Store */}
-          <div className="md:col-span-2">
+          <div className="lg:col-span-2">
             <div className="label mb-4">Template Store</div>
             <ul className="space-y-2 text-[var(--text-muted)] text-[13.5px]">
               {[
@@ -121,7 +121,7 @@ export default function Footer() {
           </div>
 
           {/* Contact */}
-          <div className="md:col-span-2">
+          <div className="lg:col-span-2">
             <div className="label mb-4">Get in Touch</div>
             <div className="space-y-4 text-[var(--text-muted)]">
               <div>
@@ -215,7 +215,7 @@ export default function Footer() {
 
         <div className="mt-12 pt-7 border-t border-[var(--border)] flex flex-col md:flex-row md:items-center justify-between gap-3 text-[12.5px] text-[var(--text-muted)]">
           <div>
-            © {new Date().getFullYear()} Bluegrass Digital Forge · Forged in
+            © {new Date().getFullYear()} Bluegrass Digital Forge · Forged by Brian ·
             Monticello, Kentucky
             {" · "}
             <Link href="/privacy" className="footer-link underline underline-offset-2">

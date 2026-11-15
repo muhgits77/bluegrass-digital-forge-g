@@ -178,7 +178,7 @@ export default function RootLayout({
               ],
               serviceArea:
                 "All Lake Cumberland boat ramp towns including Monticello, Jamestown, Burnside, Nancy, Creelsboro, Russell Springs, Somerset, Albany, Ferguson, Whitley City, and surrounding Wayne, Pulaski, Russell & McCreary Counties, Kentucky",
-              priceRange: "$1,200 - $2,500",
+              priceRange: "$1,200 - $4,500",
               founder: { "@type": "Person", name: "Brian" },
               knowsAbout: [
                 "Website Design",
@@ -206,7 +206,7 @@ export default function RootLayout({
                       "@type": "Service",
                       name: "Business Suites for Lake Cumberland Businesses",
                       description:
-                        "Premium custom Wayne County web design from $2,500 for marinas, guides, restaurants",
+                        "Premium custom Wayne County web design, $2,500–$4,500, for marinas, guides, restaurants",
                     },
                   },
                   {

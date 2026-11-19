@@ -19,7 +19,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/fishing-guide-websites', priority: 0.9, changeFrequency: 'monthly' as const },
     { path: '/lake-house-rental-websites', priority: 0.9, changeFrequency: 'monthly' as const },
     { path: '/bait-and-tackle-websites', priority: 0.9, changeFrequency: 'monthly' as const },
-    { path: '/business-cards', priority: 0.7, changeFrequency: 'monthly' as const },
     { path: '/templates', priority: 0.65, changeFrequency: 'monthly' as const },
     { path: '/about', priority: 0.75, changeFrequency: 'monthly' as const },
     { path: '/contact', priority: 0.7, changeFrequency: 'monthly' as const },

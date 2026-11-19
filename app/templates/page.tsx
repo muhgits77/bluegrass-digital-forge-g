@@ -12,7 +12,7 @@ import {
 const PAGE_TITLE =
   "DIY Website Templates From $129 | Lake Cumberland & Monticello KY — Bluegrass Digital Forge";
 const PAGE_DESCRIPTION =
-  "Affordable ready-to-remix website templates for Lake Cumberland & Southern Kentucky businesses. Hand-built in Monticello, KY. Website templates from $129, calculators from $99, one-time — free bug-fix updates, full ownership after purchase. Food trucks, restaurants, shops & service businesses.";
+  "Affordable ready-to-remix website templates for Lake Cumberland & South Central Kentucky businesses. Hand-built in Monticello, KY. Website templates from $129, calculators from $99, one-time — free bug-fix updates, full ownership after purchase. Food trucks, restaurants, shops & service businesses.";
 const OG_IMAGE = "/assets/demo-bluegrass-templates.jpg";
 
 export const metadata: Metadata = {
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     "affordable website templates $129",
     "Lake Cumberland website templates",
     "Monticello KY website designer",
-    "Southern Kentucky website templates",
+    "South Central Kentucky website templates",
     "Wayne County web design",
     "food truck website template Kentucky",
     "restaurant website template Lake Cumberland",
@@ -134,7 +134,7 @@ const collectionSchema = {
   },
   about: {
     "@type": "Thing",
-    name: "DIY website templates for Lake Cumberland and Southern Kentucky businesses",
+    name: "DIY website templates for Lake Cumberland and South Central Kentucky businesses",
   },
   mainEntity: {
     "@type": "OfferCatalog",
@@ -145,7 +145,7 @@ const collectionSchema = {
         "@type": "Offer",
         name: "Ready-to-Remix Website Templates",
         description:
-          "Hand-built DIY website templates for food trucks, restaurants, shops, and service businesses. Website templates from $129 one-time; calculators from $99. Free updates for bug fixes and refinements. Full ownership after purchase. Forged in Monticello, KY for Lake Cumberland and Southern Kentucky businesses.",
+          "Hand-built DIY website templates for food trucks, restaurants, shops, and service businesses. Website templates from $129 one-time; calculators from $99. Free updates for bug fixes and refinements. Full ownership after purchase. Forged in Monticello, KY for Lake Cumberland and South Central Kentucky businesses.",
         url: TEMPLATE_STORE_URL,
         price: "129",
         priceCurrency: "USD",
@@ -172,7 +172,7 @@ const collectionSchema = {
           areaServed: [
             { "@type": "Place", name: "Lake Cumberland" },
             { "@type": "AdministrativeArea", name: "Wayne County" },
-            { "@type": "AdministrativeArea", name: "Southern Kentucky" },
+            { "@type": "AdministrativeArea", name: "South Central Kentucky" },
             { "@type": "City", name: "Monticello" },
             { "@type": "City", name: "Jamestown" },
             { "@type": "City", name: "Burnside" },
@@ -223,7 +223,7 @@ const offerSchema = {
   "@type": "Product",
   name: "Bluegrass Digital Forge Ready-to-Remix Website Templates",
   description:
-    "DIY website templates hand-built in Monticello, Kentucky for Lake Cumberland and Southern Kentucky small businesses. Website templates from $129 and calculators from $99, one-time, with free bug-fix and refinement updates. Full ownership after purchase.",
+    "DIY website templates hand-built in Monticello, Kentucky for Lake Cumberland and South Central Kentucky small businesses. Website templates from $129 and calculators from $99, one-time, with free bug-fix and refinement updates. Full ownership after purchase.",
   image: `${SITE_URL}${OG_IMAGE}`,
   brand: {
     "@type": "Brand",

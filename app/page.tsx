@@ -22,7 +22,7 @@ const FeaturedDemos = dynamic(() => import("@/components/FeaturedDemos"), {
 
 const stats: [string, string][] = [
   ["16+", "Live Kentucky demos"],
-  ["2–4 wks", "Typical launch"],
+  ["2–5 wks", "Typical launch"],
   ["Local", "Monticello builder"],
   ["Yours", "Full ownership"],
 ];
@@ -66,8 +66,10 @@ export default function Home() {
             <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">
               <Check>Flat pricing, no surprises</Check>
               <Check>You own the code</Check>
-              <Check>Live in 2–4 weeks</Check>
             </ul>
+            <p className="mt-3 max-w-xl text-sm text-muted-foreground">
+              Most Starter Sites launch in about 2 weeks; Business Suites usually 3–5 weeks once we have your photos and content.
+            </p>
             <p className="mt-5 text-sm text-muted-foreground">
               Prefer to build it yourself?{" "}
               <a href={TEMPLATE_STORE_URL} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary">
@@ -127,7 +129,7 @@ export default function Home() {
             <Eyebrow>DIY templates</Eyebrow>
             <h2 className="mt-3 font-display text-3xl font-bold">Prefer to build it yourself?</h2>
             <p className="mt-4 text-muted-foreground">
-              Ready-to-remix website templates, hand-built in Kentucky. Launch a professional site in an afternoon. Website templates from{" "}
+              Ready-to-remix website templates, hand-built in Kentucky. Most owners launch the same week. Have your photos, logo and copy ready and the edits can often be done in an afternoon. Website templates from{" "}
               <strong className="text-foreground">$129</strong>, calculators from <strong className="text-foreground">$99</strong>. One-time purchase. Free updates for bug fixes and refinements.
             </p>
           </div>

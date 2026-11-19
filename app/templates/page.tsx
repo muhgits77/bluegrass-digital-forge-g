@@ -278,7 +278,7 @@ export default function TemplatesPage() {
       />
 
       <PageHero eyebrow="Website templates from $129 · Calculators from $99" title="Prefer to build it yourself?">
-        Ready-to-remix website templates I build by hand in Kentucky, with the same care I put into my custom Lake Cumberland sites, just self-serve. Launch in an afternoon.
+        Ready-to-remix website templates I build by hand in Kentucky, with the same care I put into my custom Lake Cumberland sites, just self-serve. Most owners launch the same week. Have your photos, logo and copy ready and the edits can often be done in an afternoon.
       </PageHero>
 
       <section className="mx-auto max-w-5xl px-5 pb-16">

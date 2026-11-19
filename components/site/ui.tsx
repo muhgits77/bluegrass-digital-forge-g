@@ -59,7 +59,7 @@ const towns: { label: string; href: string }[] = [
   { label: "Nancy", href: "/service-areas#nancy" },
   { label: "Albany", href: "/service-areas#albany" },
   { label: "Creelsboro", href: "/service-areas" },
-  { label: "+ McCreary County", href: "/service-areas#whitley-city" },
+  { label: "Whitley City", href: "/service-areas#whitley-city" },
 ];
 
 export function TownsBand() {
@@ -69,7 +69,7 @@ export function TownsBand() {
         <Eyebrow>Lake Cumberland service areas</Eyebrow>
         <h2 className="mt-3 font-display text-3xl font-bold md:text-4xl">Built for the towns around the lake.</h2>
         <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-          Marinas, guides, restaurants, and shops from Monticello to Jamestown, Burnside, Russell Springs, Nancy, Albany, and every major ramp town — handcrafted by a neighbor who lives here.
+          Marinas, guides, restaurants, and shops in Monticello, Jamestown, Burnside, Russell Springs, Nancy, Albany, and a good many ramp towns along the way. Handcrafted by a neighbor who lives here.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-2">
           {towns.map((t) => (

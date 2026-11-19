@@ -199,7 +199,7 @@ const DEFAULT_DEMOS: Demo[] = [
     category: "Food Truck",
     href: "https://fiesta-taqueria.lovable.app",
     description:
-      "Mexican food truck website for Wayne County and Lake Cumberland — menu, today’s location, catering notes. Portfolio example built in Monticello.",
+      "Mexican food truck website for Wayne County and Lake Cumberland, with the menu, today’s location, and catering notes.",
     image: "/assets/demo-fiesta-taqueria.jpg",
     imageAlt:
       "Mexican food truck website demo for Wayne County and Lake Cumberland with digital menu and location updates",
@@ -214,7 +214,7 @@ const DEFAULT_DEMOS: Demo[] = [
     category: "Food Truck",
     href: "https://cumberland-smash.vercel.app",
     description:
-      "Smashburger food truck for Lake Cumberland — menu, today’s location, and weekend lake-road stops. Portfolio example built in Monticello.",
+      "Smashburger food truck site for Lake Cumberland. Menu, today’s location, and weekend lake-road stops.",
     image: "/assets/demo-cumberland-smash.jpg",
     imageAlt:
       "Smashburger food truck website demo for Lake Cumberland with menu and location updates",
@@ -260,7 +260,7 @@ const DEFAULT_DEMOS: Demo[] = [
     category: "BBQ Restaurant",
     href: "https://ridge-run-smokehouse.lovable.app/",
     description:
-      "Kentucky pit BBQ website for Lake Cumberland — menu, catering, and a warm local supper-house feel. Portfolio example built in Monticello.",
+      "Kentucky pit BBQ website for Lake Cumberland with the menu, catering, and a warm supper-house feel. A sample site I built in Monticello.",
     image: "/assets/demo-ridge-run-smokehouse.jpg",
     imageAlt:
       "Ridge Run Smokehouse website demo for Lake Cumberland BBQ with pit-smoked menu and catering",
@@ -305,7 +305,7 @@ const DEFAULT_DEMOS: Demo[] = [
     category: "Fence & Outdoor",
     href: "https://bluegrass-fence-co.lovable.app",
     description:
-      "Family-owned fence builder site for Somerset, Lake Cumberland, and Central Kentucky — services, portfolio, and free-quote path.",
+      "Family-owned fence builder site for Somerset, Lake Cumberland, and South Central Kentucky, with services, a portfolio, and a free-quote path.",
     image: "/assets/demo-bluegrass-fence.jpg",
     imageAlt:
       "Fence company website demo for Somerset KY and Lake Cumberland with services and free quotes",
@@ -320,7 +320,7 @@ const DEFAULT_DEMOS: Demo[] = [
     category: "Fitness",
     href: "https://ignite-fitness-co.lovable.app",
     description:
-      "Local gym website example with class schedules, memberships, and a clear path to join — built for Monticello and Lake Cumberland towns.",
+      "Local gym website example with class schedules, memberships, and a clear path to join. Built for Monticello and Lake Cumberland towns.",
     image: "/assets/demo-ignite-fitness.jpg",
     imageAlt:
       "Gym and fitness website demo for local Kentucky with class schedules and membership sign-ups",

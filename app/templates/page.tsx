@@ -60,12 +60,12 @@ export const metadata: Metadata = {
 
 const benefitCards = [
   {
-    title: "From $129",
-    desc: "One-time purchase. No monthly template subscription — pay once and the files are yours to remix and launch.",
+    title: "One-time purchase",
+    desc: "No monthly template subscription. Pay once and the files are yours to remix and launch.",
   },
   {
     title: "Hand-built in Kentucky",
-    desc: "Forged in Monticello with the same care as our custom Lake Cumberland builds — not generic theme-store filler.",
+    desc: "Built in Monticello with the same care I give my custom sites, so it fits a local business from the start.",
   },
   {
     title: "Free bug-fix updates",
@@ -73,7 +73,7 @@ const benefitCards = [
   },
   {
     title: "Full ownership after purchase",
-    desc: "Once you buy, you own what you paid for. Remix it, host it, grow it — no renting a look forever.",
+    desc: "Once you buy, you own what you paid for. Remix it and host it. No renting a look forever.",
   },
 ];
 
@@ -84,7 +84,7 @@ const audienceItems = [
   },
   {
     title: "Restaurants & supper houses",
-    desc: "Menus, hours, directions, and a warm local feel — whether you’re on Main Street or feeding dock traffic after a day on the water.",
+    desc: "Menus, hours, directions, and a warm local feel, for a place on Main Street or one feeding dock traffic after a day on the water.",
   },
   {
     title: "Shops & boutiques",
@@ -92,7 +92,7 @@ const audienceItems = [
   },
   {
     title: "Service businesses",
-    desc: "Trades, land care, auto, wellness, and other Wayne County / Southern Kentucky outfits that need a clear services list and an easy quote path.",
+    desc: "Trades, land care, auto, wellness, and other Wayne County and South Central Kentucky outfits that need a clear services list and an easy quote path.",
   },
 ];
 
@@ -100,22 +100,22 @@ const howItWorks = [
   {
     step: "01",
     title: "Browse the store",
-    desc: "Explore ready-to-remix templates on bluegrasstemplates.com — built for real small-business layouts, not one-size-fits-none demos.",
+    desc: "Look through the ready-to-remix templates on bluegrasstemplates.com. Each one is built around a real small-business layout.",
   },
   {
     step: "02",
     title: "Purchase once",
-    desc: "Flat, one-time pricing: website templates from $129, calculators from $99. No monthly lock-in for the template itself. Clear checkout, yours after payment.",
+    desc: "Pay once at a clear checkout. There's no monthly lock-in for the template itself, and it's yours as soon as you've paid.",
   },
   {
     step: "03",
     title: "Remix & launch",
-    desc: "Swap copy, photos, colors, and details for your Monticello, Jamestown, Burnside, or broader Kentucky business — then put it live.",
+    desc: "Swap in your own copy, photos, colors, and details for your Monticello, Jamestown, Burnside, or broader Kentucky business, then put it live.",
   },
   {
     step: "04",
     title: "Keep free updates",
-    desc: "Bug fixes and refinements stay included so the foundation holds up after launch — practical craft, not a throwaway download.",
+    desc: "Bug fixes and refinements stay included, so the foundation keeps holding up after launch. I don't sell it and walk off.",
   },
 ];
 
@@ -278,21 +278,21 @@ export default function TemplatesPage() {
       />
 
       <PageHero eyebrow="Website templates from $129 · Calculators from $99" title="Prefer to build it yourself?">
-        Ready-to-remix website templates hand-built in Kentucky — the same care and local craft as our custom Lake Cumberland builds, just self-serve. Launch in an afternoon.
+        Ready-to-remix website templates I build by hand in Kentucky, with the same care I put into my custom Lake Cumberland sites, just self-serve. Launch in an afternoon.
       </PageHero>
 
       <section className="mx-auto max-w-5xl px-5 pb-16">
         <div className="grid items-center gap-8 rounded-3xl border border-primary bg-card p-6 sm:p-10 md:grid-cols-[1.4fr_1fr]">
           <ul className="space-y-3">
-            <Check>Website templates from $129 — one-time purchase</Check>
+            <Check>One-time purchase, no monthly fees</Check>
             <Check>Hand-built in Kentucky, ready to remix</Check>
             <Check>Free updates for bug fixes &amp; refinements</Check>
-            <Check>Calculators from $99</Check>
+            <Check>Calculators in the same store</Check>
             <Check>Full ownership after purchase</Check>
           </ul>
           <div className="text-center md:text-right">
             <p className="text-copper font-display text-6xl font-bold">$129</p>
-            <p className="text-sm text-muted-foreground">website templates · starting · one-time</p>
+            <p className="text-sm text-muted-foreground">website templates, one-time</p>
             <StoreButton href={TEMPLATE_STORE_URL} className="mt-6 px-5">Browse templates ↗</StoreButton>
           </div>
         </div>

@@ -140,7 +140,7 @@ export default function DemoCard({
       ? "View example"
       : isLocalProject
         ? "Open live project"
-        : "Open live site");
+        : "View live demo");
 
   const shellClass =
     "group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card transition hover:-translate-y-1 hover:border-primary";

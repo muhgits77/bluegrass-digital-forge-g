@@ -41,7 +41,7 @@ export default function Footer() {
         <div>
           <p className="font-display text-lg font-bold">Bluegrass Digital Forge</p>
           <p className="mt-2 text-sm text-muted-foreground">
-            Handcrafted websites for Lake Cumberland businesses. Built in Monticello, KY. Flat pricing — you own the code.
+            Handcrafted websites for Lake Cumberland businesses, built in Monticello, KY.
           </p>
           <a
             href={TEMPLATE_STORE_URL}
@@ -65,7 +65,7 @@ export default function Footer() {
             {CONTACT_EMAIL}
           </a>
           <a href={TEMPLATE_STORE_URL} target="_blank" rel="noopener noreferrer" className="mt-2 block hover:text-foreground">
-            Website templates from $129, calculators from $99 ↗
+            Website templates and calculators ↗
           </a>
           <div className="mt-4 flex flex-col gap-1">
             {specialties.map((s) => (
@@ -76,9 +76,9 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <nav aria-label="Towns we serve" className="mx-auto max-w-7xl px-5 pb-8">
+      <nav aria-label="Towns I serve" className="mx-auto max-w-7xl px-5 pb-8">
         <div className="flex flex-wrap items-center gap-2 border-t border-border pt-6 text-xs text-muted-foreground">
-          <span className="mr-1 font-semibold uppercase tracking-[0.18em] text-primary">Towns we serve</span>
+          <span className="mr-1 font-semibold uppercase tracking-[0.18em] text-primary">Towns I serve</span>
           {towns.map((t) => (
             <Link
               key={t.label}

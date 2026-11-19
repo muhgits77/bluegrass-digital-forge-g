@@ -7,12 +7,12 @@ import { loadLivePublicDemosCatalog } from "@/lib/demos";
 
 export const metadata: Metadata = {
   title: "Web Design Pricing – Monticello KY & Lake Cumberland",
-  description: "Flat-price websites for Wayne, Pulaski, Russell & McCreary County businesses. Starter Sites from $1,200, Business Suites $2,500–$4,500. No monthly lock-in.",
+  description: "Flat-price websites for Wayne, Pulaski, Russell, McCreary & Clinton County businesses. Starter Sites from $1,200, Business Suites $2,500–$4,500. No monthly lock-in.",
   keywords: ["Monticello KY website designer", "Lake Cumberland business websites", "food truck website Kentucky", "Wayne County web design", "Monticello KY web design pricing", "Somerset KY web design", "Russell Springs KY web design", "McCreary County web design"],
   alternates: { canonical: canonicalUrl("/services") },
   openGraph: {
     title: "Web Design Pricing – Monticello KY & Lake Cumberland",
-    description: "Flat-price websites for Wayne, Pulaski, Russell & McCreary County businesses. Starter Sites from $1,200, Business Suites $2,500–$4,500. No monthly lock-in.",
+    description: "Flat-price websites for Wayne, Pulaski, Russell, McCreary & Clinton County businesses. Starter Sites from $1,200, Business Suites $2,500–$4,500. No monthly lock-in.",
     url: canonicalUrl("/services"),
     images: [{ url: "/og-default.png", width: 1200, height: 630 }],
   },
@@ -121,7 +121,7 @@ export default async function Services() {
         </div>
       </section>
       <p className="mx-auto max-w-3xl px-5 pb-20 text-center text-sm text-muted-foreground">
-        Not sure which one? <Link href="/quote" className="text-primary">Tell me about your business</Link> — I&apos;ll recommend the right fit. Kentucky base rates for Wayne, Pulaski, Russell &amp; McCreary counties. Final quote depends on scope.
+        Not sure which one? <Link href="/quote" className="text-primary">Tell me about your business</Link> — I&apos;ll recommend the right fit. Kentucky base rates for Wayne, Pulaski, Russell, McCreary &amp; Clinton counties. Final quote depends on scope.
       </p>
 
       <section className="mx-auto max-w-7xl px-5 pb-20">

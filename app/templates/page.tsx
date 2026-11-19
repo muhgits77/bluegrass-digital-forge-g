@@ -115,7 +115,7 @@ const howItWorks = [
   {
     step: "04",
     title: "Keep free updates",
-    desc: "Bug fixes and refinements stay included, so the foundation keeps holding up after launch. I don't sell it and walk off.",
+    desc: "Bug fixes and refinements stay included, so the foundation keeps holding up after launch.",
   },
 ];
 

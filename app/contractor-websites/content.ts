@@ -14,7 +14,7 @@ export const content: LocalLandingProps = {
   label: "SPECIALTY — CONTRACTOR WEBSITES",
   h1: "Contractor Websites for the Lake Cumberland Area",
   intro:
-    "Websites for plumbers, roofers, HVAC companies, builders, lawn and tree crews, pressure washers and other trades in Wayne, Pulaski, Russell and McCreary counties. Built in Monticello, KY.",
+    "Websites for plumbers, roofers, HVAC companies, builders, lawn and tree crews, pressure washers and other trades in Wayne, Pulaski, Russell, McCreary and Clinton counties. Built in Monticello, KY.",
   sections: [
     {
       title: "Get the phone ringing",
@@ -42,6 +42,7 @@ export const content: LocalLandingProps = {
     { type: "AdministrativeArea", name: "Pulaski County" },
     { type: "AdministrativeArea", name: "Russell County" },
     { type: "AdministrativeArea", name: "McCreary County" },
+    { type: "AdministrativeArea", name: "Clinton County" },
     { type: "Place", name: "Lake Cumberland" },
   ],
   serviceName: "Contractor websites for the Lake Cumberland area",

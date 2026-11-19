@@ -29,6 +29,7 @@ const counties: [string, string][] = [
   ["Wayne County", "Monticello, Conley Bottom, Beaver Creek"],
   ["Pulaski County", "Somerset, Burnside, Nancy, Lee's Ford"],
   ["Russell County", "Jamestown, Russell Springs, State Dock, Creelsboro"],
+  ["Clinton County", "Albany, Grider Hill"],
   ["McCreary County", "Whitley City, Pine Knot, Stearns"],
 ];
 
@@ -74,11 +75,11 @@ export default function AboutPage() {
       <section className="border-y border-border bg-card/50 py-20">
         <div className="mx-auto max-w-7xl px-5">
           <Eyebrow>Service area</Eyebrow>
-          <h2 className="mt-3 font-display text-3xl font-bold md:text-4xl">Wayne County web design — plus Pulaski, Russell &amp; McCreary counties</h2>
+          <h2 className="mt-3 font-display text-3xl font-bold md:text-4xl">Wayne County web design — plus Pulaski, Russell, McCreary &amp; Clinton counties</h2>
           <p className="mt-4 max-w-2xl text-muted-foreground">
             Serving Lake Cumberland towns from Monticello outward: Russell Springs, Jamestown, Burnside, Albany and Whitley City — plus Somerset KY small business websites to the north. Outside the area? Custom work is available anywhere by email.
           </p>
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
             {counties.map(([c, t]) => (
               <div key={c} className="rounded-2xl border border-border bg-background p-6">
                 <h3 className="font-display text-lg font-bold">{c}</h3>

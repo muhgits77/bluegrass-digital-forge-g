@@ -5,7 +5,7 @@ import { content } from "./content";
 
 const title = "Contractor Websites – Lake Cumberland Area, Kentucky";
 const description =
-  "Websites for plumbers, roofers, HVAC, builders and trades in Wayne, Pulaski, Russell and McCreary counties. Tap-to-call, quote forms, flat pricing.";
+  "Websites for plumbers, roofers, HVAC, builders and trades in Wayne, Pulaski, Russell, McCreary and Clinton counties. Tap-to-call, quote forms, flat pricing.";
 
 export const metadata: Metadata = {
   title,

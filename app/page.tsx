@@ -148,7 +148,7 @@ export default function Home() {
         <Eyebrow>Let&apos;s build</Eyebrow>
         <h2 className="mt-3 font-display text-4xl font-bold md:text-5xl">Ready to talk about your website?</h2>
         <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-          I build for businesses in Lake Cumberland towns from Albany to Whitley City, across Wayne, Pulaski, Russell and McCreary counties.
+          I build for businesses in Lake Cumberland towns from Albany to Whitley City, across Wayne, Pulaski, Russell, McCreary and Clinton counties.
         </p>
         <p className="mt-3 text-sm text-muted-foreground">
           Specialty sites: <Link href="/marina-websites" className="text-primary">marinas</Link>,{" "}

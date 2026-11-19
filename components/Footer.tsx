@@ -60,7 +60,7 @@ export default function Footer() {
           ))}
         </nav>
         <div className="text-sm text-muted-foreground">
-          <p>Wayne, Pulaski, Russell &amp; McCreary counties</p>
+          <p>Wayne, Pulaski, Russell, McCreary &amp; Clinton counties</p>
           <a href={`mailto:${CONTACT_EMAIL}`} className="mt-2 block break-all text-primary">
             {CONTACT_EMAIL}
           </a>

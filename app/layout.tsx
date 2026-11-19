@@ -184,10 +184,11 @@ export default function RootLayout({
                 { "@type": "AdministrativeArea", name: "Russell County" },
                 { "@type": "AdministrativeArea", name: "Pulaski County" },
                 { "@type": "AdministrativeArea", name: "McCreary County" },
+                { "@type": "AdministrativeArea", name: "Clinton County" },
                 { "@type": "Place", name: "Lake Cumberland" },
               ],
               serviceArea:
-                "All Lake Cumberland boat ramp towns including Monticello, Jamestown, Burnside, Nancy, Creelsboro, Russell Springs, Somerset, Albany, Ferguson, Whitley City, and surrounding Wayne, Pulaski, Russell & McCreary Counties, Kentucky",
+                "All Lake Cumberland boat ramp towns including Monticello, Jamestown, Burnside, Nancy, Creelsboro, Russell Springs, Somerset, Albany, Ferguson, Whitley City, and surrounding Wayne, Pulaski, Russell, McCreary & Clinton Counties, Kentucky",
               priceRange: "$1,200 - $4,500",
               founder: { "@type": "Person", name: "Brian" },
               knowsAbout: [
@@ -291,7 +292,7 @@ export default function RootLayout({
               },
               sameAs: ["https://share.google/JKjYBoMEpHxleaFfL"],
               areaServed:
-                "Lake Cumberland region of Kentucky: Wayne, Pulaski, Russell and McCreary Counties",
+                "Lake Cumberland region of Kentucky: Wayne, Pulaski, Russell, McCreary and Clinton Counties",
             }),
           }}
         />

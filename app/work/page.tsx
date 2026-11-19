@@ -59,7 +59,7 @@ export default function WorkPage() {
   return (
     <>
       <PageHero eyebrow="My work" title="Live demos for real Kentucky businesses">
-        Flat one-time pricing and full ownership of the code. Click any card to open the live site — food trucks, restaurants, guides, fence &amp; outdoor trades, and shops, built in Monticello.
+        Mostly Kentucky, and a few for saltwater towns too — I build for anywhere. Click any card to open the live site: food trucks, restaurants, guides, fence &amp; outdoor trades, and shops, built in Monticello.
       </PageHero>
       <div className="mx-auto max-w-7xl px-5 pb-20">
         <div className="flex flex-wrap gap-2" role="group" aria-label="Filter demos by category">

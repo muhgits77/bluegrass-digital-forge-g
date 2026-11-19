@@ -89,7 +89,7 @@ export default function BusinessCardsPage() {
       <div className="mb-7">
         <div className="label tracking-[2px]">BUSINESS CARDS &amp; BRANDING — MONTICELLO KY WEBSITE DESIGNER</div>
         <h1 className="section-title tracking-tight mt-1">Business Cards &amp; Branding for Lake Cumberland Businesses | Monticello KY</h1>
-        <p className="mt-2 text-muted-foreground">Custom business cards and branding designed by the Monticello KY website designer for Lake Cumberland businesses across Wayne, Pulaski, Russell &amp; McCreary counties. Premium quality, honest pricing that complements your site.</p>
+        <p className="mt-2 text-muted-foreground">Custom business cards and branding designed by the Monticello KY website designer for Lake Cumberland businesses across Wayne, Pulaski, Russell, McCreary &amp; Clinton counties. Premium quality, honest pricing that complements your site.</p>
       </div>
 
       {!submitted ? (

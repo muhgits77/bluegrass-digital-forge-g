@@ -454,7 +454,7 @@ export default async function FoodTruckWebsites() {
           </h2>
           <p className="mt-2 text-[15px] text-muted-foreground">
             Every feature solves a real problem food truck owners face in Lake
-            Cumberland, Wayne, Pulaski, Russell and McCreary counties.
+            Cumberland, Wayne, Pulaski, Russell, McCreary and Clinton counties.
           </p>
         </div>
 

@@ -202,7 +202,7 @@ export default function QuotePage() {
       <div className="mb-8">
         <div className="label tracking-[2px]">CUSTOM QUOTE — MONTICELLO KY WEBSITE DESIGNER</div>
         <h1 className="section-title tracking-tight mt-1">Get a Website Quote</h1>
-        <p className="mt-2 text-muted-foreground">A few quick questions for your Lake Cumberland area project in Wayne, Pulaski, Russell or McCreary County. Flat price proposal from the local Monticello builder. Real responses, no automated fluff. Takes 4–6 minutes.</p>
+        <p className="mt-2 text-muted-foreground">A few quick questions for your Lake Cumberland area project in Wayne, Pulaski, Russell, McCreary or Clinton County. Flat price proposal from the local Monticello builder. Real responses, no automated fluff. Takes 4–6 minutes.</p>
         <ReferralDiscountNote className="mt-4 rounded-xl border border-border/80 bg-card/60 px-4 py-2.5" />
       </div>
 

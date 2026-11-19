@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title:
     "Web Design Service Areas – Lake Cumberland, KY",
   description:
-    "Web design for Monticello, Somerset, Russell Springs, Jamestown, Burnside, Albany, Nancy and Whitley City: Wayne, Pulaski, Russell & McCreary counties.",
+    "Web design for Monticello, Somerset, Russell Springs, Jamestown, Burnside, Albany, Nancy and Whitley City: Wayne, Pulaski, Russell, McCreary & Clinton counties.",
   keywords: [
     "Lake Cumberland boat ramp towns",
     "Monticello KY website designer",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     title:
       "Web Design Service Areas – Lake Cumberland, KY",
     description:
-      "Web design for Monticello, Somerset, Russell Springs, Jamestown, Burnside, Albany, Nancy and Whitley City: Wayne, Pulaski, Russell & McCreary counties.",
+      "Web design for Monticello, Somerset, Russell Springs, Jamestown, Burnside, Albany, Nancy and Whitley City: Wayne, Pulaski, Russell, McCreary & Clinton counties.",
     url: canonicalUrl("/service-areas"),
     images: [{ url: "/og-default.png", width: 1200, height: 630 }],
   },
@@ -194,7 +194,7 @@ const localBusinessSchema = {
   "@type": "LocalBusiness",
   name: "Bluegrass Digital Forge — Lake Cumberland Service Areas",
   description:
-    "Monticello KY website designer serving Lake Cumberland boat ramp towns including Jamestown, Burnside, Nancy, Russell Springs, Albany, Monticello, Somerset and Whitley City across Wayne, Pulaski, Russell and McCreary counties. Flat pricing. Full ownership.",
+    "Monticello KY website designer serving Lake Cumberland boat ramp towns including Jamestown, Burnside, Nancy, Russell Springs, Albany, Monticello, Somerset and Whitley City across Wayne, Pulaski, Russell, McCreary and Clinton counties. Flat pricing. Full ownership.",
   sameAs: ["https://share.google/JKjYBoMEpHxleaFfL"],
   url: canonicalUrl("/service-areas"),
   email: CONTACT_EMAIL,
@@ -211,7 +211,7 @@ const localBusinessSchema = {
       name: t.town.replace(", KY", ""),
     })),
     { "@type": "City", name: "Monticello" },
-    ...["Wayne County", "Pulaski County", "Russell County", "McCreary County"].map((name) => ({
+    ...["Wayne County", "Pulaski County", "Russell County", "McCreary County", "Clinton County"].map((name) => ({
       "@type": "AdministrativeArea",
       name,
     })),

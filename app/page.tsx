@@ -22,7 +22,7 @@ const FeaturedDemos = dynamic(() => import("@/components/FeaturedDemos"), {
 
 const stats: [string, string][] = [
   ["16+", "Live Kentucky demos"],
-  ["2–4 wks", "Typical launch"],
+  ["2–5 wks", "Typical launch"],
   ["Local", "Monticello builder"],
   ["Yours", "Full ownership"],
 ];
@@ -47,18 +47,17 @@ export default function Home() {
           <div>
             <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background/60 px-4 py-2 text-xs uppercase tracking-[0.2em]">
               <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-              Forged in Monticello, KY
+              Wayne County, Kentucky
             </span>
             <h1 className="mt-6 font-display text-5xl font-bold leading-[1.02] tracking-tight md:text-7xl">
               Lake Cumberland Business Websites Built in <span className="text-copper">Monticello, KY</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg text-muted-foreground">
-              Lake Cumberland web design for restaurants, food trucks, marinas, and shops around the lake. Built by a neighbor in Monticello.{" "}
-              <strong className="text-foreground">Flat pricing.</strong> No monthly lock-in for the build.{" "}
-              <strong className="text-foreground">You own the code</strong> from day one.
+              Lake Cumberland web design for restaurants, food trucks, marinas, and shops around the lake, built by a neighbor in Monticello.{" "}
+              No monthly lock-in for the build, and the code is yours from day one.
             </p>
             <p className="mt-4 max-w-xl text-muted-foreground">
-              Your Monticello KY website builder — a neighbor, not an agency. Wayne County web design, Somerset KY small business websites, and Jamestown, Burnside, and the ramp towns in between.
+              I&apos;m one builder in Monticello, not an agency. I make websites for businesses in Wayne County, Somerset, Jamestown, Burnside, and the ramp towns in between.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <CopperButton href="/quote">Get a free quote →</CopperButton>
@@ -67,8 +66,10 @@ export default function Home() {
             <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">
               <Check>Flat pricing, no surprises</Check>
               <Check>You own the code</Check>
-              <Check>Live in 2–4 weeks</Check>
             </ul>
+            <p className="mt-3 max-w-xl text-sm text-muted-foreground">
+              Most Starter Sites launch in about 2 weeks; Business Suites usually 3–5 weeks once we have your photos and content.
+            </p>
             <p className="mt-5 text-sm text-muted-foreground">
               Prefer to build it yourself?{" "}
               <a href={TEMPLATE_STORE_URL} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary">
@@ -77,17 +78,17 @@ export default function Home() {
             </p>
           </div>
           <div className="rounded-3xl border border-border bg-card/70 p-8 backdrop-blur">
-            <Eyebrow>Kentucky base rates</Eyebrow>
+            <Eyebrow>Custom site pricing</Eyebrow>
             <p className="mt-4 font-display text-6xl font-bold">
               $1,200 <span className="font-sans text-base font-normal text-muted-foreground">one-time · Starter Sites</span>
             </p>
             <p className="mt-4 text-muted-foreground">
-              Business Suites $2,500–$4,500. Flat rate, no monthly lock-in for the build. Full ownership — you own the code.
+              Business Suites $2,500–$4,500. Same deal on both: one flat rate for the build.
             </p>
             <ul className="mt-6 space-y-3 text-sm">
               <Check>Mobile-first, fast, accessible</Check>
               <Check>Local SEO for real lake searches</Check>
-              <Check>Handcrafted — not template spam</Check>
+              <Check>Handcrafted for your business</Check>
             </ul>
             <Link href="/services" className="mt-6 inline-block font-semibold text-primary">
               See full pricing →
@@ -108,7 +109,7 @@ export default function Home() {
       <section id="featured-work" className="mx-auto max-w-7xl px-5 pb-20" aria-labelledby="featured-work-heading">
         <Eyebrow>Featured work</Eyebrow>
         <div className="mt-3 flex flex-wrap items-end justify-between gap-4">
-          <h2 id="featured-work-heading" className="font-display text-4xl font-bold">Lake Cumberland web design for real lake businesses</h2>
+          <h2 id="featured-work-heading" className="font-display text-4xl font-bold">Example sites for lake businesses</h2>
           <Link href="/work" className="font-semibold text-primary">See all demos →</Link>
         </div>
         <p className="mt-4 max-w-3xl text-muted-foreground">
@@ -125,10 +126,10 @@ export default function Home() {
       <section className="mx-auto max-w-7xl px-5 pb-20">
         <div className="grid items-center gap-10 rounded-3xl border border-border bg-card p-10 md:grid-cols-2">
           <div>
-            <Eyebrow>Website templates from $129</Eyebrow>
+            <Eyebrow>DIY templates</Eyebrow>
             <h2 className="mt-3 font-display text-3xl font-bold">Prefer to build it yourself?</h2>
             <p className="mt-4 text-muted-foreground">
-              Ready-to-remix website templates, hand-built in Kentucky. Launch a professional site in an afternoon. Website templates from{" "}
+              Ready-to-remix website templates, hand-built in Kentucky. Most owners launch the same week. Have your photos, logo and copy ready and the edits can often be done in an afternoon. Website templates from{" "}
               <strong className="text-foreground">$129</strong>, calculators from <strong className="text-foreground">$99</strong>. One-time purchase. Free updates for bug fixes and refinements.
             </p>
           </div>
@@ -145,9 +146,9 @@ export default function Home() {
 
       <section className="mx-auto max-w-4xl px-5 py-20 text-center">
         <Eyebrow>Let&apos;s build</Eyebrow>
-        <h2 className="mt-3 font-display text-4xl font-bold md:text-5xl">Ready for a website forged in Monticello?</h2>
+        <h2 className="mt-3 font-display text-4xl font-bold md:text-5xl">Ready to talk about your website?</h2>
         <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-          Flat pricing. Full ownership — you own the code. No agency. Lake Cumberland towns from Albany to Whitley City, across Wayne, Pulaski, Russell and McCreary counties.
+          I build for businesses in Lake Cumberland towns from Albany to Whitley City, across Wayne, Pulaski, Russell, McCreary and Clinton counties.
         </p>
         <p className="mt-3 text-sm text-muted-foreground">
           Specialty sites: <Link href="/marina-websites" className="text-primary">marinas</Link>,{" "}

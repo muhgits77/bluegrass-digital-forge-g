@@ -7,12 +7,12 @@ import { loadLivePublicDemosCatalog } from "@/lib/demos";
 
 export const metadata: Metadata = {
   title: "Web Design Pricing – Monticello KY & Lake Cumberland",
-  description: "Flat-price websites for Wayne, Pulaski, Russell & McCreary County businesses. Starter Sites from $1,200, Business Suites $2,500–$4,500. No monthly lock-in.",
+  description: "Flat-price websites for Wayne, Pulaski, Russell, McCreary & Clinton County businesses. Starter Sites from $1,200, Business Suites $2,500–$4,500. No monthly lock-in.",
   keywords: ["Monticello KY website designer", "Lake Cumberland business websites", "food truck website Kentucky", "Wayne County web design", "Monticello KY web design pricing", "Somerset KY web design", "Russell Springs KY web design", "McCreary County web design"],
   alternates: { canonical: canonicalUrl("/services") },
   openGraph: {
     title: "Web Design Pricing – Monticello KY & Lake Cumberland",
-    description: "Flat-price websites for Wayne, Pulaski, Russell & McCreary County businesses. Starter Sites from $1,200, Business Suites $2,500–$4,500. No monthly lock-in.",
+    description: "Flat-price websites for Wayne, Pulaski, Russell, McCreary & Clinton County businesses. Starter Sites from $1,200, Business Suites $2,500–$4,500. No monthly lock-in.",
     url: canonicalUrl("/services"),
     images: [{ url: "/og-default.png", width: 1200, height: 630 }],
   },
@@ -50,7 +50,7 @@ const careBullets = [
 ];
 
 const faqs = [
-  { q: "How long does a site take?", a: "Most Starter Sites launch in about 2 weeks. Business Suites usually 3–5 weeks once we've got photos and content." },
+  { q: "How long does a site take?", a: "Most Starter Sites launch in about 2 weeks; Business Suites usually 3–5 weeks once we have your photos and content." },
   { q: "Do I have to use your hosting?", a: "Nope. The $79/mo care plan is optional. You can host wherever you want — direct hosting usually runs $10–20/month from the provider." },
   { q: "Can I update the site myself?", a: "Absolutely. I'll show you how to update content, photos, and menus on a quick screen-share. Or let me handle it on the care plan." },
   { q: "What if I just need a one-page site?", a: "If a single page is genuinely all you need, a Starter Site starting at $1,200 covers it with room to spare." },
@@ -121,7 +121,7 @@ export default async function Services() {
         </div>
       </section>
       <p className="mx-auto max-w-3xl px-5 pb-20 text-center text-sm text-muted-foreground">
-        Not sure which one? <Link href="/quote" className="text-primary">Tell me about your business</Link> — I&apos;ll recommend the right fit. Kentucky base rates for Wayne, Pulaski, Russell &amp; McCreary counties. Final quote depends on scope.
+        Not sure which one? <Link href="/quote" className="text-primary">Tell me about your business</Link> — I&apos;ll recommend the right fit. Kentucky base rates for Wayne, Pulaski, Russell, McCreary &amp; Clinton counties. Final quote depends on scope.
       </p>
 
       <section className="mx-auto max-w-7xl px-5 pb-20">

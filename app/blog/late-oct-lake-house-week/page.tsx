@@ -56,15 +56,7 @@ export default function LateOctLakeHouseWeekPost() {
         </p>
 
         <p className="mt-4 text-[14px] text-[var(--text-muted)]">
-          Cites:{" "}
-          <a
-            href="https://www.kentuckyliving.com/event/seesomerset-moonlight-festival-2026"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline hover:text-[var(--gold-light)]"
-          >
-            Kentucky Living — SeeSomerset Moonlight Festival 2026
-          </a>
+          Cites: Kentucky Living — SeeSomerset Moonlight Festival 2026
           {" · "}
           <a
             href="https://www.kentuckyliving.com/event/lake-cumberland-fall-fest"
